@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "account-exporation"
+name = "account-exploration"
 version = "0.1.0"
 description = ""
 authors = ["zodiacfirework <martin.vuelta@gmail.com>"]
