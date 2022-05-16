@@ -1,0 +1,64 @@
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^.*\b(migrations)\b.*$
+      - id: end-of-file-fixer
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+      - id: flake8
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/asottile/seed-isort-config
+    rev: v2.2.0
+    hooks:
+      - id: seed-isort-config
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/pycqa/pydocstyle
+    rev: 6.1.1
+    hooks:
+      - id: pydocstyle
+        exclude: ^.*\b(migrations)\b.*$
+        files: ^src/
+
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.4
+    hooks:
+      - id: bandit
+        exclude: ^.*\b(migrations)\b.*$
+        args: [-c, .bandit, -r, src]
+
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: env DJANGO_SETTINGS_MODULE=application.settings pylint
+        language: system
+        types: [python]
+        exclude: ^.*\b(migrations)\b.*$
+        args: [--rcfile, .pylintrc, --ignore, migrations]
+
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-output
+        name: jupyter-nb-clear-output
+        files: \.ipynb$
+        language: system
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
