@@ -4,6 +4,8 @@ repos:
     hooks:
       - id: black
         exclude: ^.*\b(migrations)\b.*$
+      - id: black-jupyter
+        files: \.ipynb$
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.2.0
@@ -62,3 +64,4 @@ repos:
         files: \.ipynb$
         language: system
         entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+
