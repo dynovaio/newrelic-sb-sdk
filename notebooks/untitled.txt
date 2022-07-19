@@ -1,0 +1,82 @@
+
+BUSCAR POLITICA POR CUENTA
+
+{
+  actor {
+    account(id: 2696224) {
+      alerts {
+        policiesSearch {
+          nextCursor
+          totalCount
+          policies {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+
+BUSCAR CONDICION POR CUENTA
+
+{
+  actor {
+    account(id: 2696224) {
+      alerts {
+        nrqlConditionsSearch(searchCriteria: {policyId: 993243}) {
+          nrqlConditions {
+            id
+            name
+            nrql {
+              query
+            }
+            ... on AlertsNrqlStaticCondition {
+              id
+              name
+              nrql {
+                query
+              }
+              terms {
+                operator
+                priority
+                threshold
+                thresholdDuration
+                thresholdOccurrences
+              }
+              description
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+{
+  actor {
+    account(id: 2696224) {
+      alerts {
+        nrqlConditionsSearch(searchCriteria: {policyId: 993243}) {
+          nrqlConditions {
+            id
+            name
+            nrql {
+              query
+            }
+            terms {
+              operator
+              priority
+              threshold
+              thresholdDuration
+              thresholdOccurrences
+            }
+            type
+            description
+          }
+        }
+      }
+    }
+  }
+}
