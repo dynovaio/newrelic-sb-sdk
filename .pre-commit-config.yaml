@@ -1,4 +1,12 @@
 repos:
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-output
+        name: jupyter-nb-clear-output
+        files: \.ipynb$
+        language: system
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+
   - repo: https://github.com/ambv/black
     rev: 22.6.0
     hooks:
@@ -56,11 +64,3 @@ repos:
         types: [python]
         exclude: ^.*\b(migrations)\b.*$
         args: [--rcfile, .pylintrc, --ignore, migrations]
-
-  - repo: local
-    hooks:
-      - id: jupyter-nb-clear-output
-        name: jupyter-nb-clear-output
-        files: \.ipynb$
-        language: system
-        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
