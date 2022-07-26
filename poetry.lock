@@ -537,6 +537,22 @@ traitlets = ">=5.1.0"
 test = ["flaky", "ipyparallel", "pre-commit", "pytest-cov", "pytest-timeout", "pytest (>=6.0)"]
 
 [[package]]
+name = "ipylab"
+version = "0.5.2"
+description = "Control JupyterLab from Python Notebooks"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+ipywidgets = ">=7.6.0,<8"
+
+[package.extras]
+test = ["pytest-cov", "pytest"]
+docs = ["pypandoc", "pytest-check-links", "nbsphinx-link", "jupyter-sphinx", "nbsphinx (>=0.2.13,<0.4.0)", "sphinx-rtd-theme", "recommonmark", "sphinx (>=1.5)"]
+dev = ["pre-commit", "black"]
+
+[[package]]
 name = "ipython"
 version = "8.4.0"
 description = "IPython: Productive Interactive Computing"
@@ -2331,7 +2347,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "3.10.4"
-content-hash = "c5a026fdc770e4e90a52957909c25005f517eb2d65282a67de9b7159056d9bd6"
+content-hash = "5cd4166cb297d185368b7a6b58416dae8c87e59a8e7fc7e459056ad2845ecd4d"
 
 [metadata.files]
 alabaster = [
@@ -2545,6 +2561,7 @@ importnb = [
     {file = "importnb-0.7.0.tar.gz", hash = "sha256:067289b46ea412def63b4bb9b28e15f659badf4176defe5bd75ffd8078040a0e"},
 ]
 ipykernel = []
+ipylab = []
 ipython = [
     {file = "ipython-8.4.0-py3-none-any.whl", hash = "sha256:7ca74052a38fa25fe9bedf52da0be7d3fdd2fb027c3b778ea78dfe8c212937d1"},
     {file = "ipython-8.4.0.tar.gz", hash = "sha256:f2db3a10254241d9b447232cec8b424847f338d9d36f9a577a6192c332a46abd"},
