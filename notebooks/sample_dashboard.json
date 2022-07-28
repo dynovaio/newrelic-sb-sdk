@@ -1,0 +1,79 @@
+{
+  "name": "AVI Backend Performance Overview",
+  "description": "",
+  "permissions": "PUBLIC_READ_WRITE",
+  "pages": [
+    {
+      "name": "Microservices Performance",
+      "description": null,
+      "widgets": [
+        {
+          "title": "Microservices availability",
+          "layout": {
+            "column": 9,
+            "row": 1,
+            "width": 4,
+            "height": 3
+          },
+          "linkedEntityGuids": null,
+          "visualization": {
+            "id": "d997a1e4-423d-4d01-b450-da8a4465f60e.nrql-status-widget"
+          },
+          "rawConfiguration": {
+            "modalChartColumns": null,
+            "thresholdDirectionRight": null,
+            "accountId": 3279646,
+            "criticalThreshold": "90",
+            "modalQueries": [
+              {
+                "chartTitle": null,
+                "chartType": null,
+                "height": null,
+                "query": null
+              }
+            ],
+            "healthyLabelRight": null,
+            "metricLabelLeft": null,
+            "queryRight": null,
+            "query": "FROM Transaction SELECT percentage(count(*), WHERE error IS false) * 100 AS 'Availability' WHERE clusterName IN ('akseu2c001aviprd001') AND namespaceName IN ('eu2-avi-prd-01')",
+            "fontMultiplier": "1",
+            "metricLabel": "Availabilty",
+            "metricLabelRight": null,
+            "metricSuffixLeft": null,
+            "thresholdEmptyHandling": "critIfEither",
+            "displayTimeline": true,
+            "criticalLabelLeft": null,
+            "decimalPlacesLeft": null,
+            "healthyLabel": "",
+            "timelineBucket": "5",
+            "warningLabelLeft": null,
+            "onClickUrl": null,
+            "warningLabel": "",
+            "criticalLabelRight": null,
+            "untilClause": null,
+            "criticalThresholdLeft": null,
+            "thresholdDirection": "below",
+            "enableFlashRight": null,
+            "enableFlashLeft": false,
+            "modalGuid": null,
+            "enableFlash": true,
+            "queryLeft": null,
+            "metricSuffixRight": null,
+            "decimalPlaces": "2",
+            "warningThreshold": "95",
+            "metricSuffix": "%",
+            "warningLabelRight": null,
+            "healthyLabelLeft": null,
+            "warningThresholdRight": null,
+            "thresholdDirectionLeft": "above",
+            "criticalLabel": "",
+            "displayMetric": true,
+            "warningThresholdLeft": null,
+            "decimalPlacesRight": null,
+            "criticalThresholdRight": null
+          }
+        }
+      ]
+    }
+  ]
+}
