@@ -18,6 +18,7 @@ tqdm = "^4.64.0"
 XlsxWriter = "^3.0.3"
 nbdev = "^1.2.11"
 ipylab = "^0.5.2"
+nbqa = "^1.4.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
