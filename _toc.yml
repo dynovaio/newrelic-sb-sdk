@@ -1,0 +1,7 @@
+format: jb-book
+root: notebooks/Index
+chapters:
+  - file: notebooks/Dashboards
+    sections:
+      - file: notebooks/Dashboards Base
+  - file: notebooks/Utils

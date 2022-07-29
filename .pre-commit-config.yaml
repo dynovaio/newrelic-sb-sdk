@@ -7,8 +7,16 @@ repos:
         language: system
         entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
 
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-nbdev-lib
+        name: jupyter-nb-clear-nbdev-lib
+        files: \.py$
+        language: system
+        entry: sed -i -r 's/# (FAKE_IMPORT |Cell)//g'
+
   - repo: https://github.com/ambv/black
-    rev: 22.6.0
+    rev: 22.3.0
     hooks:
       - id: black
         exclude: ^.*\b(migrations)\b.*$
@@ -46,7 +54,6 @@ repos:
     hooks:
       - id: pydocstyle
         exclude: ^.*\b(migrations)\b.*$
-        files: ^src/
 
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.4

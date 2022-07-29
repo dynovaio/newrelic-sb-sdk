@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+docs:prd:build:
+  stage: build
+  image: python:slim
+  script:
+    - pip install -r requirements.dev.txt
+    - jupyter-book clean .
+    - jupyter-book build .
+  artifacts:
+    paths:
+      - _build/
+  only:
+    - master
+
+# Gitlab requires the use of the name "pages" for the job  in order to have
+# Gitlab Pages working correctly.
+# docs:prd:deploy:
+pages:
+  stage: deploy
+  image: busybox:latest
+  script:
+    - mv _build/html public
+  artifacts:
+    paths:
+      - public/
+  dependencies:
+    - docs:prd:build
+  only:
+    - master
