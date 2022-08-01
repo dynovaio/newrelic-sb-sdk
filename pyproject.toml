@@ -22,6 +22,7 @@ nbqa = "^1.4.0"
 schemdraw = "^0.15"
 pydantic = "^1.9.1"
 enforce-typing = "^1.0.0"
+sgqlc = "^16.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
