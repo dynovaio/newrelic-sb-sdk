@@ -3,5 +3,5 @@ root: notebooks/Index
 chapters:
   - file: notebooks/Dashboards
     sections:
-      - file: notebooks/Dashboards Base
+      - file: notebooks/Dashboard classes definition
   - file: notebooks/Utils

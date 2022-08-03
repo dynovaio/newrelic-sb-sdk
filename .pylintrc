@@ -62,6 +62,6 @@ max-returns=6
 max-branches=12
 max-statements=50
 max-parents=7
-max-attributes=7
+max-attributes=10
 min-public-methods=0
 max-public-methods=50
