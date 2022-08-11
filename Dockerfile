@@ -30,7 +30,7 @@ RUN apt-get -yq update \
 
 RUN curl -sSL https://install.python-poetry.org | python3 -
 
-COPY poetry.lock pyproject.toml /app
+COPY poetry.lock pyproject.toml /app/
 
 RUN poetry env use 3.10.4 \
     && poetry install
