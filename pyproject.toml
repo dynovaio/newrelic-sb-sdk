@@ -33,6 +33,7 @@ requests = "^2.27.1"
 sgqlc = "^16.0"
 python-dotenv = "^0.20.0"
 semver = "^2.13.0"
+matplotlib = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.6.0"
