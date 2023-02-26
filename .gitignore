@@ -23,6 +23,7 @@ notebooks/**/*.json
 *.py[cod]
 *.sqlite3
 *.xlsx
+*.out
 coverage.*
 old.*
 staticfiles_*.json
