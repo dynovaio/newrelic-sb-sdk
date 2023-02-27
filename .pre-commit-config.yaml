@@ -13,11 +13,11 @@ repos:
       - id: black-jupyter
         files: \.ipynb$
 
-  - repo: https://github.com/fastai/nbdev
-    rev: 2.3.11
-    hooks:
-      - id: nbdev_clean
-      - id: nbdev_export
+  # - repo: https://github.com/fastai/nbdev
+  #   rev: 2.3.11
+  #   hooks:
+  #     - id: nbdev_clean
+  #     - id: nbdev_export
 
   - repo: https://github.com/ambv/black
     rev: 23.1.0
