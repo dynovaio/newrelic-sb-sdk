@@ -1,12 +1,21 @@
 format: jb-book
-root: notebooks/Index
+root: README.md
 chapters:
-  - file: notebooks/Core/Core
-  - file: notebooks/Client/Client
-  - file: notebooks/Dashboards/Index
+  - file: notebooks/Core/Index
+  - file: notebooks/Client/Index
+  - file: notebooks/GraphQL/Index
     sections:
-      - file: notebooks/Dashboards/Dashboards
-      - file: notebooks/Dashboards/Pages
-      - file: notebooks/Dashboards/Widgets
-      - file: notebooks/Dashboards/Enums
-      - file: notebooks/Dashboards/Utils
+      - file: notebooks/GraphQL/Scalars
+      - file: notebooks/GraphQL/Enums
+      - file: notebooks/GraphQL/Objects
+      - file: notebooks/GraphQL/Input Objects
+#  - file: notebooks/Dashboards/Index
+#    sections:
+#      - file: notebooks/Dashboards/Dashboards
+#      - file: notebooks/Dashboards/Pages
+#      - file: notebooks/Dashboards/Widgets
+#      - file: notebooks/Dashboards/Enums
+#      - file: notebooks/Dashboards/Utils
+  - file: CHANGELOG.md
+  - file: CONTRIBUTING.md
+  - file: CODE_OF_CONDUCT.md
