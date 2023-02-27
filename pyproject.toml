@@ -1,71 +1,83 @@
 [tool.poetry]
-name = "nr-automation"
-version = "0.1.0"
-description = "New Relic Automation package for Dashboards and Alerts"
-authors = ["SoftButterfly Development Team <dev@softbutterfly.io>"]
+name = "newrelic-sb-sdk"
+version = "0.0.0"
+description = "New Relic SDK to interact with API for data retrieving"
+authors = [
+  "SoftButterfly Development Team <dev@softbutterfly.io>",
+  "zodiacfireworks <martin.vuelta@gmail.com>"
+]
 license = "MIT License"
 readme = "README.md"
-keywords = ["Softbutterfly", "New Relic", "Automation"]
+homepage = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
+repository = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
+documentation = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface/wiki"
+keywords = ["Softbutterfly", "New Relic", "SDK"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
   "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
-  "Programming Language :: Python :: 3.6",
-  "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
-    { include = "nr_automation", from = "src" }
+    { include = "newrelic_sb_sdk", from = "src" }
 ]
 include = [
   "LICENSE.txt",
   "CHANGELOG.md",
 ]
 
-[tool.poetry.dependencies]
-python = "3.10.4"
-enforce-typing = "^1.0.0"
-requests = "^2.27.1"
-sgqlc = "^16.0"
-python-dotenv = "^0.20.0"
-semver = "^2.13.0"
-matplotlib = "^3.6.1"
-scipy = "^1.9.3"
-beautifulsoup4 = "^4.11.1"
-openpyxl = "^3.1.1"
+[tool.poetry.urls]
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.0.0.tar.gz"
+"Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/issues"
 
-[tool.poetry.dev-dependencies]
-autopep8 = "^1.6.0"
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0.0"
+enforce-typing = "^1.0.0.post1"
+python-dotenv = "^1.0.0"
+requests = "^2.28.2"
+semver = "^2.13.0"
+sgqlc = "^16.1"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.1"
 bandit = "^1.7.4"
-black = "^22.3.0"
-flake8 = "^4.0.1"
-flake8-black = "^0.3.2"
-importnb = "^0.7.0"
-ipylab = "^0.5.2"
-ipywidgets = "^7.7.0"
-isort = "^5.10.1"
-jupyter-book = "^0.13.0"
-jupyterlab = "^3.4.1"
-jupyterlab-widgets = "^1.1.0"
-mypy = "^0.950"
-nbdev = "^1.2.11"
-nbqa = "^1.4.0"
-pandas = "^1.4.2"
-panel = "^0.13.1"
-pre-commit = "^2.19.0"
-pycodestyle = "^2.8.0"
-pydocstyle = "^6.1.1"
-pylint = "^2.13.8"
+black = "^23.1.0"
+codecov = "^2.1.12"
+coverage = "^7.2.1"
+flake8 = "^6.0.0"
+flake8-black = "^0.3.6"
+ipylab = "^0.6.0"
+ipywidgets = "<8"
+isort = "^5.12.0"
+jupyter-book = "^0.13.2"
+jupyterlab = "^3.6.1"
+jupyterlab-widgets = "^3.0.5"
+mypy = "^1.0.1"
+nbdev = "^2.3.12"
+nbqa = "^1.6.3"
+pandas = "^1.5.3"
+panel = "^0.14.3"
+pre-commit = "^3.1.0"
+pycodestyle = "^2.10.0"
+pydocstyle = "^6.3.0"
+pylint = "^2.16.2"
+pytest = "^7.2.1"
+pytest-cov = "^4.0.0"
+pytest-vcr = "^1.0.2"
 schemdraw = "^0.15"
-tqdm = "^4.64.0"
-XlsxWriter = "^3.0.3"
+tbump = "^6.9.0"
+tox = "^4.4.6"
+tqdm = "^4.64.1"
+twine = "^4.0.2"
 
 [tool.black]
-target_version = ['py310']
+target_version = ['py311']
 include = '\.pyi?$'
 exclude = '''
 /(\.git/
