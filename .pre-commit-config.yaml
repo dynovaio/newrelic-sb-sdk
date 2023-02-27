@@ -1,38 +1,32 @@
 repos:
-  - repo: local
-    hooks:
-      - id: jupyter-nb-clear-output
-        name: jupyter-nb-clear-output
-        files: \.ipynb$
-        language: system
-        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
-
-  - repo: local
-    hooks:
-      - id: jupyter-nb-clear-nbdev-lib
-        name: jupyter-nb-clear-nbdev-lib
-        files: \.py$
-        language: system
-        entry: sed -i -r 's/# (FAKE_IMPORT |Cell)//g'
-
-  - repo: https://github.com/ambv/black
-    rev: 22.3.0
-    hooks:
-      - id: black
-        exclude: ^.*\b(migrations)\b.*$
-      - id: black-jupyter
-        files: \.ipynb$
-
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
+    rev: v4.4.0
     hooks:
       - id: trailing-whitespace
         exclude: ^.*\b(migrations)\b.*$
       - id: end-of-file-fixer
         exclude: ^.*\b(migrations)\b.*$
 
+  - repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+      - id: black-jupyter
+        files: \.ipynb$
+
+  - repo: https://github.com/fastai/nbdev
+    rev: 2.3.11
+    hooks:
+      - id: nbdev_clean
+      - id: nbdev_export
+
+  - repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        exclude: ^.*\b(migrations)\b.*$
+
   - repo: https://github.com/pycqa/flake8
-    rev: 3.9.2
+    rev: 6.0.0
     hooks:
       - id: flake8
         exclude: ^.*\b(migrations)\b.*$
@@ -50,7 +44,7 @@ repos:
         exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pycqa/pydocstyle
-    rev: 6.1.1
+    rev: 6.3.0
     hooks:
       - id: pydocstyle
         exclude: ^.*\b(migrations)\b.*$
@@ -66,7 +60,7 @@ repos:
     hooks:
       - id: pylint
         name: pylint
-        entry: env DJANGO_SETTINGS_MODULE=application.settings pylint
+        entry: poetry run pylint
         language: system
         types: [python]
         exclude: ^.*\b(migrations)\b.*$
