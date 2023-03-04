@@ -1,0 +1,63 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+title: NR Automation
+author: SoftButterfly Development Team
+copyright: "2022"
+logo: notebooks/_assets/logo.png
+exclude_patterns: [".*", "renv", "_build", "data", "src"]
+only_build_toc_files: true
+launch_buttons:
+  notebook_interface: "jupyterlab"
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+
+execute:
+  timeout: 100
+  execute_notebooks: auto
+  exclude_patterns:
+    - "Dashboards/Index.ipynb"
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add a bibtex file so that we can create citations
+# bibtex_bibfiles:
+#   - references.bib
+
+# Information about where the book exists on the web
+repository:
+  url: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/ # Online location of your book
+  branch: master # Which branch of the repository should be used when creating links (optional)
+  path_to_book: docs # Optional path to your book, relative to the repository root
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+html:
+  favicon: notebooks/_assets/favicon.png
+  use_issues_button: false
+  use_edit_page_button: false
+  use_repository_button: false
+  baseurl: https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk
+
+parse:
+  myst_enable_extensions:
+    # don't forget to list any other extensions you want enabled,
+    # including those that are enabled by default!
+    - amsmath
+    - colon_fence
+    - deflist
+    - dollarmath
+    - html_admonition
+    - html_image
+    - linkify
+    - replacements
+    - smartquotes
+    - substitution
+    - tasklist
+
+sphinx:
+  config:
+    html_theme: sphinx_book_theme

@@ -19,18 +19,6 @@ repos:
   #     - id: nbdev_clean
   #     - id: nbdev_export
 
-  - repo: https://github.com/ambv/black
-    rev: 23.1.0
-    hooks:
-      - id: black
-        exclude: ^.*\b(migrations)\b.*$
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.0.0
-    hooks:
-      - id: flake8
-        exclude: ^.*\b(migrations)\b.*$
-
   - repo: https://github.com/asottile/seed-isort-config
     rev: v2.2.0
     hooks:
@@ -41,6 +29,18 @@ repos:
     rev: v5.10.1
     hooks:
       - id: isort
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/ambv/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/pycqa/flake8
+    rev: 6.0.0
+    hooks:
+      - id: flake8
         exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pycqa/pydocstyle
