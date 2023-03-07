@@ -24,7 +24,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
-    { include = "newrelic_sb_sdk", from = "src" }
+    { include = "newrelic_sb_sdk", from = "src" },
 ]
 include = [
   "LICENSE.txt",
@@ -60,7 +60,7 @@ jupyterlab = "^3.6.1"
 jupyterlab-widgets = "^3.0.5"
 mypy = "^1.0.1"
 nbdev = "^2.3.12"
-nbqa = "^1.6.3"
+nbqa = {extras = ["toolchain"], version = "^1.6.3"}
 pandas = "^1.5.3"
 panel = "^0.14.3"
 pre-commit = "^3.1.0"
