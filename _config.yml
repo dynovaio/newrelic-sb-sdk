@@ -1,6 +1,6 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
-title: NR Automation
+title: New Relic SB SDK
 author: SoftButterfly Development Team
 copyright: "2022"
 logo: notebooks/_assets/logo.png
@@ -61,3 +61,4 @@ parse:
 sphinx:
   config:
     html_theme: sphinx_book_theme
+    html_extra_path: ["LICENSE.txt"]

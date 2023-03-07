@@ -12,7 +12,7 @@
 
 # New Relic SB SDK
 
-New Relic SDK built by SoftButterfyl to automate common New Relic One observability platform tasks
+New Relic SDK built by SoftButterfly to automate common New Relic One observability platform tasks
 
 ## Requirements
 
@@ -50,4 +50,4 @@ See the list of contributors [here](https://gitlab.com/softbutterfly/open-source
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the [LICENSE](./LICENSE.txt) file.
+This project is licensed under the terms of the MIT license. See the <a href="./LICENSE.txt" download>LICENSE</a> file.
