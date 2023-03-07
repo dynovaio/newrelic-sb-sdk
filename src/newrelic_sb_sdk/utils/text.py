@@ -29,29 +29,21 @@ def camelize_keys(obj: dict, convert_objects_inside_lists: bool = True) -> dict:
     camelized_obj = {}
 
     for key, value in dict(obj).items():
+        key = snake2camel(key) if isinstance(key, str) else key
+
         if isinstance(value, dict):
-            camelized_obj.update(
-                {
-                    snake2camel(key): camelize_keys(value),
-                },
-            )
-        elif (
-            isinstance(value, list) and len(value) > 0 and convert_objects_inside_lists
-        ):
-            camelized_obj.update(
-                {
-                    snake2camel(key): [
-                        camelize_keys(item) if isinstance(item, dict) else item
-                        for item in value
-                    ],
-                },
-            )
-        else:
-            camelized_obj.update(
-                {
-                    snake2camel(key): value,
-                },
-            )
+            value = camelize_keys(value)
+        elif isinstance(value, list) and convert_objects_inside_lists:
+            value = [
+                camelize_keys(item) if isinstance(item, dict) else item
+                for item in value
+            ]
+
+        camelized_obj.update(
+            {
+                key: value,
+            },
+        )
 
     return camelized_obj
 
@@ -61,28 +53,20 @@ def snakeize_keys(obj: dict, convert_objects_inside_lists: bool = True) -> dict:
     snakeized_obj = {}
 
     for key, value in dict(obj).items():
+        key = camel2snake(key) if isinstance(key, str) else key
+
         if isinstance(value, dict):
-            snakeized_obj.update(
-                {
-                    camel2snake(key): snakeize_keys(value),
-                },
-            )
-        elif (
-            isinstance(value, list) and len(value) > 0 and convert_objects_inside_lists
-        ):
-            snakeized_obj.update(
-                {
-                    camel2snake(key): [
-                        snakeize_keys(item) if isinstance(item, dict) else item
-                        for item in value
-                    ]
-                },
-            )
-        else:
-            snakeized_obj.update(
-                {
-                    camel2snake(key): value,
-                }
-            )
+            value = snakeize_keys(value)
+        elif isinstance(value, list) and convert_objects_inside_lists:
+            value = [
+                snakeize_keys(item) if isinstance(item, dict) else item
+                for item in value
+            ]
+
+        snakeized_obj.update(
+            {
+                key: value,
+            },
+        )
 
     return snakeized_obj

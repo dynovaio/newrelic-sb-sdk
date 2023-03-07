@@ -15,7 +15,14 @@ class JSONMixin:
 
     @classmethod
     def _process_property(cls, property_name: str, json_str: str):
-        processor = cls.property_processors.get(property_name)
+        if cls.property_processors is None:
+            return json_str
+
+        processor = cls.property_processors.get(property_name, None)
+
+        if processor is None:
+            return json_str
+
         return processor(json_str)
 
     @classmethod
