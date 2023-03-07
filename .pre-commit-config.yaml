@@ -1,4 +1,20 @@
 repos:
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-output
+        name: jupyter-nb-clear-output
+        files: \.ipynb$
+        language: system
+        entry: jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+
+  - repo: local
+    hooks:
+      - id: jupyter-nb-clear-nbdev-lib
+        name: jupyter-nb-clear-nbdev-lib
+        files: \.py$
+        language: system
+        entry: sed -i -r 's/# %%.*//g'
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
     hooks:
