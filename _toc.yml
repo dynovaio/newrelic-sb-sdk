@@ -1,6 +1,11 @@
 format: jb-book
 root: README.md
 chapters:
+  - file: notebooks/Core/Index
+    sections:
+      - file: notebooks/Core/Base
+      - file: notebooks/Core/Encoders
+      - file: notebooks/Core/Mixins
   - file: notebooks/Utils/Index
     sections:
       - file: notebooks/Utils/Query
