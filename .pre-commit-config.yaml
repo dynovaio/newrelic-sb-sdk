@@ -19,51 +19,48 @@ repos:
     rev: v4.4.0
     hooks:
       - id: trailing-whitespace
-        exclude: ^.*\b(migrations)\b.*$
       - id: end-of-file-fixer
-        exclude: ^.*\b(migrations)\b.*$
 
-  - repo: https://github.com/ambv/black
-    rev: 23.1.0
+  - repo: https://github.com/nbQA-dev/nbQA
+    rev: 1.6.3
     hooks:
-      - id: black-jupyter
-        files: \.ipynb$
-
-  # - repo: https://github.com/fastai/nbdev
-  #   rev: 2.3.11
-  #   hooks:
-  #     - id: nbdev_clean
-  #     - id: nbdev_export
+      - id: nbqa-pyupgrade
+      - id: nbqa-isort
+      - id: nbqa-black
+      - id: nbqa-flake8
+      - id: nbqa-pydocstyle
+      - id: nbqa-mypy
+        args: [--ignore-missing-imports]
+      - id: nbqa
+        entry: poetry run nbqa bandit
+        name: nbqa-bandit
+        alias: nbqa-bandit
+        additional_dependencies: [bandit==1.7.4]
 
   - repo: https://github.com/asottile/seed-isort-config
     rev: v2.2.0
     hooks:
       - id: seed-isort-config
-        exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pre-commit/mirrors-isort
     rev: v5.10.1
     hooks:
       - id: isort
-        exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/ambv/black
     rev: 23.1.0
     hooks:
       - id: black
-        exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pycqa/flake8
     rev: 6.0.0
     hooks:
       - id: flake8
-        exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pycqa/pydocstyle
     rev: 6.3.0
     hooks:
       - id: pydocstyle
-        exclude: ^.*\b(migrations)\b.*$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.0.1
@@ -75,7 +72,6 @@ repos:
     rev: 1.7.4
     hooks:
       - id: bandit
-        exclude: ^.*\b(migrations)\b.*$
         args: [-c, .bandit, -r, src]
 
   - repo: local
