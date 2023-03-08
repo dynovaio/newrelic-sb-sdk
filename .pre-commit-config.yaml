@@ -29,8 +29,11 @@ repos:
       - id: nbqa-black
       - id: nbqa-flake8
       - id: nbqa-pydocstyle
-      - id: nbqa-mypy
-        args: [--ignore-missing-imports]
+      - id: nbqa
+        entry: poetry run nbqa mypy --ignore-missing-imports
+        name: nbqa-mypy
+        alias: nbqa-mypy
+        additional_dependencies: [mypy==1.0.1, types-requests==2.28.11.15]
       - id: nbqa
         entry: poetry run nbqa bandit
         name: nbqa-bandit
