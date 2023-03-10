@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.0.0"
+version = "0.1.0"
 description = "New Relic SDK to interact with API for data retrieving"
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -32,7 +32,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.0.0.tar.gz"
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.1.0.tar.gz"
 "Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/issues"
 
 
