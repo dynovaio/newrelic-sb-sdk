@@ -15,15 +15,15 @@ d = {
                 "newrelic_sb_sdk/core/base.py",
             ),
             "newrelic_sb_sdk.core.base.BaseEnum": (
-                "Core/base.html#BaseEnum",
+                "Core/base.html#baseenum",
                 "newrelic_sb_sdk/core/base.py",
             ),
             "newrelic_sb_sdk.core.base.BaseEnum.__repr__": (
-                "Core/base.html#BaseEnum.__repr__",
+                "Core/base.html#baseenum.__repr__",
                 "newrelic_sb_sdk/core/base.py",
             ),
             "newrelic_sb_sdk.core.base.BaseEnum.to_json": (
-                "Core/base.html#BaseEnum.to_json",
+                "Core/base.html#baseenum.to_json",
                 "newrelic_sb_sdk/core/base.py",
             ),
         },
@@ -97,6 +97,94 @@ d = {
             "newrelic_sb_sdk.core.response.print_response": (
                 "Utils/response.html#print_response",
                 "newrelic_sb_sdk/core/response.py",
+            ),
+        },
+        "newrelic_sb_sdk.dashboards.enums": {
+            "newrelic_sb_sdk.dashboards.enums.AlertSeverity": (
+                "Dashboards/enums.html#alertseverity",
+                "newrelic_sb_sdk/dashboards/enums.py",
+            ),
+            "newrelic_sb_sdk.dashboards.enums.DashboardPermission": (
+                "Dashboards/enums.html#dashboardpermission",
+                "newrelic_sb_sdk/dashboards/enums.py",
+            ),
+            "newrelic_sb_sdk.dashboards.enums.WidgetType": (
+                "Dashboards/enums.html#widgettype",
+                "newrelic_sb_sdk/dashboards/enums.py",
+            ),
+            "newrelic_sb_sdk.dashboards.enums.WidgetVisualizationId": (
+                "Dashboards/enums.html#widgetvisualizationid",
+                "newrelic_sb_sdk/dashboards/enums.py",
+            ),
+        },
+        "newrelic_sb_sdk.dashboards.pages": {
+            "newrelic_sb_sdk.dashboards.pages.Page": (
+                "Dashboards/pages.html#page",
+                "newrelic_sb_sdk/dashboards/pages.py",
+            )
+        },
+        "newrelic_sb_sdk.dashboards.utils": {
+            "newrelic_sb_sdk.dashboards.utils.NRQLQuery": (
+                "Dashboards/utils.html#nrqlquery",
+                "newrelic_sb_sdk/dashboards/utils.py",
+            ),
+            "newrelic_sb_sdk.dashboards.utils.OwnerInfo": (
+                "Dashboards/utils.html#ownerinfo",
+                "newrelic_sb_sdk/dashboards/utils.py",
+            ),
+            "newrelic_sb_sdk.dashboards.utils.Threshold": (
+                "Dashboards/utils.html#threshold",
+                "newrelic_sb_sdk/dashboards/utils.py",
+            ),
+        },
+        "newrelic_sb_sdk.dashboards.widgets": {
+            "newrelic_sb_sdk.dashboards.widgets.AreaWidgetConfiguration": (
+                "Dashboards/widgets.html#areawidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.BarWidgetConfiguration": (
+                "Dashboards/widgets.html#barwidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.BaseNRQLQueryWidgetConfiguration": (
+                "Dashboards/widgets.html#basenrqlquerywidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.BillboardWidgetConfiguration": (
+                "Dashboards/widgets.html#billboardwidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.LineWidgetConfiguration": (
+                "Dashboards/widgets.html#linewidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.MarkdownWidgetConfiguration": (
+                "Dashboards/widgets.html#markdownwidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.PieWidgetConfiguration": (
+                "Dashboards/widgets.html#piewidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.TableWidgetConfiguration": (
+                "Dashboards/widgets.html#tablewidgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.Widget": (
+                "Dashboards/widgets.html#widget",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.WidgetConfiguration": (
+                "Dashboards/widgets.html#widgetconfiguration",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.WidgetLayout": (
+                "Dashboards/widgets.html#widgetlayout",
+                "newrelic_sb_sdk/dashboards/widgets.py",
+            ),
+            "newrelic_sb_sdk.dashboards.widgets.WidgetVisualization": (
+                "Dashboards/widgets.html#widgetvisualization",
+                "newrelic_sb_sdk/dashboards/widgets.py",
             ),
         },
         "newrelic_sb_sdk.graphql.enums": {
