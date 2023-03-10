@@ -14,16 +14,16 @@ d = {
                 "Core/base.html#baseentity",
                 "newrelic_sb_sdk/core/base.py",
             ),
-            "newrelic_sb_sdk.core.base.SerializableEnum": (
-                "Core/base.html#serializableenum",
+            "newrelic_sb_sdk.core.base.BaseEnum": (
+                "Core/base.html#BaseEnum",
                 "newrelic_sb_sdk/core/base.py",
             ),
-            "newrelic_sb_sdk.core.base.SerializableEnum.__repr__": (
-                "Core/base.html#serializableenum.__repr__",
+            "newrelic_sb_sdk.core.base.BaseEnum.__repr__": (
+                "Core/base.html#BaseEnum.__repr__",
                 "newrelic_sb_sdk/core/base.py",
             ),
-            "newrelic_sb_sdk.core.base.SerializableEnum.to_json": (
-                "Core/base.html#serializableenum.to_json",
+            "newrelic_sb_sdk.core.base.BaseEnum.to_json": (
+                "Core/base.html#BaseEnum.to_json",
                 "newrelic_sb_sdk/core/base.py",
             ),
         },

@@ -1,4 +1,4 @@
-__all__ = ["SerializableEnum", "BaseEntity"]
+__all__ = ["BaseEnum", "BaseEntity"]
 
 
 import json
@@ -7,7 +7,7 @@ from enum import Enum
 from .mixins import SerializableMixin
 
 
-class SerializableEnum(SerializableMixin, Enum):
+class BaseEnum(SerializableMixin, Enum):
     def to_json(self, **kwargs) -> str:
         return json.dumps(self.value, **kwargs)
 
