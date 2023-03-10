@@ -14,9 +14,7 @@ launch_buttons:
 
 execute:
   timeout: 100
-  execute_notebooks: auto
-  exclude_patterns:
-    - "Dashboards/Index.ipynb"
+  execute_notebooks: 'off'
 
 # Define the name of the latex output file for PDF builds
 latex:
