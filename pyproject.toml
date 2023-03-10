@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.0.0"
+version = "0.1.0"
 description = "New Relic SDK to interact with API for data retrieving"
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -24,7 +24,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 packages = [
-    { include = "newrelic_sb_sdk", from = "src" }
+    { include = "newrelic_sb_sdk", from = "src" },
 ]
 include = [
   "LICENSE.txt",
@@ -32,7 +32,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.0.0.tar.gz"
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.1.0.tar.gz"
 "Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/issues"
 
 
@@ -60,7 +60,7 @@ jupyterlab = "^3.6.1"
 jupyterlab-widgets = "^3.0.5"
 mypy = "^1.0.1"
 nbdev = "^2.3.12"
-nbqa = "^1.6.3"
+nbqa = {extras = ["toolchain"], version = "^1.6.3"}
 pandas = "^1.5.3"
 panel = "^0.14.3"
 pre-commit = "^3.1.0"
@@ -75,6 +75,8 @@ tbump = "^6.9.0"
 tox = "^4.4.6"
 tqdm = "^4.64.1"
 twine = "^4.0.2"
+types-requests = "^2.28.11.15"
+importnb = "^2023.1.7"
 
 [tool.black]
 target_version = ['py311']
