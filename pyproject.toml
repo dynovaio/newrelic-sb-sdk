@@ -78,6 +78,7 @@ twine = "^4.0.2"
 types-requests = "^2.28.11.15"
 importnb = "^2023.1.7"
 nbmake = ">=1"
+pytest-xdist = "^3.2.0"
 
 [tool.black]
 target_version = ['py311']
