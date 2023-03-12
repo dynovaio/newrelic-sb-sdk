@@ -31,7 +31,7 @@ search = 'v{current_version}.tar.gz'
 
 [[file]]
 src = 'settings.ini'
-search = 'version = "{current_version}"'
+search = 'version = {current_version}'
 
 [[file]]
 src = 'src/newrelic_sb_sdk/__init__.py'
