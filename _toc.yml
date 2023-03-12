@@ -24,6 +24,11 @@ chapters:
       - file: notebooks/Dashboards/Widgets.ipynb
       - file: notebooks/Dashboards/Pages.ipynb
       - file: notebooks/Dashboards/Dashboards.ipynb
+  - file: notebooks/Alerts/Index.ipynb
+    sections:
+      - file: notebooks/Alerts/Enums.ipynb
+      - file: notebooks/Alerts/Utils.ipynb
+      - file: notebooks/Alerts/Alerts.ipynb
   - file: notebooks/Utils/Index
     sections:
       - file: notebooks/Utils/Query
