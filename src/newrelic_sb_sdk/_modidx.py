@@ -9,6 +9,38 @@ d = {
         "lib_path": "src/newrelic_sb_sdk",
     },
     "syms": {
+        "newrelic_sb_sdk.alerts.enums": {
+            "newrelic_sb_sdk.alerts.enums.AlertSeverity": (
+                "Alerts/enums.html#alertseverity",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.AlertsIncidentPreference": (
+                "Alerts/enums.html#alertsincidentpreference",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.AlertsNrqlConditionsType": (
+                "Alerts/enums.html#alertsnrqlconditionstype",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.EntityType": (
+                "Alerts/enums.html#entitytype",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+        },
+        "newrelic_sb_sdk.alerts.utils": {
+            "newrelic_sb_sdk.alerts.utils.generate_clauses": (
+                "Alerts/utils.html#generate_clauses",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+            "newrelic_sb_sdk.alerts.utils.generate_nrql_query_string": (
+                "Alerts/utils.html#generate_nrql_query_string",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+            "newrelic_sb_sdk.alerts.utils.get_function_by_metric": (
+                "Alerts/utils.html#get_function_by_metric",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+        },
         "newrelic_sb_sdk.core.base": {
             "newrelic_sb_sdk.core.base.BaseEntity": (
                 "Core/base.html#baseentity",
