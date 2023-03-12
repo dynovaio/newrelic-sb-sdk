@@ -7,6 +7,7 @@
 * Update typing in build_query from utils.query
 * Add tests for utils.test
 * Export query and response notebooks to utils submodule
+* Add Alerts submodule
 
 ## [0.1.0] - 2023-03-09
 
