@@ -9,6 +9,38 @@ d = {
         "lib_path": "src/newrelic_sb_sdk",
     },
     "syms": {
+        "newrelic_sb_sdk.alerts.enums": {
+            "newrelic_sb_sdk.alerts.enums.AlertSeverity": (
+                "Alerts/enums.html#alertseverity",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.AlertsIncidentPreference": (
+                "Alerts/enums.html#alertsincidentpreference",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.AlertsNrqlConditionsType": (
+                "Alerts/enums.html#alertsnrqlconditionstype",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+            "newrelic_sb_sdk.alerts.enums.EntityType": (
+                "Alerts/enums.html#entitytype",
+                "newrelic_sb_sdk/alerts/enums.py",
+            ),
+        },
+        "newrelic_sb_sdk.alerts.utils": {
+            "newrelic_sb_sdk.alerts.utils.generate_clauses": (
+                "Alerts/utils.html#generate_clauses",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+            "newrelic_sb_sdk.alerts.utils.generate_nrql_query_string": (
+                "Alerts/utils.html#generate_nrql_query_string",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+            "newrelic_sb_sdk.alerts.utils.get_function_by_metric": (
+                "Alerts/utils.html#get_function_by_metric",
+                "newrelic_sb_sdk/alerts/utils.py",
+            ),
+        },
         "newrelic_sb_sdk.core.base": {
             "newrelic_sb_sdk.core.base.BaseEntity": (
                 "Core/base.html#baseentity",
@@ -81,22 +113,6 @@ d = {
             "newrelic_sb_sdk.core.mixins.SerializableMixin": (
                 "Core/mixins.html#serializablemixin",
                 "newrelic_sb_sdk/core/mixins.py",
-            ),
-        },
-        "newrelic_sb_sdk.core.query": {
-            "newrelic_sb_sdk.core.query.build_query": (
-                "Utils/query.html#build_query",
-                "newrelic_sb_sdk/core/query.py",
-            )
-        },
-        "newrelic_sb_sdk.core.response": {
-            "newrelic_sb_sdk.core.response.get_response_data": (
-                "Utils/response.html#get_response_data",
-                "newrelic_sb_sdk/core/response.py",
-            ),
-            "newrelic_sb_sdk.core.response.print_response": (
-                "Utils/response.html#print_response",
-                "newrelic_sb_sdk/core/response.py",
             ),
         },
         "newrelic_sb_sdk.dashboards.enums": {
@@ -6851,6 +6867,22 @@ d = {
             "newrelic_sb_sdk.graphql.scalars.SemVer": (
                 "GraphQL/scalars.html#semver",
                 "newrelic_sb_sdk/graphql/scalars.py",
+            ),
+        },
+        "newrelic_sb_sdk.utils.query": {
+            "newrelic_sb_sdk.utils.query.build_query": (
+                "Utils/query.html#build_query",
+                "newrelic_sb_sdk/utils/query.py",
+            )
+        },
+        "newrelic_sb_sdk.utils.response": {
+            "newrelic_sb_sdk.utils.response.get_response_data": (
+                "Utils/response.html#get_response_data",
+                "newrelic_sb_sdk/utils/response.py",
+            ),
+            "newrelic_sb_sdk.utils.response.print_response": (
+                "Utils/response.html#print_response",
+                "newrelic_sb_sdk/utils/response.py",
             ),
         },
         "newrelic_sb_sdk.utils.text": {
