@@ -6,9 +6,12 @@ import os
 import pathlib
 import re
 from textwrap import dedent
+from typing import Any, Dict
 
 import dotenv
-from requests import Session
+from requests import Response, Session
+
+from ..utils.query import build_query
 
 
 def get_new_relic_user_key_from_env(env_file_name: str | None = None) -> str:
@@ -44,14 +47,19 @@ class NewRelicGqlClient(Session):
         )
 
     def execute(
-        self, query=None, query_kwargs=None, **kwargs
-    ):  # pylint: disable=arguments-differ
-        data = self._build_query(query, **(query_kwargs or {}))
+        self, query: str, variables: Dict[str, Any] | None = None, **kwargs
+    ) -> Response:
+        data = json.dumps(
+            {
+                "query": query,
+                "variables": variables,
+            },
+        )
         return self.post(self.url, data=data, **kwargs)
 
     @staticmethod
-    def _build_query(query_string, **kwargs):
-        return json.dumps({"query": dedent(query_string.strip()) % kwargs})
+    def build_query(query_string: str, query_params: Dict[str, Any]) -> str:
+        return build_query(query_string, query_params)
 
 
 class NewRelicRestClient(Session):
