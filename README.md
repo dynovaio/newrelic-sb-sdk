@@ -1,14 +1,11 @@
 ![Community-Project](https://gitlab.com/softbutterfly/open-source/open-source-office/-/raw/master/banners/softbutterfly-open-source--banner--community-project.png)
 
-![PyPI - Supported versions](https://img.shields.io/pypi/pyversions/wagtail-sb-admin-interface)
-![PyPI - Package version](https://img.shields.io/pypi/v/wagtail-sb-admin-interface)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/wagtail-sb-admin-interface)
-![PyPI - MIT License](https://img.shields.io/pypi/l/wagtail-sb-admin-interface)
+![PyPI - Supported versions](https://img.shields.io/pypi/pyversions/newrelic-sb-sdk)
+![PyPI - Package version](https://img.shields.io/pypi/v/newrelic-sb-sdk)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/newrelic-sb-sdk)
+![PyPI - MIT License](https://img.shields.io/pypi/l/newrelic-sb-sdk)
 
-[![Build Status](https://www.travis-ci.org/softbutterfly/wagtail-sb-admin-interface.svg?branch=develop)](https://www.travis-ci.org/softbutterfly/wagtail-sb-admin-interface)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/e35e7095857b416696eb58a4ed5d9a15)](https://www.codacy.com/gh/softbutterfly/wagtail-sb-admin-interface/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=softbutterfly/wagtail-sb-admin-interface&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge Coverage](https://app.codacy.com/project/badge/Coverage/e35e7095857b416696eb58a4ed5d9a15)](https://www.codacy.com/gh/softbutterfly/wagtail-sb-admin-interface/dashboard?utm_source=github.com&utm_medium=referral&utm_content=softbutterfly/wagtail-sb-admin-interface&utm_campaign=Badge_Coverage)
-[![codecov](https://codecov.io/gh/softbutterfly/wagtail-sb-admin-interface/branch/master/graph/badge.svg?token=pbqXUUOu1F)](https://codecov.io/gh/softbutterfly/wagtail-sb-admin-interface)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1c25dec51e1c4a719be4c2d4ebe7eef6)](https://app.codacy.com/gl/softbutterfly/newrelic-sb-sdk/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # New Relic SB SDK
 
@@ -16,12 +13,12 @@ New Relic SDK built by SoftButterfly to automate common New Relic One observabil
 
 ## Requirements
 
-- Python 3.8.1 or higher
-- `enforce-typing`
-- `python-dotenv`
-- `requests`
-- `semver`
-- `sgqlc`
+* Python 3.8.1 or higher
+* `enforce-typing`
+* `python-dotenv`
+* `requests`
+* `semver`
+* `sgqlc`
 
 ## Install
 
@@ -33,8 +30,8 @@ pip install newrelic-sb-sdk
 
 ## Docs
 
-- [Ejemplos](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/wiki)
-- [Wiki](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/wiki)
+* [Ejemplos](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/wikis)
+* [Wiki](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/wikis)
 
 ## Changelog
 
@@ -46,7 +43,7 @@ Check out our [contribution guide](./CONTRIBUTING.md).
 
 ## Contributors
 
-See the list of contributors [here](https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface/-/graphs/master).
+See the list of contributors [here](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/graphs/develop).
 
 ## License
 

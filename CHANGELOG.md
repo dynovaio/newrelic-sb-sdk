@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+* Update links to GitLab repository
+* Update tbump config
+* Update contributing guide
+
 ## [0.2.0] - 2023-03-12
 
 * Update NewRelicGqlClient to support graphql variables in request body

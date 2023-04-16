@@ -27,7 +27,7 @@ search = 'version = "{current_version}"'
 
 [[file]]
 src = 'pyproject.toml'
-search = 'v{current_version}.tar.gz'
+search = 'v{current_version}'
 
 [[file]]
 src = 'settings.ini'

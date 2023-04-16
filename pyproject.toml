@@ -10,8 +10,12 @@ license = "MIT License"
 readme = "README.md"
 homepage = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
 repository = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
-documentation = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface/wiki"
-keywords = ["Softbutterfly", "New Relic", "SDK"]
+documentation = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface/-/wikis"
+keywords = [
+  "Softbutterfly",
+  "New Relic",
+  "SDK",
+]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
@@ -32,8 +36,8 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/archive/v0.2.0.tar.gz"
-"Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/issues"
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.2.0/newrelic-sb-sdk-v0.2.0.tar.gz"
+"Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
 
 
 [tool.poetry.dependencies]
