@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-04-16
+
 * Update links to GitLab repository
 * Update tbump config
 * Update contributing guide
