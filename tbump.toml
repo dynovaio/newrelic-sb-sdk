@@ -1,5 +1,5 @@
 [version]
-current = "0.2.0"
+current = "0.3.0"
 
 # Example of a semver regexp.
 # Make sure this matches current_version before
@@ -27,7 +27,7 @@ search = 'version = "{current_version}"'
 
 [[file]]
 src = 'pyproject.toml'
-search = 'v{current_version}.tar.gz'
+search = 'v{current_version}'
 
 [[file]]
 src = 'settings.ini'

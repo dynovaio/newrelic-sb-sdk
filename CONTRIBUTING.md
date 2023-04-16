@@ -7,13 +7,20 @@
 Clone the project
 
 ```bash
-$ git clone https://github.com/softbutterfly/wagtail-sb-admin-interface.git
-$ cd wagtail-sb-admin-interface
+$ git clone https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk.git
+$ cd newrelic-sb-sdk
+```
+
+Install the rquited python versions
+
+```bash
+$ pyenv install $(cat .python-version)
 ```
 
 Install the dependencies
 
 ```bash
+$ poetry env use $(head -n 1 .python-version)
 $ poetry install
 ```
 
