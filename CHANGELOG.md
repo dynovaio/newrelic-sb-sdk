@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.4.0] - 2023-06-05
+
+* Update GraphQL submodule with a fresh schema version
+* Update dependencies
+* Update .pre-commit hooks
+
 ## [0.3.0] - 2023-04-16
 
 * Update links to GitLab repository

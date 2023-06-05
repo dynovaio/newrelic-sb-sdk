@@ -88,6 +88,7 @@ __all__ = [
     "ApiAccessUserKeyErrorType",
     "BrowserAgentInstallType",
     "ChangeTrackingDeploymentType",
+    "ChangeTrackingValidationFlag",
     "ChartFormatType",
     "ChartImageType",
     "CloudMetricCollectionMode",
@@ -199,7 +200,11 @@ __all__ = [
     "Nr1CatalogSupportedEntityTypesMode",
     "NrqlDropRulesAction",
     "NrqlDropRulesErrorReason",
+    "OrganizationAuthenticationTypeEnum",
+    "OrganizationProvisioningTypeEnum",
     "OrganizationProvisioningUnit",
+    "OrganizationSortDirectionEnum",
+    "OrganizationSortKeyEnum",
     "OrganizationUpdateErrorType",
     "PixieLinkPixieProjectErrorType",
     "PixieRecordPixieTosAcceptanceErrorType",
@@ -1020,6 +1025,8 @@ class AiNotificationsErrorType(sgqlc.types.Enum):
     * `ENTITY_IN_USE`: This operation could not be completed because
       the entity is in use
     * `EXTERNAL_SERVER_ERROR`: An external server error has occurred
+    * `FEATURE_FLAG_DISABLED`: Targeted account does not have access
+      to this feature
     * `INVALID_CREDENTIALS`: The credentials provided were invalid,
       Please check them and try again
     * `INVALID_KEY`: Could not provide suggestions for this key
@@ -1050,6 +1057,7 @@ class AiNotificationsErrorType(sgqlc.types.Enum):
         "CONNECTION_ERROR",
         "ENTITY_IN_USE",
         "EXTERNAL_SERVER_ERROR",
+        "FEATURE_FLAG_DISABLED",
         "INVALID_CREDENTIALS",
         "INVALID_KEY",
         "INVALID_PARAMETER",
@@ -1076,22 +1084,28 @@ class AiNotificationsProduct(sgqlc.types.Enum):
     Enumeration Choices:
 
     * `ALERTS`: Alerts product type
+    * `APM`: APM product type
+    * `CSSP`: CSSP (EOPs) product type
     * `DISCUSSIONS`: Discussions and comments product type
     * `ERROR_TRACKING`: Error Tracking product type
     * `IINT`: Incident Intelligence product type
     * `NTFC`: Notifications internal product type
     * `PD`: Proactive Detection product type
+    * `SECURITY`: Security product type
     * `SHARING`: Sharing product type
     """
 
     __schema__ = nerdgraph
     __choices__ = (
         "ALERTS",
+        "APM",
+        "CSSP",
         "DISCUSSIONS",
         "ERROR_TRACKING",
         "IINT",
         "NTFC",
         "PD",
+        "SECURITY",
         "SHARING",
     )
 
@@ -1987,19 +2001,16 @@ class AlertsNrqlBaselineDirection(sgqlc.types.Enum):
 class AlertsNrqlConditionPriority(sgqlc.types.Enum):
     """Class for AlertsNrqlConditionPriority.
 
-    Value determining whether to open a critical or warning violation
+    Value determining whether to open a critical or warning incident
     for a NrqlCondition.
 
     Enumeration Choices:
 
-    * `CRITICAL`: When a critical priority violation occurs,
-      notifications will be sent. The number of incidents opened and
-      notifications sent depends on the incident preference defined in
-      the condition's policy.
-    * `WARNING`: Does not generate notifications. Use a warning
-      priority when you want to monitor when a system behavior is
-      concerning or noteworthy, but not important enough to require a
-      notification
+    * `CRITICAL`: Our highest priority. Use a critical priority when
+      system behavior needs immediate attention.
+    * `WARNING`: Lower priority. Use a warning priority when system
+      behavior is noteworthy but not degraded enough to cause problems
+      yet
     """
 
     __schema__ = nerdgraph
@@ -2298,6 +2309,26 @@ class ChangeTrackingDeploymentType(sgqlc.types.Enum):
 
     __schema__ = nerdgraph
     __choices__ = ("BASIC", "BLUE_GREEN", "CANARY", "OTHER", "ROLLING", "SHADOW")
+
+
+class ChangeTrackingValidationFlag(sgqlc.types.Enum):
+    """Class for ChangeTrackingValidationFlag.
+
+    Validation flags to determine how we handle input data.
+
+    Enumeration Choices:
+
+    * `FAIL_ON_FIELD_LENGTH`: Will validate all string fields to be
+      within max size limit. An error is returned and data is not
+      saved if any of the fields exceeds max size limit.
+    * `FAIL_ON_REST_API_FAILURES`: For APM entities, a call is made to
+      the legacy New Relic v2 REST API. When this flag is set, if the
+      call fails for any reason, an error will be returned containing
+      the failure message
+    """
+
+    __schema__ = nerdgraph
+    __choices__ = ("FAIL_ON_FIELD_LENGTH", "FAIL_ON_REST_API_FAILURES")
 
 
 class ChartFormatType(sgqlc.types.Enum):
@@ -3685,6 +3716,9 @@ class EntityRelationshipEdgeType(sgqlc.types.Enum):
       a subsystem of the source.
     * `MEASURES`: The source entity is used to measure the target
       entity.
+    * `OPERATES_IN`: The source operates in the target entity, e.g. a
+      region or a data center.
+    * `OWNS`: The source entity owns the target entity.
     * `PRODUCES`: The source entity produces messages to a target
       kafka topic or other queue systems.
     * `SERVES`: The source is an Application that serves the target
@@ -3702,6 +3736,8 @@ class EntityRelationshipEdgeType(sgqlc.types.Enum):
         "IS",
         "MANAGES",
         "MEASURES",
+        "OPERATES_IN",
+        "OWNS",
         "PRODUCES",
         "SERVES",
     )
@@ -3875,6 +3911,7 @@ class EntityType(sgqlc.types.Enum):
     * `MOBILE_APPLICATION_ENTITY`: A Mobile Application
     * `SECURE_CREDENTIAL_ENTITY`: A Secure Credential entity
     * `SYNTHETIC_MONITOR_ENTITY`: A Synthetic Monitor entity
+    * `TEAM_ENTITY`: A Team Entity
     * `THIRD_PARTY_SERVICE_ENTITY`: A Third Party Service entity
     * `UNAVAILABLE_ENTITY`: A entity that is unavailable
     * `WORKLOAD_ENTITY`: A Workload entity
@@ -3896,6 +3933,7 @@ class EntityType(sgqlc.types.Enum):
         "MOBILE_APPLICATION_ENTITY",
         "SECURE_CREDENTIAL_ENTITY",
         "SYNTHETIC_MONITOR_ENTITY",
+        "TEAM_ENTITY",
         "THIRD_PARTY_SERVICE_ENTITY",
         "UNAVAILABLE_ENTITY",
         "WORKLOAD_ENTITY",
@@ -4948,6 +4986,38 @@ class NrqlDropRulesErrorReason(sgqlc.types.Enum):
     )
 
 
+class OrganizationAuthenticationTypeEnum(sgqlc.types.Enum):
+    """Class for OrganizationAuthenticationTypeEnum.
+
+    Provides the available values for authentication type
+
+    Enumeration Choices:
+
+    * `DISABLED`: Authentication not configured
+    * `PASSWORD`: Username and password authentication
+    * `SAML_SSO`: SAML Single Sign-On
+    """
+
+    __schema__ = nerdgraph
+    __choices__ = ("DISABLED", "PASSWORD", "SAML_SSO")
+
+
+class OrganizationProvisioningTypeEnum(sgqlc.types.Enum):
+    """Class for OrganizationProvisioningTypeEnum.
+
+    Provides the available values for provisioning type
+
+    Enumeration Choices:
+
+    * `DISABLED`: Provisioning not configured
+    * `MANUAL`: Manual provisioning
+    * `SCIM`: SCIM automated provisioning
+    """
+
+    __schema__ = nerdgraph
+    __choices__ = ("DISABLED", "MANUAL", "SCIM")
+
+
 class OrganizationProvisioningUnit(sgqlc.types.Enum):
     """Class for OrganizationProvisioningUnit.
 
@@ -5003,6 +5073,38 @@ class OrganizationProvisioningUnit(sgqlc.types.Enum):
         "SPANS_IN_MILLIONS",
         "USERS",
     )
+
+
+class OrganizationSortDirectionEnum(sgqlc.types.Enum):
+    """Class for OrganizationSortDirectionEnum.
+
+    Provides the available values of possible directions to sort the
+    result
+
+    Enumeration Choices:
+
+    * `ASCENDING`: Sort in ascending order
+    * `DESCENDING`: Sort in descending order
+    """
+
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
+class OrganizationSortKeyEnum(sgqlc.types.Enum):
+    """Class for OrganizationSortKeyEnum.
+
+    Provides the available values of possible fields that can be
+    sorted
+
+    Enumeration Choices:
+
+    * `ID`: Authentication domain id
+    * `NAME`: Authentication domain name
+    """
+
+    __schema__ = nerdgraph
+    __choices__ = ("ID", "NAME")
 
 
 class OrganizationUpdateErrorType(sgqlc.types.Enum):
@@ -5103,12 +5205,14 @@ class ServiceLevelEventsQuerySelectFunction(sgqlc.types.Enum):
 
     Enumeration Choices:
 
-    * `COUNT`: COUNT.
-    * `SUM`: SUM
+    * `COUNT`: Use on events and unaggregated data.
+    * `GET_CDF_COUNT`: Use on distribution metric types.
+    * `GET_FIELD`: Use in valid events combined with GET_CDF_COUNT.
+    * `SUM`: Use on aggregated counts
     """
 
     __schema__ = nerdgraph
-    __choices__ = ("COUNT", "SUM")
+    __choices__ = ("COUNT", "GET_CDF_COUNT", "GET_FIELD", "SUM")
 
 
 class ServiceLevelObjectiveRollingTimeWindowUnit(sgqlc.types.Enum):

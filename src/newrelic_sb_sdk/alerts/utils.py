@@ -3,9 +3,9 @@ __all__ = ["generate_nrql_query_string", "generate_clauses", "get_function_by_me
 
 def generate_nrql_query_string(function, event, clauses=None):
     if clauses is None:
-        return f"SELECT {function} FROM {event}"
+        return f"FROM {event} SELECT {function}"
 
-    return f"SELECT {function} FROM {event} {clauses}"
+    return f"FROM {event} SELECT {function} {clauses}"
 
 
 def generate_clauses(condition_scope, apps_names):
