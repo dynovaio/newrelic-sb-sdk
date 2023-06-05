@@ -35,9 +35,9 @@ repository:
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
   favicon: notebooks/_assets/favicon.png
-  use_issues_button: false
+  use_issues_button: true
   use_edit_page_button: false
-  use_repository_button: false
+  use_repository_button: true
   baseurl: https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk
 
 parse:
