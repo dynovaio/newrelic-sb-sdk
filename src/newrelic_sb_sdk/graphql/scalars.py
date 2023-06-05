@@ -7,6 +7,7 @@ __all__ = [
     "Int",
     "String",
     "AgentApplicationSettingsErrorCollectorHttpStatus",
+    "AgentApplicationSettingsRawJsConfiguration",
     "AiDecisionsRuleExpression",
     "AttributeMap",
     "DashboardWidgetRawConfiguration",
@@ -48,6 +49,16 @@ class AgentApplicationSettingsErrorCollectorHttpStatus(sgqlc.types.Scalar):
     """Class for AgentApplicationSettingsErrorCollectorHttpStatus.
 
     A list of HTTP status codes, such as "404" or "500".
+    """
+
+    __schema__ = nerdgraph
+
+
+class AgentApplicationSettingsRawJsConfiguration(sgqlc.types.Scalar):
+    """Class for AgentApplicationSettingsRawJsConfiguration.
+
+    The "raw" configuration values for configuring the javascript
+    client.
     """
 
     __schema__ = nerdgraph

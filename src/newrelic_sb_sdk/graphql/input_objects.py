@@ -179,6 +179,7 @@ __all__ = [
     "AuthorizationManagementGrantAccess",
     "AuthorizationManagementOrganizationAccessGrant",
     "AuthorizationManagementRevokeAccess",
+    "ChangeTrackingDataHandlingRules",
     "ChangeTrackingDeploymentInput",
     "ChangeTrackingSearchFilter",
     "ChangeTrackingTimeWindowInputWithDefaults",
@@ -407,8 +408,18 @@ __all__ = [
     "Nr1CatalogSupportInput",
     "NrqlDropRulesCreateDropRuleInput",
     "NrqlQueryOptions",
+    "OrganizationAuthenticationDomainFilterInput",
+    "OrganizationAuthenticationDomainSortInput",
     "OrganizationCreateSharedAccountInput",
     "OrganizationCustomerOrganizationFilterInput",
+    "OrganizationIdInput",
+    "OrganizationNameInput",
+    "OrganizationOrganizationAccountIdInputFilter",
+    "OrganizationOrganizationAuthenticationDomainIdInputFilter",
+    "OrganizationOrganizationCustomerIdInputFilter",
+    "OrganizationOrganizationIdInput",
+    "OrganizationOrganizationIdInputFilter",
+    "OrganizationOrganizationNameInputFilter",
     "OrganizationProvisioningProductInput",
     "OrganizationProvisioningUnitOfMeasureInput",
     "OrganizationRevokeSharedAccountInput",
@@ -548,6 +559,7 @@ from newrelic_sb_sdk.graphql.enums import (
     ApiAccessIngestKeyType,
     ApiAccessKeyType,
     ChangeTrackingDeploymentType,
+    ChangeTrackingValidationFlag,
     CloudMetricCollectionMode,
     DashboardAlertSeverity,
     DashboardLiveUrlType,
@@ -586,6 +598,8 @@ from newrelic_sb_sdk.graphql.enums import (
     Nr1CatalogSearchResultType,
     NrqlDropRulesAction,
     OrganizationProvisioningUnit,
+    OrganizationSortDirectionEnum,
+    OrganizationSortKeyEnum,
     ServiceLevelEventsQuerySelectFunction,
     ServiceLevelObjectiveRollingTimeWindowUnit,
     SortBy,
@@ -931,6 +945,7 @@ class AgentApplicationSettingsUpdateInput(sgqlc.types.Input):
         "apm_config",
         "browser_config",
         "browser_monitoring",
+        "capture_memcache_keys",
         "error_collector",
         "jfr",
         "mobile_settings",
@@ -1871,10 +1886,19 @@ class AiIssuesFilterIssues(sgqlc.types.Input):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("entity_guids", "entity_types", "ids", "priority", "states")
-    entity_guids = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityGuid)),
-        graphql_name="entityGuids",
+    __field_names__ = (
+        "condition_ids",
+        "contains",
+        "entity_guids",
+        "entity_types",
+        "ids",
+        "policy_ids",
+        "priority",
+        "sources",
+        "states",
+    )
+    condition_ids = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name="conditionIds"
     )
 
 
@@ -3305,6 +3329,21 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
     )
 
 
+class ChangeTrackingDataHandlingRules(sgqlc.types.Input):
+    """Class for ChangeTrackingDataHandlingRules.
+
+    Validation and data handling rules to be applied to deployment
+    input data.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("validation_flags",)
+    validation_flags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ChangeTrackingValidationFlag)),
+        graphql_name="validationFlags",
+    )
+
+
 class ChangeTrackingDeploymentInput(sgqlc.types.Input):
     """Class for ChangeTrackingDeploymentInput.
 
@@ -3341,7 +3380,7 @@ class ChangeTrackingSearchFilter(sgqlc.types.Input):
 class ChangeTrackingTimeWindowInputWithDefaults(sgqlc.types.Input):
     """Class for ChangeTrackingTimeWindowInputWithDefaults.
 
-    Represents a time window input with default values.
+    A time window input with default values.
     """
 
     __schema__ = nerdgraph
@@ -6555,7 +6594,7 @@ class EntitySearchOptions(sgqlc.types.Input):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("case_sensitive_tag_matching", "limit")
+    __field_names__ = ("case_sensitive_tag_matching", "limit", "tag_filter")
     case_sensitive_tag_matching = sgqlc.types.Field(
         Boolean, graphql_name="caseSensitiveTagMatching"
     )
@@ -6895,9 +6934,7 @@ class LogConfigurationsPipelineConfigurationInput(sgqlc.types.Input):
         "recursive_json_parsing_disabled",
         "transformation_disabled",
     )
-    enrichment_disabled = sgqlc.types.Field(
-        sgqlc.types.non_null(Boolean), graphql_name="enrichmentDisabled"
-    )
+    enrichment_disabled = sgqlc.types.Field(Boolean, graphql_name="enrichmentDisabled")
 
 
 class LogConfigurationsUpdateDataPartitionRuleInput(sgqlc.types.Input):
@@ -7253,6 +7290,30 @@ class NrqlQueryOptions(sgqlc.types.Input):
     )
 
 
+class OrganizationAuthenticationDomainFilterInput(sgqlc.types.Input):
+    """Class for OrganizationAuthenticationDomainFilterInput.
+
+    A filter for authentication domains.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "organization_id")
+    id = sgqlc.types.Field("OrganizationIdInput", graphql_name="id")
+
+
+class OrganizationAuthenticationDomainSortInput(sgqlc.types.Input):
+    """Class for OrganizationAuthenticationDomainSortInput.
+
+    Sort key and direction for authentication domains.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        OrganizationSortDirectionEnum, graphql_name="direction"
+    )
+
+
 class OrganizationCreateSharedAccountInput(sgqlc.types.Input):
     """Class for OrganizationCreateSharedAccountInput.
 
@@ -7283,7 +7344,97 @@ class OrganizationCustomerOrganizationFilterInput(sgqlc.types.Input):
         "id",
         "name",
     )
-    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+    account_id = sgqlc.types.Field(
+        "OrganizationOrganizationAccountIdInputFilter", graphql_name="accountId"
+    )
+
+
+class OrganizationIdInput(sgqlc.types.Input):
+    """Class for OrganizationIdInput.
+
+    Provides the operations available on the id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationNameInput(sgqlc.types.Input):
+    """Class for OrganizationNameInput.
+
+    Provides the operations available on the name.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+
+class OrganizationOrganizationAccountIdInputFilter(sgqlc.types.Input):
+    """Class for OrganizationOrganizationAccountIdInputFilter.
+
+    Provides all the available filters on the account id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="eq")
+
+
+class OrganizationOrganizationAuthenticationDomainIdInputFilter(sgqlc.types.Input):
+    """Class for OrganizationOrganizationAuthenticationDomainIdInputFilter.
+
+    Provides all the available filters on the authentication domain id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationOrganizationCustomerIdInputFilter(sgqlc.types.Input):
+    """Class for OrganizationOrganizationCustomerIdInputFilter.
+
+    Provides all the available filters on the customer id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="eq")
+
+
+class OrganizationOrganizationIdInput(sgqlc.types.Input):
+    """Class for OrganizationOrganizationIdInput.
+
+    Provides the operations available on the organization id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationOrganizationIdInputFilter(sgqlc.types.Input):
+    """Class for OrganizationOrganizationIdInputFilter.
+
+    Provides all the available filters on the organization id.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationOrganizationNameInputFilter(sgqlc.types.Input):
+    """Class for OrganizationOrganizationNameInputFilter.
+
+    Provides all the available filters on the organization name.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
 
 
 class OrganizationProvisioningProductInput(sgqlc.types.Input):
@@ -7393,7 +7544,7 @@ class ServiceLevelEventsQuerySelectCreateInput(sgqlc.types.Input):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("attribute", "function")
+    __field_names__ = ("attribute", "function", "threshold")
     attribute = sgqlc.types.Field(String, graphql_name="attribute")
 
 
@@ -7404,7 +7555,7 @@ class ServiceLevelEventsQuerySelectUpdateInput(sgqlc.types.Input):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("attribute", "function")
+    __field_names__ = ("attribute", "function", "threshold")
     attribute = sgqlc.types.Field(String, graphql_name="attribute")
 
 

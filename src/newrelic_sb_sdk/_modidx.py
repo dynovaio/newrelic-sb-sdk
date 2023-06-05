@@ -560,6 +560,10 @@ d = {
                 "GraphQL/enums.html#changetrackingdeploymenttype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.ChangeTrackingValidationFlag": (
+                "GraphQL/enums.html#changetrackingvalidationflag",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.ChartFormatType": (
                 "GraphQL/enums.html#chartformattype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1004,8 +1008,24 @@ d = {
                 "GraphQL/enums.html#nrqldropruleserrorreason",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAuthenticationTypeEnum": (
+                "GraphQL/enums.html#organizationauthenticationtypeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationProvisioningTypeEnum": (
+                "GraphQL/enums.html#organizationprovisioningtypeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.OrganizationProvisioningUnit": (
                 "GraphQL/enums.html#organizationprovisioningunit",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationSortDirectionEnum": (
+                "GraphQL/enums.html#organizationsortdirectionenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationSortKeyEnum": (
+                "GraphQL/enums.html#organizationsortkeyenum",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.OrganizationUpdateErrorType": (
@@ -1886,6 +1906,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementRevokeAccess": (
                 "GraphQL/input objects.html#authorizationmanagementrevokeaccess",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.ChangeTrackingDataHandlingRules": (
+                "GraphQL/input objects.html#changetrackingdatahandlingrules",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.ChangeTrackingDeploymentInput": (
@@ -2826,6 +2850,16 @@ d = {
                 "GraphQL/input objects.html#nrqlqueryoptions",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAuthenticationDomainFilterInput": (
+                "GraphQL/input "
+                "objects.html#organizationauthenticationdomainfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAuthenticationDomainSortInput": (
+                "GraphQL/input "
+                "objects.html#organizationauthenticationdomainsortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCreateSharedAccountInput": (
                 "GraphQL/input objects.html#organizationcreatesharedaccountinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2833,6 +2867,41 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCustomerOrganizationFilterInput": (
                 "GraphQL/input "
                 "objects.html#organizationcustomerorganizationfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationIdInput": (
+                "GraphQL/input objects.html#organizationidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationNameInput": (
+                "GraphQL/input objects.html#organizationnameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationAccountIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationaccountidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationAuthenticationDomainIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationauthenticationdomainidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCustomerIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationcustomeridinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationIdInput": (
+                "GraphQL/input objects.html#organizationorganizationidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationIdInputFilter": (
+                "GraphQL/input objects.html#organizationorganizationidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationNameInputFilter": (
+                "GraphQL/input objects.html#organizationorganizationnameinputfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationProvisioningProductInput": (
@@ -3460,6 +3529,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiIssuesIncidentData": (
                 "GraphQL/objects.html#aiissuesincidentdata",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiIssuesIncidentUserActionResponse": (
+                "GraphQL/objects.html#aiissuesincidentuseractionresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiIssuesIssue": (
@@ -5250,6 +5323,10 @@ d = {
                 "GraphQL/objects.html#errorsinboxjiraissue",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.ErrorsInboxOccurrences": (
+                "GraphQL/objects.html#errorsinboxoccurrences",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.ErrorsInboxResource": (
                 "GraphQL/objects.html#errorsinboxresource",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6098,6 +6175,14 @@ d = {
                 "GraphQL/objects.html#organizationaccountshares",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAuthenticationDomain": (
+                "GraphQL/objects.html#organizationauthenticationdomain",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAuthenticationDomainCollection": (
+                "GraphQL/objects.html#organizationauthenticationdomaincollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.OrganizationCreateSharedAccountResponse": (
                 "GraphQL/objects.html#organizationcreatesharedaccountresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6530,6 +6615,14 @@ d = {
                 "GraphQL/objects.html#taggingmutationresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.TeamEntity": (
+                "GraphQL/objects.html#teamentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.TeamEntityOutline": (
+                "GraphQL/objects.html#teamentityoutline",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.ThirdPartyServiceEntity": (
                 "GraphQL/objects.html#thirdpartyserviceentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6616,6 +6709,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.UserManagementOrganizationUserType": (
                 "GraphQL/objects.html#usermanagementorganizationusertype",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.UserManagementPendingUpgradeRequest": (
+                "GraphQL/objects.html#usermanagementpendingupgraderequest",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.UserManagementRemoveUsersFromGroupsPayload": (
@@ -6774,6 +6871,10 @@ d = {
         "newrelic_sb_sdk.graphql.scalars": {
             "newrelic_sb_sdk.graphql.scalars.AgentApplicationSettingsErrorCollectorHttpStatus": (
                 "GraphQL/scalars.html#agentapplicationsettingserrorcollectorhttpstatus",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
+            "newrelic_sb_sdk.graphql.scalars.AgentApplicationSettingsRawJsConfiguration": (
+                "GraphQL/scalars.html#agentapplicationsettingsrawjsconfiguration",
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
             "newrelic_sb_sdk.graphql.scalars.AiDecisionsRuleExpression": (

@@ -100,6 +100,7 @@ __all__ = [
     "AiIssuesEnvironmentConfiguration",
     "AiIssuesGracePeriodConfig",
     "AiIssuesIncidentData",
+    "AiIssuesIncidentUserActionResponse",
     "AiIssuesIssue",
     "AiIssuesIssueData",
     "AiIssuesIssueUserActionResponse",
@@ -371,6 +372,7 @@ __all__ = [
     "ErrorsInboxErrorGroup",
     "ErrorsInboxErrorGroupStateTypeResult",
     "ErrorsInboxErrorGroupsResponse",
+    "ErrorsInboxOccurrences",
     "ErrorsInboxResourcesResponse",
     "ErrorsInboxUpdateErrorGroupStateResponse",
     "EventAttributeDefinition",
@@ -528,6 +530,8 @@ __all__ = [
     "NrqlHistoricalQuery",
     "Organization",
     "OrganizationAccountShares",
+    "OrganizationAuthenticationDomain",
+    "OrganizationAuthenticationDomainCollection",
     "OrganizationCreateSharedAccountResponse",
     "OrganizationCustomerOrganization",
     "OrganizationCustomerOrganizationWrapper",
@@ -647,6 +651,7 @@ __all__ = [
     "UserManagementGroups",
     "UserManagementOrganizationStitchedFields",
     "UserManagementOrganizationUserType",
+    "UserManagementPendingUpgradeRequest",
     "UserManagementRemoveUsersFromGroupsPayload",
     "UserManagementUpdateGroupPayload",
     "UserManagementUpdateUserPayload",
@@ -880,6 +885,8 @@ __all__ = [
     "SuggestedHistoryBasedNrqlQuery",
     "SyntheticMonitorEntity",
     "SyntheticMonitorEntityOutline",
+    "TeamEntity",
+    "TeamEntityOutline",
     "ThirdPartyServiceEntity",
     "ThirdPartyServiceEntityOutline",
     "UnavailableEntity",
@@ -1084,6 +1091,8 @@ from newrelic_sb_sdk.graphql.enums import (
     Nr1CatalogSupportLevel,
     NrqlDropRulesAction,
     NrqlDropRulesErrorReason,
+    OrganizationAuthenticationTypeEnum,
+    OrganizationProvisioningTypeEnum,
     OrganizationUpdateErrorType,
     PixieLinkPixieProjectErrorType,
     PixieRecordPixieTosAcceptanceErrorType,
@@ -1163,6 +1172,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     ApiAccessUpdateInput,
     AuthorizationManagementGrantAccess,
     AuthorizationManagementRevokeAccess,
+    ChangeTrackingDataHandlingRules,
     ChangeTrackingDeploymentInput,
     ChangeTrackingSearchFilter,
     CloudAwsGovCloudMigrateToAssumeroleInput,
@@ -1274,6 +1284,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
 from newrelic_sb_sdk.graphql.scalars import (
     ID,
     AgentApplicationSettingsErrorCollectorHttpStatus,
+    AgentApplicationSettingsRawJsConfiguration,
     AiDecisionsRuleExpression,
     AttributeMap,
     Boolean,
@@ -1874,7 +1885,7 @@ class AccountManagementManagedAccount(sgqlc.types.Type):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("id", "name", "region_code")
+    __field_names__ = ("id", "is_canceled", "name", "region_code")
     id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
 
 
@@ -1889,6 +1900,14 @@ class AccountManagementOrganizationStitchedFields(sgqlc.types.Type):
     managed_accounts = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(AccountManagementManagedAccount)),
         graphql_name="managedAccounts",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "is_canceled",
+                    sgqlc.types.Arg(Boolean, graphql_name="isCanceled", default=None),
+                ),
+            )
+        ),
     )
 
 
@@ -2093,6 +2112,7 @@ class AgentApplicationSettingsApmBase(sgqlc.types.Type):
     __field_names__ = (
         "alias",
         "apm_config",
+        "capture_memcache_keys",
         "error_collector",
         "jfr",
         "original_name",
@@ -2210,8 +2230,10 @@ class AgentApplicationSettingsBrowserProperties(sgqlc.types.Type):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("js_loader_script",)
-    js_loader_script = sgqlc.types.Field(String, graphql_name="jsLoaderScript")
+    __field_names__ = ("js_config", "js_config_script", "js_loader_script")
+    js_config = sgqlc.types.Field(
+        AgentApplicationSettingsRawJsConfiguration, graphql_name="jsConfig"
+    )
 
 
 class AgentApplicationSettingsErrorCollector(sgqlc.types.Type):
@@ -2599,8 +2621,10 @@ class AgentRelease(sgqlc.types.Type):
         "bugs",
         "date",
         "download_link",
+        "eol_date",
         "features",
         "security",
+        "slug",
         "version",
     )
     bugs = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="bugs")
@@ -2970,6 +2994,17 @@ class AiIssuesIncidentData(sgqlc.types.Type):
         ),
         graphql_name="incidents",
     )
+
+
+class AiIssuesIncidentUserActionResponse(sgqlc.types.Type):
+    """Class for AiIssuesIncidentUserActionResponse.
+
+    User action for issue.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("account_id", "error", "incident_id")
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
 
 
 class AiIssuesIssue(sgqlc.types.Type):
@@ -4891,8 +4926,13 @@ class BrowserApplicationRunningAgentVersions(sgqlc.types.Type):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("max_version", "min_version")
-    max_version = sgqlc.types.Field(Int, graphql_name="maxVersion")
+    __field_names__ = (
+        "max_semantic_version",
+        "max_version",
+        "min_semantic_version",
+        "min_version",
+    )
+    max_semantic_version = sgqlc.types.Field(SemVer, graphql_name="maxSemanticVersion")
 
 
 class BrowserApplicationSettings(sgqlc.types.Type):
@@ -5970,6 +6010,7 @@ class DataManagementRetention(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "customizable",
+        "display_name",
         "max_retention_in_days",
         "min_retention_in_days",
         "namespace",
@@ -7044,8 +7085,10 @@ class ErrorsInboxErrorGroup(sgqlc.types.Type):
         "last_seen_at",
         "message",
         "name",
+        "occurrences",
         "regressed_at",
         "resources",
+        "source",
         "state",
         "url",
     )
@@ -7072,6 +7115,17 @@ class ErrorsInboxErrorGroupsResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("next_cursor", "results", "total_count")
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class ErrorsInboxOccurrences(sgqlc.types.Type):
+    """Class for ErrorsInboxOccurrences.
+
+    The occurrences of an error group.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("expected_count", "first_seen_at", "last_seen_at", "total_count")
+    expected_count = sgqlc.types.Field(Int, graphql_name="expectedCount")
 
 
 class ErrorsInboxResourcesResponse(sgqlc.types.Type):
@@ -9485,6 +9539,42 @@ class OrganizationAccountShares(sgqlc.types.Type):
     )
 
 
+class OrganizationAuthenticationDomain(sgqlc.types.Type):
+    """Class for OrganizationAuthenticationDomain.
+
+    A grouping of users governed by the same user management settings.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "authentication_type",
+        "id",
+        "name",
+        "organization_id",
+        "provisioning_type",
+    )
+    authentication_type = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationAuthenticationTypeEnum),
+        graphql_name="authenticationType",
+    )
+
+
+class OrganizationAuthenticationDomainCollection(sgqlc.types.Type):
+    """Class for OrganizationAuthenticationDomainCollection.
+
+    Authentication domains.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(OrganizationAuthenticationDomain))
+        ),
+        graphql_name="items",
+    )
+
+
 class OrganizationCreateSharedAccountResponse(sgqlc.types.Type):
     """Class for OrganizationCreateSharedAccountResponse.
 
@@ -9843,6 +9933,7 @@ class RootMutationType(sgqlc.types.Type):
         "ai_decisions_update_implicit_rule",
         "ai_decisions_update_rule",
         "ai_issues_ack_issue",
+        "ai_issues_close_incident",
         "ai_issues_resolve_issue",
         "ai_issues_unack_issue",
         "ai_issues_update_grace_period",
@@ -10114,7 +10205,7 @@ class ServiceLevelEventsQuerySelect(sgqlc.types.Type):
     """
 
     __schema__ = nerdgraph
-    __field_names__ = ("attribute", "function")
+    __field_names__ = ("attribute", "function", "threshold")
     attribute = sgqlc.types.Field(String, graphql_name="attribute")
 
 
@@ -11412,6 +11503,17 @@ class UserManagementOrganizationUserType(sgqlc.types.Type):
     )
 
 
+class UserManagementPendingUpgradeRequest(sgqlc.types.Type):
+    """Class for UserManagementPendingUpgradeRequest.
+
+    Exists only if a user has a pending upgrade request.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "message", "requested_user_type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
 class UserManagementRemoveUsersFromGroupsPayload(sgqlc.types.Type):
     """Class for UserManagementRemoveUsersFromGroupsPayload.
 
@@ -11462,6 +11564,7 @@ class UserManagementUser(sgqlc.types.Type):
         "id",
         "last_active",
         "name",
+        "pending_upgrade_request",
         "time_zone",
         "type",
     )
@@ -12186,7 +12289,6 @@ class ApmApplicationEntity(
         "application_id",
         "application_instances",
         "application_instances_v2",
-        "deployments",
         "exception",
         "flamegraph",
         "language",
@@ -14680,6 +14782,26 @@ class SyntheticMonitorEntityOutline(
         "period",
     )
     monitor_id = sgqlc.types.Field(ID, graphql_name="monitorId")
+
+
+class TeamEntity(sgqlc.types.Type, AlertableEntity, Entity):
+    """Class for TeamEntity.
+
+    A Team entity.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class TeamEntityOutline(sgqlc.types.Type, AlertableEntityOutline, EntityOutline):
+    """Class for TeamEntityOutline.
+
+    A Team entity outline.
+    """
+
+    __schema__ = nerdgraph
+    __field_names__ = ()
 
 
 class ThirdPartyServiceEntity(sgqlc.types.Type, AlertableEntity, Entity):
