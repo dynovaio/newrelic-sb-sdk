@@ -4,6 +4,8 @@
 
 ## [0.5.0] - 2023-06-05
 
+* Replace pipe operator by Union in types annotations
+
 ## [0.4.0] - 2023-06-05
 
 * Update GraphQL submodule with a fresh schema version
