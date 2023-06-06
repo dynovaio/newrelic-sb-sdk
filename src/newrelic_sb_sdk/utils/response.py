@@ -2,6 +2,7 @@ __all__ = ["print_response", "get_response_data"]
 
 
 import json
+from typing import Any, Dict, Union
 
 
 def print_response(response, compact: bool = False):
@@ -15,8 +16,8 @@ def print_response(response, compact: bool = False):
 
 
 def get_response_data(
-    response, key_path: str | None = None, action: str = "actor"
-) -> dict | None:
+    response, key_path: Union[str, None] = None, action: str = "actor"
+) -> Union[Dict[str, Any], None]:
     """Get response body entries from a keypath."""
     data = response.json().get("data").get(action)
 

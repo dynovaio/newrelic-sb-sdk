@@ -3,7 +3,7 @@ __all__ = ["Page"]
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import List, Union
 
 from ..core.base import BaseEntity
 from .utils import OwnerInfo
@@ -12,14 +12,14 @@ from .widgets import Widget
 
 @dataclass(kw_only=True)
 class Page(BaseEntity):
-    guid: str | None = None
+    guid: Union[str, None] = None
     name: str
-    description: str | None = None
+    description: Union[str, None] = None
     widgets: List[Widget]
-    owner: OwnerInfo | None = None
+    owner: Union[OwnerInfo, None] = None
 
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    created_at: Union[datetime, None] = None
+    updated_at: Union[datetime, None] = None
 
     property_processors = {
         "owner": OwnerInfo.from_json,

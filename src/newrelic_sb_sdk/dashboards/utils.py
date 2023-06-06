@@ -2,6 +2,7 @@ __all__ = ["Threshold", "NRQLQuery", "OwnerInfo"]
 
 
 from dataclasses import dataclass
+from typing import Union
 
 from ..core.base import BaseEntity
 from .enums import AlertSeverity
@@ -10,7 +11,7 @@ from .enums import AlertSeverity
 @dataclass(kw_only=True)
 class Threshold(BaseEntity):
     alert_severity: AlertSeverity = AlertSeverity.CRITICAL
-    value: int | float = 0
+    value: Union[int, float] = 0
 
     property_processors = {
         "alert_severity": AlertSeverity.from_json,
