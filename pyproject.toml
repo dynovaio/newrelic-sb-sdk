@@ -1,16 +1,16 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
 version = "0.5.0"
-description = "New Relic SDK to interact with API for data retrieving"
+description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
   "zodiacfireworks <martin.vuelta@gmail.com>"
 ]
 license = "MIT License"
 readme = "README.md"
-homepage = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
-repository = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface"
-documentation = "https://gitlab.com/softbutterfly/open-source/wagtail-sb-admin-interface/-/wikis"
+homepage = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
+repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
+documentation = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/wikis"
 keywords = [
   "Softbutterfly",
   "New Relic",
