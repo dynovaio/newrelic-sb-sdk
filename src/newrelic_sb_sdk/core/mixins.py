@@ -2,13 +2,14 @@ __all__ = ["JSONMixin", "GQLMixin", "SerializableMixin"]
 
 
 import json
+from typing import Any, Dict, Union
 
 from ..utils.text import camelize_keys, snakeize_keys
 from .encoders import EntityEncoder
 
 
 class JSONMixin:
-    property_processors: dict | None = None
+    property_processors: Union[Dict[str, Any], None] = None
 
     @classmethod
     def _process_property(cls, property_name: str, json_str: str):

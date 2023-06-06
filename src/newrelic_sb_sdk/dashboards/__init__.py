@@ -1,15 +1,11 @@
 __all__ = ["Dashboard"]
 
 
-import json
-import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from enum import Enum
-from typing import List
+from typing import List, Union
 
 from ..core.base import BaseEntity
-from ..utils.text import camelize_keys, snakeize_keys
 from .enums import DashboardPermission
 from .pages import Page
 from .utils import OwnerInfo
@@ -17,18 +13,18 @@ from .utils import OwnerInfo
 
 @dataclass(kw_only=True)
 class Dashboard(BaseEntity):
-    guid: str | None = None
-    account_id: int | None = None
+    guid: Union[str, None] = None
+    account_id: Union[int, None] = None
 
     name: str
     description: str = ""
     pages: List[Page]
     permissions: DashboardPermission
 
-    owner: OwnerInfo | None = None
+    owner: Union[OwnerInfo, None] = None
 
-    created_at: datetime | None = None
-    updated_at: datetime | None = None
+    created_at: Union[datetime, None] = None
+    updated_at: Union[datetime, None] = None
 
     property_processors = {
         "permissions": DashboardPermission.from_json,

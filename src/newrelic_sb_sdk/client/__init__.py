@@ -4,9 +4,7 @@ __all__ = ["get_new_relic_user_key_from_env", "NewRelicGqlClient", "NewRelicRest
 import json
 import os
 import pathlib
-import re
-from textwrap import dedent
-from typing import Any, Dict
+from typing import Any, Dict, Union
 
 import dotenv
 from requests import Response, Session
@@ -14,7 +12,7 @@ from requests import Response, Session
 from ..utils.query import build_query
 
 
-def get_new_relic_user_key_from_env(env_file_name: str | None = None) -> str:
+def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
     """Recovery new relic credentials from environmentn variables."""
 
     if env_file_name is not None:
@@ -47,7 +45,7 @@ class NewRelicGqlClient(Session):
         )
 
     def execute(
-        self, query: str, variables: Dict[str, Any] | None = None, **kwargs
+        self, query: str, variables: Union[Dict[str, Any], None] = None, **kwargs
     ) -> Response:
         data = json.dumps(
             {

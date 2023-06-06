@@ -1,10 +1,8 @@
 __all__ = ["Term", "Condition", "AlertCondition"]
 
 
-import json
-import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from typing import Any, Dict, List, Union
 
 from newrelic_sb_sdk.alerts.utils import (
     generate_clauses,
@@ -26,18 +24,18 @@ class Term(BaseEntity):
 
 @dataclass(kw_only=True)
 class Condition(BaseEntity):
-    terms: list[Term] | Term
+    terms: Union[List[Term], Term]
     enabled: bool
     name: str
 
 
 @dataclass(kw_only=True)
 class AlertCondition(BaseEntity):
-    account_id: int | str
-    policy_id: int | str
-    condition: dict
-    query: str | None
-    query_kwargs: dict | None
+    account_id: Union[int, str]
+    policy_id: Union[int, str]
+    condition: Dict[str, Any]
+    query: Union[str, None]
+    query_kwargs: Union[Dict[str, Any], None]
 
     def generate_nrql_query(self):
         event = "Transaction"
