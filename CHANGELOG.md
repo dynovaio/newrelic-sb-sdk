@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.6.0] - 2023-06-10
+
 * Make query_params optional in query_builder
 * Fix code generation form nerdgraph schema
 * Fix graphql module
