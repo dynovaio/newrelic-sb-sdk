@@ -2,9 +2,13 @@
 
 ## [Unreleased]
 
+* Make query_params optional in query_builder
+* Fix code generation form nerdgraph schema
+* Fix graphql module
+
 ## [0.5.0] - 2023-06-05
 
-* Replace pipe operator by Union in types annotations
+* Replace pipe operator by Union in types annotations to ensure compatibility with python 3.8.1 and higer.
 
 ## [0.4.0] - 2023-06-05
 

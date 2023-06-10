@@ -56,8 +56,10 @@ class NewRelicGqlClient(Session):
         return self.post(self.url, data=data, **kwargs)
 
     @staticmethod
-    def build_query(query_string: str, query_params: Dict[str, Any]) -> str:
-        return build_query(query_string, query_params)
+    def build_query(
+        *, query_string: str, query_params: Union[Dict[str, Any], None] = None
+    ) -> str:
+        return build_query(query_string=query_string, query_params=query_params)
 
 
 class NewRelicRestClient(Session):
