@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.6.0"
+version = "0.7.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -10,7 +10,7 @@ license = "MIT License"
 readme = "README.md"
 homepage = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
 repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
-documentation = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/wikis"
+documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk/"
 keywords = [
   "Softbutterfly",
   "New Relic",
@@ -19,13 +19,20 @@ keywords = [
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
+  "Intended Audience :: System Administrators",
+  "Intended Audience :: Information Technology",
   "License :: OSI Approved :: MIT License",
   "Natural Language :: English",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development",
+  "Topic :: Software Development :: Libraries",
   "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: System",
+  "Topic :: System :: Monitoring",
+  "Topic :: System :: Networking :: Monitoring",
 ]
 packages = [
     { include = "newrelic_sb_sdk", from = "src" },
@@ -36,7 +43,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.6.0/newrelic-sb-sdk-v0.6.0.tar.gz"
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.7.0/newrelic-sb-sdk-v0.7.0.tar.gz"
 "Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
 
 
