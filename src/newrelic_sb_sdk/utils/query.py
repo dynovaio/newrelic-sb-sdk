@@ -8,10 +8,8 @@ from typing import Any, Dict, Union
 NULL_CURSOR: str = json.dumps(None)
 
 
-def build_query(
-    *, query_string: str, query_params: Union[Dict[str, Any], None] = None
-) -> str:
-    if not query_params:
-        query_params = {}
+def build_query(template: str, *, params: Union[Dict[str, Any], None] = None) -> str:
+    if not params:
+        params = {}
 
-    return dedent(query_string.strip()) % query_params
+    return dedent(template.strip()) % params

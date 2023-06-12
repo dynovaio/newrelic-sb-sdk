@@ -45,7 +45,7 @@ class NewRelicGqlClient(Session):
         )
 
     def execute(
-        self, query: str, variables: Union[Dict[str, Any], None] = None, **kwargs
+        self, query: str, *, variables: Union[Dict[str, Any], None] = None, **kwargs
     ) -> Response:
         data = json.dumps(
             {
@@ -57,9 +57,9 @@ class NewRelicGqlClient(Session):
 
     @staticmethod
     def build_query(
-        *, query_string: str, query_params: Union[Dict[str, Any], None] = None
+        template: str, *, params: Union[Dict[str, Any], None] = None
     ) -> str:
-        return build_query(query_string=query_string, query_params=query_params)
+        return build_query(template, params=params)
 
 
 class NewRelicRestClient(Session):
