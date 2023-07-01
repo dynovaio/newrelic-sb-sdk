@@ -117,6 +117,7 @@ filterwarnings =[
 ]
 addopts = [
   "--import-mode=importlib",
+  "--nbmake",
 ]
 
 [build-system]
