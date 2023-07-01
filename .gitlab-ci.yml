@@ -1,32 +1,92 @@
+# ---------------------------------------------------------------------------- #
+# Base Setup                                                                   #
+# ---------------------------------------------------------------------------- #
 stages:
-  - build
-  - deploy
+  - test
+  - package
+  - release
 
-docs:prd:build:
-  stage: build
-  image: python:slim
+before_script:
+  - ./devops/pypi/setup_poetry.sh
+
+cache:
+  paths:
+    - .cache/pypoetry
+
+# ---------------------------------------------------------------------------- #
+# Test                                                                         #
+# ---------------------------------------------------------------------------- #
+test:development:py311:
+  stage: test
+  image: python:3.8
+  variables:
+    REPORT_COVERAGE: "false"
   script:
-    - pip install -r requirements.dev.txt
-    - jupyter-book clean .
-    - jupyter-book build .
-  artifacts:
+    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
+    - ./devops/pypi/a_pycqa_2_execute_tests.sh
+    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
+  cache:
+    key: ${CI_JOB_NAME}
     paths:
-      - _build/
+      - .tox
+  only:
+    - develop
+
+
+test:tag:py311:
+  stage: test
+  image: python:3.11
+  variables:
+    REPORT_COVERAGE: "false"
+  script:
+    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
+    - ./devops/pypi/a_pycqa_2_execute_tests.sh
+    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
+  only:
+    - /v(\d+)\.(\d+)\.(\d+)/
+
+
+test:master:py311:
+  stage: test
+  image: python:3.11
+  variables:
+    REPORT_COVERAGE: "true"
+  script:
+    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
+    - ./devops/pypi/a_pycqa_2_execute_tests.sh
+    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
   only:
     - master
 
-# Gitlab requires the use of the name "pages" for the job  in order to have
-# Gitlab Pages working correctly.
-# docs:prd:deploy:
-pages:
-  stage: deploy
-  image: busybox:latest
+
+# ---------------------------------------------------------------------------- #
+# Package                                                                      #
+# ---------------------------------------------------------------------------- #
+package:tag:py311:
+  stage: package
+  image: python:3.11
   script:
-    - mv _build/html public
+    - ./devops/pypi/b_package_1_build.sh
   artifacts:
     paths:
-      - public/
+      - dist/
+    expire_in: 1 week
   dependencies:
-    - docs:prd:build
+    - test:tag:py311
   only:
-    - master
+    - /v(\d+)\.(\d+)\.(\d+)/
+
+
+# ---------------------------------------------------------------------------- #
+# Release                                                                      #
+# ---------------------------------------------------------------------------- #
+release:tag:py311:
+  stage: release
+  image: python:3.11
+  script:
+    - ./devops/pypi/c_release_1_setup_credentials.sh
+    - ./devops/pypi/c_release_2_publish.sh
+  dependencies:
+    - package:tag:py311
+  only:
+    - /v(\d+)\.(\d+)\.(\d+)/

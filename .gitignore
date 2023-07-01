@@ -17,6 +17,7 @@ notebooks/**/*.py
 notebooks/**/*.csv
 notebooks/**/*.txt
 notebooks/**/*.json
+!notebooks/GraphQL/nerdgraph-schema.json
 *.egg*
 *.env
 *.pid
@@ -24,6 +25,7 @@ notebooks/**/*.json
 *.sqlite3
 *.xlsx
 *.out
+*.xml
 coverage.*
 old.*
 staticfiles_*.json

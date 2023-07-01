@@ -1112,6 +1112,10 @@ d = {
                 "GraphQL/enums.html#usermanagementrequestedtiername",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.UserManagementTypeEnum": (
+                "GraphQL/enums.html#usermanagementtypeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.WhatsNewContentType": (
                 "GraphQL/enums.html#whatsnewcontenttype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1897,6 +1901,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementGrantAccess": (
                 "GraphQL/input objects.html#authorizationmanagementgrantaccess",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementGroupAccessGrant": (
+                "GraphQL/input objects.html#authorizationmanagementgroupaccessgrant",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementOrganizationAccessGrant": (
@@ -3151,12 +3159,54 @@ d = {
                 "GraphQL/input objects.html#usermanagementdeleteuser",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementDisplayNameInput": (
+                "GraphQL/input objects.html#usermanagementdisplaynameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementEmailInput": (
+                "GraphQL/input objects.html#usermanagementemailinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementEmailVerificationStateInput": (
+                "GraphQL/input "
+                "objects.html#usermanagementemailverificationstateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementGroupFilterInput": (
+                "GraphQL/input objects.html#usermanagementgroupfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementGroupIdInput": (
+                "GraphQL/input objects.html#usermanagementgroupidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementNameInput": (
+                "GraphQL/input objects.html#usermanagementnameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementPendingUpgradeRequestInput": (
+                "GraphQL/input "
+                "objects.html#usermanagementpendingupgraderequestinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementTypeInput": (
+                "GraphQL/input objects.html#usermanagementtypeinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.UserManagementUpdateGroup": (
                 "GraphQL/input objects.html#usermanagementupdategroup",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.UserManagementUpdateUser": (
                 "GraphQL/input objects.html#usermanagementupdateuser",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementUserFilterInput": (
+                "GraphQL/input objects.html#usermanagementuserfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementUserIdInput": (
+                "GraphQL/input objects.html#usermanagementuseridinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.UserManagementUsersGroupsInput": (
@@ -5197,6 +5247,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityGoldenMetricsDomainTypeScopedResponse": (
                 "GraphQL/objects.html#entitygoldenmetricsdomaintypescopedresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityGoldenOriginalDefinitionWithSelector": (
+                "GraphQL/objects.html#entitygoldenoriginaldefinitionwithselector",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityGoldenOriginalQueryWithSelector": (
+                "GraphQL/objects.html#entitygoldenoriginalquerywithselector",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityGoldenTag": (

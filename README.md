@@ -6,6 +6,7 @@
 ![PyPI - MIT License](https://img.shields.io/pypi/l/newrelic-sb-sdk)
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/1c25dec51e1c4a719be4c2d4ebe7eef6)](https://app.codacy.com/gl/softbutterfly/newrelic-sb-sdk/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/1c25dec51e1c4a719be4c2d4ebe7eef6)](https://app.codacy.com/gl/softbutterfly/newrelic-sb-sdk/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![pipeline status](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/badges/master/pipeline.svg)](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/commits/master)
 
 

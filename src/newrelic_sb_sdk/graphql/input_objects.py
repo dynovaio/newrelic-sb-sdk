@@ -177,6 +177,7 @@ __all__ = [
     "ApmApplicationEntitySettings",
     "AuthorizationManagementAccountAccessGrant",
     "AuthorizationManagementGrantAccess",
+    "AuthorizationManagementGroupAccessGrant",
     "AuthorizationManagementOrganizationAccessGrant",
     "AuthorizationManagementRevokeAccess",
     "ChangeTrackingDataHandlingRules",
@@ -478,8 +479,18 @@ __all__ = [
     "UserManagementCreateUser",
     "UserManagementDeleteGroup",
     "UserManagementDeleteUser",
+    "UserManagementDisplayNameInput",
+    "UserManagementEmailInput",
+    "UserManagementEmailVerificationStateInput",
+    "UserManagementGroupFilterInput",
+    "UserManagementGroupIdInput",
+    "UserManagementNameInput",
+    "UserManagementPendingUpgradeRequestInput",
+    "UserManagementTypeInput",
     "UserManagementUpdateGroup",
     "UserManagementUpdateUser",
+    "UserManagementUserFilterInput",
+    "UserManagementUserIdInput",
     "UserManagementUsersGroupsInput",
     "UsersUserSearchQuery",
     "UsersUserSearchScope",
@@ -609,6 +620,7 @@ from newrelic_sb_sdk.graphql.enums import (
     SyntheticsMonitorStatus,
     SyntheticsStepType,
     UserManagementRequestedTierName,
+    UserManagementTypeEnum,
     WhatsNewContentType,
     WorkloadGroupRemainingEntitiesRuleBy,
     WorkloadRollupStrategy,
@@ -4004,6 +4016,7 @@ class AuthorizationManagementGrantAccess(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_access_grants",
+        "group_access_grants",
         "group_id",
         "organization_access_grants",
     )
@@ -4012,6 +4025,13 @@ class AuthorizationManagementGrantAccess(sgqlc.types.Input):
             sgqlc.types.non_null(AuthorizationManagementAccountAccessGrant)
         ),
         graphql_name="accountAccessGrants",
+    )
+
+    group_access_grants = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null("AuthorizationManagementGroupAccessGrant")
+        ),
+        graphql_name="groupAccessGrants",
     )
 
     group_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="groupId")
@@ -4024,6 +4044,14 @@ class AuthorizationManagementGrantAccess(sgqlc.types.Input):
     )
 
 
+class AuthorizationManagementGroupAccessGrant(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("group_id", "role_id")
+    group_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="groupId")
+
+    role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
+
+
 class AuthorizationManagementOrganizationAccessGrant(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("role_id",)
@@ -4034,6 +4062,7 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_access_grants",
+        "group_access_grants",
         "group_id",
         "organization_access_grants",
     )
@@ -4042,6 +4071,13 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
             sgqlc.types.non_null(AuthorizationManagementAccountAccessGrant)
         ),
         graphql_name="accountAccessGrants",
+    )
+
+    group_access_grants = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(AuthorizationManagementGroupAccessGrant)
+        ),
+        graphql_name="groupAccessGrants",
     )
 
     group_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="groupId")
@@ -11350,6 +11386,70 @@ class UserManagementDeleteUser(sgqlc.types.Input):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
 
+class UserManagementDisplayNameInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class UserManagementEmailInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class UserManagementEmailVerificationStateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("pending",)
+    pending = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="pending")
+
+
+class UserManagementGroupFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("display_name", "id")
+    display_name = sgqlc.types.Field(
+        UserManagementDisplayNameInput, graphql_name="displayName"
+    )
+
+    id = sgqlc.types.Field("UserManagementGroupIdInput", graphql_name="id")
+
+
+class UserManagementGroupIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
+    )
+
+
+class UserManagementNameInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class UserManagementPendingUpgradeRequestInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("exists",)
+    exists = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="exists")
+
+
+class UserManagementTypeInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(UserManagementTypeEnum), graphql_name="eq"
+    )
+
+
 class UserManagementUpdateGroup(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("display_name", "id")
@@ -11373,6 +11473,43 @@ class UserManagementUpdateUser(sgqlc.types.Input):
 
     user_type = sgqlc.types.Field(
         UserManagementRequestedTierName, graphql_name="userType"
+    )
+
+
+class UserManagementUserFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "email",
+        "email_verification_state",
+        "id",
+        "name",
+        "pending_upgrade_request",
+        "type",
+    )
+    email = sgqlc.types.Field(UserManagementEmailInput, graphql_name="email")
+
+    email_verification_state = sgqlc.types.Field(
+        UserManagementEmailVerificationStateInput, graphql_name="emailVerificationState"
+    )
+
+    id = sgqlc.types.Field("UserManagementUserIdInput", graphql_name="id")
+
+    name = sgqlc.types.Field(UserManagementNameInput, graphql_name="name")
+
+    pending_upgrade_request = sgqlc.types.Field(
+        UserManagementPendingUpgradeRequestInput, graphql_name="pendingUpgradeRequest"
+    )
+
+    type = sgqlc.types.Field(UserManagementTypeInput, graphql_name="type")
+
+
+class UserManagementUserIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
     )
 
 
