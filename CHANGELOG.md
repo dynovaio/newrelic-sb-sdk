@@ -4,6 +4,8 @@
 
 * Update GraphQL submodule with a fresh schema version.
 * Update dependencies
+* Add tests
+* Add autoplush with GitLab CI/CD
 
 ## [0.7.0] - 2023-06-12
 
