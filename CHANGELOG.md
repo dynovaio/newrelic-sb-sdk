@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.8.0] - 2023-07-01
+
 * Update GraphQL submodule with a fresh schema version.
 * Update dependencies
 * Add tests
