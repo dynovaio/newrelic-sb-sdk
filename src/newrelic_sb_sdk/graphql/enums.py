@@ -226,6 +226,7 @@ __all__ = [
     "SyntheticsStepType",
     "TaggingMutationErrorType",
     "UserManagementRequestedTierName",
+    "UserManagementTypeEnum",
     "WhatsNewContentType",
     "WorkloadGroupRemainingEntitiesRuleBy",
     "WorkloadResultingGroupType",
@@ -2177,6 +2178,11 @@ class TaggingMutationErrorType(sgqlc.types.Enum):
 class UserManagementRequestedTierName(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BASIC_USER_TIER", "CORE_USER_TIER", "FULL_USER_TIER")
+
+
+class UserManagementTypeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BASIC", "CORE", "FULL_PLATFORM")
 
 
 class WhatsNewContentType(sgqlc.types.Enum):

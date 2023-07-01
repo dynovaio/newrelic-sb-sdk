@@ -347,6 +347,8 @@ __all__ = [
     "EntityGoldenMetricDefinition",
     "EntityGoldenMetricsDomainTypeScoped",
     "EntityGoldenMetricsDomainTypeScopedResponse",
+    "EntityGoldenOriginalDefinitionWithSelector",
+    "EntityGoldenOriginalQueryWithSelector",
     "EntityGoldenTag",
     "EntityGoldenTagsDomainTypeScoped",
     "EntityGoldenTagsDomainTypeScopedResponse",
@@ -1272,8 +1274,10 @@ from newrelic_sb_sdk.graphql.input_objects import (
     UserManagementCreateUser,
     UserManagementDeleteGroup,
     UserManagementDeleteUser,
+    UserManagementGroupFilterInput,
     UserManagementUpdateGroup,
     UserManagementUpdateUser,
+    UserManagementUserFilterInput,
     UserManagementUsersGroupsInput,
     UsersUserSearchQuery,
     WhatsNewContentSearchQuery,
@@ -6731,6 +6735,7 @@ class AuthorizationManagementGrantedRole(sgqlc.types.Type):
     __field_names__ = (
         "account_id",
         "display_name",
+        "group_id",
         "id",
         "name",
         "organization_id",
@@ -6740,6 +6745,8 @@ class AuthorizationManagementGrantedRole(sgqlc.types.Type):
     account_id = sgqlc.types.Field(Int, graphql_name="accountId")
 
     display_name = sgqlc.types.Field(String, graphql_name="displayName")
+
+    group_id = sgqlc.types.Field(ID, graphql_name="groupId")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
@@ -8977,7 +8984,16 @@ class EntityGoldenGoldenMetricsError(sgqlc.types.Type):
 
 class EntityGoldenMetric(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("definition", "metric_name", "name", "query", "title", "unit")
+    __field_names__ = (
+        "definition",
+        "metric_name",
+        "name",
+        "original_definitions",
+        "original_queries",
+        "query",
+        "title",
+        "unit",
+    )
     definition = sgqlc.types.Field(
         sgqlc.types.non_null("EntityGoldenMetricDefinition"), graphql_name="definition"
     )
@@ -8987,6 +9003,24 @@ class EntityGoldenMetric(sgqlc.types.Type):
     )
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    original_definitions = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null("EntityGoldenOriginalDefinitionWithSelector")
+            )
+        ),
+        graphql_name="originalDefinitions",
+    )
+
+    original_queries = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null("EntityGoldenOriginalQueryWithSelector")
+            )
+        ),
+        graphql_name="originalQueries",
+    )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
 
@@ -9051,6 +9085,28 @@ class EntityGoldenMetricsDomainTypeScopedResponse(sgqlc.types.Type):
 
     metrics = sgqlc.types.Field(
         EntityGoldenMetricsDomainTypeScoped, graphql_name="metrics"
+    )
+
+
+class EntityGoldenOriginalDefinitionWithSelector(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("definition", "selector_value")
+    definition = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityGoldenMetricDefinition), graphql_name="definition"
+    )
+
+    selector_value = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="selectorValue"
+    )
+
+
+class EntityGoldenOriginalQueryWithSelector(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("query", "selector_value")
+    query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+    selector_value = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="selectorValue"
     )
 
 
@@ -20165,6 +20221,14 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
                     sgqlc.types.Arg(String, graphql_name="cursor", default=None),
                 ),
                 (
+                    "filter",
+                    sgqlc.types.Arg(
+                        UserManagementGroupFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
                     "id",
                     sgqlc.types.Arg(
                         sgqlc.types.list_of(sgqlc.types.non_null(ID)),
@@ -20178,6 +20242,7 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
     """Arguments:
 
     * `cursor` (`String`)
+    * `filter` (`UserManagementGroupFilterInput`)
     * `id` (`[ID!]`)
     """
 
@@ -20199,6 +20264,14 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
                     sgqlc.types.Arg(String, graphql_name="cursor", default=None),
                 ),
                 (
+                    "filter",
+                    sgqlc.types.Arg(
+                        UserManagementUserFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
                     "id",
                     sgqlc.types.Arg(
                         sgqlc.types.list_of(sgqlc.types.non_null(ID)),
@@ -20212,6 +20285,7 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
     """Arguments:
 
     * `cursor` (`String`)
+    * `filter` (`UserManagementUserFilterInput`)
     * `id` (`[ID!]`)
     """
 
