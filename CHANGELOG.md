@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+
 ## [0.7.0] - 2023-06-12
 
 * Rename arguments in NewRelicGqlClient.build_query method and build_query function from `query_params` to `params` and  `query_string` to `template`.
