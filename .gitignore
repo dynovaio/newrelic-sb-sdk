@@ -25,6 +25,7 @@ notebooks/**/*.json
 *.sqlite3
 *.xlsx
 *.out
+*.xml
 coverage.*
 old.*
 staticfiles_*.json
