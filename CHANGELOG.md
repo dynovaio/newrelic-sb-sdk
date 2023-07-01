@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 * Update GraphQL submodule with a fresh schema version.
+* Update dependencies
 
 ## [0.7.0] - 2023-06-12
 
