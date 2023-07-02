@@ -18,7 +18,7 @@ cache:
 # ---------------------------------------------------------------------------- #
 package:test:development:py311:
   stage: test
-  image: python:3.8
+  image: python:3.11
   variables:
     REPORT_COVERAGE: "false"
   script:
@@ -77,7 +77,7 @@ package:bulild:tag:py311:
     - /v(\d+)\.(\d+)\.(\d+)/
 
 
-docs:bulild:master:
+docs:bulild:master:py311:
   stage: bulild
   image: python:3.11
   script:
@@ -118,6 +118,6 @@ docs:deploy:master:
       - public/
     expire_in: 1 week
   dependencies:
-    - docs:bulild:master
+    - docs:bulild:master:py311
   only:
     - develop
