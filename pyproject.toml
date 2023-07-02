@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.8.0"
+version = "0.9.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -43,7 +43,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.8.0/newrelic-sb-sdk-v0.8.0.tar.gz"
+"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.9.0/newrelic-sb-sdk-v0.9.0.tar.gz"
 "Bug Tracker" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
 
 
@@ -114,7 +114,11 @@ filterwarnings =[
   "ignore::PendingDeprecationWarning"
 ]
 addopts = [
+  "--cov=newrelic_sb_sdk",
+  "--cov-report=xml:cobertura.xml",
+  "--cov-report=term",
   "--import-mode=importlib",
+  "--junitxml=report.xml",
   "--nbmake",
 ]
 
