@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2023-07-02
+
 * Report test execution to Gitlab
 * Update Gitlab CI/CD pipelines
 * Restore docs building and publishing to Gitlab Pages
