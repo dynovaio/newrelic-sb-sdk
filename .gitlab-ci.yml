@@ -81,8 +81,8 @@ docs:bulild:master:
   stage: bulild
   image: python:3.11
   script:
-    - poetry run jupyter-book clean .
-    - poetry run jupyter-book build .
+    - /opt/poetry/bin/poetry run jupyter-book clean .
+    - /opt/poetry/bin/poetry run jupyter-book build .
   artifacts:
     paths:
       - dist/
