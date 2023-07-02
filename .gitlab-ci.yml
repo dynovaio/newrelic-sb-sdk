@@ -64,7 +64,7 @@ docs:bulild:py311:
   dependencies:
     - package:test:py311
   only:
-    - develop
+    - master
 
 # ---------------------------------------------------------------------------- #
 # Release                                                                      #
@@ -95,4 +95,4 @@ docs:deploy:py311:
   dependencies:
     - docs:bulild:py311
   only:
-    - develop
+    - master
