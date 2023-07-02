@@ -39,7 +39,7 @@ package:bulild:py311:
   stage: bulild
   image: python:3.11
   script:
-    - ./devops/python/build_docs_with_jupyterbook.sh
+    - ./devops/python/build_package.sh
   artifacts:
     paths:
       - dist/
@@ -54,7 +54,7 @@ docs:bulild:py311:
   image: python:3.11
   script:
     - ./devops/python/setup_dependencies.sh
-    - ./devops/python/build_package.sh
+    - ./devops/python/build_docs_with_jupyterbook.sh
   artifacts:
     paths:
       - _build/
