@@ -81,11 +81,10 @@ docs:bulild:master:
   stage: bulild
   image: python:3.11
   script:
-    - /opt/poetry/bin/poetry run jupyter-book clean .
-    - /opt/poetry/bin/poetry run jupyter-book build .
+    - ./devops/pypi/b_docs_1_build.sh
   artifacts:
     paths:
-      - dist/
+      - _build/
     expire_in: 1 week
   dependencies:
     - package:test:development:py311
@@ -113,7 +112,7 @@ docs:deploy:master:
   before_script:
     - echo "Doesn't need any setup"
   script:
-    - mv _build/html public
+    - ./devops/pypi/c_docs_1_publish.sh
   artifacts:
     paths:
       - public/
