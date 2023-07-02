@@ -22,9 +22,9 @@ package:test:development:py311:
   variables:
     REPORT_COVERAGE: "false"
   script:
-    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
-    - ./devops/pypi/a_pycqa_2_execute_tests.sh
-    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
+    - ./devops/pypi/setup_dependencies.sh
+    - ./devops/pypi/a_pycqa_1_execute_tests.sh
+    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
   cache:
     key: ${CI_JOB_NAME}
     paths:
@@ -39,9 +39,9 @@ package:test:tag:py311:
   variables:
     REPORT_COVERAGE: "false"
   script:
-    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
-    - ./devops/pypi/a_pycqa_2_execute_tests.sh
-    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
+    - ./devops/pypi/setup_dependencies.sh
+    - ./devops/pypi/a_pycqa_1_execute_tests.sh
+    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
 
@@ -52,9 +52,9 @@ package:test:master:py311:
   variables:
     REPORT_COVERAGE: "true"
   script:
-    - ./devops/pypi/a_pycqa_1_install_dependencies.sh
-    - ./devops/pypi/a_pycqa_2_execute_tests.sh
-    - ./devops/pypi/a_pycqa_3_upload_coverage.sh
+    - ./devops/pypi/setup_dependencies.sh
+    - ./devops/pypi/a_pycqa_1_execute_tests.sh
+    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
   only:
     - master
 
@@ -81,6 +81,7 @@ docs:bulild:master:py311:
   stage: bulild
   image: python:3.11
   script:
+    - ./devops/pypi/setup_dependencies.sh
     - ./devops/pypi/b_docs_1_build.sh
   artifacts:
     paths:
