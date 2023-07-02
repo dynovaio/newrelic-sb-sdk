@@ -2,12 +2,16 @@
 
 ## [Unreleased]
 
+* Report test execution to Gitlab
+* Update Gitlab CI/CD pipelines
+* Restore docs building and publishing to Gitlab Pages
+
 ## [0.8.0] - 2023-07-01
 
 * Update GraphQL submodule with a fresh schema version.
 * Update dependencies
 * Add tests
-* Add autoplush with GitLab CI/CD
+* Add autopublish with GitLab CI/CD
 
 ## [0.7.0] - 2023-06-12
 
