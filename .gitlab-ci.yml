@@ -32,7 +32,6 @@ package:test:py311:
     reports:
       junit: report.xml
 
-
 # ---------------------------------------------------------------------------- #
 # Package                                                                      #
 # ---------------------------------------------------------------------------- #
@@ -49,7 +48,6 @@ package:bulild:py311:
     - package:test:py311
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
-
 
 docs:bulild:py311:
   stage: bulild
@@ -80,8 +78,10 @@ package:deploy:py311:
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
 
-
-docs:deploy:py311:
+# Gitlab requires the use of the name "pages" for the job  in order to have
+# Gitlab Pages working correctly.
+# docs:deploy:py311:
+pages:
   stage: deploy
   image: busybox:latest
   before_script:
