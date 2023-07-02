@@ -16,7 +16,7 @@ cache:
 # ---------------------------------------------------------------------------- #
 # Test                                                                         #
 # ---------------------------------------------------------------------------- #
-package:test:development:py311:
+package:test:py311:
   stage: test
   image: python:3.11
   script:
@@ -36,7 +36,7 @@ package:test:development:py311:
 # ---------------------------------------------------------------------------- #
 # Package                                                                      #
 # ---------------------------------------------------------------------------- #
-package:bulild:tag:py311:
+package:bulild:py311:
   stage: bulild
   image: python:3.11
   script:
@@ -46,12 +46,12 @@ package:bulild:tag:py311:
       - dist/
     expire_in: 1 week
   dependencies:
-    - package:test:tag:py311
+    - package:test:py311
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
 
 
-docs:bulild:master:py311:
+docs:bulild:py311:
   stage: bulild
   image: python:3.11
   script:
@@ -62,26 +62,26 @@ docs:bulild:master:py311:
       - _build/
     expire_in: 1 week
   dependencies:
-    - package:test:development:py311
+    - package:test:py311
   only:
     - develop
 
 # ---------------------------------------------------------------------------- #
 # Release                                                                      #
 # ---------------------------------------------------------------------------- #
-package:deploy:tag:py311:
+package:deploy:py311:
   stage: deploy
   image: python:3.11
   script:
     - ./devops/pypi/c_release_1_setup_credentials.sh
     - ./devops/pypi/c_release_2_publish.sh
   dependencies:
-    - package:bulild:tag:py311
+    - package:bulild:py311
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
 
 
-docs:deploy:master:
+docs:deploy:py311:
   stage: deploy
   image: busybox:latest
   before_script:
@@ -93,6 +93,6 @@ docs:deploy:master:
       - public/
     expire_in: 1 week
   dependencies:
-    - docs:bulild:master:py311
+    - docs:bulild:py311
   only:
     - develop
