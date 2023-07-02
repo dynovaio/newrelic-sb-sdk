@@ -7,7 +7,7 @@ stages:
   - deploy
 
 before_script:
-  - ./devops/pypi/setup_poetry.sh
+  - ./devops/python/setup_poetry.sh
 
 cache:
   paths:
@@ -20,9 +20,9 @@ package:test:py311:
   stage: test
   image: python:3.11
   script:
-    - ./devops/pypi/setup_dependencies.sh
-    - ./devops/pypi/a_pycqa_1_execute_tests.sh
-    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
+    - ./devops/python/setup_dependencies.sh
+    - ./devops/python/execute_tests.sh
+    - ./devops/python/upload_coverage.sh
   cache:
     key: ${CI_JOB_NAME}
     paths:
@@ -39,7 +39,7 @@ package:bulild:py311:
   stage: bulild
   image: python:3.11
   script:
-    - ./devops/pypi/b_package_1_build.sh
+    - ./devops/python/build_docs_with_jupyterbook.sh
   artifacts:
     paths:
       - dist/
@@ -53,8 +53,8 @@ docs:bulild:py311:
   stage: bulild
   image: python:3.11
   script:
-    - ./devops/pypi/setup_dependencies.sh
-    - ./devops/pypi/b_docs_1_build.sh
+    - ./devops/python/setup_dependencies.sh
+    - ./devops/python/build_package.sh
   artifacts:
     paths:
       - _build/
@@ -71,8 +71,8 @@ package:deploy:py311:
   stage: deploy
   image: python:3.11
   script:
-    - ./devops/pypi/c_release_1_setup_credentials.sh
-    - ./devops/pypi/c_release_2_publish.sh
+    - ./devops/python/setup_pypi_credentials.sh
+    - ./devops/python/publish_package_to_pypi.sh
   dependencies:
     - package:bulild:py311
   only:
@@ -87,7 +87,7 @@ pages:
   before_script:
     - echo "Doesn't need any setup"
   script:
-    - ./devops/pypi/c_docs_1_publish.sh
+    - ./devops/python/publish_docs_to_gitlab_pages.sh
   artifacts:
     paths:
       - public/
