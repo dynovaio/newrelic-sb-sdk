@@ -3,8 +3,8 @@
 # ---------------------------------------------------------------------------- #
 stages:
   - test
-  - package
-  - release
+  - bulild
+  - deploy
 
 before_script:
   - ./devops/pypi/setup_poetry.sh
@@ -16,7 +16,7 @@ cache:
 # ---------------------------------------------------------------------------- #
 # Test                                                                         #
 # ---------------------------------------------------------------------------- #
-test:development:py311:
+package:test:development:py311:
   stage: test
   image: python:3.8
   variables:
@@ -33,7 +33,7 @@ test:development:py311:
     - develop
 
 
-test:tag:py311:
+package:test:tag:py311:
   stage: test
   image: python:3.11
   variables:
@@ -46,7 +46,7 @@ test:tag:py311:
     - /v(\d+)\.(\d+)\.(\d+)/
 
 
-test:master:py311:
+package:test:master:py311:
   stage: test
   image: python:3.11
   variables:
@@ -62,8 +62,8 @@ test:master:py311:
 # ---------------------------------------------------------------------------- #
 # Package                                                                      #
 # ---------------------------------------------------------------------------- #
-package:tag:py311:
-  stage: package
+package:bulild:tag:py311:
+  stage: bulild
   image: python:3.11
   script:
     - ./devops/pypi/b_package_1_build.sh
@@ -72,21 +72,53 @@ package:tag:py311:
       - dist/
     expire_in: 1 week
   dependencies:
-    - test:tag:py311
+    - package:test:tag:py311
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
 
 
+docs:bulild:master:
+  stage: bulild
+  image: python:3.11
+  script:
+    - poetry run jupyter-book clean .
+    - poetry run jupyter-book build .
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 week
+  dependencies:
+    - package:test:development:py311
+  only:
+    - develop
+
 # ---------------------------------------------------------------------------- #
 # Release                                                                      #
 # ---------------------------------------------------------------------------- #
-release:tag:py311:
-  stage: release
+package:deploy:tag:py311:
+  stage: deploy
   image: python:3.11
   script:
     - ./devops/pypi/c_release_1_setup_credentials.sh
     - ./devops/pypi/c_release_2_publish.sh
   dependencies:
-    - package:tag:py311
+    - package:bulild:tag:py311
   only:
     - /v(\d+)\.(\d+)\.(\d+)/
+
+
+docs:deploy:master:
+  stage: deploy
+  image: busybox:latest
+  before_script:
+    - echo "Doesn't need any setup"
+  script:
+    - mv _build/html public
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 week
+  dependencies:
+    - docs:bulild:master
+  only:
+    - develop
