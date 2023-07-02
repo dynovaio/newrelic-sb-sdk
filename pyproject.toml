@@ -114,7 +114,11 @@ filterwarnings =[
   "ignore::PendingDeprecationWarning"
 ]
 addopts = [
+  "--cov=newrelic_sb_sdk",
+  "--cov-report=xml:cobertura.xml",
+  "--cov-report=term",
   "--import-mode=importlib",
+  "--junitxml=report.xml",
   "--nbmake",
 ]
 

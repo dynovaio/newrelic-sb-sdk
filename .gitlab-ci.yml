@@ -19,8 +19,6 @@ cache:
 package:test:development:py311:
   stage: test
   image: python:3.11
-  variables:
-    REPORT_COVERAGE: "false"
   script:
     - ./devops/pypi/setup_dependencies.sh
     - ./devops/pypi/a_pycqa_1_execute_tests.sh
@@ -29,34 +27,10 @@ package:test:development:py311:
     key: ${CI_JOB_NAME}
     paths:
       - .tox
-  only:
-    - develop
-
-
-package:test:tag:py311:
-  stage: test
-  image: python:3.11
-  variables:
-    REPORT_COVERAGE: "false"
-  script:
-    - ./devops/pypi/setup_dependencies.sh
-    - ./devops/pypi/a_pycqa_1_execute_tests.sh
-    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
-  only:
-    - /v(\d+)\.(\d+)\.(\d+)/
-
-
-package:test:master:py311:
-  stage: test
-  image: python:3.11
-  variables:
-    REPORT_COVERAGE: "true"
-  script:
-    - ./devops/pypi/setup_dependencies.sh
-    - ./devops/pypi/a_pycqa_1_execute_tests.sh
-    - ./devops/pypi/a_pycqa_2_upload_coverage.sh
-  only:
-    - master
+  artifacts:
+    when: always
+    reports:
+      junit: report.xml
 
 
 # ---------------------------------------------------------------------------- #
