@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+
 ## [0.9.0] - 2023-07-02
 
 * Report test execution to Gitlab
