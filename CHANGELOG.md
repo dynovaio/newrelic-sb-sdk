@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2023-07-14
+
 * Update GraphQL submodule with a fresh schema version.
 * New Object CloudDashboardTemplate.
 
