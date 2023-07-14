@@ -232,6 +232,7 @@ __all__ = [
     "CloudAccountMutationError",
     "CloudActorFields",
     "CloudConfigureIntegrationPayload",
+    "CloudDashboardTemplate",
     "CloudDisableIntegrationPayload",
     "CloudIntegrationMutationError",
     "CloudLinkAccountPayload",
@@ -7143,6 +7144,24 @@ class CloudConfigureIntegrationPayload(sgqlc.types.Type):
     )
 
 
+class CloudDashboardTemplate(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("created_at", "layout", "name", "slug", "updated_at")
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochSeconds), graphql_name="createdAt"
+    )
+
+    layout = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="layout")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    slug = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="slug")
+
+    updated_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochSeconds), graphql_name="updatedAt"
+    )
+
+
 class CloudDisableIntegrationPayload(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("disabled_integrations", "errors")
@@ -7321,6 +7340,7 @@ class CloudService(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "created_at",
+        "dashboards",
         "icon",
         "id",
         "is_enabled",
@@ -7331,6 +7351,13 @@ class CloudService(sgqlc.types.Type):
     )
     created_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochSeconds), graphql_name="createdAt"
+    )
+
+    dashboards = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(CloudDashboardTemplate))
+        ),
+        graphql_name="dashboards",
     )
 
     icon = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="icon")
@@ -7952,9 +7979,7 @@ class DataDictionaryDocsStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("events",)
     events = sgqlc.types.Field(
-        sgqlc.types.non_null(
-            sgqlc.types.list_of(sgqlc.types.non_null("DataDictionaryEvent"))
-        ),
+        sgqlc.types.list_of(sgqlc.types.non_null("DataDictionaryEvent")),
         graphql_name="events",
         args=sgqlc.types.ArgDict(
             (

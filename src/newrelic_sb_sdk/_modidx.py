@@ -4545,6 +4545,10 @@ d = {
                 "GraphQL/objects.html#cloudconfigureintegrationpayload",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudDashboardTemplate": (
+                "GraphQL/objects.html#clouddashboardtemplate",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudDisableIntegrationPayload": (
                 "GraphQL/objects.html#clouddisableintegrationpayload",
                 "newrelic_sb_sdk/graphql/objects.py",

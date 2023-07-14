@@ -2,18 +2,23 @@
 
 ## [Unreleased]
 
+## [0.10.0] - 2023-07-14
+
+* Update GraphQL submodule with a fresh schema version.
+* New Object CloudDashboardTemplate.
+
 ## [0.9.0] - 2023-07-02
 
-* Report test execution to Gitlab
-* Update Gitlab CI/CD pipelines
+* Report test execution to Gitlab.
+* Update Gitlab CI/CD pipelines.
 * Restore docs building and publishing to Gitlab Pages
 
 ## [0.8.0] - 2023-07-01
 
 * Update GraphQL submodule with a fresh schema version.
-* Update dependencies
-* Add tests
-* Add autopublish with GitLab CI/CD
+* Update dependencies.
+* Add tests.
+* Add autopublish with GitLab CI/CD.
 
 ## [0.7.0] - 2023-06-12
 
