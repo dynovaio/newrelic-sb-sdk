@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Update AiNotificationsChannelType, AiNotificationsDestinationType, AiWorkflowsDestinationType and AiNotificationsProduct values.
+* Update ErrorsInboxErrorEventInput properties.
+
 ## [0.10.0] - 2023-07-14
 
 * Update GraphQL submodule with a fresh schema version.
