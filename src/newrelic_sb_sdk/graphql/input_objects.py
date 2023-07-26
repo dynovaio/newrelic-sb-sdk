@@ -9442,9 +9442,9 @@ class ErrorsInboxErrorEventInput(sgqlc.types.Input):
         sgqlc.types.non_null(EntityGuid), graphql_name="entityGuid"
     )
 
-    message = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="message")
+    message = sgqlc.types.Field(String, graphql_name="message")
 
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+    name = sgqlc.types.Field(String, graphql_name="name")
 
 
 class ErrorsInboxErrorGroupSearchFilterInput(sgqlc.types.Input):
