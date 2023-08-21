@@ -808,6 +808,10 @@ d = {
                 "GraphQL/enums.html#errorsinboxerrorgroupstate",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.ErrorsInboxEventSource": (
+                "GraphQL/enums.html#errorsinboxeventsource",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.ErrorsInboxResourceType": (
                 "GraphQL/enums.html#errorsinboxresourcetype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -6973,6 +6977,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.scalars.EpochSeconds": (
                 "GraphQL/scalars.html#epochseconds",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
+            "newrelic_sb_sdk.graphql.scalars.ErrorsInboxRawEvent": (
+                "GraphQL/scalars.html#errorsinboxrawevent",
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
             "newrelic_sb_sdk.graphql.scalars.InstallationRawMetadata": (

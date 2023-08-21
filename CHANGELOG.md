@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+## [0.12.0] - 2023-08-20
+
+* Add shellcheck to CI/CD pipeline.
+* Update GraphQL submodule with a fresh schema version.
+* Add `ErrorsInboxRawEvent` scalar type.
+* Add `ErrorsInboxEventSource` enum type.
+* Add field `events` to `DataDictionaryAttribute` object type.
+* Add field `is_custom` to `ErrorsInboxErrorGroup` object type.
+* Add fields `is_acknowledged`, `is_correlated` and `mutting_states` to `AiIssuesFilterIssues` input object type.
+* Add fields `event` and `source` fields to `ErrorsInboxErrorEventInput` input object type.
+* Remove `AgentFeaturesFilter` object type.
+* Remove field `agent_features` from `DocumentationFields` object type.
+* Add tests for newrelic_sb_sdk.utils.query.
+* Add tests for newrelic_sb_sdk.utils.response.
+
 ## [0.11.0] - 2023-07-26
 
 * Update GraphQL submodule with a fresh schema version.
