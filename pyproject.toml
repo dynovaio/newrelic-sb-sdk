@@ -81,6 +81,7 @@ pytest-cov = "^4.1.0"
 tbump = "^6.10.0"
 tox = "^4.5.2"
 types-requests = "^2.31.0.1"
+deepdiff = {extras = ["optimize"], version = "^6.3.1"}
 
 [tool.black]
 target_version = ['py311']
