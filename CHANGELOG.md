@@ -12,7 +12,8 @@
 * Add fields `event` and `source` fields to `ErrorsInboxErrorEventInput` input object type.
 * Remove `AgentFeaturesFilter` object type.
 * Remove field `agent_features` from `DocumentationFields` object type.
-* add tests for newrelic_sb_sdk.utils.query.
+* Add tests for newrelic_sb_sdk.utils.query.
+* Add tests for newrelic_sb_sdk.utils.response.
 
 ## [0.11.0] - 2023-07-26
 
