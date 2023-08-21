@@ -17,6 +17,7 @@ __all__ = [
     "EntitySearchQuery",
     "EpochMilliseconds",
     "EpochSeconds",
+    "ErrorsInboxRawEvent",
     "InstallationRawMetadata",
     "LogConfigurationsLogDataPartitionName",
     "Milliseconds",
@@ -95,6 +96,10 @@ class EpochMilliseconds(sgqlc.types.Scalar):
 
 
 class EpochSeconds(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
+
+
+class ErrorsInboxRawEvent(sgqlc.types.Scalar):
     __schema__ = nerdgraph
 
 

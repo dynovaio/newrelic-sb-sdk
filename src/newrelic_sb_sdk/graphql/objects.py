@@ -924,7 +924,6 @@ from newrelic_sb_sdk.graphql.enums import (
     AgentApplicationSettingsThresholdTypeEnum,
     AgentApplicationSettingsTracer,
     AgentApplicationSettingsUpdateErrorClass,
-    AgentFeaturesFilter,
     AgentReleasesFilter,
     AiDecisionsDecisionSortMethod,
     AiDecisionsDecisionState,
@@ -7946,7 +7945,7 @@ class DashboardWidgetVisualization(sgqlc.types.Type):
 
 class DataDictionaryAttribute(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("definition", "docs_url", "name", "units")
+    __field_names__ = ("definition", "docs_url", "events", "name", "units")
     definition = sgqlc.types.Field(
         sgqlc.types.non_null(String),
         graphql_name="definition",
@@ -7963,6 +7962,11 @@ class DataDictionaryAttribute(sgqlc.types.Type):
     )
 
     docs_url = sgqlc.types.Field(String, graphql_name="docsUrl")
+
+    events = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="events",
+    )
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
@@ -8439,30 +8443,7 @@ class DistributedTracingTrace(sgqlc.types.Type):
 
 class DocumentationFields(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = (
-        "agent_features",
-        "agent_releases",
-        "data_dictionary",
-        "time_zones",
-        "whats_new",
-    )
-    agent_features = sgqlc.types.Field(
-        sgqlc.types.list_of(AgentFeatures),
-        graphql_name="agentFeatures",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "agent_name",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(AgentFeaturesFilter),
-                        graphql_name="agentName",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-
+    __field_names__ = ("agent_releases", "data_dictionary", "time_zones", "whats_new")
     agent_releases = sgqlc.types.Field(
         sgqlc.types.list_of(AgentRelease),
         graphql_name="agentReleases",
@@ -9477,6 +9458,7 @@ class ErrorsInboxErrorGroup(sgqlc.types.Type):
         "events_query",
         "first_seen_at",
         "id",
+        "is_custom",
         "last_seen_at",
         "message",
         "name",
@@ -9496,6 +9478,8 @@ class ErrorsInboxErrorGroup(sgqlc.types.Type):
     first_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="firstSeenAt")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    is_custom = sgqlc.types.Field(Boolean, graphql_name="isCustom")
 
     last_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSeenAt")
 

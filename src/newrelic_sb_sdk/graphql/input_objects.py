@@ -534,6 +534,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AiDecisionsRuleType,
     AiDecisionsVertexClass,
     AiIssuesIncidentState,
+    AiIssuesIssueMutingState,
     AiIssuesIssueState,
     AiNotificationsAuthType,
     AiNotificationsChannelFields,
@@ -594,6 +595,7 @@ from newrelic_sb_sdk.graphql.enums import (
     ErrorsInboxDirection,
     ErrorsInboxErrorGroupSortOrderField,
     ErrorsInboxErrorGroupState,
+    ErrorsInboxEventSource,
     ErrorsInboxResourceType,
     InstallationInstallStateType,
     InstallationRecipeStatusType,
@@ -636,6 +638,7 @@ from newrelic_sb_sdk.graphql.scalars import (
     EntityGuid,
     EpochMilliseconds,
     EpochSeconds,
+    ErrorsInboxRawEvent,
     Float,
     InstallationRawMetadata,
     Int,
@@ -2212,6 +2215,9 @@ class AiIssuesFilterIssues(sgqlc.types.Input):
         "entity_guids",
         "entity_types",
         "ids",
+        "is_acknowledged",
+        "is_correlated",
+        "muting_states",
         "policy_ids",
         "priority",
         "sources",
@@ -2234,6 +2240,15 @@ class AiIssuesFilterIssues(sgqlc.types.Input):
 
     ids = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="ids"
+    )
+
+    is_acknowledged = sgqlc.types.Field(Boolean, graphql_name="isAcknowledged")
+
+    is_correlated = sgqlc.types.Field(Boolean, graphql_name="isCorrelated")
+
+    muting_states = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(AiIssuesIssueMutingState)),
+        graphql_name="mutingStates",
     )
 
     policy_ids = sgqlc.types.Field(
@@ -9437,14 +9452,18 @@ class ErrorsInboxAssignmentSearchFilterInput(sgqlc.types.Input):
 
 class ErrorsInboxErrorEventInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("entity_guid", "message", "name")
+    __field_names__ = ("entity_guid", "event", "message", "name", "source")
     entity_guid = sgqlc.types.Field(
         sgqlc.types.non_null(EntityGuid), graphql_name="entityGuid"
     )
 
+    event = sgqlc.types.Field(ErrorsInboxRawEvent, graphql_name="event")
+
     message = sgqlc.types.Field(String, graphql_name="message")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    source = sgqlc.types.Field(ErrorsInboxEventSource, graphql_name="source")
 
 
 class ErrorsInboxErrorGroupSearchFilterInput(sgqlc.types.Input):

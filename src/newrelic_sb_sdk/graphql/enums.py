@@ -150,6 +150,7 @@ __all__ = [
     "ErrorsInboxDirection",
     "ErrorsInboxErrorGroupSortOrderField",
     "ErrorsInboxErrorGroupState",
+    "ErrorsInboxEventSource",
     "ErrorsInboxResourceType",
     "ErrorsInboxUpdateErrorGroupStateErrorType",
     "EventsToMetricsErrorReason",
@@ -1626,6 +1627,20 @@ class ErrorsInboxErrorGroupSortOrderField(sgqlc.types.Enum):
 class ErrorsInboxErrorGroupState(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("IGNORED", "RESOLVED", "UNRESOLVED")
+
+
+class ErrorsInboxEventSource(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "AWS_LAMBDA_INVOCATION_ERROR",
+        "ERROR_TRACE",
+        "JAVA_SCRIPT_ERROR",
+        "MOBILE_CRASH",
+        "MOBILE_HANDLED_EXCEPTION",
+        "MOBILE_REQUEST_ERROR",
+        "SPAN",
+        "TRANSACTION_ERROR",
+    )
 
 
 class ErrorsInboxResourceType(sgqlc.types.Enum):
