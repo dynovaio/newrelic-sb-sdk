@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Add shellcheck to CI/CD pipeline.
+
 ## [0.11.0] - 2023-07-26
 
 * Update GraphQL submodule with a fresh schema version.
