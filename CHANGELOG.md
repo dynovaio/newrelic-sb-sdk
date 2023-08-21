@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.12.0] - 2023-08-20
+
 * Add shellcheck to CI/CD pipeline.
 * Update GraphQL submodule with a fresh schema version.
 * Add `ErrorsInboxRawEvent` scalar type.
