@@ -9,10 +9,10 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/1c25dec51e1c4a719be4c2d4ebe7eef6)](https://app.codacy.com/gl/softbutterfly/newrelic-sb-sdk/dashboard?utm_source=gl&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 [![pipeline status](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/badges/master/pipeline.svg)](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/commits/master)
 
-
 # New Relic SB SDK
 
-New Relic SDK built by SoftButterfly to automate common New Relic One observability platform tasks
+New Relic SDK built by SoftButterfly to automate common New Relic One
+observability platform tasks
 
 ## Requirements
 
@@ -33,7 +33,8 @@ pip install newrelic-sb-sdk
 
 ## Usage
 
-There is an example on how to use this module to make a simple requesto to New Relic GraphQL API.
+There is an example on how to use this module to make a simple requesto to New
+Relic GraphQL API.
 
 ```python
 from newrelic_sb_sdk.client import NewRelicGqlClient
@@ -90,4 +91,5 @@ See the list of contributors [here](https://gitlab.com/softbutterfly/open-source
 
 ## License
 
-This project is licensed under the terms of the MIT license. See the <a href="./LICENSE.txt" download>LICENSE</a> file.
+This project is licensed under the terms of the MIT license. See the
+<a href="./LICENSE.txt" download>LICENSE</a> file.

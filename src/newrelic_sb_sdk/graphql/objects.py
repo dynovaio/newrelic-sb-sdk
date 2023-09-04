@@ -45,6 +45,8 @@ __all__ = [
     "AgentApplicationCreateMobileResult",
     "AgentApplicationDeleteResult",
     "AgentApplicationEnableBrowserResult",
+    "AgentApplicationSegmentsBrowserSegmentAllowList",
+    "AgentApplicationSegmentsBrowserSegmentAllowListResult",
     "AgentApplicationSettingsApmBase",
     "AgentApplicationSettingsApmConfig",
     "AgentApplicationSettingsBrowserAjax",
@@ -1126,6 +1128,8 @@ from newrelic_sb_sdk.graphql.input_objects import (
     AccountManagementCreateInput,
     AccountManagementUpdateInput,
     AgentApplicationBrowserSettingsInput,
+    AgentApplicationSegmentsBrowserSegmentAllowListInput,
+    AgentApplicationSegmentsSegmentAllowListFilters,
     AgentApplicationSettingsUpdateInput,
     AgentEnvironmentFilter,
     AiDecisionsRuleBlueprint,
@@ -2748,6 +2752,22 @@ class AgentApplicationEnableBrowserResult(sgqlc.types.Type):
     settings = sgqlc.types.Field(
         AgentApplicationApmBrowserSettings, graphql_name="settings"
     )
+
+
+class AgentApplicationSegmentsBrowserSegmentAllowList(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("segments",)
+    segments = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="segments")
+
+
+class AgentApplicationSegmentsBrowserSegmentAllowListResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity_guid", "segments")
+    entity_guid = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityGuid), graphql_name="entityGuid"
+    )
+
+    segments = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="segments")
 
 
 class AgentApplicationSettingsApmBase(sgqlc.types.Type):
@@ -13363,6 +13383,7 @@ class RootMutationType(sgqlc.types.Type):
         "agent_application_create_mobile",
         "agent_application_delete",
         "agent_application_enable_apm_browser",
+        "agent_application_segments_replace_all_browser_segment_allow_list",
         "agent_application_settings_update",
         "ai_decisions_accept_suggestion",
         "ai_decisions_create_implicit_rule",
@@ -13698,6 +13719,35 @@ class RootMutationType(sgqlc.types.Type):
                 ),
             )
         ),
+    )
+
+    agent_application_segments_replace_all_browser_segment_allow_list = (
+        sgqlc.types.Field(
+            AgentApplicationSegmentsBrowserSegmentAllowListResult,
+            graphql_name="agentApplicationSegmentsReplaceAllBrowserSegmentAllowList",
+            args=sgqlc.types.ArgDict(
+                (
+                    (
+                        "allow_list",
+                        sgqlc.types.Arg(
+                            sgqlc.types.non_null(
+                                AgentApplicationSegmentsBrowserSegmentAllowListInput
+                            ),
+                            graphql_name="allowList",
+                            default=None,
+                        ),
+                    ),
+                    (
+                        "entity_guid",
+                        sgqlc.types.Arg(
+                            sgqlc.types.non_null(EntityGuid),
+                            graphql_name="entityGuid",
+                            default=None,
+                        ),
+                    ),
+                )
+            ),
+        )
     )
 
     agent_application_settings_update = sgqlc.types.Field(
@@ -21592,6 +21642,7 @@ class BrowserApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
         "metric_normalization_rule",
         "metric_normalization_rules",
         "running_agent_versions",
+        "segment_allow_list_aggregate",
         "serving_apm_application_id",
         "settings",
     )
@@ -21703,6 +21754,23 @@ class BrowserApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
 
     running_agent_versions = sgqlc.types.Field(
         BrowserApplicationRunningAgentVersions, graphql_name="runningAgentVersions"
+    )
+
+    segment_allow_list_aggregate = sgqlc.types.Field(
+        AgentApplicationSegmentsBrowserSegmentAllowList,
+        graphql_name="segmentAllowListAggregate",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "filters",
+                    sgqlc.types.Arg(
+                        AgentApplicationSegmentsSegmentAllowListFilters,
+                        graphql_name="filters",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
     )
 
     serving_apm_application_id = sgqlc.types.Field(
