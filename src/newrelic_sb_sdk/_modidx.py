@@ -208,6 +208,10 @@ d = {
                 "GraphQL/enums.html#agentapplicationbrowserloader",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AgentApplicationSegmentsListType": (
+                "GraphQL/enums.html#agentapplicationsegmentslisttype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AgentApplicationSettingsBrowserLoader": (
                 "GraphQL/enums.html#agentapplicationsettingsbrowserloader",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1164,6 +1168,16 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationBrowserSettingsInput": (
                 "GraphQL/input objects.html#agentapplicationbrowsersettingsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSegmentsBrowserSegmentAllowListInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsegmentsbrowsersegmentallowlistinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSegmentsSegmentAllowListFilters": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsegmentssegmentallowlistfilters",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsApmConfigInput": (
@@ -3355,6 +3369,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationEnableBrowserResult": (
                 "GraphQL/objects.html#agentapplicationenablebrowserresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSegmentsBrowserSegmentAllowList": (
+                "GraphQL/objects.html#agentapplicationsegmentsbrowsersegmentallowlist",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSegmentsBrowserSegmentAllowListResult": (
+                "GraphQL/objects.html#agentapplicationsegmentsbrowsersegmentallowlistresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsApmBase": (

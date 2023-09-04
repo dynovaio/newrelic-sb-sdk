@@ -1,5 +1,6 @@
 __all__ = [
     "AgentApplicationBrowserLoader",
+    "AgentApplicationSegmentsListType",
     "AgentApplicationSettingsBrowserLoader",
     "AgentApplicationSettingsBrowserLoaderInput",
     "AgentApplicationSettingsNetworkFilterMode",
@@ -253,6 +254,11 @@ __docformat__ = "markdown"
 class AgentApplicationBrowserLoader(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("LITE", "NONE", "PRO", "SPA")
+
+
+class AgentApplicationSegmentsListType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INTERNAL", "USER")
 
 
 class AgentApplicationSettingsBrowserLoader(sgqlc.types.Enum):

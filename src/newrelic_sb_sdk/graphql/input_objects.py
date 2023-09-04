@@ -2,6 +2,8 @@ __all__ = [
     "AccountManagementCreateInput",
     "AccountManagementUpdateInput",
     "AgentApplicationBrowserSettingsInput",
+    "AgentApplicationSegmentsBrowserSegmentAllowListInput",
+    "AgentApplicationSegmentsSegmentAllowListFilters",
     "AgentApplicationSettingsApmConfigInput",
     "AgentApplicationSettingsBrowserAjaxInput",
     "AgentApplicationSettingsBrowserConfigInput",
@@ -523,6 +525,7 @@ import sgqlc.types.datetime
 
 from newrelic_sb_sdk.graphql.enums import (
     AgentApplicationBrowserLoader,
+    AgentApplicationSegmentsListType,
     AgentApplicationSettingsBrowserLoaderInput,
     AgentApplicationSettingsNetworkFilterMode,
     AgentApplicationSettingsRecordSqlEnum,
@@ -685,6 +688,22 @@ class AgentApplicationBrowserSettingsInput(sgqlc.types.Input):
 
     loader_type = sgqlc.types.Field(
         AgentApplicationBrowserLoader, graphql_name="loaderType"
+    )
+
+
+class AgentApplicationSegmentsBrowserSegmentAllowListInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("segments",)
+    segments = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name="segments"
+    )
+
+
+class AgentApplicationSegmentsSegmentAllowListFilters(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("list_type",)
+    list_type = sgqlc.types.Field(
+        AgentApplicationSegmentsListType, graphql_name="listType"
     )
 
 

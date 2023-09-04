@@ -2,9 +2,20 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Add `AgentApplicationSegmentsListType` enum type.
+* Add `AgentApplicationSegmentsBrowserSegmentAllowListInput` and
+  `AgentApplicationSegmentsSegmentAllowListFilters` input object types.
+* Add `AgentApplicationSegmentsBrowserSegmentAllowList` and
+  `AgentApplicationSegmentsBrowserSegmentAllowListResult` object types.
+* Add `agent_application_segments_replace_all_browser_segment_allow_list` to
+  `AgentApplicationSettingsApmBase` object type.
+* Add `segment_allow_list_aggregate` to `BrowserApplicationEntity` object
+  type.
+* Add markdownlint to pre-commit.
+
 ## [0.12.0] - 2023-08-20
 
-* Add shellcheck to CI/CD pipeline.
 * Update GraphQL submodule with a fresh schema version.
 * Add `ErrorsInboxRawEvent` scalar type.
 * Add `ErrorsInboxEventSource` enum type.
@@ -18,6 +29,8 @@
 * Remove field `agent_features` from `DocumentationFields` object type.
 * Add tests for newrelic_sb_sdk.utils.query.
 * Add tests for newrelic_sb_sdk.utils.response.
+* Add shellcheck to pre-commit.
+* Fix lint errors in CI/CD scripts.
 
 ## [0.11.0] - 2023-07-26
 
