@@ -10,8 +10,10 @@
 * Add `ErrorsInboxEventSource` enum type.
 * Add field `events` to `DataDictionaryAttribute` object type.
 * Add field `is_custom` to `ErrorsInboxErrorGroup` object type.
-* Add fields `is_acknowledged`, `is_correlated` and `mutting_states` to `AiIssuesFilterIssues` input object type.
-* Add fields `event` and `source` fields to `ErrorsInboxErrorEventInput` input object type.
+* Add fields `is_acknowledged`, `is_correlated` and `mutting_states` to
+  `AiIssuesFilterIssues` input object type.
+* Add fields `event` and `source` fields to `ErrorsInboxErrorEventInput` input
+  object type.
 * Remove `AgentFeaturesFilter` object type.
 * Remove field `agent_features` from `DocumentationFields` object type.
 * Add tests for newrelic_sb_sdk.utils.query.
@@ -20,7 +22,8 @@
 ## [0.11.0] - 2023-07-26
 
 * Update GraphQL submodule with a fresh schema version.
-* Update AiNotificationsChannelType, AiNotificationsDestinationType, AiWorkflowsDestinationType and AiNotificationsProduct values.
+* Update AiNotificationsChannelType, AiNotificationsDestinationType,
+  AiWorkflowsDestinationType and AiNotificationsProduct values.
 * Update ErrorsInboxErrorEventInput properties.
 
 ## [0.10.0] - 2023-07-14
@@ -43,7 +46,8 @@
 
 ## [0.7.0] - 2023-06-12
 
-* Rename arguments in NewRelicGqlClient.build_query method and build_query function from `query_params` to `params` and  `query_string` to `template`.
+* Rename arguments in NewRelicGqlClient.build_query method and build_query
+  function from `query_params` to `params` and  `query_string` to `template`.
 * Update graphql module.
 * Add metadata about language info in GraphQL notebook.
 * Add new clasifiers for PyPi.
@@ -58,7 +62,8 @@
 
 ## [0.5.0] - 2023-06-05
 
-* Replace pipe operator by Union in types annotations to ensure compatibility with python 3.8.1 and higer.
+* Replace pipe operator by Union in types annotations to ensure compatibility
+  with python 3.8.1 and higer.
 
 ## [0.4.0] - 2023-06-05
 
