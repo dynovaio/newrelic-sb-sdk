@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.13.0] - 2023-09-04
+
 * Update GraphQL submodule with a fresh schema version.
 * Add `AgentApplicationSegmentsListType` enum type.
 * Add `AgentApplicationSegmentsBrowserSegmentAllowListInput` and
