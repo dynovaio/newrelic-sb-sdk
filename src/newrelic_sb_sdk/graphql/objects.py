@@ -1162,8 +1162,6 @@ from newrelic_sb_sdk.graphql.input_objects import (
     AiWorkflowsUpdateWorkflowInput,
     AlertsMutingRuleInput,
     AlertsMutingRuleUpdateInput,
-    AlertsNotificationChannelCreateConfiguration,
-    AlertsNotificationChannelUpdateConfiguration,
     AlertsNrqlConditionBaselineInput,
     AlertsNrqlConditionsSearchCriteriaInput,
     AlertsNrqlConditionStaticInput,
@@ -2891,7 +2889,13 @@ class AgentApplicationSettingsBrowserDistributedTracing(sgqlc.types.Type):
 
 class AgentApplicationSettingsBrowserMonitoring(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("ajax", "distributed_tracing", "loader", "privacy")
+    __field_names__ = (
+        "ajax",
+        "distributed_tracing",
+        "loader",
+        "pinned_version",
+        "privacy",
+    )
     ajax = sgqlc.types.Field(AgentApplicationSettingsBrowserAjax, graphql_name="ajax")
 
     distributed_tracing = sgqlc.types.Field(
@@ -2903,6 +2907,8 @@ class AgentApplicationSettingsBrowserMonitoring(sgqlc.types.Type):
         sgqlc.types.non_null(AgentApplicationSettingsBrowserLoader),
         graphql_name="loader",
     )
+
+    pinned_version = sgqlc.types.Field(String, graphql_name="pinnedVersion")
 
     privacy = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsBrowserPrivacy"),
@@ -5732,8 +5738,6 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
     __field_names__ = (
         "muting_rule",
         "muting_rules",
-        "notification_channel",
-        "notification_channels",
         "nrql_condition",
         "nrql_conditions_search",
         "policies_search",
@@ -5756,29 +5760,6 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
 
     muting_rules = sgqlc.types.Field(
         sgqlc.types.list_of("AlertsMutingRule"), graphql_name="mutingRules"
-    )
-
-    notification_channel = sgqlc.types.Field(
-        AlertsNotificationChannel,
-        graphql_name="notificationChannel",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="id", default=None
-                    ),
-                ),
-            )
-        ),
-    )
-
-    notification_channels = sgqlc.types.Field(
-        "AlertsNotificationChannelsResultSet",
-        graphql_name="notificationChannels",
-        args=sgqlc.types.ArgDict(
-            (("cursor", sgqlc.types.Arg(String, graphql_name="cursor", default=None)),)
-        ),
     )
 
     nrql_condition = sgqlc.types.Field(
@@ -13429,11 +13410,6 @@ class RootMutationType(sgqlc.types.Type):
         "alerts_muting_rule_create",
         "alerts_muting_rule_delete",
         "alerts_muting_rule_update",
-        "alerts_notification_channel_create",
-        "alerts_notification_channel_delete",
-        "alerts_notification_channel_update",
-        "alerts_notification_channels_add_to_policy",
-        "alerts_notification_channels_remove_from_policy",
         "alerts_nrql_condition_baseline_create",
         "alerts_nrql_condition_baseline_update",
         "alerts_nrql_condition_static_create",
@@ -15008,167 +14984,6 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
-
-    alerts_notification_channel_create = sgqlc.types.Field(
-        AlertsNotificationChannelCreateResponse,
-        graphql_name="alertsNotificationChannelCreate",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "notification_channel",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            AlertsNotificationChannelCreateConfiguration
-                        ),
-                        graphql_name="notificationChannel",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-
-    alerts_notification_channel_delete = sgqlc.types.Field(
-        AlertsNotificationChannelDeleteResponse,
-        graphql_name="alertsNotificationChannelDelete",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="id", default=None
-                    ),
-                ),
-            )
-        ),
-    )
-
-    alerts_notification_channel_update = sgqlc.types.Field(
-        AlertsNotificationChannelUpdateResponse,
-        graphql_name="alertsNotificationChannelUpdate",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="id", default=None
-                    ),
-                ),
-                (
-                    "notification_channel",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            AlertsNotificationChannelUpdateConfiguration
-                        ),
-                        graphql_name="notificationChannel",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-
-    alerts_notification_channels_add_to_policy = sgqlc.types.Field(
-        AlertsNotificationChannelsAddToPolicyResponse,
-        graphql_name="alertsNotificationChannelsAddToPolicy",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "notification_channel_ids",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(sgqlc.types.non_null(ID))
-                        ),
-                        graphql_name="notificationChannelIds",
-                        default=None,
-                    ),
-                ),
-                (
-                    "policy_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="policyId", default=None
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `notification_channel_ids` (`[ID!]!`)
-    * `policy_id` (`ID!`)
-    """
-
-    alerts_notification_channels_remove_from_policy = sgqlc.types.Field(
-        AlertsNotificationChannelsRemoveFromPolicyResponse,
-        graphql_name="alertsNotificationChannelsRemoveFromPolicy",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "notification_channel_ids",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(sgqlc.types.non_null(ID))
-                        ),
-                        graphql_name="notificationChannelIds",
-                        default=None,
-                    ),
-                ),
-                (
-                    "policy_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="policyId", default=None
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `notification_channel_ids` (`[ID!]!`)
-    * `policy_id` (`ID!`)
-    """
 
     alerts_nrql_condition_baseline_create = sgqlc.types.Field(
         "AlertsNrqlBaselineCondition",
@@ -24050,7 +23865,7 @@ class SyntheticMonitorEntityOutline(
     period = sgqlc.types.Field(Minutes, graphql_name="period")
 
 
-class TeamEntity(sgqlc.types.Type, AlertableEntity, Entity):
+class TeamEntity(sgqlc.types.Type, AlertableEntity, CollectionEntity, Entity):
     __schema__ = nerdgraph
     __field_names__ = ()
 

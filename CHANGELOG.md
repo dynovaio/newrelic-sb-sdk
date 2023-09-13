@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+## [0.14.0] - 2023-09-13
+
+* Update GraphQL submodule with a fresh schema version.
+* Add `TEAM` as choice option to `EntityCollectionType` enum type.
+* Add field `pinned_version` to `AgentApplicationSettingsBrowserMonitoring`
+  object type.
+* Remove fields `notification_channel` and `notification_channels` from
+  `AlertsAccountStitchedFields` object type.
+* Remove mutations `alerts_notification_channel_create`,
+  `alerts_notification_channel_delete`, `alerts_notification_channel_update`,
+  `alerts_notification_channels_add_to_policy`,
+  `alerts_notification_channels_remove_from_policy`.
+* Add `TeamEntity` object type.
+
 ## [0.13.0] - 2023-09-04
 
 * Update GraphQL submodule with a fresh schema version.

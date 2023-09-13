@@ -1280,7 +1280,7 @@ class EntityAlertSeverity(sgqlc.types.Enum):
 
 class EntityCollectionType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("WORKLOAD", "WORKLOAD_STATUS_RULE_GROUP")
+    __choices__ = ("TEAM", "WORKLOAD", "WORKLOAD_STATUS_RULE_GROUP")
 
 
 class EntityDeleteErrorType(sgqlc.types.Enum):
