@@ -14,6 +14,7 @@ __all__ = [
     "CollectionEntity",
     "EdgeEndpointDetail",
     "EntityRelationshipEdge",
+    "ErrorsInboxErrorGroupBase",
     "ErrorsInboxResource",
     "ErrorsInboxResponseError",
     "InfrastructureIntegrationEntity",
@@ -374,7 +375,6 @@ __all__ = [
     "ErrorsInboxAssignErrorGroupResponse",
     "ErrorsInboxAssignment",
     "ErrorsInboxDeleteErrorGroupResourceResponse",
-    "ErrorsInboxErrorGroup",
     "ErrorsInboxErrorGroupStateTypeResult",
     "ErrorsInboxErrorGroupsResponse",
     "ErrorsInboxOccurrences",
@@ -844,6 +844,8 @@ __all__ = [
     "EntityRelationshipDetectedEdge",
     "EntityRelationshipUserDefinedEdge",
     "ErrorsInboxAssignErrorGroupError",
+    "ErrorsInboxErrorGroup",
+    "ErrorsInboxErrorGroupOutline",
     "ErrorsInboxJiraIssue",
     "ErrorsInboxUpdateErrorGroupStateError",
     "ExternalEntity",
@@ -1701,6 +1703,77 @@ class EntityRelationshipEdge(sgqlc.types.Interface):
     type = sgqlc.types.Field(
         sgqlc.types.non_null(EntityRelationshipEdgeType), graphql_name="type"
     )
+
+
+class ErrorsInboxErrorGroupBase(sgqlc.types.Interface):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "assignment",
+        "entity_guid",
+        "events_query",
+        "first_seen_at",
+        "id",
+        "is_custom",
+        "last_seen_at",
+        "message",
+        "name",
+        "occurrences",
+        "regressed_at",
+        "resources",
+        "source",
+        "state",
+        "url",
+    )
+    assignment = sgqlc.types.Field("ErrorsInboxAssignment", graphql_name="assignment")
+
+    entity_guid = sgqlc.types.Field(EntityGuid, graphql_name="entityGuid")
+
+    events_query = sgqlc.types.Field(Nrql, graphql_name="eventsQuery")
+
+    first_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="firstSeenAt")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    is_custom = sgqlc.types.Field(Boolean, graphql_name="isCustom")
+
+    last_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSeenAt")
+
+    message = sgqlc.types.Field(String, graphql_name="message")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    occurrences = sgqlc.types.Field(
+        "ErrorsInboxOccurrences", graphql_name="occurrences"
+    )
+
+    regressed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="regressedAt")
+
+    resources = sgqlc.types.Field(
+        sgqlc.types.non_null("ErrorsInboxResourcesResponse"),
+        graphql_name="resources",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        ErrorsInboxResourceFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    source = sgqlc.types.Field(String, graphql_name="source")
+
+    state = sgqlc.types.Field(ErrorsInboxErrorGroupState, graphql_name="state")
+
+    url = sgqlc.types.Field(String, graphql_name="url")
 
 
 class ErrorsInboxResource(sgqlc.types.Interface):
@@ -9451,77 +9524,6 @@ class ErrorsInboxDeleteErrorGroupResourceResponse(sgqlc.types.Type):
     resource_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="resourceId")
 
 
-class ErrorsInboxErrorGroup(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "assignment",
-        "entity_guid",
-        "events_query",
-        "first_seen_at",
-        "id",
-        "is_custom",
-        "last_seen_at",
-        "message",
-        "name",
-        "occurrences",
-        "regressed_at",
-        "resources",
-        "source",
-        "state",
-        "url",
-    )
-    assignment = sgqlc.types.Field(ErrorsInboxAssignment, graphql_name="assignment")
-
-    entity_guid = sgqlc.types.Field(EntityGuid, graphql_name="entityGuid")
-
-    events_query = sgqlc.types.Field(Nrql, graphql_name="eventsQuery")
-
-    first_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="firstSeenAt")
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
-
-    is_custom = sgqlc.types.Field(Boolean, graphql_name="isCustom")
-
-    last_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSeenAt")
-
-    message = sgqlc.types.Field(String, graphql_name="message")
-
-    name = sgqlc.types.Field(String, graphql_name="name")
-
-    occurrences = sgqlc.types.Field(
-        "ErrorsInboxOccurrences", graphql_name="occurrences"
-    )
-
-    regressed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="regressedAt")
-
-    resources = sgqlc.types.Field(
-        sgqlc.types.non_null("ErrorsInboxResourcesResponse"),
-        graphql_name="resources",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "cursor",
-                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
-                ),
-                (
-                    "filter",
-                    sgqlc.types.Arg(
-                        ErrorsInboxResourceFilterInput,
-                        graphql_name="filter",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-
-    source = sgqlc.types.Field(String, graphql_name="source")
-
-    state = sgqlc.types.Field(ErrorsInboxErrorGroupState, graphql_name="state")
-
-    url = sgqlc.types.Field(String, graphql_name="url")
-
-
 class ErrorsInboxErrorGroupStateTypeResult(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("type",)
@@ -9534,7 +9536,7 @@ class ErrorsInboxErrorGroupsResponse(sgqlc.types.Type):
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
     results = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(ErrorsInboxErrorGroup)),
+        sgqlc.types.list_of(sgqlc.types.non_null("ErrorsInboxErrorGroupOutline")),
         graphql_name="results",
     )
 
@@ -23294,6 +23296,16 @@ class ErrorsInboxAssignErrorGroupError(sgqlc.types.Type, ErrorsInboxResponseErro
     type = sgqlc.types.Field(
         sgqlc.types.non_null(ErrorsInboxAssignErrorGroupErrorType), graphql_name="type"
     )
+
+
+class ErrorsInboxErrorGroup(sgqlc.types.Type, ErrorsInboxErrorGroupBase):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class ErrorsInboxErrorGroupOutline(sgqlc.types.Type, ErrorsInboxErrorGroupBase):
+    __schema__ = nerdgraph
+    __field_names__ = ()
 
 
 class ErrorsInboxJiraIssue(sgqlc.types.Type, ErrorsInboxResource):

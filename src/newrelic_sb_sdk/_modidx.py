@@ -5399,6 +5399,14 @@ d = {
                 "GraphQL/objects.html#errorsinboxerrorgroup",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.ErrorsInboxErrorGroupBase": (
+                "GraphQL/objects.html#errorsinboxerrorgroupbase",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.ErrorsInboxErrorGroupOutline": (
+                "GraphQL/objects.html#errorsinboxerrorgroupoutline",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.ErrorsInboxErrorGroupStateTypeResult": (
                 "GraphQL/objects.html#errorsinboxerrorgroupstatetyperesult",
                 "newrelic_sb_sdk/graphql/objects.py",
