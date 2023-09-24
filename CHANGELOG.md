@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+* Update development dependencies.
+* Update .pre-commit-config.yaml.
+
 ## [0.14.0] - 2023-09-13
 
 * Update GraphQL submodule with a fresh schema version.
