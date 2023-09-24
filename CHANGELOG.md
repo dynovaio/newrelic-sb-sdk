@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.15.0] - 2023-09-24
+
 * Update GraphQL submodule with a fresh schema version.
 * Add object type `ErrorsInboxErrorGroupBase`.
 * Update `ErrorsInboxErrorGroup` with `ErrorsInboxErrorGroupBase` as base class.
