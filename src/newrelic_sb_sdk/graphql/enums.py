@@ -174,6 +174,11 @@ __all__ = [
     "MetricNormalizationCustomerRuleAction",
     "MetricNormalizationRuleAction",
     "MetricNormalizationRuleErrorType",
+    "MultiTenantIdentityCapability",
+    "MultiTenantIdentityEmailVerificationState",
+    "MultiTenantIdentitySortDirection",
+    "MultiTenantIdentitySortKeyEnum",
+    "MultiTenantIdentityUserSortKey",
     "NerdStorageScope",
     "NerdStorageVaultActorScope",
     "NerdStorageVaultErrorType",
@@ -202,9 +207,16 @@ __all__ = [
     "Nr1CatalogSupportedEntityTypesMode",
     "NrqlDropRulesAction",
     "NrqlDropRulesErrorReason",
+    "OrganizationAccountShareSortDirectionEnum",
+    "OrganizationAccountShareSortKeyEnum",
+    "OrganizationAccountSortDirectionEnum",
+    "OrganizationAccountSortKeyEnum",
+    "OrganizationAccountStatus",
     "OrganizationAuthenticationTypeEnum",
     "OrganizationProvisioningTypeEnum",
     "OrganizationProvisioningUnit",
+    "OrganizationRegionCodeEnum",
+    "OrganizationSharingMode",
     "OrganizationSortDirectionEnum",
     "OrganizationSortKeyEnum",
     "OrganizationUpdateErrorType",
@@ -215,6 +227,7 @@ __all__ = [
     "ServiceLevelEventsQuerySelectFunction",
     "ServiceLevelObjectiveRollingTimeWindowUnit",
     "SortBy",
+    "StreamingExportPayloadCompression",
     "StreamingExportStatus",
     "SyntheticMonitorStatus",
     "SyntheticMonitorType",
@@ -227,7 +240,9 @@ __all__ = [
     "SyntheticsPrivateLocationMutationErrorType",
     "SyntheticsStepType",
     "TaggingMutationErrorType",
+    "UserManagementGroupSortKey",
     "UserManagementRequestedTierName",
+    "UserManagementSortDirection",
     "UserManagementTypeEnum",
     "WhatsNewContentType",
     "WorkloadGroupRemainingEntitiesRuleBy",
@@ -533,6 +548,7 @@ class AiNotificationsErrorType(sgqlc.types.Enum):
         "ENTITY_IN_USE",
         "EXTERNAL_SERVER_ERROR",
         "FEATURE_FLAG_DISABLED",
+        "INVALID_CHANNEL_NAME",
         "INVALID_CREDENTIALS",
         "INVALID_KEY",
         "INVALID_PARAMETER",
@@ -1815,6 +1831,36 @@ class MetricNormalizationRuleErrorType(sgqlc.types.Enum):
     )
 
 
+class MultiTenantIdentityCapability(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "DELETE_GROUP",
+        "GRANT_GROUP_MEMBERSHIP",
+        "REVOKE_GROUP_MEMBERSHIP",
+        "UPDATE_GROUP_NAME",
+    )
+
+
+class MultiTenantIdentityEmailVerificationState(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NOT_VERIFIABLE", "PENDING", "VERIFIED")
+
+
+class MultiTenantIdentitySortDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
+class MultiTenantIdentitySortKeyEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("AUTHENTICATION_DOMAIN_ID", "ID", "NAME")
+
+
+class MultiTenantIdentityUserSortKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EMAIL", "ID", "LAST_ACTIVE", "NAME")
+
+
 class NerdStorageScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "ACTOR", "ENTITY")
@@ -1984,9 +2030,34 @@ class NrqlDropRulesErrorReason(sgqlc.types.Enum):
     )
 
 
+class OrganizationAccountShareSortDirectionEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
+class OrganizationAccountShareSortKeyEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT_ID", "TARGET_ORGANIZATION_NAME")
+
+
+class OrganizationAccountSortDirectionEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
+class OrganizationAccountSortKeyEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ID", "NAME")
+
+
+class OrganizationAccountStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACTIVE", "CANCELED")
+
+
 class OrganizationAuthenticationTypeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DISABLED", "PASSWORD", "SAML_SSO")
+    __choices__ = ("DISABLED", "HEROKU_SSO", "PASSWORD", "SAML_SSO")
 
 
 class OrganizationProvisioningTypeEnum(sgqlc.types.Enum):
@@ -2016,6 +2087,21 @@ class OrganizationProvisioningUnit(sgqlc.types.Enum):
         "PROVISIONED_USERS",
         "SPANS_IN_MILLIONS",
         "USERS",
+    )
+
+
+class OrganizationRegionCodeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EU01", "US01")
+
+
+class OrganizationSharingMode(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "ALL",
+        "MANAGED",
+        "SHARED_WITH_OTHER_ORGANIZATIONS",
+        "SHARED_WITH_THIS_ORGANIZATION",
     )
 
 
@@ -2073,6 +2159,11 @@ class ServiceLevelObjectiveRollingTimeWindowUnit(sgqlc.types.Enum):
 class SortBy(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ASC", "DESC")
+
+
+class StreamingExportPayloadCompression(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DISABLED", "GZIP")
 
 
 class StreamingExportStatus(sgqlc.types.Enum):
@@ -2201,9 +2292,19 @@ class TaggingMutationErrorType(sgqlc.types.Enum):
     )
 
 
+class UserManagementGroupSortKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DISPLAY_NAME", "ID")
+
+
 class UserManagementRequestedTierName(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BASIC_USER_TIER", "CORE_USER_TIER", "FULL_USER_TIER")
+
+
+class UserManagementSortDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
 
 
 class UserManagementTypeEnum(sgqlc.types.Enum):

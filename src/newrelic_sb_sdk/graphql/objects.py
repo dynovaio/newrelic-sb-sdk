@@ -455,6 +455,15 @@ __all__ = [
     "MobilePushNotificationDevice",
     "MobilePushNotificationRemoveDeviceResult",
     "MobilePushNotificationSendPushResult",
+    "MultiTenantIdentityGroup",
+    "MultiTenantIdentityGroupCollection",
+    "MultiTenantIdentityGroupUser",
+    "MultiTenantIdentityGroupUsers",
+    "MultiTenantIdentityUser",
+    "MultiTenantIdentityUserCollection",
+    "MultiTenantIdentityUserGroup",
+    "MultiTenantIdentityUserGroups",
+    "MultiTenantIdentityUserType",
     "NerdStorageAccountScope",
     "NerdStorageActorScope",
     "NerdStorageCollectionMember",
@@ -534,9 +543,16 @@ __all__ = [
     "NrqlFacetSuggestion",
     "NrqlHistoricalQuery",
     "Organization",
+    "OrganizationAccount",
+    "OrganizationAccountCollection",
+    "OrganizationAccountShare",
+    "OrganizationAccountShareCollection",
+    "OrganizationAccountShareLimitingRoleWrapper",
+    "OrganizationAccountShareOrganizationWrapper",
     "OrganizationAccountShares",
     "OrganizationAuthenticationDomain",
     "OrganizationAuthenticationDomainCollection",
+    "OrganizationCreateOrganizationResponse",
     "OrganizationCreateSharedAccountResponse",
     "OrganizationCustomerOrganization",
     "OrganizationCustomerOrganizationWrapper",
@@ -1072,6 +1088,7 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsParsingRuleMutationErrorType,
     MetricNormalizationRuleAction,
     MetricNormalizationRuleErrorType,
+    MultiTenantIdentityEmailVerificationState,
     NerdpackMutationErrorType,
     NerdpackMutationResult,
     NerdpackRemovedTagResponseType,
@@ -1106,6 +1123,7 @@ from newrelic_sb_sdk.graphql.enums import (
     RegionScope,
     ServiceLevelEventsQuerySelectFunction,
     ServiceLevelObjectiveRollingTimeWindowUnit,
+    StreamingExportPayloadCompression,
     StreamingExportStatus,
     SyntheticMonitorStatus,
     SyntheticMonitorType,
@@ -1228,6 +1246,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     LogConfigurationsUpdateObfuscationRuleInput,
     MetricNormalizationCreateRuleInput,
     MetricNormalizationEditRuleInput,
+    MultiTenantIdentityGroupUserFilterInput,
     NerdpackAllowListInput,
     NerdpackCreationInput,
     NerdpackDataFilter,
@@ -1244,9 +1263,12 @@ from newrelic_sb_sdk.graphql.input_objects import (
     Nr1CatalogSubmitMetadataInput,
     NrqlDropRulesCreateDropRuleInput,
     NrqlQueryOptions,
+    OrganizationCreateOrganizationInput,
     OrganizationCreateSharedAccountInput,
+    OrganizationNewManagedAccountInput,
     OrganizationProvisioningProductInput,
     OrganizationRevokeSharedAccountInput,
+    OrganizationSharedAccountInput,
     OrganizationUpdateInput,
     OrganizationUpdateSharedAccountInput,
     QueryHistoryQueryHistoryOptionsInput,
@@ -1279,6 +1301,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     UserManagementDeleteGroup,
     UserManagementDeleteUser,
     UserManagementGroupFilterInput,
+    UserManagementGroupSortInput,
     UserManagementUpdateGroup,
     UserManagementUpdateUser,
     UserManagementUserFilterInput,
@@ -1330,6 +1353,7 @@ __docformat__ = "markdown"
 class AiIssuesIIncident(sgqlc.types.Interface):
     __schema__ = nerdgraph
     __field_names__ = (
+        "account",
         "account_ids",
         "closed_at",
         "created_at",
@@ -1337,7 +1361,6 @@ class AiIssuesIIncident(sgqlc.types.Interface):
         "entity_guids",
         "entity_names",
         "entity_types",
-        "environment_id",
         "incident_id",
         "priority",
         "state",
@@ -1345,6 +1368,8 @@ class AiIssuesIIncident(sgqlc.types.Interface):
         "title",
         "updated_at",
     )
+    account = sgqlc.types.Field("AccountReference", graphql_name="account")
+
     account_ids = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="accountIds"
     )
@@ -1365,10 +1390,6 @@ class AiIssuesIIncident(sgqlc.types.Interface):
     entity_names = sgqlc.types.Field(String, graphql_name="entityNames")
 
     entity_types = sgqlc.types.Field(String, graphql_name="entityTypes")
-
-    environment_id = sgqlc.types.Field(
-        sgqlc.types.non_null(Int), graphql_name="environmentId"
-    )
 
     incident_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="incidentId")
 
@@ -4217,6 +4238,7 @@ class AiIssuesIncidentUserActionResponse(sgqlc.types.Type):
 class AiIssuesIssue(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
+        "account",
         "account_ids",
         "acknowledged_at",
         "acknowledged_by",
@@ -4236,7 +4258,6 @@ class AiIssuesIssue(sgqlc.types.Type):
         "entity_guids",
         "entity_names",
         "entity_types",
-        "environment_id",
         "event_type",
         "incident_ids",
         "is_correlated",
@@ -4258,6 +4279,8 @@ class AiIssuesIssue(sgqlc.types.Type):
         "updated_at",
         "wildcard",
     )
+    account = sgqlc.types.Field(AccountReference, graphql_name="account")
+
     account_ids = sgqlc.types.Field(
         sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Int))),
         graphql_name="accountIds",
@@ -4332,10 +4355,6 @@ class AiIssuesIssue(sgqlc.types.Type):
 
     entity_types = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="entityTypes"
-    )
-
-    environment_id = sgqlc.types.Field(
-        sgqlc.types.non_null(Int), graphql_name="environmentId"
     )
 
     event_type = sgqlc.types.Field(
@@ -11188,6 +11207,177 @@ class MobilePushNotificationSendPushResult(sgqlc.types.Type):
     message = sgqlc.types.Field(String, graphql_name="message")
 
 
+class MultiTenantIdentityGroup(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("authentication_domain_id", "id", "name", "users")
+    authentication_domain_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="authenticationDomainId"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    users = sgqlc.types.Field(
+        "MultiTenantIdentityGroupUsers",
+        graphql_name="users",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        MultiTenantIdentityGroupUserFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`MultiTenantIdentityGroupUserFilterInput`)
+    """
+
+
+class MultiTenantIdentityGroupCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityGroup))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class MultiTenantIdentityGroupUser(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("email", "id", "name", "time_zone")
+    email = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="email")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    time_zone = sgqlc.types.Field(String, graphql_name="timeZone")
+
+
+class MultiTenantIdentityGroupUsers(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor", "total_count")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityGroupUser))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
+
+
+class MultiTenantIdentityUser(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "authentication_domain_id",
+        "email",
+        "email_verification_state",
+        "groups",
+        "id",
+        "last_active",
+        "name",
+        "time_zone",
+        "type",
+    )
+    authentication_domain_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="authenticationDomainId"
+    )
+
+    email = sgqlc.types.Field(String, graphql_name="email")
+
+    email_verification_state = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantIdentityEmailVerificationState),
+        graphql_name="emailVerificationState",
+    )
+
+    groups = sgqlc.types.Field(
+        "MultiTenantIdentityUserGroups",
+        graphql_name="groups",
+        args=sgqlc.types.ArgDict(
+            (("cursor", sgqlc.types.Arg(String, graphql_name="cursor", default=None)),)
+        ),
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    last_active = sgqlc.types.Field(DateTime, graphql_name="lastActive")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    time_zone = sgqlc.types.Field(String, graphql_name="timeZone")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantIdentityUserType"), graphql_name="type"
+    )
+
+
+class MultiTenantIdentityUserCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityUser))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class MultiTenantIdentityUserGroup(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class MultiTenantIdentityUserGroups(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor", "total_count")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityUserGroup))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
+
+
+class MultiTenantIdentityUserType(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
 class NerdStorageAccountScope(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("collection", "document")
@@ -12439,7 +12629,6 @@ class Nr1CatalogQuickstartMetadata(sgqlc.types.Type):
         "description",
         "display_name",
         "icon",
-        "installer",
         "keywords",
         "quickstart_components",
         "slug",
@@ -12476,8 +12665,6 @@ class Nr1CatalogQuickstartMetadata(sgqlc.types.Type):
     display_name = sgqlc.types.Field(String, graphql_name="displayName")
 
     icon = sgqlc.types.Field(Nr1CatalogIcon, graphql_name="icon")
-
-    installer = sgqlc.types.Field(Nr1CatalogInstaller, graphql_name="installer")
 
     keywords = sgqlc.types.Field(
         sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
@@ -12960,13 +13147,13 @@ class Organization(sgqlc.types.Type):
                 (
                     "source_organization_id",
                     sgqlc.types.Arg(
-                        String, graphql_name="sourceOrganizationId", default=None
+                        ID, graphql_name="sourceOrganizationId", default=None
                     ),
                 ),
                 (
                     "target_organization_id",
                     sgqlc.types.Arg(
-                        String, graphql_name="targetOrganizationId", default=None
+                        ID, graphql_name="targetOrganizationId", default=None
                     ),
                 ),
             )
@@ -12993,6 +13180,81 @@ class Organization(sgqlc.types.Type):
     user_management = sgqlc.types.Field(
         "UserManagementOrganizationStitchedFields", graphql_name="userManagement"
     )
+
+
+class OrganizationAccount(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "region_code", "status")
+    id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    region_code = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="regionCode"
+    )
+
+    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+
+class OrganizationAccountCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(OrganizationAccount)),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class OrganizationAccountShare(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("account_id", "id", "limiting_role", "name", "source", "target")
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    limiting_role = sgqlc.types.Field(
+        sgqlc.types.non_null("OrganizationAccountShareLimitingRoleWrapper"),
+        graphql_name="limitingRole",
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    source = sgqlc.types.Field(
+        sgqlc.types.non_null("OrganizationAccountShareOrganizationWrapper"),
+        graphql_name="source",
+    )
+
+    target = sgqlc.types.Field(
+        sgqlc.types.non_null("OrganizationAccountShareOrganizationWrapper"),
+        graphql_name="target",
+    )
+
+
+class OrganizationAccountShareCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(OrganizationAccountShare)),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class OrganizationAccountShareLimitingRoleWrapper(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class OrganizationAccountShareOrganizationWrapper(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name")
+    id = sgqlc.types.Field(ID, graphql_name="id")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
 
 
 class OrganizationAccountShares(sgqlc.types.Type):
@@ -13043,6 +13305,12 @@ class OrganizationAuthenticationDomainCollection(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class OrganizationCreateOrganizationResponse(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("job_id",)
+    job_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="jobId")
 
 
 class OrganizationCreateSharedAccountResponse(sgqlc.types.Type):
@@ -13158,7 +13426,7 @@ class OrganizationSharedAccount(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     source_organization_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="sourceOrganizationId"
+        sgqlc.types.non_null(ID), graphql_name="sourceOrganizationId"
     )
 
     source_organization_name = sgqlc.types.Field(
@@ -13166,7 +13434,7 @@ class OrganizationSharedAccount(sgqlc.types.Type):
     )
 
     target_organization_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="targetOrganizationId"
+        sgqlc.types.non_null(ID), graphql_name="targetOrganizationId"
     )
 
     target_organization_name = sgqlc.types.Field(
@@ -13512,6 +13780,7 @@ class RootMutationType(sgqlc.types.Type):
         "nr1_catalog_submit_metadata",
         "nrql_drop_rules_create",
         "nrql_drop_rules_delete",
+        "organization_create",
         "organization_create_shared_account",
         "organization_provisioning_update_partner_subscription",
         "organization_revoke_shared_account",
@@ -17569,6 +17838,43 @@ class RootMutationType(sgqlc.types.Type):
     * `rule_ids` (`[ID]!`)
     """
 
+    organization_create = sgqlc.types.Field(
+        OrganizationCreateOrganizationResponse,
+        graphql_name="organizationCreate",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "customer_id",
+                    sgqlc.types.Arg(ID, graphql_name="customerId", default=None),
+                ),
+                (
+                    "new_managed_account",
+                    sgqlc.types.Arg(
+                        OrganizationNewManagedAccountInput,
+                        graphql_name="newManagedAccount",
+                        default=None,
+                    ),
+                ),
+                (
+                    "organization",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(OrganizationCreateOrganizationInput),
+                        graphql_name="organization",
+                        default=None,
+                    ),
+                ),
+                (
+                    "shared_account",
+                    sgqlc.types.Arg(
+                        OrganizationSharedAccountInput,
+                        graphql_name="sharedAccount",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     organization_create_shared_account = sgqlc.types.Field(
         OrganizationCreateSharedAccountResponse,
         graphql_name="organizationCreateSharedAccount",
@@ -19267,6 +19573,7 @@ class StreamingExportRule(sgqlc.types.Type):
         "message",
         "name",
         "nrql",
+        "payload_compression",
         "status",
         "updated_at",
     )
@@ -19289,6 +19596,10 @@ class StreamingExportRule(sgqlc.types.Type):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     nrql = sgqlc.types.Field(Nrql, graphql_name="nrql")
+
+    payload_compression = sgqlc.types.Field(
+        StreamingExportPayloadCompression, graphql_name="payloadCompression"
+    )
 
     status = sgqlc.types.Field(
         sgqlc.types.non_null(StreamingExportStatus), graphql_name="status"
@@ -20112,6 +20423,16 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
                         default=None,
                     ),
                 ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(UserManagementGroupSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=(),
+                    ),
+                ),
             )
         ),
     )
@@ -20120,6 +20441,7 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
     * `cursor` (`String`)
     * `filter` (`UserManagementGroupFilterInput`)
     * `id` (`[ID!]`)
+    * `sort` (`[UserManagementGroupSortInput!]`) (default: `[]`)
     """
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
