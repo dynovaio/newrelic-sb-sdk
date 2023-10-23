@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.16.0] - 2023-10-22
+
 * Update GraphQL submodule with a fresh schema version.
 * Add `MultiTenantIdentityCapability`,
   `MultiTenantIdentityEmailVerificationState`,
