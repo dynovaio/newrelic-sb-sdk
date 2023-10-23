@@ -904,6 +904,26 @@ d = {
                 "GraphQL/enums.html#metricnormalizationruleerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantIdentityCapability": (
+                "GraphQL/enums.html#multitenantidentitycapability",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantIdentityEmailVerificationState": (
+                "GraphQL/enums.html#multitenantidentityemailverificationstate",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantIdentitySortDirection": (
+                "GraphQL/enums.html#multitenantidentitysortdirection",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantIdentitySortKeyEnum": (
+                "GraphQL/enums.html#multitenantidentitysortkeyenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantIdentityUserSortKey": (
+                "GraphQL/enums.html#multitenantidentityusersortkey",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.NerdStorageScope": (
                 "GraphQL/enums.html#nerdstoragescope",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1016,6 +1036,26 @@ d = {
                 "GraphQL/enums.html#nrqldropruleserrorreason",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAccountShareSortDirectionEnum": (
+                "GraphQL/enums.html#organizationaccountsharesortdirectionenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAccountShareSortKeyEnum": (
+                "GraphQL/enums.html#organizationaccountsharesortkeyenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAccountSortDirectionEnum": (
+                "GraphQL/enums.html#organizationaccountsortdirectionenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAccountSortKeyEnum": (
+                "GraphQL/enums.html#organizationaccountsortkeyenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationAccountStatus": (
+                "GraphQL/enums.html#organizationaccountstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.OrganizationAuthenticationTypeEnum": (
                 "GraphQL/enums.html#organizationauthenticationtypeenum",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1026,6 +1066,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.OrganizationProvisioningUnit": (
                 "GraphQL/enums.html#organizationprovisioningunit",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationRegionCodeEnum": (
+                "GraphQL/enums.html#organizationregioncodeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationSharingMode": (
+                "GraphQL/enums.html#organizationsharingmode",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.OrganizationSortDirectionEnum": (
@@ -1066,6 +1114,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.SortBy": (
                 "GraphQL/enums.html#sortby",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.StreamingExportPayloadCompression": (
+                "GraphQL/enums.html#streamingexportpayloadcompression",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.StreamingExportStatus": (
@@ -1116,8 +1168,16 @@ d = {
                 "GraphQL/enums.html#taggingmutationerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.UserManagementGroupSortKey": (
+                "GraphQL/enums.html#usermanagementgroupsortkey",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.UserManagementRequestedTierName": (
                 "GraphQL/enums.html#usermanagementrequestedtiername",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.UserManagementSortDirection": (
+                "GraphQL/enums.html#usermanagementsortdirection",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.UserManagementTypeEnum": (
@@ -2796,6 +2856,64 @@ d = {
                 "GraphQL/input objects.html#metricnormalizationeditruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityAllowsCapabilityInput": (
+                "GraphQL/input "
+                "objects.html#multitenantidentityallowscapabilityinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityAuthenticationDomainIdInput": (
+                "GraphQL/input "
+                "objects.html#multitenantidentityauthenticationdomainidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupFilterInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupIdInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupMemberIdInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupmemberidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupNameInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupnameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupSortInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupsortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupUserFilterInput": (
+                "GraphQL/input objects.html#multitenantidentitygroupuserfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityOrganizationIdInput": (
+                "GraphQL/input objects.html#multitenantidentityorganizationidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserEmailInput": (
+                "GraphQL/input objects.html#multitenantidentityuseremailinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserFilterInput": (
+                "GraphQL/input objects.html#multitenantidentityuserfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserIdInput": (
+                "GraphQL/input objects.html#multitenantidentityuseridinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserNameInput": (
+                "GraphQL/input objects.html#multitenantidentityusernameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserSortInput": (
+                "GraphQL/input objects.html#multitenantidentityusersortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.NerdStorageScopeInput": (
                 "GraphQL/input objects.html#nerdstoragescopeinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2876,6 +2994,48 @@ d = {
                 "GraphQL/input objects.html#nrqlqueryoptions",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountFilterInput": (
+                "GraphQL/input objects.html#organizationaccountfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountIdFilterInput": (
+                "GraphQL/input objects.html#organizationaccountidfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountIdInput": (
+                "GraphQL/input objects.html#organizationaccountidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountNameFilterInput": (
+                "GraphQL/input objects.html#organizationaccountnamefilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountOrganizationIdFilterInput": (
+                "GraphQL/input "
+                "objects.html#organizationaccountorganizationidfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountShareFilterInput": (
+                "GraphQL/input objects.html#organizationaccountsharefilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountShareSortInput": (
+                "GraphQL/input objects.html#organizationaccountsharesortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountSharingModeFilterInput": (
+                "GraphQL/input "
+                "objects.html#organizationaccountsharingmodefilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountSortInput": (
+                "GraphQL/input objects.html#organizationaccountsortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationAccountStatusFilterInput": (
+                "GraphQL/input objects.html#organizationaccountstatusfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationAuthenticationDomainFilterInput": (
                 "GraphQL/input "
                 "objects.html#organizationauthenticationdomainfilterinput",
@@ -2884,6 +3044,10 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.OrganizationAuthenticationDomainSortInput": (
                 "GraphQL/input "
                 "objects.html#organizationauthenticationdomainsortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationCreateOrganizationInput": (
+                "GraphQL/input objects.html#organizationcreateorganizationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCreateSharedAccountInput": (
@@ -2901,6 +3065,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationNameInput": (
                 "GraphQL/input objects.html#organizationnameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationNewManagedAccountInput": (
+                "GraphQL/input objects.html#organizationnewmanagedaccountinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationAccountIdInputFilter": (
@@ -2941,6 +3109,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationRevokeSharedAccountInput": (
                 "GraphQL/input objects.html#organizationrevokesharedaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationSharedAccountInput": (
+                "GraphQL/input objects.html#organizationsharedaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationTargetIdInput": (
+                "GraphQL/input objects.html#organizationtargetidinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationUpdateInput": (
@@ -3196,6 +3372,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.UserManagementGroupIdInput": (
                 "GraphQL/input objects.html#usermanagementgroupidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.UserManagementGroupSortInput": (
+                "GraphQL/input objects.html#usermanagementgroupsortinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.UserManagementNameInput": (
@@ -5815,6 +5995,42 @@ d = {
                 "GraphQL/objects.html#mobilepushnotificationsendpushresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroup": (
+                "GraphQL/objects.html#multitenantidentitygroup",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroupCollection": (
+                "GraphQL/objects.html#multitenantidentitygroupcollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroupUser": (
+                "GraphQL/objects.html#multitenantidentitygroupuser",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroupUsers": (
+                "GraphQL/objects.html#multitenantidentitygroupusers",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUser": (
+                "GraphQL/objects.html#multitenantidentityuser",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUserCollection": (
+                "GraphQL/objects.html#multitenantidentityusercollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUserGroup": (
+                "GraphQL/objects.html#multitenantidentityusergroup",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUserGroups": (
+                "GraphQL/objects.html#multitenantidentityusergroups",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUserType": (
+                "GraphQL/objects.html#multitenantidentityusertype",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.NerdStorageAccountScope": (
                 "GraphQL/objects.html#nerdstorageaccountscope",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6267,6 +6483,30 @@ d = {
                 "GraphQL/objects.html#organization",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccount": (
+                "GraphQL/objects.html#organizationaccount",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccountCollection": (
+                "GraphQL/objects.html#organizationaccountcollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccountShare": (
+                "GraphQL/objects.html#organizationaccountshare",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccountShareCollection": (
+                "GraphQL/objects.html#organizationaccountsharecollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccountShareLimitingRoleWrapper": (
+                "GraphQL/objects.html#organizationaccountsharelimitingrolewrapper",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationAccountShareOrganizationWrapper": (
+                "GraphQL/objects.html#organizationaccountshareorganizationwrapper",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.OrganizationAccountShares": (
                 "GraphQL/objects.html#organizationaccountshares",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6277,6 +6517,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationAuthenticationDomainCollection": (
                 "GraphQL/objects.html#organizationauthenticationdomaincollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationCreateOrganizationResponse": (
+                "GraphQL/objects.html#organizationcreateorganizationresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationCreateSharedAccountResponse": (

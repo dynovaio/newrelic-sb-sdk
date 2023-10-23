@@ -391,6 +391,20 @@ __all__ = [
     "LogConfigurationsUpdateObfuscationRuleInput",
     "MetricNormalizationCreateRuleInput",
     "MetricNormalizationEditRuleInput",
+    "MultiTenantIdentityAllowsCapabilityInput",
+    "MultiTenantIdentityAuthenticationDomainIdInput",
+    "MultiTenantIdentityGroupFilterInput",
+    "MultiTenantIdentityGroupIdInput",
+    "MultiTenantIdentityGroupMemberIdInput",
+    "MultiTenantIdentityGroupNameInput",
+    "MultiTenantIdentityGroupSortInput",
+    "MultiTenantIdentityGroupUserFilterInput",
+    "MultiTenantIdentityOrganizationIdInput",
+    "MultiTenantIdentityUserEmailInput",
+    "MultiTenantIdentityUserFilterInput",
+    "MultiTenantIdentityUserIdInput",
+    "MultiTenantIdentityUserNameInput",
+    "MultiTenantIdentityUserSortInput",
     "NerdStorageScopeInput",
     "NerdStorageVaultScope",
     "NerdStorageVaultWriteSecretInput",
@@ -411,12 +425,24 @@ __all__ = [
     "Nr1CatalogSupportInput",
     "NrqlDropRulesCreateDropRuleInput",
     "NrqlQueryOptions",
+    "OrganizationAccountFilterInput",
+    "OrganizationAccountIdFilterInput",
+    "OrganizationAccountIdInput",
+    "OrganizationAccountNameFilterInput",
+    "OrganizationAccountOrganizationIdFilterInput",
+    "OrganizationAccountShareFilterInput",
+    "OrganizationAccountShareSortInput",
+    "OrganizationAccountSharingModeFilterInput",
+    "OrganizationAccountSortInput",
+    "OrganizationAccountStatusFilterInput",
     "OrganizationAuthenticationDomainFilterInput",
     "OrganizationAuthenticationDomainSortInput",
+    "OrganizationCreateOrganizationInput",
     "OrganizationCreateSharedAccountInput",
     "OrganizationCustomerOrganizationFilterInput",
     "OrganizationIdInput",
     "OrganizationNameInput",
+    "OrganizationNewManagedAccountInput",
     "OrganizationOrganizationAccountIdInputFilter",
     "OrganizationOrganizationAuthenticationDomainIdInputFilter",
     "OrganizationOrganizationCustomerIdInputFilter",
@@ -426,6 +452,8 @@ __all__ = [
     "OrganizationProvisioningProductInput",
     "OrganizationProvisioningUnitOfMeasureInput",
     "OrganizationRevokeSharedAccountInput",
+    "OrganizationSharedAccountInput",
+    "OrganizationTargetIdInput",
     "OrganizationUpdateInput",
     "OrganizationUpdateSharedAccountInput",
     "QueryHistoryQueryHistoryOptionsInput",
@@ -486,6 +514,7 @@ __all__ = [
     "UserManagementEmailVerificationStateInput",
     "UserManagementGroupFilterInput",
     "UserManagementGroupIdInput",
+    "UserManagementGroupSortInput",
     "UserManagementNameInput",
     "UserManagementPendingUpgradeRequestInput",
     "UserManagementTypeInput",
@@ -541,6 +570,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AiIssuesIssueState,
     AiNotificationsAuthType,
     AiNotificationsChannelFields,
+    AiNotificationsChannelStatus,
     AiNotificationsChannelType,
     AiNotificationsDestinationFields,
     AiNotificationsDestinationType,
@@ -606,6 +636,10 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsDataPartitionRuleRetentionPolicyType,
     LogConfigurationsObfuscationMethod,
     MetricNormalizationCustomerRuleAction,
+    MultiTenantIdentityCapability,
+    MultiTenantIdentitySortDirection,
+    MultiTenantIdentitySortKeyEnum,
+    MultiTenantIdentityUserSortKey,
     NerdpackSubscriptionModel,
     NerdpackVersionFilterFallback,
     NerdStorageScope,
@@ -613,18 +647,28 @@ from newrelic_sb_sdk.graphql.enums import (
     Nr1CatalogSearchComponentType,
     Nr1CatalogSearchResultType,
     NrqlDropRulesAction,
+    OrganizationAccountShareSortDirectionEnum,
+    OrganizationAccountShareSortKeyEnum,
+    OrganizationAccountSortDirectionEnum,
+    OrganizationAccountSortKeyEnum,
+    OrganizationAccountStatus,
     OrganizationProvisioningUnit,
+    OrganizationRegionCodeEnum,
+    OrganizationSharingMode,
     OrganizationSortDirectionEnum,
     OrganizationSortKeyEnum,
     ServiceLevelEventsQuerySelectFunction,
     ServiceLevelObjectiveRollingTimeWindowUnit,
     SortBy,
+    StreamingExportPayloadCompression,
     SyntheticsDeviceOrientation,
     SyntheticsDeviceType,
     SyntheticsMonitorPeriod,
     SyntheticsMonitorStatus,
     SyntheticsStepType,
+    UserManagementGroupSortKey,
     UserManagementRequestedTierName,
+    UserManagementSortDirection,
     UserManagementTypeEnum,
     WhatsNewContentType,
     WorkloadGroupRemainingEntitiesRuleBy,
@@ -764,7 +808,13 @@ class AgentApplicationSettingsBrowserDistributedTracingInput(sgqlc.types.Input):
 
 class AgentApplicationSettingsBrowserMonitoringInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("ajax", "distributed_tracing", "loader", "privacy")
+    __field_names__ = (
+        "ajax",
+        "distributed_tracing",
+        "loader",
+        "pinned_version",
+        "privacy",
+    )
     ajax = sgqlc.types.Field(
         AgentApplicationSettingsBrowserAjaxInput, graphql_name="ajax"
     )
@@ -777,6 +827,8 @@ class AgentApplicationSettingsBrowserMonitoringInput(sgqlc.types.Input):
     loader = sgqlc.types.Field(
         AgentApplicationSettingsBrowserLoaderInput, graphql_name="loader"
     )
+
+    pinned_version = sgqlc.types.Field(String, graphql_name="pinnedVersion")
 
     privacy = sgqlc.types.Field(
         "AgentApplicationSettingsBrowserPrivacyInput", graphql_name="privacy"
@@ -2337,6 +2389,7 @@ class AiNotificationsChannelFilter(sgqlc.types.Input):
         "name",
         "product",
         "property",
+        "statuses",
         "type",
     )
     active = sgqlc.types.Field(Boolean, graphql_name="active")
@@ -2355,6 +2408,11 @@ class AiNotificationsChannelFilter(sgqlc.types.Input):
 
     property = sgqlc.types.Field(
         "AiNotificationsPropertyFilter", graphql_name="property"
+    )
+
+    statuses = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(AiNotificationsChannelStatus)),
+        graphql_name="statuses",
     )
 
     type = sgqlc.types.Field(AiNotificationsChannelType, graphql_name="type")
@@ -2770,6 +2828,7 @@ class AiWorkflowsFilters(sgqlc.types.Input):
         "destination_type",
         "enrichment_id",
         "filter_id",
+        "guid",
         "id",
         "name",
         "name_like",
@@ -2784,6 +2843,8 @@ class AiWorkflowsFilters(sgqlc.types.Input):
     enrichment_id = sgqlc.types.Field(ID, graphql_name="enrichmentId")
 
     filter_id = sgqlc.types.Field(ID, graphql_name="filterId")
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
 
     id = sgqlc.types.Field(ID, graphql_name="id")
 
@@ -10052,6 +10113,150 @@ class MetricNormalizationEditRuleInput(sgqlc.types.Input):
     terminate_chain = sgqlc.types.Field(Boolean, graphql_name="terminateChain")
 
 
+class MultiTenantIdentityAllowsCapabilityInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("in_",)
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityCapability)),
+        graphql_name="in",
+    )
+
+
+class MultiTenantIdentityAuthenticationDomainIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class MultiTenantIdentityGroupFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "allows_capability",
+        "authentication_domain_id",
+        "id",
+        "members",
+        "name",
+        "organization_id",
+    )
+    allows_capability = sgqlc.types.Field(
+        MultiTenantIdentityAllowsCapabilityInput, graphql_name="allowsCapability"
+    )
+
+    authentication_domain_id = sgqlc.types.Field(
+        MultiTenantIdentityAuthenticationDomainIdInput,
+        graphql_name="authenticationDomainId",
+    )
+
+    id = sgqlc.types.Field("MultiTenantIdentityGroupIdInput", graphql_name="id")
+
+    members = sgqlc.types.Field(
+        "MultiTenantIdentityGroupMemberIdInput", graphql_name="members"
+    )
+
+    name = sgqlc.types.Field("MultiTenantIdentityGroupNameInput", graphql_name="name")
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantIdentityOrganizationIdInput"),
+        graphql_name="organizationId",
+    )
+
+
+class MultiTenantIdentityGroupIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class MultiTenantIdentityGroupMemberIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains",)
+    contains = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(ID))),
+        graphql_name="contains",
+    )
+
+
+class MultiTenantIdentityGroupNameInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class MultiTenantIdentityGroupSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        MultiTenantIdentitySortDirection, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(MultiTenantIdentitySortKeyEnum, graphql_name="key")
+
+
+class MultiTenantIdentityGroupUserFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field("MultiTenantIdentityUserIdInput", graphql_name="id")
+
+
+class MultiTenantIdentityOrganizationIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class MultiTenantIdentityUserEmailInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class MultiTenantIdentityUserFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("authentication_domain_id", "email", "id", "name")
+    authentication_domain_id = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantIdentityAuthenticationDomainIdInput),
+        graphql_name="authenticationDomainId",
+    )
+
+    email = sgqlc.types.Field(MultiTenantIdentityUserEmailInput, graphql_name="email")
+
+    id = sgqlc.types.Field("MultiTenantIdentityUserIdInput", graphql_name="id")
+
+    name = sgqlc.types.Field("MultiTenantIdentityUserNameInput", graphql_name="name")
+
+
+class MultiTenantIdentityUserIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
+    )
+
+
+class MultiTenantIdentityUserNameInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class MultiTenantIdentityUserSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        MultiTenantIdentitySortDirection, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(MultiTenantIdentityUserSortKey, graphql_name="key")
+
+
 class NerdStorageScopeInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id", "name")
@@ -10178,7 +10383,14 @@ class Nr1CatalogIssuesContactChannelInput(sgqlc.types.Input):
 
 class Nr1CatalogSearchFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("categories", "category", "components", "keywords", "types")
+    __field_names__ = (
+        "categories",
+        "category",
+        "components",
+        "keywords",
+        "recipe_names",
+        "types",
+    )
     categories = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="categories"
     )
@@ -10192,6 +10404,10 @@ class Nr1CatalogSearchFilter(sgqlc.types.Input):
 
     keywords = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="keywords"
+    )
+
+    recipe_names = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="recipeNames"
     )
 
     types = sgqlc.types.Field(
@@ -10274,6 +10490,97 @@ class NrqlQueryOptions(sgqlc.types.Input):
     )
 
 
+class OrganizationAccountFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "organization_id", "sharing_mode", "status")
+    id = sgqlc.types.Field("OrganizationAccountIdFilterInput", graphql_name="id")
+
+    name = sgqlc.types.Field("OrganizationAccountNameFilterInput", graphql_name="name")
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null("OrganizationAccountOrganizationIdFilterInput"),
+        graphql_name="organizationId",
+    )
+
+    sharing_mode = sgqlc.types.Field(
+        "OrganizationAccountSharingModeFilterInput", graphql_name="sharingMode"
+    )
+
+    status = sgqlc.types.Field(
+        "OrganizationAccountStatusFilterInput", graphql_name="status"
+    )
+
+
+class OrganizationAccountIdFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="eq")
+
+
+class OrganizationAccountIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="eq")
+
+
+class OrganizationAccountNameFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains",)
+    contains = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="contains")
+
+
+class OrganizationAccountOrganizationIdFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationAccountShareFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("account_id", "target_id")
+    account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationAccountIdInput), graphql_name="accountId"
+    )
+
+    target_id = sgqlc.types.Field("OrganizationTargetIdInput", graphql_name="targetId")
+
+
+class OrganizationAccountShareSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        OrganizationAccountShareSortDirectionEnum, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(OrganizationAccountShareSortKeyEnum, graphql_name="key")
+
+
+class OrganizationAccountSharingModeFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationSharingMode), graphql_name="eq"
+    )
+
+
+class OrganizationAccountSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        OrganizationAccountSortDirectionEnum, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(OrganizationAccountSortKeyEnum, graphql_name="key")
+
+
+class OrganizationAccountStatusFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationAccountStatus), graphql_name="eq"
+    )
+
+
 class OrganizationAuthenticationDomainFilterInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id", "name", "organization_id")
@@ -10297,6 +10604,12 @@ class OrganizationAuthenticationDomainSortInput(sgqlc.types.Input):
     key = sgqlc.types.Field(OrganizationSortKeyEnum, graphql_name="key")
 
 
+class OrganizationCreateOrganizationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name",)
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
 class OrganizationCreateSharedAccountInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -10314,7 +10627,7 @@ class OrganizationCreateSharedAccountInput(sgqlc.types.Input):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     target_organization_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="targetOrganizationId"
+        sgqlc.types.non_null(ID), graphql_name="targetOrganizationId"
     )
 
 
@@ -10359,6 +10672,16 @@ class OrganizationNameInput(sgqlc.types.Input):
     contains = sgqlc.types.Field(String, graphql_name="contains")
 
     eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class OrganizationNewManagedAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "region_code")
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    region_code = sgqlc.types.Field(
+        OrganizationRegionCodeEnum, graphql_name="regionCode"
+    )
 
 
 class OrganizationOrganizationAccountIdInputFilter(sgqlc.types.Input):
@@ -10428,6 +10751,20 @@ class OrganizationRevokeSharedAccountInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id",)
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+
+class OrganizationSharedAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("account_id", "limiting_role_id")
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    limiting_role_id = sgqlc.types.Field(Int, graphql_name="limitingRoleId")
+
+
+class OrganizationTargetIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
 
 
 class OrganizationUpdateInput(sgqlc.types.Input):
@@ -10692,12 +11029,16 @@ class StreamingExportAzureInput(sgqlc.types.Input):
 
 class StreamingExportRuleInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "nrql")
+    __field_names__ = ("description", "name", "nrql", "payload_compression")
     description = sgqlc.types.Field(String, graphql_name="description")
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     nrql = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="nrql")
+
+    payload_compression = sgqlc.types.Field(
+        StreamingExportPayloadCompression, graphql_name="payloadCompression"
+    )
 
 
 class SyntheticsCreateBrokenLinksMonitorInput(sgqlc.types.Input):
@@ -11408,7 +11749,7 @@ class UserManagementCreateUser(sgqlc.types.Input):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     user_type = sgqlc.types.Field(
-        sgqlc.types.non_null(UserManagementRequestedTierName), graphql_name="userType"
+        UserManagementRequestedTierName, graphql_name="userType"
     )
 
 
@@ -11464,6 +11805,14 @@ class UserManagementGroupIdInput(sgqlc.types.Input):
     in_ = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
     )
+
+
+class UserManagementGroupSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(UserManagementSortDirection, graphql_name="direction")
+
+    key = sgqlc.types.Field(UserManagementGroupSortKey, graphql_name="key")
 
 
 class UserManagementNameInput(sgqlc.types.Input):
