@@ -2,6 +2,66 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Add `MultiTenantIdentityCapability`,
+  `MultiTenantIdentityEmailVerificationState`,
+  `MultiTenantIdentitySortDirection`, `MultiTenantIdentitySortKeyEnum`,
+  `MultiTenantIdentitySortKeyEnum`, `OrganizationAccountShareSortDirectionEnum`,
+  `OrganizationAccountShareSortKeyEnum`, `OrganizationAccountShareSortKeyEnum`,
+  `OrganizationAccountSortKeyEnum`, `OrganizationAccountStatus`,
+  `OrganizationRegionCodeEnum`, `OrganizationSharingMode`,
+  `OrganizationSharingMode`, `UserManagementGroupSortKey` and
+  `UserManagementSortDirection` enum types.
+* Add `INVALID_CHANNEL_NAME` as choice option to `AiNotificationsErrorType`
+  enum type.
+* Add `HEROKU_SSO` as choice option to `OrganizationAuthenticationTypeEnum`
+  enum type.
+* Add `MultiTenantIdentityGroup`, `MultiTenantIdentityGroupCollection`,
+  `MultiTenantIdentityGroupUser`, `MultiTenantIdentityGroupUsers`,
+  `MultiTenantIdentityUser`, `MultiTenantIdentityUserCollection`,
+  `MultiTenantIdentityUserGroup`, `MultiTenantIdentityUserGroups`,
+  `MultiTenantIdentityUserType`, `OrganizationAccount`,
+  `OrganizationAccountCollection`, `OrganizationAccountShare`,
+  `OrganizationAccountShareCollection`,
+  `OrganizationAccountShareLimitingRoleWrapper`,
+  `OrganizationAccountShareOrganizationWrapper` and
+  `OrganizationCreateOrganizationResponse` types.
+* Add `account` field in `AiIssuesIIncident` interface type.
+* Remove `environment_id` field in `AiIssuesIIncident` interface type.
+* Add `account` field in `AiIssuesIssue` type.
+* Remove `environment_id` field in `AiIssuesIssue` type.
+* Remove `installer` field from `Nr1CatalogQuickstartMetadata` type.
+* Change types of `source_organization_id` and `target_organization_id`
+  aguments for `account_shares` field of `Organization` type from `String` to
+  `ID`.
+* Change types of `source_organization_id` and `target_organization_id` fields
+  of `OrganizationSharedAccount` type from `String` to `ID`.
+* Add `organization_create` field to `RootMutationType` type.
+* Add `payload_compression` field to `StreamingExportRule` type.
+* Add `sort` argument for `groups` field of `UserManagementAuthenticationDomain`
+  type.
+* Add `OrganizationAccountFilterInput`, `OrganizationAccountIdFilterInput`,
+  `OrganizationAccountIdInput`, `OrganizationAccountNameFilterInput`,
+  `OrganizationAccountOrganizationIdFilterInput`,
+  `OrganizationAccountShareFilterInput`, `OrganizationAccountShareSortInput`,
+  `OrganizationAccountSharingModeFilterInput`, `OrganizationAccountSortInput`,
+  `OrganizationAccountStatusFilterInput`,
+  `OrganizationCreateOrganizationInput`, `OrganizationNewManagedAccountInput`,
+  `OrganizationSharedAccountInput`, `OrganizationTargetIdInput` and
+  `UserManagementGroupSortInput` input type.
+* Add `pinned_version` field to `AgentApplicationSettingsBrowserMonitoringInput`
+  input type.
+* Add `statuses` field to `AiNotificationsChannelFilter` input type.
+* Add `guid` field to `AiWorkflowsFilters` input type.
+* Add `recipe_names` field to `Nr1CatalogSearchFilter` input type.
+* Change type of `target_organization_id` field of
+  `OrganizationCreateSharedAccountInput` input type from `String` to `ID`.
+* Add field `payload_compression` to `StreamingExportRuleInput` input type.
+* Remove `non_null` constraint for `user_type` field from
+  `UserManagementCreateUser` input type.
+* Update development dependencies.
+* Update .pre-commit-config.yaml.
+
 ## [0.15.0] - 2023-09-24
 
 * Update GraphQL submodule with a fresh schema version.
