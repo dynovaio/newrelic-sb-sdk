@@ -244,7 +244,10 @@ __all__ = [
     "CloudRenameAccountPayload",
     "CloudService",
     "CloudUnlinkAccountPayload",
+    "Consumption",
     "CrossAccountNrdbResultContainer",
+    "CustomerAdministration",
+    "CustomerAdministrationJobs",
     "DashboardActorStitchedFields",
     "DashboardAddWidgetsToPageError",
     "DashboardAddWidgetsToPageResult",
@@ -380,6 +383,7 @@ __all__ = [
     "ErrorsInboxOccurrences",
     "ErrorsInboxResourcesResponse",
     "ErrorsInboxUpdateErrorGroupStateResponse",
+    "ErrorsInboxVersion",
     "EventAttributeDefinition",
     "EventDefinition",
     "EventsToMetricsAccountStitchedFields",
@@ -455,6 +459,13 @@ __all__ = [
     "MobilePushNotificationDevice",
     "MobilePushNotificationRemoveDeviceResult",
     "MobilePushNotificationSendPushResult",
+    "MultiTenantAuthorizationGrant",
+    "MultiTenantAuthorizationGrantCollection",
+    "MultiTenantAuthorizationGrantGroup",
+    "MultiTenantAuthorizationGrantRole",
+    "MultiTenantAuthorizationGrantScope",
+    "MultiTenantAuthorizationRole",
+    "MultiTenantAuthorizationRoleCollection",
     "MultiTenantIdentityGroup",
     "MultiTenantIdentityGroupCollection",
     "MultiTenantIdentityGroupUser",
@@ -554,11 +565,20 @@ __all__ = [
     "OrganizationAuthenticationDomainCollection",
     "OrganizationCreateOrganizationResponse",
     "OrganizationCreateSharedAccountResponse",
+    "OrganizationCustomerContract",
+    "OrganizationCustomerContractWrapper",
     "OrganizationCustomerOrganization",
     "OrganizationCustomerOrganizationWrapper",
     "OrganizationError",
     "OrganizationInformation",
     "OrganizationOrganizationAdministrator",
+    "OrganizationOrganizationCreateAsyncCustomerResult",
+    "OrganizationOrganizationCreateAsyncJobResult",
+    "OrganizationOrganizationCreateAsyncOrganizationResult",
+    "OrganizationOrganizationCreateAsyncResult",
+    "OrganizationOrganizationCreateAsyncResultCollection",
+    "OrganizationOrganizationGroup",
+    "OrganizationOrganizationGroupWrapper",
     "OrganizationProvisioningUpdateSubscriptionResult",
     "OrganizationProvisioningUserError",
     "OrganizationRevokeSharedAccountResponse",
@@ -619,13 +639,21 @@ __all__ = [
     "SyntheticsCertCheckMonitorCreateMutationResult",
     "SyntheticsCertCheckMonitorUpdateMutationResult",
     "SyntheticsCustomHeader",
+    "SyntheticsDailyMonitorDowntimeMutationResult",
+    "SyntheticsDateWindowEndOutput",
+    "SyntheticsDaysOfWeekOutput",
     "SyntheticsDeviceEmulation",
     "SyntheticsError",
     "SyntheticsLocations",
     "SyntheticsMonitorCreateError",
     "SyntheticsMonitorDeleteMutationResult",
+    "SyntheticsMonitorDowntimeDeleteResult",
+    "SyntheticsMonitorDowntimeMonthlyFrequencyOutput",
+    "SyntheticsMonitorDowntimeMutationResult",
     "SyntheticsMonitorScriptQueryResponse",
     "SyntheticsMonitorUpdateError",
+    "SyntheticsMonthlyMonitorDowntimeMutationResult",
+    "SyntheticsOnceMonitorDowntimeMutationResult",
     "SyntheticsPrivateLocationDeleteResult",
     "SyntheticsPrivateLocationMutationError",
     "SyntheticsPrivateLocationMutationResult",
@@ -652,6 +680,7 @@ __all__ = [
     "SyntheticsStepMonitorCreateMutationResult",
     "SyntheticsStepMonitorUpdateMutationResult",
     "SyntheticsSyntheticMonitorAsset",
+    "SyntheticsWeeklyMonitorDowntimeMutationResult",
     "TaggingMutationError",
     "TaggingMutationResult",
     "TimeWindow",
@@ -811,6 +840,7 @@ __all__ = [
     "CloudElasticsearchIntegration",
     "CloudElbIntegration",
     "CloudEmrIntegration",
+    "CloudGcpAiplatformIntegration",
     "CloudGcpAlloydbIntegration",
     "CloudGcpAppengineIntegration",
     "CloudGcpBigqueryIntegration",
@@ -1088,6 +1118,7 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsParsingRuleMutationErrorType,
     MetricNormalizationRuleAction,
     MetricNormalizationRuleErrorType,
+    MultiTenantAuthorizationGrantScopeEnum,
     MultiTenantIdentityEmailVerificationState,
     NerdpackMutationErrorType,
     NerdpackMutationResult,
@@ -1115,6 +1146,8 @@ from newrelic_sb_sdk.graphql.enums import (
     NrqlDropRulesAction,
     NrqlDropRulesErrorReason,
     OrganizationAuthenticationTypeEnum,
+    OrganizationBillingStructure,
+    OrganizationOrganizationCreateJobResultStatusEnum,
     OrganizationProvisioningTypeEnum,
     OrganizationUpdateErrorType,
     PixieLinkPixieProjectErrorType,
@@ -1130,6 +1163,8 @@ from newrelic_sb_sdk.graphql.enums import (
     SyntheticsDeviceOrientation,
     SyntheticsDeviceType,
     SyntheticsMonitorCreateErrorType,
+    SyntheticsMonitorDowntimeDayOfMonthOrdinal,
+    SyntheticsMonitorDowntimeWeekDays,
     SyntheticsMonitorPeriod,
     SyntheticsMonitorStatus,
     SyntheticsMonitorUpdateErrorType,
@@ -1246,7 +1281,15 @@ from newrelic_sb_sdk.graphql.input_objects import (
     LogConfigurationsUpdateObfuscationRuleInput,
     MetricNormalizationCreateRuleInput,
     MetricNormalizationEditRuleInput,
+    MultiTenantAuthorizationGrantFilterInputExpression,
+    MultiTenantAuthorizationGrantSortInput,
+    MultiTenantAuthorizationRoleFilterInputExpression,
+    MultiTenantAuthorizationRoleSortInput,
+    MultiTenantIdentityGroupFilterInput,
+    MultiTenantIdentityGroupSortInput,
     MultiTenantIdentityGroupUserFilterInput,
+    MultiTenantIdentityUserFilterInput,
+    MultiTenantIdentityUserSortInput,
     NerdpackAllowListInput,
     NerdpackCreationInput,
     NerdpackDataFilter,
@@ -1263,9 +1306,19 @@ from newrelic_sb_sdk.graphql.input_objects import (
     Nr1CatalogSubmitMetadataInput,
     NrqlDropRulesCreateDropRuleInput,
     NrqlQueryOptions,
+    OrganizationAccountFilterInput,
+    OrganizationAccountShareFilterInput,
+    OrganizationAccountShareSortInput,
+    OrganizationAccountSortInput,
+    OrganizationAuthenticationDomainFilterInput,
+    OrganizationAuthenticationDomainSortInput,
     OrganizationCreateOrganizationInput,
     OrganizationCreateSharedAccountInput,
+    OrganizationCustomerContractFilterInput,
+    OrganizationCustomerOrganizationFilterInput,
     OrganizationNewManagedAccountInput,
+    OrganizationOrganizationCreateAsyncResultFilterInput,
+    OrganizationOrganizationGroupFilterInput,
     OrganizationProvisioningProductInput,
     OrganizationRevokeSharedAccountInput,
     OrganizationSharedAccountInput,
@@ -1286,6 +1339,12 @@ from newrelic_sb_sdk.graphql.input_objects import (
     SyntheticsCreateSimpleBrowserMonitorInput,
     SyntheticsCreateSimpleMonitorInput,
     SyntheticsCreateStepMonitorInput,
+    SyntheticsDateWindowEndConfig,
+    SyntheticsMonitorDowntimeDailyConfig,
+    SyntheticsMonitorDowntimeMonthlyConfig,
+    SyntheticsMonitorDowntimeMonthlyFrequency,
+    SyntheticsMonitorDowntimeOnceConfig,
+    SyntheticsMonitorDowntimeWeeklyConfig,
     SyntheticsUpdateBrokenLinksMonitorInput,
     SyntheticsUpdateCertCheckMonitorInput,
     SyntheticsUpdateScriptApiMonitorInput,
@@ -1333,6 +1392,7 @@ from newrelic_sb_sdk.graphql.scalars import (
     LogConfigurationsLogDataPartitionName,
     Milliseconds,
     Minutes,
+    NaiveDateTime,
     NerdpackTagName,
     NerdStorageDocument,
     Nr1CatalogRawNerdletState,
@@ -7491,6 +7551,12 @@ class CloudUnlinkAccountPayload(sgqlc.types.Type):
     )
 
 
+class Consumption(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("customer_id",)
+    customer_id = sgqlc.types.Field(ID, graphql_name="customerId")
+
+
 class CrossAccountNrdbResultContainer(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -7527,6 +7593,386 @@ class CrossAccountNrdbResultContainer(sgqlc.types.Type):
     results = sgqlc.types.Field(sgqlc.types.list_of(NrdbResult), graphql_name="results")
 
     total_result = sgqlc.types.Field(NrdbResult, graphql_name="totalResult")
+
+
+class CustomerAdministration(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_shares",
+        "accounts",
+        "authentication_domains",
+        "consumption",
+        "contracts",
+        "grants",
+        "groups",
+        "jobs",
+        "organizations",
+        "roles",
+        "user",
+        "users",
+    )
+    account_shares = sgqlc.types.Field(
+        "OrganizationAccountShareCollection",
+        graphql_name="accountShares",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(OrganizationAccountShareFilterInput),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(OrganizationAccountShareSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`OrganizationAccountShareFilterInput!`)
+    * `sort` (`[OrganizationAccountShareSortInput!]`)
+    """
+
+    accounts = sgqlc.types.Field(
+        "OrganizationAccountCollection",
+        graphql_name="accounts",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(OrganizationAccountFilterInput),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(OrganizationAccountSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`OrganizationAccountFilterInput!`)
+    * `sort` (`[OrganizationAccountSortInput!]`)
+    """
+
+    authentication_domains = sgqlc.types.Field(
+        "OrganizationAuthenticationDomainCollection",
+        graphql_name="authenticationDomains",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            OrganizationAuthenticationDomainFilterInput
+                        ),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(
+                                OrganizationAuthenticationDomainSortInput
+                            )
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`OrganizationAuthenticationDomainFilterInput!`)
+    * `sort` (`[OrganizationAuthenticationDomainSortInput!]`)
+    """
+
+    consumption = sgqlc.types.Field(
+        Consumption,
+        graphql_name="consumption",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "customer_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="customerId",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    contracts = sgqlc.types.Field(
+        "OrganizationCustomerContractWrapper",
+        graphql_name="contracts",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        OrganizationCustomerContractFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    grants = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantCollection",
+        graphql_name="grants",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            MultiTenantAuthorizationGrantFilterInputExpression
+                        ),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(MultiTenantAuthorizationGrantSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`MultiTenantAuthorizationGrantFilterInputExpression!`)
+    * `sort` (`[MultiTenantAuthorizationGrantSortInput!]`)
+    """
+
+    groups = sgqlc.types.Field(
+        "MultiTenantIdentityGroupCollection",
+        graphql_name="groups",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(MultiTenantIdentityGroupFilterInput),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(MultiTenantIdentityGroupSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`MultiTenantIdentityGroupFilterInput!`)
+    * `sort` (`[MultiTenantIdentityGroupSortInput!]`)
+    """
+
+    jobs = sgqlc.types.Field("CustomerAdministrationJobs", graphql_name="jobs")
+
+    organizations = sgqlc.types.Field(
+        "OrganizationCustomerOrganizationWrapper",
+        graphql_name="organizations",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        OrganizationCustomerOrganizationFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    roles = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleCollection",
+        graphql_name="roles",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            MultiTenantAuthorizationRoleFilterInputExpression
+                        ),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(MultiTenantAuthorizationRoleSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`MultiTenantAuthorizationRoleFilterInputExpression!`)
+    * `sort` (`[MultiTenantAuthorizationRoleSortInput!]`)
+    """
+
+    user = sgqlc.types.Field("User", graphql_name="user")
+
+    users = sgqlc.types.Field(
+        "MultiTenantIdentityUserCollection",
+        graphql_name="users",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(MultiTenantIdentityUserFilterInput),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "sort",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(
+                            sgqlc.types.non_null(MultiTenantIdentityUserSortInput)
+                        ),
+                        graphql_name="sort",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter` (`MultiTenantIdentityUserFilterInput!`)
+    * `sort` (`[MultiTenantIdentityUserSortInput!]`)
+    """
+
+
+class CustomerAdministrationJobs(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("organization_create_async_results",)
+    organization_create_async_results = sgqlc.types.Field(
+        "OrganizationOrganizationCreateAsyncResultCollection",
+        graphql_name="organizationCreateAsyncResults",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            OrganizationOrganizationCreateAsyncResultFilterInput
+                        ),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `filter`
+      (`OrganizationOrganizationCreateAsyncResultFilterInput!`)
+    """
 
 
 class DashboardActorStitchedFields(sgqlc.types.Type):
@@ -9597,6 +10043,12 @@ class ErrorsInboxUpdateErrorGroupStateResponse(sgqlc.types.Type):
     state = sgqlc.types.Field(ErrorsInboxErrorGroupState, graphql_name="state")
 
 
+class ErrorsInboxVersion(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("name",)
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+
 class EventAttributeDefinition(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("definition", "documentation_url", "label", "name")
@@ -11205,6 +11657,85 @@ class MobilePushNotificationSendPushResult(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("message",)
     message = sgqlc.types.Field(String, graphql_name="message")
+
+
+class MultiTenantAuthorizationGrant(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("group", "id", "role", "scope")
+    group = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantAuthorizationGrantGroup"), graphql_name="group"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+    role = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantAuthorizationGrantRole"), graphql_name="role"
+    )
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantAuthorizationGrantScope"), graphql_name="scope"
+    )
+
+
+class MultiTenantAuthorizationGrantCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantAuthorizationGrant))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class MultiTenantAuthorizationGrantGroup(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class MultiTenantAuthorizationGrantRole(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+
+class MultiTenantAuthorizationGrantScope(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationGrantScopeEnum),
+        graphql_name="type",
+    )
+
+
+class MultiTenantAuthorizationRole(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "scope", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="scope")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
+class MultiTenantAuthorizationRoleCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantAuthorizationRole))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
 class MultiTenantIdentityGroup(sgqlc.types.Type):
@@ -13321,6 +13852,62 @@ class OrganizationCreateSharedAccountResponse(sgqlc.types.Type):
     )
 
 
+class OrganizationCustomerContract(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "billing_structure",
+        "customer_id",
+        "id",
+        "organization_groups",
+        "telemetry_id",
+    )
+    billing_structure = sgqlc.types.Field(
+        OrganizationBillingStructure, graphql_name="billingStructure"
+    )
+
+    customer_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="customerId"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    organization_groups = sgqlc.types.Field(
+        sgqlc.types.non_null("OrganizationOrganizationGroupWrapper"),
+        graphql_name="organizationGroups",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        OrganizationOrganizationGroupFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    telemetry_id = sgqlc.types.Field(String, graphql_name="telemetryId")
+
+
+class OrganizationCustomerContractWrapper(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(OrganizationCustomerContract))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
 class OrganizationCustomerOrganization(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("contract_id", "customer_id", "id", "name")
@@ -13337,7 +13924,9 @@ class OrganizationCustomerOrganizationWrapper(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("items", "next_cursor")
     items = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(OrganizationCustomerOrganization)),
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(OrganizationCustomerOrganization))
+        ),
         graphql_name="items",
     )
 
@@ -13368,6 +13957,91 @@ class OrganizationOrganizationAdministrator(sgqlc.types.Type):
     organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
 
     organization_name = sgqlc.types.Field(String, graphql_name="organizationName")
+
+
+class OrganizationOrganizationCreateAsyncCustomerResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("customer_id",)
+    customer_id = sgqlc.types.Field(String, graphql_name="customerId")
+
+
+class OrganizationOrganizationCreateAsyncJobResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("created_utc", "error_message", "finished_utc", "id", "status")
+    created_utc = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="createdUtc"
+    )
+
+    error_message = sgqlc.types.Field(String, graphql_name="errorMessage")
+
+    finished_utc = sgqlc.types.Field(String, graphql_name="finishedUtc")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    status = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationOrganizationCreateJobResultStatusEnum),
+        graphql_name="status",
+    )
+
+
+class OrganizationOrganizationCreateAsyncOrganizationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name")
+    id = sgqlc.types.Field(ID, graphql_name="id")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+
+class OrganizationOrganizationCreateAsyncResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("customer", "job", "organization")
+    customer = sgqlc.types.Field(
+        OrganizationOrganizationCreateAsyncCustomerResult, graphql_name="customer"
+    )
+
+    job = sgqlc.types.Field(
+        sgqlc.types.non_null(OrganizationOrganizationCreateAsyncJobResult),
+        graphql_name="job",
+    )
+
+    organization = sgqlc.types.Field(
+        OrganizationOrganizationCreateAsyncOrganizationResult,
+        graphql_name="organization",
+    )
+
+
+class OrganizationOrganizationCreateAsyncResultCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null(OrganizationOrganizationCreateAsyncResult)
+            )
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class OrganizationOrganizationGroup(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class OrganizationOrganizationGroupWrapper(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(OrganizationOrganizationGroup)),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
 class OrganizationProvisioningUpdateSubscriptionResult(sgqlc.types.Type):
@@ -13800,6 +14474,9 @@ class RootMutationType(sgqlc.types.Type):
         "streaming_export_update_rule",
         "synthetics_create_broken_links_monitor",
         "synthetics_create_cert_check_monitor",
+        "synthetics_create_daily_monitor_downtime",
+        "synthetics_create_monthly_monitor_downtime",
+        "synthetics_create_once_monitor_downtime",
         "synthetics_create_private_location",
         "synthetics_create_script_api_monitor",
         "synthetics_create_script_browser_monitor",
@@ -13807,9 +14484,12 @@ class RootMutationType(sgqlc.types.Type):
         "synthetics_create_simple_browser_monitor",
         "synthetics_create_simple_monitor",
         "synthetics_create_step_monitor",
+        "synthetics_create_weekly_monitor_downtime",
         "synthetics_delete_monitor",
+        "synthetics_delete_monitor_downtime",
         "synthetics_delete_private_location",
         "synthetics_delete_secure_credential",
+        "synthetics_edit_monitor_downtime",
         "synthetics_purge_private_location_queue",
         "synthetics_update_broken_links_monitor",
         "synthetics_update_cert_check_monitor",
@@ -18312,6 +18992,225 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    synthetics_create_daily_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsDailyMonitorDowntimeMutationResult",
+        graphql_name="syntheticsCreateDailyMonitorDowntime",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_repeat",
+                    sgqlc.types.Arg(
+                        SyntheticsDateWindowEndConfig,
+                        graphql_name="endRepeat",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="endTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monitor_guids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(EntityGuid),
+                        graphql_name="monitorGuids",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "start_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="startTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "timezone",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="timezone",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_id` (`Int!`)
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
+    * `end_time` (`NaiveDateTime!`)
+    * `monitor_guids` (`[EntityGuid]`)
+    * `name` (`String!`)
+    * `start_time` (`NaiveDateTime!`)
+    * `timezone` (`String!`)
+    """
+
+    synthetics_create_monthly_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsMonthlyMonitorDowntimeMutationResult",
+        graphql_name="syntheticsCreateMonthlyMonitorDowntime",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_repeat",
+                    sgqlc.types.Arg(
+                        SyntheticsDateWindowEndConfig,
+                        graphql_name="endRepeat",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="endTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "frequency",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(SyntheticsMonitorDowntimeMonthlyFrequency),
+                        graphql_name="frequency",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monitor_guids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(EntityGuid),
+                        graphql_name="monitorGuids",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "start_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="startTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "timezone",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="timezone",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_id` (`Int!`)
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
+    * `end_time` (`NaiveDateTime!`)
+    * `frequency` (`SyntheticsMonitorDowntimeMonthlyFrequency!`)
+    * `monitor_guids` (`[EntityGuid]`)
+    * `name` (`String!`)
+    * `start_time` (`NaiveDateTime!`)
+    * `timezone` (`String!`)
+    """
+
+    synthetics_create_once_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsOnceMonitorDowntimeMutationResult",
+        graphql_name="syntheticsCreateOnceMonitorDowntime",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="endTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monitor_guids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(EntityGuid),
+                        graphql_name="monitorGuids",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "start_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="startTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "timezone",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="timezone",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_id` (`Int!`)
+    * `end_time` (`NaiveDateTime!`)
+    * `monitor_guids` (`[EntityGuid]`)
+    * `name` (`String!`)
+    * `start_time` (`NaiveDateTime!`)
+    * `timezone` (`String!`)
+    """
+
     synthetics_create_private_location = sgqlc.types.Field(
         "SyntheticsPrivateLocationMutationResult",
         graphql_name="syntheticsCreatePrivateLocation",
@@ -18507,9 +19406,110 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    synthetics_create_weekly_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsWeeklyMonitorDowntimeMutationResult",
+        graphql_name="syntheticsCreateWeeklyMonitorDowntime",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_repeat",
+                    sgqlc.types.Arg(
+                        SyntheticsDateWindowEndConfig,
+                        graphql_name="endRepeat",
+                        default=None,
+                    ),
+                ),
+                (
+                    "end_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="endTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "maintenance_days",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            sgqlc.types.list_of(SyntheticsMonitorDowntimeWeekDays)
+                        ),
+                        graphql_name="maintenanceDays",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monitor_guids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(EntityGuid),
+                        graphql_name="monitorGuids",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "start_time",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(NaiveDateTime),
+                        graphql_name="startTime",
+                        default=None,
+                    ),
+                ),
+                (
+                    "timezone",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="timezone",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_id` (`Int!`)
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
+    * `end_time` (`NaiveDateTime!`)
+    * `maintenance_days` (`[SyntheticsMonitorDowntimeWeekDays]!`)
+    * `monitor_guids` (`[EntityGuid]`)
+    * `name` (`String!`)
+    * `start_time` (`NaiveDateTime!`)
+    * `timezone` (`String!`)
+    """
+
     synthetics_delete_monitor = sgqlc.types.Field(
         "SyntheticsMonitorDeleteMutationResult",
         graphql_name="syntheticsDeleteMonitor",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "guid",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(EntityGuid),
+                        graphql_name="guid",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    synthetics_delete_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsMonitorDowntimeDeleteResult",
+        graphql_name="syntheticsDeleteMonitorDowntime",
         args=sgqlc.types.ArgDict(
             (
                 (
@@ -18563,6 +19563,74 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+
+    synthetics_edit_monitor_downtime = sgqlc.types.Field(
+        "SyntheticsMonitorDowntimeMutationResult",
+        graphql_name="syntheticsEditMonitorDowntime",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "daily",
+                    sgqlc.types.Arg(
+                        SyntheticsMonitorDowntimeDailyConfig,
+                        graphql_name="daily",
+                        default=None,
+                    ),
+                ),
+                (
+                    "guid",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(EntityGuid),
+                        graphql_name="guid",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monitor_guids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(EntityGuid),
+                        graphql_name="monitorGuids",
+                        default=None,
+                    ),
+                ),
+                (
+                    "monthly",
+                    sgqlc.types.Arg(
+                        SyntheticsMonitorDowntimeMonthlyConfig,
+                        graphql_name="monthly",
+                        default=None,
+                    ),
+                ),
+                ("name", sgqlc.types.Arg(String, graphql_name="name", default=None)),
+                (
+                    "once",
+                    sgqlc.types.Arg(
+                        SyntheticsMonitorDowntimeOnceConfig,
+                        graphql_name="once",
+                        default=None,
+                    ),
+                ),
+                (
+                    "weekly",
+                    sgqlc.types.Arg(
+                        SyntheticsMonitorDowntimeWeeklyConfig,
+                        graphql_name="weekly",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `daily` (`SyntheticsMonitorDowntimeDailyConfig`)
+    * `guid` (`EntityGuid!`)
+    * `monitor_guids` (`[EntityGuid]`)
+    * `monthly` (`SyntheticsMonitorDowntimeMonthlyConfig`)
+    * `name` (`String`)
+    * `once` (`SyntheticsMonitorDowntimeOnceConfig`)
+    * `weekly` (`SyntheticsMonitorDowntimeWeeklyConfig`)
+    """
 
     synthetics_purge_private_location_queue = sgqlc.types.Field(
         "SyntheticsPrivateLocationPurgeQueueResult",
@@ -19203,8 +20271,12 @@ class RootMutationType(sgqlc.types.Type):
 
 class RootQueryType(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("actor", "docs", "request_context")
+    __field_names__ = ("actor", "customer_administration", "docs", "request_context")
     actor = sgqlc.types.Field(Actor, graphql_name="actor")
+
+    customer_administration = sgqlc.types.Field(
+        CustomerAdministration, graphql_name="customerAdministration"
+    )
 
     docs = sgqlc.types.Field(DocumentationFields, graphql_name="docs")
 
@@ -19807,6 +20879,59 @@ class SyntheticsCustomHeader(sgqlc.types.Type):
     value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
 
 
+class SyntheticsDailyMonitorDowntimeMutationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "end_repeat",
+        "end_time",
+        "guid",
+        "monitor_guids",
+        "name",
+        "start_time",
+        "timezone",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    end_repeat = sgqlc.types.Field(
+        "SyntheticsDateWindowEndOutput", graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+    monitor_guids = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityGuid), graphql_name="monitorGuids"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
+class SyntheticsDateWindowEndOutput(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("on_date", "on_repeat")
+    on_date = sgqlc.types.Field(Date, graphql_name="onDate")
+
+    on_repeat = sgqlc.types.Field(Int, graphql_name="onRepeat")
+
+
+class SyntheticsDaysOfWeekOutput(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("ordinal_day_of_month", "week_day")
+    ordinal_day_of_month = sgqlc.types.Field(
+        SyntheticsMonitorDowntimeDayOfMonthOrdinal, graphql_name="ordinalDayOfMonth"
+    )
+
+    week_day = sgqlc.types.Field(
+        SyntheticsMonitorDowntimeWeekDays, graphql_name="weekDay"
+    )
+
+
 class SyntheticsDeviceEmulation(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("device_orientation", "device_type")
@@ -19852,6 +20977,68 @@ class SyntheticsMonitorDeleteMutationResult(sgqlc.types.Type):
     deleted_guid = sgqlc.types.Field(EntityGuid, graphql_name="deletedGuid")
 
 
+class SyntheticsMonitorDowntimeDeleteResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("guid",)
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+
+class SyntheticsMonitorDowntimeMonthlyFrequencyOutput(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("days_of_month", "days_of_week")
+    days_of_month = sgqlc.types.Field(
+        sgqlc.types.list_of(Int), graphql_name="daysOfMonth"
+    )
+
+    days_of_week = sgqlc.types.Field(
+        SyntheticsDaysOfWeekOutput, graphql_name="daysOfWeek"
+    )
+
+
+class SyntheticsMonitorDowntimeMutationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "end_repeat",
+        "end_time",
+        "frequency",
+        "guid",
+        "maintenance_days",
+        "monitor_guids",
+        "name",
+        "start_time",
+        "timezone",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndOutput, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    frequency = sgqlc.types.Field(
+        SyntheticsMonitorDowntimeMonthlyFrequencyOutput, graphql_name="frequency"
+    )
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+    maintenance_days = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsMonitorDowntimeWeekDays),
+        graphql_name="maintenanceDays",
+    )
+
+    monitor_guids = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityGuid), graphql_name="monitorGuids"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
 class SyntheticsMonitorScriptQueryResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("text",)
@@ -19868,6 +21055,72 @@ class SyntheticsMonitorUpdateError(sgqlc.types.Type):
     type = sgqlc.types.Field(
         sgqlc.types.non_null(SyntheticsMonitorUpdateErrorType), graphql_name="type"
     )
+
+
+class SyntheticsMonthlyMonitorDowntimeMutationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "end_repeat",
+        "end_time",
+        "frequency",
+        "guid",
+        "monitor_guids",
+        "name",
+        "start_time",
+        "timezone",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndOutput, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    frequency = sgqlc.types.Field(
+        SyntheticsMonitorDowntimeMonthlyFrequencyOutput, graphql_name="frequency"
+    )
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+    monitor_guids = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityGuid), graphql_name="monitorGuids"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
+class SyntheticsOnceMonitorDowntimeMutationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "end_time",
+        "guid",
+        "monitor_guids",
+        "name",
+        "start_time",
+        "timezone",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+    monitor_guids = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityGuid), graphql_name="monitorGuids"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
 
 
 class SyntheticsPrivateLocationDeleteResult(sgqlc.types.Type):
@@ -20342,6 +21595,45 @@ class SyntheticsSyntheticMonitorAsset(sgqlc.types.Type):
     type = sgqlc.types.Field(String, graphql_name="type")
 
     url = sgqlc.types.Field(String, graphql_name="url")
+
+
+class SyntheticsWeeklyMonitorDowntimeMutationResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "end_repeat",
+        "end_time",
+        "guid",
+        "maintenance_days",
+        "monitor_guids",
+        "name",
+        "start_time",
+        "timezone",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndOutput, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
+
+    maintenance_days = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsMonitorDowntimeWeekDays),
+        graphql_name="maintenanceDays",
+    )
+
+    monitor_guids = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityGuid), graphql_name="monitorGuids"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
 
 
 class TaggingMutationError(sgqlc.types.Type):
@@ -23028,6 +24320,14 @@ class CloudEmrIntegration(sgqlc.types.Type, CloudIntegration):
     tag_value = sgqlc.types.Field(String, graphql_name="tagValue")
 
 
+class CloudGcpAiplatformIntegration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = ("metrics_polling_interval",)
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudGcpAlloydbIntegration(sgqlc.types.Type, CloudIntegration):
     __schema__ = nerdgraph
     __field_names__ = ("metrics_polling_interval",)
@@ -23622,7 +24922,16 @@ class ErrorsInboxAssignErrorGroupError(sgqlc.types.Type, ErrorsInboxResponseErro
 
 class ErrorsInboxErrorGroup(sgqlc.types.Type, ErrorsInboxErrorGroupBase):
     __schema__ = nerdgraph
-    __field_names__ = ()
+    __field_names__ = ("first_seen_versions", "last_seen_versions")
+    first_seen_versions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ErrorsInboxVersion)),
+        graphql_name="firstSeenVersions",
+    )
+
+    last_seen_versions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ErrorsInboxVersion)),
+        graphql_name="lastSeenVersions",
+    )
 
 
 class ErrorsInboxErrorGroupOutline(sgqlc.types.Type, ErrorsInboxErrorGroupBase):

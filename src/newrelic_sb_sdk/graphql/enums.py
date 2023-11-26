@@ -174,6 +174,12 @@ __all__ = [
     "MetricNormalizationCustomerRuleAction",
     "MetricNormalizationRuleAction",
     "MetricNormalizationRuleErrorType",
+    "MultiTenantAuthorizationGrantScopeEnum",
+    "MultiTenantAuthorizationGrantSortEnum",
+    "MultiTenantAuthorizationRoleScopeEnum",
+    "MultiTenantAuthorizationRoleSortEnum",
+    "MultiTenantAuthorizationRoleTypeEnum",
+    "MultiTenantAuthorizationSortDirectionEnum",
     "MultiTenantIdentityCapability",
     "MultiTenantIdentityEmailVerificationState",
     "MultiTenantIdentitySortDirection",
@@ -213,6 +219,9 @@ __all__ = [
     "OrganizationAccountSortKeyEnum",
     "OrganizationAccountStatus",
     "OrganizationAuthenticationTypeEnum",
+    "OrganizationBillingStructure",
+    "OrganizationOrganizationCreateJobResultStatusEnum",
+    "OrganizationOrganizationCreateJobStatusEnum",
     "OrganizationProvisioningTypeEnum",
     "OrganizationProvisioningUnit",
     "OrganizationRegionCodeEnum",
@@ -234,6 +243,8 @@ __all__ = [
     "SyntheticsDeviceOrientation",
     "SyntheticsDeviceType",
     "SyntheticsMonitorCreateErrorType",
+    "SyntheticsMonitorDowntimeDayOfMonthOrdinal",
+    "SyntheticsMonitorDowntimeWeekDays",
     "SyntheticsMonitorPeriod",
     "SyntheticsMonitorStatus",
     "SyntheticsMonitorUpdateErrorType",
@@ -1831,6 +1842,36 @@ class MetricNormalizationRuleErrorType(sgqlc.types.Enum):
     )
 
 
+class MultiTenantAuthorizationGrantScopeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION")
+
+
+class MultiTenantAuthorizationGrantSortEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ID",)
+
+
+class MultiTenantAuthorizationRoleScopeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class MultiTenantAuthorizationRoleSortEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ID", "NAME", "SCOPE", "TYPE")
+
+
+class MultiTenantAuthorizationRoleTypeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CUSTOM", "STANDARD")
+
+
+class MultiTenantAuthorizationSortDirectionEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
 class MultiTenantIdentityCapability(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
@@ -2060,6 +2101,21 @@ class OrganizationAuthenticationTypeEnum(sgqlc.types.Enum):
     __choices__ = ("DISABLED", "HEROKU_SSO", "PASSWORD", "SAML_SSO")
 
 
+class OrganizationBillingStructure(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT_HIERARCHY", "CUSTOMER_CONTRACT", "UNSTRUCTURED")
+
+
+class OrganizationOrganizationCreateJobResultStatusEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CREATED", "FAILED", "RUNNING", "SUCCEEDED")
+
+
+class OrganizationOrganizationCreateJobStatusEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ALL", "CREATED", "FAILED", "RUNNING", "SUCCEEDED")
+
+
 class OrganizationProvisioningTypeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("DISABLED", "MANUAL", "SCIM")
@@ -2215,6 +2271,24 @@ class SyntheticsMonitorCreateErrorType(sgqlc.types.Enum):
         "TAGGING_ERROR",
         "UNAUTHORIZED",
         "UNKNOWN_ERROR",
+    )
+
+
+class SyntheticsMonitorDowntimeDayOfMonthOrdinal(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("FIRST", "FOURTH", "LAST", "SECOND", "THIRD")
+
+
+class SyntheticsMonitorDowntimeWeekDays(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "FRIDAY",
+        "MONDAY",
+        "SATURDAY",
+        "SUNDAY",
+        "THURSDAY",
+        "TUESDAY",
+        "WEDNESDAY",
     )
 
 

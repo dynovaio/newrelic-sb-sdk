@@ -269,6 +269,7 @@ __all__ = [
     "CloudElasticsearchIntegrationInput",
     "CloudElbIntegrationInput",
     "CloudEmrIntegrationInput",
+    "CloudGcpAiplatformIntegrationInput",
     "CloudGcpAlloydbIntegrationInput",
     "CloudGcpAppengineIntegrationInput",
     "CloudGcpBigqueryIntegrationInput",
@@ -391,6 +392,21 @@ __all__ = [
     "LogConfigurationsUpdateObfuscationRuleInput",
     "MetricNormalizationCreateRuleInput",
     "MetricNormalizationEditRuleInput",
+    "MultiTenantAuthorizationGrantFilterInputExpression",
+    "MultiTenantAuthorizationGrantGroupIdInputFilter",
+    "MultiTenantAuthorizationGrantIdInputFilter",
+    "MultiTenantAuthorizationGrantOrganizationIdInputFilter",
+    "MultiTenantAuthorizationGrantRoleIdInputFilter",
+    "MultiTenantAuthorizationGrantScopeIdInputFilter",
+    "MultiTenantAuthorizationGrantScopeTypeInputFilter",
+    "MultiTenantAuthorizationGrantSortInput",
+    "MultiTenantAuthorizationRoleFilterInputExpression",
+    "MultiTenantAuthorizationRoleIdInputFilter",
+    "MultiTenantAuthorizationRoleNameInputFilter",
+    "MultiTenantAuthorizationRoleOrganizationIdInputFilter",
+    "MultiTenantAuthorizationRoleScopeInputFilter",
+    "MultiTenantAuthorizationRoleSortInput",
+    "MultiTenantAuthorizationRoleTypeInputFilter",
     "MultiTenantIdentityAllowsCapabilityInput",
     "MultiTenantIdentityAuthenticationDomainIdInput",
     "MultiTenantIdentityGroupFilterInput",
@@ -437,15 +453,26 @@ __all__ = [
     "OrganizationAccountStatusFilterInput",
     "OrganizationAuthenticationDomainFilterInput",
     "OrganizationAuthenticationDomainSortInput",
+    "OrganizationContractCustomerIdInputFilter",
+    "OrganizationContractOrganizationIdInputFilter",
     "OrganizationCreateOrganizationInput",
     "OrganizationCreateSharedAccountInput",
+    "OrganizationCustomerContractFilterInput",
     "OrganizationCustomerOrganizationFilterInput",
     "OrganizationIdInput",
     "OrganizationNameInput",
     "OrganizationNewManagedAccountInput",
     "OrganizationOrganizationAccountIdInputFilter",
     "OrganizationOrganizationAuthenticationDomainIdInputFilter",
+    "OrganizationOrganizationCreateAsyncResultFilterInput",
+    "OrganizationOrganizationCreateJobCustomerIdInput",
+    "OrganizationOrganizationCreateJobIdInput",
+    "OrganizationOrganizationCreateJobStatusInput",
     "OrganizationOrganizationCustomerIdInputFilter",
+    "OrganizationOrganizationGroupFilterInput",
+    "OrganizationOrganizationGroupIdInputFilter",
+    "OrganizationOrganizationGroupNameInputFilter",
+    "OrganizationOrganizationGroupOrganizationIdInputFilter",
     "OrganizationOrganizationIdInput",
     "OrganizationOrganizationIdInputFilter",
     "OrganizationOrganizationNameInputFilter",
@@ -484,8 +511,15 @@ __all__ = [
     "SyntheticsCreateSimpleMonitorInput",
     "SyntheticsCreateStepMonitorInput",
     "SyntheticsCustomHeaderInput",
+    "SyntheticsDateWindowEndConfig",
+    "SyntheticsDaysOfWeek",
     "SyntheticsDeviceEmulationInput",
     "SyntheticsLocationsInput",
+    "SyntheticsMonitorDowntimeDailyConfig",
+    "SyntheticsMonitorDowntimeMonthlyConfig",
+    "SyntheticsMonitorDowntimeMonthlyFrequency",
+    "SyntheticsMonitorDowntimeOnceConfig",
+    "SyntheticsMonitorDowntimeWeeklyConfig",
     "SyntheticsPrivateLocationInput",
     "SyntheticsRuntimeInput",
     "SyntheticsScriptBrowserMonitorAdvancedOptionsInput",
@@ -636,6 +670,12 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsDataPartitionRuleRetentionPolicyType,
     LogConfigurationsObfuscationMethod,
     MetricNormalizationCustomerRuleAction,
+    MultiTenantAuthorizationGrantScopeEnum,
+    MultiTenantAuthorizationGrantSortEnum,
+    MultiTenantAuthorizationRoleScopeEnum,
+    MultiTenantAuthorizationRoleSortEnum,
+    MultiTenantAuthorizationRoleTypeEnum,
+    MultiTenantAuthorizationSortDirectionEnum,
     MultiTenantIdentityCapability,
     MultiTenantIdentitySortDirection,
     MultiTenantIdentitySortKeyEnum,
@@ -652,6 +692,7 @@ from newrelic_sb_sdk.graphql.enums import (
     OrganizationAccountSortDirectionEnum,
     OrganizationAccountSortKeyEnum,
     OrganizationAccountStatus,
+    OrganizationOrganizationCreateJobStatusEnum,
     OrganizationProvisioningUnit,
     OrganizationRegionCodeEnum,
     OrganizationSharingMode,
@@ -663,6 +704,8 @@ from newrelic_sb_sdk.graphql.enums import (
     StreamingExportPayloadCompression,
     SyntheticsDeviceOrientation,
     SyntheticsDeviceType,
+    SyntheticsMonitorDowntimeDayOfMonthOrdinal,
+    SyntheticsMonitorDowntimeWeekDays,
     SyntheticsMonitorPeriod,
     SyntheticsMonitorStatus,
     SyntheticsStepType,
@@ -681,6 +724,7 @@ from newrelic_sb_sdk.graphql.scalars import (
     AgentApplicationSettingsErrorCollectorHttpStatus,
     Boolean,
     DashboardWidgetRawConfiguration,
+    Date,
     DateTime,
     EntityGuid,
     EpochMilliseconds,
@@ -7491,6 +7535,26 @@ class CloudEmrIntegrationInput(sgqlc.types.Input):
     tag_value = sgqlc.types.Field(String, graphql_name="tagValue")
 
 
+class CloudGcpAiplatformIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudGcpAlloydbIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -7660,6 +7724,7 @@ class CloudGcpDatastoreIntegrationInput(sgqlc.types.Input):
 class CloudGcpDisableIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "gcp_aiplatform",
         "gcp_alloydb",
         "gcp_appengine",
         "gcp_bigquery",
@@ -7687,6 +7752,11 @@ class CloudGcpDisableIntegrationsInput(sgqlc.types.Input):
         "gcp_vms",
         "gcp_vpcaccess",
     )
+    gcp_aiplatform = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudDisableAccountIntegrationInput),
+        graphql_name="gcpAiplatform",
+    )
+
     gcp_alloydb = sgqlc.types.Field(
         sgqlc.types.list_of(CloudDisableAccountIntegrationInput),
         graphql_name="gcpAlloydb",
@@ -7918,6 +7988,7 @@ class CloudGcpFunctionsIntegrationInput(sgqlc.types.Input):
 class CloudGcpIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "gcp_aiplatform",
         "gcp_alloydb",
         "gcp_appengine",
         "gcp_bigquery",
@@ -7945,6 +8016,11 @@ class CloudGcpIntegrationsInput(sgqlc.types.Input):
         "gcp_vms",
         "gcp_vpcaccess",
     )
+    gcp_aiplatform = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudGcpAiplatformIntegrationInput),
+        graphql_name="gcpAiplatform",
+    )
+
     gcp_alloydb = sgqlc.types.Field(
         sgqlc.types.list_of(CloudGcpAlloydbIntegrationInput), graphql_name="gcpAlloydb"
     )
@@ -10113,6 +10189,175 @@ class MetricNormalizationEditRuleInput(sgqlc.types.Input):
     terminate_chain = sgqlc.types.Field(Boolean, graphql_name="terminateChain")
 
 
+class MultiTenantAuthorizationGrantFilterInputExpression(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "group_id",
+        "id",
+        "organization_id",
+        "role_id",
+        "scope_id",
+        "scope_type",
+    )
+    group_id = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantGroupIdInputFilter", graphql_name="groupId"
+    )
+
+    id = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantIdInputFilter", graphql_name="id"
+    )
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantAuthorizationGrantOrganizationIdInputFilter"),
+        graphql_name="organizationId",
+    )
+
+    role_id = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantRoleIdInputFilter", graphql_name="roleId"
+    )
+
+    scope_id = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantScopeIdInputFilter", graphql_name="scopeId"
+    )
+
+    scope_type = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantScopeTypeInputFilter", graphql_name="scopeType"
+    )
+
+
+class MultiTenantAuthorizationGrantGroupIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
+    )
+
+
+class MultiTenantAuthorizationGrantIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="eq")
+
+
+class MultiTenantAuthorizationGrantOrganizationIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class MultiTenantAuthorizationGrantRoleIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(Int, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(Int)), graphql_name="in"
+    )
+
+
+class MultiTenantAuthorizationGrantScopeIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="in"
+    )
+
+
+class MultiTenantAuthorizationGrantScopeTypeInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationGrantScopeEnum), graphql_name="eq"
+    )
+
+
+class MultiTenantAuthorizationGrantSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        MultiTenantAuthorizationSortDirectionEnum, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationGrantSortEnum), graphql_name="key"
+    )
+
+
+class MultiTenantAuthorizationRoleFilterInputExpression(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "organization_id", "scope", "type")
+    id = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleIdInputFilter", graphql_name="id"
+    )
+
+    name = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleNameInputFilter", graphql_name="name"
+    )
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null("MultiTenantAuthorizationRoleOrganizationIdInputFilter"),
+        graphql_name="organizationId",
+    )
+
+    scope = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleScopeInputFilter", graphql_name="scope"
+    )
+
+    type = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleTypeInputFilter", graphql_name="type"
+    )
+
+
+class MultiTenantAuthorizationRoleIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="eq")
+
+
+class MultiTenantAuthorizationRoleNameInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="eq")
+
+
+class MultiTenantAuthorizationRoleOrganizationIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class MultiTenantAuthorizationRoleScopeInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationRoleScopeEnum), graphql_name="eq"
+    )
+
+
+class MultiTenantAuthorizationRoleSortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        MultiTenantAuthorizationSortDirectionEnum, graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationRoleSortEnum), graphql_name="key"
+    )
+
+
+class MultiTenantAuthorizationRoleTypeInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(MultiTenantAuthorizationRoleTypeEnum), graphql_name="eq"
+    )
+
+
 class MultiTenantIdentityAllowsCapabilityInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("in_",)
@@ -10604,6 +10849,18 @@ class OrganizationAuthenticationDomainSortInput(sgqlc.types.Input):
     key = sgqlc.types.Field(OrganizationSortKeyEnum, graphql_name="key")
 
 
+class OrganizationContractCustomerIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="eq")
+
+
+class OrganizationContractOrganizationIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
 class OrganizationCreateOrganizationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("name",)
@@ -10628,6 +10885,18 @@ class OrganizationCreateSharedAccountInput(sgqlc.types.Input):
 
     target_organization_id = sgqlc.types.Field(
         sgqlc.types.non_null(ID), graphql_name="targetOrganizationId"
+    )
+
+
+class OrganizationCustomerContractFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("customer_id", "organization_id")
+    customer_id = sgqlc.types.Field(
+        OrganizationContractCustomerIdInputFilter, graphql_name="customerId"
+    )
+
+    organization_id = sgqlc.types.Field(
+        OrganizationContractOrganizationIdInputFilter, graphql_name="organizationId"
     )
 
 
@@ -10696,10 +10965,94 @@ class OrganizationOrganizationAuthenticationDomainIdInputFilter(sgqlc.types.Inpu
     eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
 
 
+class OrganizationOrganizationCreateAsyncResultFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("customer_id", "job_id", "status")
+    customer_id = sgqlc.types.Field(
+        "OrganizationOrganizationCreateJobCustomerIdInput", graphql_name="customerId"
+    )
+
+    job_id = sgqlc.types.Field(
+        "OrganizationOrganizationCreateJobIdInput", graphql_name="jobId"
+    )
+
+    status = sgqlc.types.Field(
+        "OrganizationOrganizationCreateJobStatusInput", graphql_name="status"
+    )
+
+
+class OrganizationOrganizationCreateJobCustomerIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="eq")
+
+
+class OrganizationOrganizationCreateJobIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="in"
+    )
+
+
+class OrganizationOrganizationCreateJobStatusInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(
+        OrganizationOrganizationCreateJobStatusEnum, graphql_name="eq"
+    )
+
+    in_ = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(OrganizationOrganizationCreateJobStatusEnum)
+        ),
+        graphql_name="in",
+    )
+
+
 class OrganizationOrganizationCustomerIdInputFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("eq",)
     eq = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="eq")
+
+
+class OrganizationOrganizationGroupFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "organization_id")
+    id = sgqlc.types.Field(
+        "OrganizationOrganizationGroupIdInputFilter", graphql_name="id"
+    )
+
+    name = sgqlc.types.Field(
+        "OrganizationOrganizationGroupNameInputFilter", graphql_name="name"
+    )
+
+    organization_id = sgqlc.types.Field(
+        "OrganizationOrganizationGroupOrganizationIdInputFilter",
+        graphql_name="organizationId",
+    )
+
+
+class OrganizationOrganizationGroupIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
+class OrganizationOrganizationGroupNameInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class OrganizationOrganizationGroupOrganizationIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
 
 
 class OrganizationOrganizationIdInput(sgqlc.types.Input):
@@ -11317,6 +11670,27 @@ class SyntheticsCustomHeaderInput(sgqlc.types.Input):
     value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
 
 
+class SyntheticsDateWindowEndConfig(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("on_date", "on_repeat")
+    on_date = sgqlc.types.Field(Date, graphql_name="onDate")
+
+    on_repeat = sgqlc.types.Field(Int, graphql_name="onRepeat")
+
+
+class SyntheticsDaysOfWeek(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("ordinal_day_of_month", "week_day")
+    ordinal_day_of_month = sgqlc.types.Field(
+        sgqlc.types.non_null(SyntheticsMonitorDowntimeDayOfMonthOrdinal),
+        graphql_name="ordinalDayOfMonth",
+    )
+
+    week_day = sgqlc.types.Field(
+        sgqlc.types.non_null(SyntheticsMonitorDowntimeWeekDays), graphql_name="weekDay"
+    )
+
+
 class SyntheticsDeviceEmulationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("device_orientation", "device_type")
@@ -11336,6 +11710,83 @@ class SyntheticsLocationsInput(sgqlc.types.Input):
     private = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="private")
 
     public = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="public")
+
+
+class SyntheticsMonitorDowntimeDailyConfig(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("end_repeat", "end_time", "start_time", "timezone")
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndConfig, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
+class SyntheticsMonitorDowntimeMonthlyConfig(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("end_repeat", "end_time", "frequency", "start_time", "timezone")
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndConfig, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    frequency = sgqlc.types.Field(
+        "SyntheticsMonitorDowntimeMonthlyFrequency", graphql_name="frequency"
+    )
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
+class SyntheticsMonitorDowntimeMonthlyFrequency(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("days_of_month", "days_of_week")
+    days_of_month = sgqlc.types.Field(
+        sgqlc.types.list_of(Int), graphql_name="daysOfMonth"
+    )
+
+    days_of_week = sgqlc.types.Field(SyntheticsDaysOfWeek, graphql_name="daysOfWeek")
+
+
+class SyntheticsMonitorDowntimeOnceConfig(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("end_time", "start_time", "timezone")
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
+
+
+class SyntheticsMonitorDowntimeWeeklyConfig(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "end_repeat",
+        "end_time",
+        "maintenance_days",
+        "start_time",
+        "timezone",
+    )
+    end_repeat = sgqlc.types.Field(
+        SyntheticsDateWindowEndConfig, graphql_name="endRepeat"
+    )
+
+    end_time = sgqlc.types.Field(NaiveDateTime, graphql_name="endTime")
+
+    maintenance_days = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsMonitorDowntimeWeekDays),
+        graphql_name="maintenanceDays",
+    )
+
+    start_time = sgqlc.types.Field(NaiveDateTime, graphql_name="startTime")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
 
 
 class SyntheticsPrivateLocationInput(sgqlc.types.Input):
