@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.17.0] - 2023-11-26
+
 * Update GraphQL submodule with a fresh schema version.
 * Add `OrganizationBillingStructure`,
   `OrganizationOrganizationCreateJobResultStatusEnum`,
