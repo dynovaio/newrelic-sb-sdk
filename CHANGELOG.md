@@ -2,6 +2,77 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Add `OrganizationBillingStructure`,
+  `OrganizationOrganizationCreateJobResultStatusEnum`,
+  `OrganizationOrganizationCreateJobStatusEnum`,
+  `SyntheticsMonitorDowntimeDayOfMonthOrdinal` and
+  `SyntheticsMonitorDowntimeWeekDays` enum types.
+* Add `CloudGcpAiplatformIntegrationInput`,
+  `MultiTenantAuthorizationGrantFilterInputExpression`,
+  `MultiTenantAuthorizationGrantGroupIdInputFilter`,
+  `MultiTenantAuthorizationGrantIdInputFilter`,
+  `MultiTenantAuthorizationGrantOrganizationIdInputFilter`,
+  `MultiTenantAuthorizationGrantRoleIdInputFilter`,
+  `MultiTenantAuthorizationGrantScopeIdInputFilter`,
+  `MultiTenantAuthorizationGrantScopeTypeInputFilter`,
+  `MultiTenantAuthorizationGrantSortInput`,
+  `MultiTenantAuthorizationRoleFilterInputExpression`,
+  `MultiTenantAuthorizationRoleIdInputFilter`,
+  `MultiTenantAuthorizationRoleNameInputFilter`,
+  `MultiTenantAuthorizationRoleOrganizationIdInputFilter`,
+  `MultiTenantAuthorizationRoleScopeInputFilter`,
+  `MultiTenantAuthorizationRoleSortInput`,
+  `MultiTenantAuthorizationRoleTypeInputFilter`,
+  `OrganizationContractCustomerIdInputFilter`,
+  `OrganizationContractOrganizationIdInputFilter`,
+  `OrganizationCustomerContractFilterInput`,
+  `OrganizationOrganizationCreateAsyncResultFilterInput`,
+  `OrganizationOrganizationCreateJobCustomerIdInput`,
+  `OrganizationOrganizationCreateJobIdInput`,
+  `OrganizationOrganizationCreateJobStatusInput`,
+  `OrganizationOrganizationGroupFilterInput`,
+  `OrganizationOrganizationGroupIdInputFilter`,
+  `OrganizationOrganizationGroupNameInputFilter`,
+  `OrganizationOrganizationGroupOrganizationIdInputFilter`,
+  `SyntheticsDateWindowEndConfig`,
+  `SyntheticsDaysOfWeek`,
+  `SyntheticsMonitorDowntimeDailyConfig`,
+  `SyntheticsMonitorDowntimeMonthlyConfig`,
+  `SyntheticsMonitorDowntimeMonthlyFrequency`,
+  `SyntheticsMonitorDowntimeOnceConfig` and
+  `SyntheticsMonitorDowntimeWeeklyConfig` input types.
+* Add field `gcp_aiplatform` to `CloudGcpDisableIntegrationsInput` input type.
+* Add field `gcp_aiplatform` to `CloudGcpIntegrationsInput` input type.
+* Add `Consumption`, `CustomerAdministration`, `CustomerAdministrationJobs`,
+  `ErrorsInboxVersion`, `MultiTenantAuthorizationGrant`,
+  `MultiTenantAuthorizationGrantCollection`,
+  `MultiTenantAuthorizationGrantGroup`,
+  `MultiTenantAuthorizationGrantRole`, `MultiTenantAuthorizationGrantScope`,
+  `MultiTenantAuthorizationRole`, `MultiTenantAuthorizationRoleCollection`,
+  `OrganizationCustomerContract`, `OrganizationCustomerContractWrapper`,
+  `OrganizationOrganizationCreateAsyncCustomerResult`,
+  `OrganizationOrganizationCreateAsyncJobResult`,
+  `OrganizationOrganizationCreateAsyncOrganizationResult`,
+  `OrganizationOrganizationCreateAsyncResult`,
+  `OrganizationOrganizationCreateAsyncResultCollection`,
+  `OrganizationOrganizationGroup`, `OrganizationOrganizationGroupWrapper`,
+  `SyntheticsDailyMonitorDowntimeMutationResult`,
+  `SyntheticsDateWindowEndOutput`, `SyntheticsDaysOfWeekOutput`,
+  `SyntheticsDailyMonitorDowntimeMutationResult`,
+  `SyntheticsDateWindowEndOutput`, `SyntheticsDaysOfWeekOutput`,
+  `SyntheticsMonthlyMonitorDowntimeMutationResult`,
+  `SyntheticsOnceMonitorDowntimeMutationResult`,
+  `SyntheticsWeeklyMonitorDowntimeMutationResult` and
+  `CloudGcpAiplatformIntegration` object types.
+* Update field `items` of `OrganizationCustomerOrganizationWrapper` object type
+  to be not null.
+* Add field `customer_administration` to `RootQueryType` object type.
+* Add fields `first_seen_versions` and `last_seen_versions` to
+  `ErrorsInboxErrorGroup` object type.
+* Update development dependencies.
+* Update .pre-commit-config.yaml.
+
 ## [0.16.0] - 2023-10-22
 
 * Update GraphQL submodule with a fresh schema version.
