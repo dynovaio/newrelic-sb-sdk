@@ -904,6 +904,30 @@ d = {
                 "GraphQL/enums.html#metricnormalizationruleerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationGrantScopeEnum": (
+                "GraphQL/enums.html#multitenantauthorizationgrantscopeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationGrantSortEnum": (
+                "GraphQL/enums.html#multitenantauthorizationgrantsortenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationRoleScopeEnum": (
+                "GraphQL/enums.html#multitenantauthorizationrolescopeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationRoleSortEnum": (
+                "GraphQL/enums.html#multitenantauthorizationrolesortenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationRoleTypeEnum": (
+                "GraphQL/enums.html#multitenantauthorizationroletypeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationSortDirectionEnum": (
+                "GraphQL/enums.html#multitenantauthorizationsortdirectionenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.MultiTenantIdentityCapability": (
                 "GraphQL/enums.html#multitenantidentitycapability",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1060,6 +1084,18 @@ d = {
                 "GraphQL/enums.html#organizationauthenticationtypeenum",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationBillingStructure": (
+                "GraphQL/enums.html#organizationbillingstructure",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationOrganizationCreateJobResultStatusEnum": (
+                "GraphQL/enums.html#organizationorganizationcreatejobresultstatusenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.OrganizationOrganizationCreateJobStatusEnum": (
+                "GraphQL/enums.html#organizationorganizationcreatejobstatusenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.OrganizationProvisioningTypeEnum": (
                 "GraphQL/enums.html#organizationprovisioningtypeenum",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1142,6 +1178,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.SyntheticsMonitorCreateErrorType": (
                 "GraphQL/enums.html#syntheticsmonitorcreateerrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.SyntheticsMonitorDowntimeDayOfMonthOrdinal": (
+                "GraphQL/enums.html#syntheticsmonitordowntimedayofmonthordinal",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.SyntheticsMonitorDowntimeWeekDays": (
+                "GraphQL/enums.html#syntheticsmonitordowntimeweekdays",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.SyntheticsMonitorPeriod": (
@@ -2352,6 +2396,10 @@ d = {
                 "GraphQL/input objects.html#cloudemrintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudGcpAiplatformIntegrationInput": (
+                "GraphQL/input objects.html#cloudgcpaiplatformintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudGcpAlloydbIntegrationInput": (
                 "GraphQL/input objects.html#cloudgcpalloydbintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2856,6 +2904,79 @@ d = {
                 "GraphQL/input objects.html#metricnormalizationeditruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantFilterInputExpression": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantfilterinputexpression",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantGroupIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantgroupidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantOrganizationIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantorganizationidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantRoleIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantroleidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantScopeIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantscopeidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantScopeTypeInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantscopetypeinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantSortInput": (
+                "GraphQL/input objects.html#multitenantauthorizationgrantsortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleFilterInputExpression": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationrolefilterinputexpression",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationroleidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleNameInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationrolenameinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleOrganizationIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationroleorganizationidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleScopeInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationrolescopeinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleSortInput": (
+                "GraphQL/input objects.html#multitenantauthorizationrolesortinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleTypeInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationroletypeinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityAllowsCapabilityInput": (
                 "GraphQL/input "
                 "objects.html#multitenantidentityallowscapabilityinput",
@@ -3046,12 +3167,26 @@ d = {
                 "objects.html#organizationauthenticationdomainsortinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationContractCustomerIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationcontractcustomeridinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationContractOrganizationIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationcontractorganizationidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCreateOrganizationInput": (
                 "GraphQL/input objects.html#organizationcreateorganizationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCreateSharedAccountInput": (
                 "GraphQL/input objects.html#organizationcreatesharedaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationCustomerContractFilterInput": (
+                "GraphQL/input objects.html#organizationcustomercontractfilterinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationCustomerOrganizationFilterInput": (
@@ -3081,9 +3216,49 @@ d = {
                 "objects.html#organizationorganizationauthenticationdomainidinputfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCreateAsyncResultFilterInput": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationcreateasyncresultfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCreateJobCustomerIdInput": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationcreatejobcustomeridinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCreateJobIdInput": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationcreatejobidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCreateJobStatusInput": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationcreatejobstatusinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationCustomerIdInputFilter": (
                 "GraphQL/input "
                 "objects.html#organizationorganizationcustomeridinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationGroupFilterInput": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationgroupfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationGroupIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationgroupidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationGroupNameInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationgroupnameinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationGroupOrganizationIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#organizationorganizationgrouporganizationidinputfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.OrganizationOrganizationIdInput": (
@@ -3247,12 +3422,41 @@ d = {
                 "GraphQL/input objects.html#syntheticscustomheaderinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsDateWindowEndConfig": (
+                "GraphQL/input objects.html#syntheticsdatewindowendconfig",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsDaysOfWeek": (
+                "GraphQL/input objects.html#syntheticsdaysofweek",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.SyntheticsDeviceEmulationInput": (
                 "GraphQL/input objects.html#syntheticsdeviceemulationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.SyntheticsLocationsInput": (
                 "GraphQL/input objects.html#syntheticslocationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsMonitorDowntimeDailyConfig": (
+                "GraphQL/input objects.html#syntheticsmonitordowntimedailyconfig",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsMonitorDowntimeMonthlyConfig": (
+                "GraphQL/input objects.html#syntheticsmonitordowntimemonthlyconfig",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsMonitorDowntimeMonthlyFrequency": (
+                "GraphQL/input "
+                "objects.html#syntheticsmonitordowntimemonthlyfrequency",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsMonitorDowntimeOnceConfig": (
+                "GraphQL/input objects.html#syntheticsmonitordowntimeonceconfig",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsMonitorDowntimeWeeklyConfig": (
+                "GraphQL/input objects.html#syntheticsmonitordowntimeweeklyconfig",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.SyntheticsPrivateLocationInput": (
@@ -4799,6 +5003,10 @@ d = {
                 "GraphQL/objects.html#cloudemrintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudGcpAiplatformIntegration": (
+                "GraphQL/objects.html#cloudgcpaiplatformintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudGcpAlloydbIntegration": (
                 "GraphQL/objects.html#cloudgcpalloydbintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -5007,8 +5215,20 @@ d = {
                 "GraphQL/objects.html#collectionentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.Consumption": (
+                "GraphQL/objects.html#consumption",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CrossAccountNrdbResultContainer": (
                 "GraphQL/objects.html#crossaccountnrdbresultcontainer",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CustomerAdministration": (
+                "GraphQL/objects.html#customeradministration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CustomerAdministrationJobs": (
+                "GraphQL/objects.html#customeradministrationjobs",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.DashboardActorStitchedFields": (
@@ -5623,6 +5843,10 @@ d = {
                 "GraphQL/objects.html#errorsinboxupdateerrorgroupstateresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.ErrorsInboxVersion": (
+                "GraphQL/objects.html#errorsinboxversion",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EventAttributeDefinition": (
                 "GraphQL/objects.html#eventattributedefinition",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -5993,6 +6217,34 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.MobilePushNotificationSendPushResult": (
                 "GraphQL/objects.html#mobilepushnotificationsendpushresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationGrant": (
+                "GraphQL/objects.html#multitenantauthorizationgrant",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationGrantCollection": (
+                "GraphQL/objects.html#multitenantauthorizationgrantcollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationGrantGroup": (
+                "GraphQL/objects.html#multitenantauthorizationgrantgroup",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationGrantRole": (
+                "GraphQL/objects.html#multitenantauthorizationgrantrole",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationGrantScope": (
+                "GraphQL/objects.html#multitenantauthorizationgrantscope",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationRole": (
+                "GraphQL/objects.html#multitenantauthorizationrole",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationRoleCollection": (
+                "GraphQL/objects.html#multitenantauthorizationrolecollection",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroup": (
@@ -6527,6 +6779,14 @@ d = {
                 "GraphQL/objects.html#organizationcreatesharedaccountresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationCustomerContract": (
+                "GraphQL/objects.html#organizationcustomercontract",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationCustomerContractWrapper": (
+                "GraphQL/objects.html#organizationcustomercontractwrapper",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.OrganizationCustomerOrganization": (
                 "GraphQL/objects.html#organizationcustomerorganization",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6545,6 +6805,34 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationAdministrator": (
                 "GraphQL/objects.html#organizationorganizationadministrator",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationCreateAsyncCustomerResult": (
+                "GraphQL/objects.html#organizationorganizationcreateasynccustomerresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationCreateAsyncJobResult": (
+                "GraphQL/objects.html#organizationorganizationcreateasyncjobresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationCreateAsyncOrganizationResult": (
+                "GraphQL/objects.html#organizationorganizationcreateasyncorganizationresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationCreateAsyncResult": (
+                "GraphQL/objects.html#organizationorganizationcreateasyncresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationCreateAsyncResultCollection": (
+                "GraphQL/objects.html#organizationorganizationcreateasyncresultcollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationGroup": (
+                "GraphQL/objects.html#organizationorganizationgroup",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationGroupWrapper": (
+                "GraphQL/objects.html#organizationorganizationgroupwrapper",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationProvisioningUpdateSubscriptionResult": (
@@ -6815,6 +7103,18 @@ d = {
                 "GraphQL/objects.html#syntheticscustomheader",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsDailyMonitorDowntimeMutationResult": (
+                "GraphQL/objects.html#syntheticsdailymonitordowntimemutationresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsDateWindowEndOutput": (
+                "GraphQL/objects.html#syntheticsdatewindowendoutput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsDaysOfWeekOutput": (
+                "GraphQL/objects.html#syntheticsdaysofweekoutput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsDeviceEmulation": (
                 "GraphQL/objects.html#syntheticsdeviceemulation",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6835,12 +7135,32 @@ d = {
                 "GraphQL/objects.html#syntheticsmonitordeletemutationresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsMonitorDowntimeDeleteResult": (
+                "GraphQL/objects.html#syntheticsmonitordowntimedeleteresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsMonitorDowntimeMonthlyFrequencyOutput": (
+                "GraphQL/objects.html#syntheticsmonitordowntimemonthlyfrequencyoutput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsMonitorDowntimeMutationResult": (
+                "GraphQL/objects.html#syntheticsmonitordowntimemutationresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsMonitorScriptQueryResponse": (
                 "GraphQL/objects.html#syntheticsmonitorscriptqueryresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsMonitorUpdateError": (
                 "GraphQL/objects.html#syntheticsmonitorupdateerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsMonthlyMonitorDowntimeMutationResult": (
+                "GraphQL/objects.html#syntheticsmonthlymonitordowntimemutationresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsOnceMonitorDowntimeMutationResult": (
+                "GraphQL/objects.html#syntheticsoncemonitordowntimemutationresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsPrivateLocationDeleteResult": (
@@ -6945,6 +7265,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsSyntheticMonitorAsset": (
                 "GraphQL/objects.html#syntheticssyntheticmonitorasset",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsWeeklyMonitorDowntimeMutationResult": (
+                "GraphQL/objects.html#syntheticsweeklymonitordowntimemutationresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.TaggingMutationError": (
