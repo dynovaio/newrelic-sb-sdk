@@ -18,7 +18,7 @@ repos:
     -   id: shellcheck
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.37.0
+    rev: v0.39.0
     hooks:
       - id: markdownlint
         args: [--config, .markdownlint.json]
@@ -43,12 +43,12 @@ repos:
         name: nbqa-mypy
         alias: nbqa-mypy
         exclude: ^.*\b(GraphQL)\b.*$
-        additional_dependencies: [mypy==1.7.1, types-requests==2.31.0.10]
+        additional_dependencies: [mypy==1.8.0, types-requests==2.31.0.20240125]
       - id: nbqa
         entry: poetry run nbqa bandit
         name: nbqa-bandit
         alias: nbqa-bandit
-        additional_dependencies: [bandit==1.7.5]
+        additional_dependencies: [bandit==1.7.7]
       - id: nbqa-pylint
         args: [--disable=import-error, --disable=pointless-statement, --disable=invalid-name, --disable=expression-not-assigned, --disable=too-many-lines]
         exclude: ^.*\b(notebooks-to-refactor)\b.*$
@@ -64,7 +64,7 @@ repos:
       - id: isort
 
   - repo: https://github.com/ambv/black
-    rev: 23.11.0
+    rev: 24.1.1
     hooks:
       - id: black
 
@@ -77,7 +77,7 @@ repos:
         entry: sed -i -r 's/ " "/ /g'
 
   - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
+    rev: 7.0.0
     hooks:
       - id: flake8
 
@@ -87,15 +87,15 @@ repos:
       - id: pydocstyle
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.1
+    rev: v1.8.0
     hooks:
       - id: mypy
         files: \.py$
         exclude: ^.*\b(graphql)\b.*$
-        additional_dependencies: [types-requests==2.31.0.10]
+        additional_dependencies: [types-requests==2.31.0.20240125]
 
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.5
+    rev: 1.7.7
     hooks:
       - id: bandit
         args: [-c, .bandit, -r, src]
