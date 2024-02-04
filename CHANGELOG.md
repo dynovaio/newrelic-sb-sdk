@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Drop support for python 3.8.
+* Update development dependencies.
+* Update .pre-commit-config.yaml.
+
 ## [0.17.0] - 2023-11-26
 
 * Update GraphQL submodule with a fresh schema version.
