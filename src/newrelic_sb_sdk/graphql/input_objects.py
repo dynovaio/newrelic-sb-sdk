@@ -338,6 +338,7 @@ __all__ = [
     "DashboardVariableEnumItemInput",
     "DashboardVariableInput",
     "DashboardVariableNrqlQueryInput",
+    "DashboardVariableOptionsInput",
     "DashboardWidgetConfigurationInput",
     "DashboardWidgetInput",
     "DashboardWidgetLayoutInput",
@@ -400,6 +401,8 @@ __all__ = [
     "MultiTenantAuthorizationGrantScopeIdInputFilter",
     "MultiTenantAuthorizationGrantScopeTypeInputFilter",
     "MultiTenantAuthorizationGrantSortInput",
+    "MultiTenantAuthorizationPermissionFilter",
+    "MultiTenantAuthorizationPermissionFilterRoleIdInput",
     "MultiTenantAuthorizationRoleFilterInputExpression",
     "MultiTenantAuthorizationRoleIdInputFilter",
     "MultiTenantAuthorizationRoleNameInputFilter",
@@ -416,6 +419,7 @@ __all__ = [
     "MultiTenantIdentityGroupSortInput",
     "MultiTenantIdentityGroupUserFilterInput",
     "MultiTenantIdentityOrganizationIdInput",
+    "MultiTenantIdentityPendingUpgradeRequestInput",
     "MultiTenantIdentityUserEmailInput",
     "MultiTenantIdentityUserFilterInput",
     "MultiTenantIdentityUserIdInput",
@@ -751,8 +755,10 @@ __docformat__ = "markdown"
 
 class AccountManagementCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("name", "region_code")
+    __field_names__ = ("name", "organization_id", "region_code")
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
 
     region_code = sgqlc.types.Field(String, graphql_name="regionCode")
 
@@ -9152,6 +9158,7 @@ class DashboardVariableInput(sgqlc.types.Input):
         "items",
         "name",
         "nrql_query",
+        "options",
         "replacement_strategy",
         "title",
         "type",
@@ -9177,6 +9184,8 @@ class DashboardVariableInput(sgqlc.types.Input):
         "DashboardVariableNrqlQueryInput", graphql_name="nrqlQuery"
     )
 
+    options = sgqlc.types.Field("DashboardVariableOptionsInput", graphql_name="options")
+
     replacement_strategy = sgqlc.types.Field(
         DashboardVariableReplacementStrategy, graphql_name="replacementStrategy"
     )
@@ -9197,6 +9206,12 @@ class DashboardVariableNrqlQueryInput(sgqlc.types.Input):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="query")
+
+
+class DashboardVariableOptionsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("ignore_time_range",)
+    ignore_time_range = sgqlc.types.Field(Boolean, graphql_name="ignoreTimeRange")
 
 
 class DashboardWidgetConfigurationInput(sgqlc.types.Input):
@@ -10028,6 +10043,7 @@ class LogConfigurationsPipelineConfigurationInput(sgqlc.types.Input):
         "obfuscation_disabled",
         "parsing_disabled",
         "patterns_enabled",
+        "plugin_attributes_cleanup_enabled",
         "recursive_json_parsing_disabled",
         "transformation_disabled",
     )
@@ -10044,6 +10060,10 @@ class LogConfigurationsPipelineConfigurationInput(sgqlc.types.Input):
     parsing_disabled = sgqlc.types.Field(Boolean, graphql_name="parsingDisabled")
 
     patterns_enabled = sgqlc.types.Field(Boolean, graphql_name="patternsEnabled")
+
+    plugin_attributes_cleanup_enabled = sgqlc.types.Field(
+        Boolean, graphql_name="pluginAttributesCleanupEnabled"
+    )
 
     recursive_json_parsing_disabled = sgqlc.types.Field(
         Boolean, graphql_name="recursiveJsonParsingDisabled"
@@ -10287,6 +10307,20 @@ class MultiTenantAuthorizationGrantSortInput(sgqlc.types.Input):
     )
 
 
+class MultiTenantAuthorizationPermissionFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("role_id",)
+    role_id = sgqlc.types.Field(
+        "MultiTenantAuthorizationPermissionFilterRoleIdInput", graphql_name="roleId"
+    )
+
+
+class MultiTenantAuthorizationPermissionFilterRoleIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
 class MultiTenantAuthorizationRoleFilterInputExpression(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id", "name", "organization_id", "scope", "type")
@@ -10451,6 +10485,12 @@ class MultiTenantIdentityOrganizationIdInput(sgqlc.types.Input):
     eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
 
 
+class MultiTenantIdentityPendingUpgradeRequestInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("exists",)
+    exists = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="exists")
+
+
 class MultiTenantIdentityUserEmailInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("contains", "eq")
@@ -10461,7 +10501,13 @@ class MultiTenantIdentityUserEmailInput(sgqlc.types.Input):
 
 class MultiTenantIdentityUserFilterInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("authentication_domain_id", "email", "id", "name")
+    __field_names__ = (
+        "authentication_domain_id",
+        "email",
+        "id",
+        "name",
+        "pending_upgrade_request",
+    )
     authentication_domain_id = sgqlc.types.Field(
         sgqlc.types.non_null(MultiTenantIdentityAuthenticationDomainIdInput),
         graphql_name="authenticationDomainId",
@@ -10472,6 +10518,11 @@ class MultiTenantIdentityUserFilterInput(sgqlc.types.Input):
     id = sgqlc.types.Field("MultiTenantIdentityUserIdInput", graphql_name="id")
 
     name = sgqlc.types.Field("MultiTenantIdentityUserNameInput", graphql_name="name")
+
+    pending_upgrade_request = sgqlc.types.Field(
+        MultiTenantIdentityPendingUpgradeRequestInput,
+        graphql_name="pendingUpgradeRequest",
+    )
 
 
 class MultiTenantIdentityUserIdInput(sgqlc.types.Input):

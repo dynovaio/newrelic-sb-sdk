@@ -110,6 +110,7 @@ __all__ = [
     "DashboardVariableType",
     "DataDictionaryTextFormat",
     "DataManagementCategory",
+    "DataManagementType",
     "DataManagementUnit",
     "DistributedTracingSpanAnomalyType",
     "DistributedTracingSpanClientType",
@@ -176,6 +177,7 @@ __all__ = [
     "MetricNormalizationRuleErrorType",
     "MultiTenantAuthorizationGrantScopeEnum",
     "MultiTenantAuthorizationGrantSortEnum",
+    "MultiTenantAuthorizationPermissionCategoryEnum",
     "MultiTenantAuthorizationRoleScopeEnum",
     "MultiTenantAuthorizationRoleSortEnum",
     "MultiTenantAuthorizationRoleTypeEnum",
@@ -1165,6 +1167,11 @@ class DataManagementCategory(sgqlc.types.Enum):
     __choices__ = ("ALERTING", "INGEST", "QUERY")
 
 
+class DataManagementType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GAUGE", "RATE")
+
+
 class DataManagementUnit(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BYTES", "COUNT", "GIGABYTES")
@@ -1852,6 +1859,11 @@ class MultiTenantAuthorizationGrantSortEnum(sgqlc.types.Enum):
     __choices__ = ("ID",)
 
 
+class MultiTenantAuthorizationPermissionCategoryEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DELETE", "MANAGE", "MODIFY", "OTHER", "READ", "VIEW")
+
+
 class MultiTenantAuthorizationRoleScopeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "ORGANIZATION")
@@ -2098,7 +2110,7 @@ class OrganizationAccountStatus(sgqlc.types.Enum):
 
 class OrganizationAuthenticationTypeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DISABLED", "HEROKU_SSO", "PASSWORD", "SAML_SSO")
+    __choices__ = ("DISABLED", "HEROKU_SSO", "OIDC_SSO", "PASSWORD", "SAML_SSO")
 
 
 class OrganizationBillingStructure(sgqlc.types.Enum):

@@ -648,6 +648,10 @@ d = {
                 "GraphQL/enums.html#datamanagementcategory",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.DataManagementType": (
+                "GraphQL/enums.html#datamanagementtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.DataManagementUnit": (
                 "GraphQL/enums.html#datamanagementunit",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -910,6 +914,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationGrantSortEnum": (
                 "GraphQL/enums.html#multitenantauthorizationgrantsortenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationPermissionCategoryEnum": (
+                "GraphQL/enums.html#multitenantauthorizationpermissioncategoryenum",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.MultiTenantAuthorizationRoleScopeEnum": (
@@ -2675,6 +2683,10 @@ d = {
                 "GraphQL/input objects.html#dashboardvariablenrqlqueryinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.DashboardVariableOptionsInput": (
+                "GraphQL/input objects.html#dashboardvariableoptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.DashboardWidgetConfigurationInput": (
                 "GraphQL/input objects.html#dashboardwidgetconfigurationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2943,6 +2955,16 @@ d = {
                 "GraphQL/input objects.html#multitenantauthorizationgrantsortinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationPermissionFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationpermissionfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationPermissionFilterRoleIdInput": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationpermissionfilterroleidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleFilterInputExpression": (
                 "GraphQL/input "
                 "objects.html#multitenantauthorizationrolefilterinputexpression",
@@ -3013,6 +3035,11 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityOrganizationIdInput": (
                 "GraphQL/input objects.html#multitenantidentityorganizationidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityPendingUpgradeRequestInput": (
+                "GraphQL/input "
+                "objects.html#multitenantidentitypendingupgraderequestinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserEmailInput": (
@@ -5383,6 +5410,10 @@ d = {
                 "GraphQL/objects.html#dashboardvariablenrqlquery",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.DashboardVariableOptions": (
+                "GraphQL/objects.html#dashboardvariableoptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.DashboardWidget": (
                 "GraphQL/objects.html#dashboardwidget",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -5469,10 +5500,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.DataManagementRule": (
                 "GraphQL/objects.html#datamanagementrule",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.DateTimeWindow": (
-                "GraphQL/objects.html#datetimewindow",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.DistributedTracingActorStitchedFields": (
@@ -6239,6 +6266,14 @@ d = {
                 "GraphQL/objects.html#multitenantauthorizationgrantscope",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationPermission": (
+                "GraphQL/objects.html#multitenantauthorizationpermission",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationPermissionCollection": (
+                "GraphQL/objects.html#multitenantauthorizationpermissioncollection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.MultiTenantAuthorizationRole": (
                 "GraphQL/objects.html#multitenantauthorizationrole",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6261,6 +6296,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityGroupUsers": (
                 "GraphQL/objects.html#multitenantidentitygroupusers",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityPendingUpgradeRequest": (
+                "GraphQL/objects.html#multitenantidentitypendingupgraderequest",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.MultiTenantIdentityUser": (

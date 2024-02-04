@@ -3,6 +3,39 @@
 ## [Unreleased]
 
 * Update GraphQL submodule with a fresh schema version.
+* Add `DataManagementType` and `MultiTenantAuthorizationPermissionCategoryEnum`
+  enum types.
+* Add `OIDC_SSO` choice to `OrganizationAuthenticationTypeEnum`.
+* Add `DashboardVariableOptionsInput`,
+  `MultiTenantAuthorizationPermissionFilter`,
+  `MultiTenantAuthorizationPermissionFilterRoleIdInput` and
+  `MultiTenantIdentityPendingUpgradeRequestInput` input types.
+* Add field `organization_id` to `AccountManagementCreateInput` input type.
+* Add field `options` to `DashboardVariableInput` input type.
+* Add field `plugin_attributes_cleanup_enabled` to
+  `LogConfigurationsPipelineConfigurationInput` input type.
+* Add field `pending_upgrade_request` to
+  `MultiTenantIdentityUserFilterInput` input type.
+* Drop `DateTimeWindow` object type.
+* Add `DashboardVariableOptions`, `MultiTenantAuthorizationPermission`,
+  `MultiTenantAuthorizationPermissionCollection`,
+  `MultiTenantIdentityPendingUpgradeRequest` object types.
+* Add fields `updated_at` and `updated_by` to `AlertsNrqlCondition` object
+  type.
+* Add field `obfuscated_key` to `ApiAccessKey` object type.
+* Add field `permissions` to `CustomerAdministration` object type.
+* Add field `options` to `DashboardVariable` object type.
+* Add field `type` to `DataManagementAccountLimit` object type.
+* Add field `name` to `MultiTenantAuthorizationGrantRole` object type.
+* Add field `total_count` to `MultiTenantAuthorizationRoleCollection` object
+  type.
+* Add field `total_count` to `MultiTenantIdentityGroupCollection` object
+  type.
+* Add field `total_count` to `MultiTenantIdentityUserCollection` object
+  type.
+* Add field `total_count` to `OrganizationAccountCollection` object
+  type.
+* Add field `pending_upgrade_request` to `MultiTenantIdentityUser` object type.
 * Drop support for python 3.8.
 * Update development dependencies.
 * Update .pre-commit-config.yaml.
