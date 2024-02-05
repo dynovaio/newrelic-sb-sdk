@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.18.0] - 2024-02-04
+
 * Update GraphQL submodule with a fresh schema version.
 * Add `DataManagementType` and `MultiTenantAuthorizationPermissionCategoryEnum`
   enum types.
