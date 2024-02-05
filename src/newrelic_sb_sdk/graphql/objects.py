@@ -284,6 +284,7 @@ __all__ = [
     "DashboardVariableDefaultValue",
     "DashboardVariableEnumItem",
     "DashboardVariableNrqlQuery",
+    "DashboardVariableOptions",
     "DashboardWidget",
     "DashboardWidgetConfiguration",
     "DashboardWidgetLayout",
@@ -306,7 +307,6 @@ __all__ = [
     "DataManagementRetention",
     "DataManagementRetentionValues",
     "DataManagementRule",
-    "DateTimeWindow",
     "DistributedTracingActorStitchedFields",
     "DistributedTracingEntityTracingSummary",
     "DistributedTracingSpan",
@@ -464,12 +464,15 @@ __all__ = [
     "MultiTenantAuthorizationGrantGroup",
     "MultiTenantAuthorizationGrantRole",
     "MultiTenantAuthorizationGrantScope",
+    "MultiTenantAuthorizationPermission",
+    "MultiTenantAuthorizationPermissionCollection",
     "MultiTenantAuthorizationRole",
     "MultiTenantAuthorizationRoleCollection",
     "MultiTenantIdentityGroup",
     "MultiTenantIdentityGroupCollection",
     "MultiTenantIdentityGroupUser",
     "MultiTenantIdentityGroupUsers",
+    "MultiTenantIdentityPendingUpgradeRequest",
     "MultiTenantIdentityUser",
     "MultiTenantIdentityUserCollection",
     "MultiTenantIdentityUserGroup",
@@ -1064,6 +1067,7 @@ from newrelic_sb_sdk.graphql.enums import (
     DashboardVariableType,
     DataDictionaryTextFormat,
     DataManagementCategory,
+    DataManagementType,
     DataManagementUnit,
     DistributedTracingSpanAnomalyType,
     DistributedTracingSpanClientType,
@@ -1119,6 +1123,7 @@ from newrelic_sb_sdk.graphql.enums import (
     MetricNormalizationRuleAction,
     MetricNormalizationRuleErrorType,
     MultiTenantAuthorizationGrantScopeEnum,
+    MultiTenantAuthorizationPermissionCategoryEnum,
     MultiTenantIdentityEmailVerificationState,
     NerdpackMutationErrorType,
     NerdpackMutationResult,
@@ -1283,6 +1288,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     MetricNormalizationEditRuleInput,
     MultiTenantAuthorizationGrantFilterInputExpression,
     MultiTenantAuthorizationGrantSortInput,
+    MultiTenantAuthorizationPermissionFilter,
     MultiTenantAuthorizationRoleFilterInputExpression,
     MultiTenantAuthorizationRoleSortInput,
     MultiTenantIdentityGroupFilterInput,
@@ -1566,6 +1572,8 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
         "signal",
         "terms",
         "type",
+        "updated_at",
+        "updated_by",
         "violation_time_limit_seconds",
     )
     description = sgqlc.types.Field(String, graphql_name="description")
@@ -1609,6 +1617,10 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
         sgqlc.types.non_null(AlertsNrqlConditionType), graphql_name="type"
     )
 
+    updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="updatedAt")
+
+    updated_by = sgqlc.types.Field("UserReference", graphql_name="updatedBy")
+
     violation_time_limit_seconds = sgqlc.types.Field(
         Seconds, graphql_name="violationTimeLimitSeconds"
     )
@@ -1616,7 +1628,15 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
 
 class ApiAccessKey(sgqlc.types.Interface):
     __schema__ = nerdgraph
-    __field_names__ = ("created_at", "id", "key", "name", "notes", "type")
+    __field_names__ = (
+        "created_at",
+        "id",
+        "key",
+        "name",
+        "notes",
+        "obfuscated_key",
+        "type",
+    )
     created_at = sgqlc.types.Field(EpochSeconds, graphql_name="createdAt")
 
     id = sgqlc.types.Field(ID, graphql_name="id")
@@ -1626,6 +1646,8 @@ class ApiAccessKey(sgqlc.types.Interface):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     notes = sgqlc.types.Field(String, graphql_name="notes")
+
+    obfuscated_key = sgqlc.types.Field(String, graphql_name="obfuscatedKey")
 
     type = sgqlc.types.Field(ApiAccessKeyType, graphql_name="type")
 
@@ -7607,6 +7629,7 @@ class CustomerAdministration(sgqlc.types.Type):
         "groups",
         "jobs",
         "organizations",
+        "permissions",
         "roles",
         "user",
         "users",
@@ -7855,6 +7878,27 @@ class CustomerAdministration(sgqlc.types.Type):
                     "filter",
                     sgqlc.types.Arg(
                         OrganizationCustomerOrganizationFilterInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    permissions = sgqlc.types.Field(
+        "MultiTenantAuthorizationPermissionCollection",
+        graphql_name="permissions",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        MultiTenantAuthorizationPermissionFilter,
                         graphql_name="filter",
                         default=None,
                     ),
@@ -8340,6 +8384,7 @@ class DashboardVariable(sgqlc.types.Type):
         "items",
         "name",
         "nrql_query",
+        "options",
         "replacement_strategy",
         "title",
         "type",
@@ -8360,6 +8405,8 @@ class DashboardVariable(sgqlc.types.Type):
     nrql_query = sgqlc.types.Field(
         "DashboardVariableNrqlQuery", graphql_name="nrqlQuery"
     )
+
+    options = sgqlc.types.Field("DashboardVariableOptions", graphql_name="options")
 
     replacement_strategy = sgqlc.types.Field(
         DashboardVariableReplacementStrategy, graphql_name="replacementStrategy"
@@ -8396,6 +8443,12 @@ class DashboardVariableNrqlQuery(sgqlc.types.Type):
     account_ids = sgqlc.types.Field(sgqlc.types.list_of(Int), graphql_name="accountIds")
 
     query = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="query")
+
+
+class DashboardVariableOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("ignore_time_range",)
+    ignore_time_range = sgqlc.types.Field(Boolean, graphql_name="ignoreTimeRange")
 
 
 class DashboardWidget(sgqlc.types.Type):
@@ -8591,6 +8644,7 @@ class DataManagementAccountLimit(sgqlc.types.Type):
         "limit_reached_behavior_description",
         "name",
         "time_interval",
+        "type",
         "unit",
         "value",
     )
@@ -8607,6 +8661,8 @@ class DataManagementAccountLimit(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     time_interval = sgqlc.types.Field(Nrql, graphql_name="timeInterval")
+
+    type = sgqlc.types.Field(DataManagementType, graphql_name="type")
 
     unit = sgqlc.types.Field(DataManagementUnit, graphql_name="unit")
 
@@ -8807,14 +8863,6 @@ class DataManagementRule(sgqlc.types.Type):
     namespace = sgqlc.types.Field(String, graphql_name="namespace")
 
     retention_in_days = sgqlc.types.Field(Int, graphql_name="retentionInDays")
-
-
-class DateTimeWindow(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("end_time", "start_time")
-    end_time = sgqlc.types.Field(DateTime, graphql_name="endTime")
-
-    start_time = sgqlc.types.Field(DateTime, graphql_name="startTime")
 
 
 class DistributedTracingActorStitchedFields(sgqlc.types.Type):
@@ -11698,8 +11746,10 @@ class MultiTenantAuthorizationGrantGroup(sgqlc.types.Type):
 
 class MultiTenantAuthorizationGrantRole(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("id",)
+    __field_names__ = ("id", "name")
     id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
 
 class MultiTenantAuthorizationGrantScope(sgqlc.types.Type):
@@ -11711,6 +11761,37 @@ class MultiTenantAuthorizationGrantScope(sgqlc.types.Type):
         sgqlc.types.non_null(MultiTenantAuthorizationGrantScopeEnum),
         graphql_name="type",
     )
+
+
+class MultiTenantAuthorizationPermission(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("category", "feature", "id", "name", "product")
+    category = sgqlc.types.Field(
+        MultiTenantAuthorizationPermissionCategoryEnum, graphql_name="category"
+    )
+
+    feature = sgqlc.types.Field(String, graphql_name="feature")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    product = sgqlc.types.Field(String, graphql_name="product")
+
+
+class MultiTenantAuthorizationPermissionCollection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null(MultiTenantAuthorizationPermission)
+            )
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
 class MultiTenantAuthorizationRole(sgqlc.types.Type):
@@ -11727,7 +11808,7 @@ class MultiTenantAuthorizationRole(sgqlc.types.Type):
 
 class MultiTenantAuthorizationRoleCollection(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("items", "next_cursor")
+    __field_names__ = ("items", "next_cursor", "total_count")
     items = sgqlc.types.Field(
         sgqlc.types.non_null(
             sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantAuthorizationRole))
@@ -11736,6 +11817,10 @@ class MultiTenantAuthorizationRoleCollection(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
 
 
 class MultiTenantIdentityGroup(sgqlc.types.Type):
@@ -11778,7 +11863,7 @@ class MultiTenantIdentityGroup(sgqlc.types.Type):
 
 class MultiTenantIdentityGroupCollection(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("items", "next_cursor")
+    __field_names__ = ("items", "next_cursor", "total_count")
     items = sgqlc.types.Field(
         sgqlc.types.non_null(
             sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityGroup))
@@ -11787,6 +11872,10 @@ class MultiTenantIdentityGroupCollection(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
 
 
 class MultiTenantIdentityGroupUser(sgqlc.types.Type):
@@ -11818,6 +11907,18 @@ class MultiTenantIdentityGroupUsers(sgqlc.types.Type):
     )
 
 
+class MultiTenantIdentityPendingUpgradeRequest(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "message", "requested_user_type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    message = sgqlc.types.Field(String, graphql_name="message")
+
+    requested_user_type = sgqlc.types.Field(
+        "MultiTenantIdentityUserType", graphql_name="requestedUserType"
+    )
+
+
 class MultiTenantIdentityUser(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -11828,6 +11929,7 @@ class MultiTenantIdentityUser(sgqlc.types.Type):
         "id",
         "last_active",
         "name",
+        "pending_upgrade_request",
         "time_zone",
         "type",
     )
@@ -11856,6 +11958,10 @@ class MultiTenantIdentityUser(sgqlc.types.Type):
 
     name = sgqlc.types.Field(String, graphql_name="name")
 
+    pending_upgrade_request = sgqlc.types.Field(
+        MultiTenantIdentityPendingUpgradeRequest, graphql_name="pendingUpgradeRequest"
+    )
+
     time_zone = sgqlc.types.Field(String, graphql_name="timeZone")
 
     type = sgqlc.types.Field(
@@ -11865,7 +11971,7 @@ class MultiTenantIdentityUser(sgqlc.types.Type):
 
 class MultiTenantIdentityUserCollection(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("items", "next_cursor")
+    __field_names__ = ("items", "next_cursor", "total_count")
     items = sgqlc.types.Field(
         sgqlc.types.non_null(
             sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantIdentityUser))
@@ -11874,6 +11980,10 @@ class MultiTenantIdentityUserCollection(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
 
 
 class MultiTenantIdentityUserGroup(sgqlc.types.Type):
@@ -13729,13 +13839,17 @@ class OrganizationAccount(sgqlc.types.Type):
 
 class OrganizationAccountCollection(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("items", "next_cursor")
+    __field_names__ = ("items", "next_cursor", "total_count")
     items = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(OrganizationAccount)),
         graphql_name="items",
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
 
 
 class OrganizationAccountShare(sgqlc.types.Type):
@@ -22294,9 +22408,7 @@ class WorkloadCollection(sgqlc.types.Type):
         "updated_at",
         "updated_by",
     )
-    account = sgqlc.types.Field(
-        sgqlc.types.non_null(AccountReference), graphql_name="account"
-    )
+    account = sgqlc.types.Field(AccountReference, graphql_name="account")
 
     created_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
@@ -22364,9 +22476,7 @@ class WorkloadCollectionWithoutStatus(sgqlc.types.Type):
         "updated_at",
         "updated_by",
     )
-    account = sgqlc.types.Field(
-        sgqlc.types.non_null(AccountReference), graphql_name="account"
-    )
+    account = sgqlc.types.Field(AccountReference, graphql_name="account")
 
     created_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
