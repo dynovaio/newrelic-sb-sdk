@@ -5,6 +5,8 @@ __all__ = [
     "AgentApplicationSettingsBrowserLoaderInput",
     "AgentApplicationSettingsNetworkFilterMode",
     "AgentApplicationSettingsRecordSqlEnum",
+    "AgentApplicationSettingsSessionTraceMode",
+    "AgentApplicationSettingsSessionTraceModeInput",
     "AgentApplicationSettingsThresholdTypeEnum",
     "AgentApplicationSettingsTracer",
     "AgentApplicationSettingsUpdateErrorClass",
@@ -112,6 +114,7 @@ __all__ = [
     "DataManagementCategory",
     "DataManagementType",
     "DataManagementUnit",
+    "DataSourceGapsGapTypeIdentifier",
     "DistributedTracingSpanAnomalyType",
     "DistributedTracingSpanClientType",
     "DistributedTracingSpanProcessBoundary",
@@ -170,6 +173,7 @@ __all__ = [
     "LogConfigurationsDataPartitionRuleMatchingOperator",
     "LogConfigurationsDataPartitionRuleMutationErrorType",
     "LogConfigurationsDataPartitionRuleRetentionPolicyType",
+    "LogConfigurationsLiveArchiveRetentionPolicyType",
     "LogConfigurationsObfuscationMethod",
     "LogConfigurationsParsingRuleMutationErrorType",
     "MetricNormalizationCustomerRuleAction",
@@ -307,6 +311,16 @@ class AgentApplicationSettingsNetworkFilterMode(sgqlc.types.Enum):
 class AgentApplicationSettingsRecordSqlEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("OBFUSCATED", "OFF", "RAW")
+
+
+class AgentApplicationSettingsSessionTraceMode(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("FIXED_RATE", "PROBABILISTIC")
+
+
+class AgentApplicationSettingsSessionTraceModeInput(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("FIXED_RATE", "PROBABILISTIC")
 
 
 class AgentApplicationSettingsThresholdTypeEnum(sgqlc.types.Enum):
@@ -454,7 +468,7 @@ class AiIssuesPriority(sgqlc.types.Enum):
 
 class AiNotificationsAuthType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("BASIC", "OAUTH2", "TOKEN")
+    __choices__ = ("BASIC", "CUSTOM_HEADERS", "OAUTH2", "TOKEN")
 
 
 class AiNotificationsChannelFields(sgqlc.types.Enum):
@@ -672,10 +686,12 @@ class AiTopologyCollectorVertexClass(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
         "APPLICATION",
+        "BROWSERAPPLICATION",
         "CLOUDSERVICE",
         "CLUSTER",
         "DATASTORE",
         "HOST",
+        "MONITOR",
         "TEAM",
     )
 
@@ -684,10 +700,12 @@ class AiTopologyVertexClass(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
         "APPLICATION",
+        "BROWSERAPPLICATION",
         "CLOUDSERVICE",
         "CLUSTER",
         "DATASTORE",
         "HOST",
+        "MONITOR",
         "TEAM",
     )
 
@@ -1177,6 +1195,39 @@ class DataManagementUnit(sgqlc.types.Enum):
     __choices__ = ("BYTES", "COUNT", "GIGABYTES")
 
 
+class DataSourceGapsGapTypeIdentifier(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "APACHE",
+        "APM_AGENT_LOGS",
+        "CASSANDRA",
+        "CONSUL",
+        "COUCHBASE",
+        "ELASTICSEARCH",
+        "GO",
+        "HAPROXY",
+        "INFRA_LOGS",
+        "JAVA",
+        "JMX",
+        "MEMCACHED",
+        "MICROSOFT_NET",
+        "MICROSOFT_SQL_SERVER",
+        "MONGODB",
+        "MYSQL",
+        "NAGIOS",
+        "NGINX",
+        "NODE_JS",
+        "PHP",
+        "PIXIE",
+        "POSTGRESQL",
+        "PYTHON",
+        "RABBITMQ",
+        "REDIS",
+        "RUBY",
+        "VARNISH",
+    )
+
+
 class DistributedTracingSpanAnomalyType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("DURATION",)
@@ -1568,10 +1619,12 @@ class EntityRelationshipEdgeType(sgqlc.types.Enum):
         "IS",
         "MANAGES",
         "MEASURES",
+        "MONITORS",
         "OPERATES_IN",
         "OWNS",
         "PRODUCES",
         "SERVES",
+        "TRIGGERS",
     )
 
 
@@ -1819,6 +1872,11 @@ class LogConfigurationsDataPartitionRuleRetentionPolicyType(sgqlc.types.Enum):
     __choices__ = ("SECONDARY", "STANDARD")
 
 
+class LogConfigurationsLiveArchiveRetentionPolicyType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NONE", "STANDARD_ARCHIVE")
+
+
 class LogConfigurationsObfuscationMethod(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HASH_SHA256", "MASK")
@@ -1866,7 +1924,7 @@ class MultiTenantAuthorizationPermissionCategoryEnum(sgqlc.types.Enum):
 
 class MultiTenantAuthorizationRoleScopeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "ORGANIZATION")
+    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION")
 
 
 class MultiTenantAuthorizationRoleSortEnum(sgqlc.types.Enum):
@@ -1911,7 +1969,7 @@ class MultiTenantIdentitySortKeyEnum(sgqlc.types.Enum):
 
 class MultiTenantIdentityUserSortKey(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("EMAIL", "ID", "LAST_ACTIVE", "NAME")
+    __choices__ = ("EMAIL", "ID", "LAST_ACTIVE", "NAME", "TYPE")
 
 
 class NerdStorageScope(sgqlc.types.Enum):
@@ -2321,7 +2379,7 @@ class SyntheticsMonitorPeriod(sgqlc.types.Enum):
 
 class SyntheticsMonitorStatus(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DISABLED", "ENABLED", "MUTED")
+    __choices__ = ("DISABLED", "MUTED")
 
 
 class SyntheticsMonitorUpdateErrorType(sgqlc.types.Enum):
