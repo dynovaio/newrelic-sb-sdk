@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.19.0] - 2024-06-15
+
 * Update GraphQL submodule with a fresh schema version.
 * Add `AgentApplicationSettingsSessionTraceMode`,
   `AgentApplicationSettingsSessionTraceModeInput`,
