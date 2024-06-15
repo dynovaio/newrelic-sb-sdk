@@ -228,6 +228,14 @@ d = {
                 "GraphQL/enums.html#agentapplicationsettingsrecordsqlenum",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AgentApplicationSettingsSessionTraceMode": (
+                "GraphQL/enums.html#agentapplicationsettingssessiontracemode",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AgentApplicationSettingsSessionTraceModeInput": (
+                "GraphQL/enums.html#agentapplicationsettingssessiontracemodeinput",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AgentApplicationSettingsThresholdTypeEnum": (
                 "GraphQL/enums.html#agentapplicationsettingsthresholdtypeenum",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -656,6 +664,10 @@ d = {
                 "GraphQL/enums.html#datamanagementunit",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.DataSourceGapsGapTypeIdentifier": (
+                "GraphQL/enums.html#datasourcegapsgaptypeidentifier",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.DistributedTracingSpanAnomalyType": (
                 "GraphQL/enums.html#distributedtracingspananomalytype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -886,6 +898,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.LogConfigurationsDataPartitionRuleRetentionPolicyType": (
                 "GraphQL/enums.html#logconfigurationsdatapartitionruleretentionpolicytype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.LogConfigurationsLiveArchiveRetentionPolicyType": (
+                "GraphQL/enums.html#logconfigurationslivearchiveretentionpolicytype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.LogConfigurationsObfuscationMethod": (
@@ -1335,6 +1351,11 @@ d = {
                 "GraphQL/input objects.html#agentapplicationsettingsjfrinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsMaskInputOptionsInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingsmaskinputoptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsMobileSettingsInput": (
                 "GraphQL/input "
                 "objects.html#agentapplicationsettingsmobilesettingsinput",
@@ -1348,6 +1369,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsNetworkSettingsInput": (
                 "GraphQL/input "
                 "objects.html#agentapplicationsettingsnetworksettingsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsSessionReplayInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingssessionreplayinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsSessionTraceInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingssessiontraceinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsSlowSqlInput": (
@@ -1683,6 +1714,14 @@ d = {
                 "GraphQL/input objects.html#ainotificationscredentialsinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsCustomHeaderInput": (
+                "GraphQL/input objects.html#ainotificationscustomheaderinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsCustomHeadersAuthInput": (
+                "GraphQL/input objects.html#ainotificationscustomheadersauthinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsDestinationFilter": (
                 "GraphQL/input objects.html#ainotificationsdestinationfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -1717,6 +1756,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsPropertyInput": (
                 "GraphQL/input objects.html#ainotificationspropertyinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsSecureUrlInput": (
+                "GraphQL/input objects.html#ainotificationssecureurlinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsSecureUrlUpdate": (
+                "GraphQL/input objects.html#ainotificationssecureurlupdate",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsSuggestionFilter": (
@@ -2120,6 +2167,10 @@ d = {
                 "objects.html#cloudawsgovcloudmigratetoassumeroleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsGovCloudUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudawsgovcloudupdateaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsGovcloudDisableIntegrationsInput": (
                 "GraphQL/input "
                 "objects.html#cloudawsgovclouddisableintegrationsinput",
@@ -2158,6 +2209,10 @@ d = {
                 "GraphQL/input objects.html#cloudawsmqintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsMsElasticacheIntegrationInput": (
+                "GraphQL/input objects.html#cloudawsmselasticacheintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsMskIntegrationInput": (
                 "GraphQL/input objects.html#cloudawsmskintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2184,6 +2239,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsTransitgatewayIntegrationInput": (
                 "GraphQL/input objects.html#cloudawstransitgatewayintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudawsupdateaccountinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsWafIntegrationInput": (
@@ -2324,6 +2383,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAzureStorageIntegrationInput": (
                 "GraphQL/input objects.html#cloudazurestorageintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAzureUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudazureupdateaccountinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAzureVirtualmachineIntegrationInput": (
@@ -2517,6 +2580,10 @@ d = {
                 "GraphQL/input objects.html#cloudgcpstorageintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudGcpUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudgcpupdateaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudGcpVmsIntegrationInput": (
                 "GraphQL/input objects.html#cloudgcpvmsintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2595,6 +2662,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudUnlinkAccountsInput": (
                 "GraphQL/input objects.html#cloudunlinkaccountsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudUpdateCloudAccountsInput": (
+                "GraphQL/input objects.html#cloudupdatecloudaccountsinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudVpcIntegrationInput": (
@@ -2720,6 +2791,10 @@ d = {
                 "GraphQL/input objects.html#datamanagementruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.DataSourceGapsGapsQuery": (
+                "GraphQL/input objects.html#datasourcegapsgapsquery",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.DateTimeWindowInput": (
                 "GraphQL/input objects.html#datetimewindowinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2829,6 +2904,10 @@ d = {
                 "GraphQL/input objects.html#errorsinboxresourcefilterinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.ErrorsInboxStateVersionInput": (
+                "GraphQL/input objects.html#errorsinboxstateversioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EventsToMetricsCreateRuleInput": (
                 "GraphQL/input objects.html#eventstometricscreateruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2916,6 +2995,11 @@ d = {
                 "GraphQL/input objects.html#metricnormalizationeditruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantauthenticationdomainidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantFilterInputExpression": (
                 "GraphQL/input "
                 "objects.html#multitenantauthorizationgrantfilterinputexpression",
@@ -2970,6 +3054,11 @@ d = {
                 "objects.html#multitenantauthorizationrolefilterinputexpression",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleGroupIdInputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationrolegroupidinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleIdInputFilter": (
                 "GraphQL/input "
                 "objects.html#multitenantauthorizationroleidinputfilter",
@@ -3007,6 +3096,11 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityAuthenticationDomainIdInput": (
                 "GraphQL/input "
                 "objects.html#multitenantidentityauthenticationdomainidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityEmailVerificationStateInput": (
+                "GraphQL/input "
+                "objects.html#multitenantidentityemailverificationstateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityGroupFilterInput": (
@@ -3050,12 +3144,20 @@ d = {
                 "GraphQL/input objects.html#multitenantidentityuserfilterinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserGroupIdInput": (
+                "GraphQL/input objects.html#multitenantidentityusergroupidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserIdInput": (
                 "GraphQL/input objects.html#multitenantidentityuseridinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserNameInput": (
                 "GraphQL/input objects.html#multitenantidentityusernameinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserNotGroupIdInput": (
+                "GraphQL/input objects.html#multitenantidentityusernotgroupidinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantIdentityUserSortInput": (
@@ -3461,6 +3563,11 @@ d = {
                 "GraphQL/input objects.html#syntheticsdeviceemulationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.SyntheticsExtendedTypeMonitorRuntimeInput": (
+                "GraphQL/input "
+                "objects.html#syntheticsextendedtypemonitorruntimeinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.SyntheticsLocationsInput": (
                 "GraphQL/input objects.html#syntheticslocationsinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3838,6 +3945,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsjfr",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMaskInputOptions": (
+                "GraphQL/objects.html#agentapplicationsettingsmaskinputoptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMobileBase": (
                 "GraphQL/objects.html#agentapplicationsettingsmobilebase",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -3852,6 +3963,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsNetworkAlias": (
                 "GraphQL/objects.html#agentapplicationsettingsnetworkalias",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsSessionReplay": (
+                "GraphQL/objects.html#agentapplicationsettingssessionreplay",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsSessionTrace": (
+                "GraphQL/objects.html#agentapplicationsettingssessiontrace",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsSlowSql": (
@@ -3922,8 +4041,8 @@ d = {
                 "GraphQL/objects.html#agentfeatures",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
-            "newrelic_sb_sdk.graphql.objects.AgentRelease": (
-                "GraphQL/objects.html#agentrelease",
+            "newrelic_sb_sdk.graphql.objects.AgentReleasesAgentRelease": (
+                "GraphQL/objects.html#agentreleasesagentrelease",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiDecisionsAccountStitchedFields": (
@@ -4094,6 +4213,14 @@ d = {
                 "GraphQL/objects.html#ainotificationsconstraintserror",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsCustomHeader": (
+                "GraphQL/objects.html#ainotificationscustomheader",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsCustomHeadersAuth": (
+                "GraphQL/objects.html#ainotificationscustomheadersauth",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsDataValidationError": (
                 "GraphQL/objects.html#ainotificationsdatavalidationerror",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4148,6 +4275,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsSchemaField": (
                 "GraphQL/objects.html#ainotificationsschemafield",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsSecureUrl": (
+                "GraphQL/objects.html#ainotificationssecureurl",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsSelectComponentOptions": (
@@ -4562,6 +4693,10 @@ d = {
                 "GraphQL/objects.html#apiaccesskeysearchresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.ApiAccessNrPlatformStitchedFields": (
+                "GraphQL/objects.html#apiaccessnrplatformstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.ApiAccessUpdateKeyResponse": (
                 "GraphQL/objects.html#apiaccessupdatekeyresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4572,6 +4707,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.ApiAccessUserKeyError": (
                 "GraphQL/objects.html#apiaccessuserkeyerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.ApiAccessValidateUserKeyResult": (
+                "GraphQL/objects.html#apiaccessvalidateuserkeyresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.ApmApplicationDeployment": (
@@ -4784,6 +4923,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsMqIntegration": (
                 "GraphQL/objects.html#cloudawsmqintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudAwsMsElasticacheIntegration": (
+                "GraphQL/objects.html#cloudawsmselasticacheintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsMskIntegration": (
@@ -5226,12 +5369,20 @@ d = {
                 "GraphQL/objects.html#cloudsqsintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudTemplateParam": (
+                "GraphQL/objects.html#cloudtemplateparam",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudTrustedadvisorIntegration": (
                 "GraphQL/objects.html#cloudtrustedadvisorintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudUnlinkAccountPayload": (
                 "GraphQL/objects.html#cloudunlinkaccountpayload",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudUpdateAccountPayload": (
+                "GraphQL/objects.html#cloudupdateaccountpayload",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudVpcIntegration": (
@@ -5500,6 +5651,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.DataManagementRule": (
                 "GraphQL/objects.html#datamanagementrule",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataSourceGapsActorStitchedFields": (
+                "GraphQL/objects.html#datasourcegapsactorstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataSourceGapsGap": (
+                "GraphQL/objects.html#datasourcegapsgap",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataSourceGapsGapType": (
+                "GraphQL/objects.html#datasourcegapsgaptype",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataSourceGapsGapsResult": (
+                "GraphQL/objects.html#datasourcegapsgapsresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.DistributedTracingActorStitchedFields": (
@@ -6160,6 +6327,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.LogConfigurationsGrokTestResult": (
                 "GraphQL/objects.html#logconfigurationsgroktestresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.LogConfigurationsLiveArchiveConfiguration": (
+                "GraphQL/objects.html#logconfigurationslivearchiveconfiguration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.LogConfigurationsObfuscationAction": (
@@ -7160,6 +7331,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsError": (
                 "GraphQL/objects.html#syntheticserror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.SyntheticsExtendedTypeMonitorRuntime": (
+                "GraphQL/objects.html#syntheticsextendedtypemonitorruntime",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.SyntheticsLocations": (

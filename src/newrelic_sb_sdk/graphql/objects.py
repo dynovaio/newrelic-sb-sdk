@@ -60,10 +60,13 @@ __all__ = [
     "AgentApplicationSettingsErrorCollector",
     "AgentApplicationSettingsIgnoredStatusCodeRule",
     "AgentApplicationSettingsJfr",
+    "AgentApplicationSettingsMaskInputOptions",
     "AgentApplicationSettingsMobileBase",
     "AgentApplicationSettingsMobileNetworkSettings",
     "AgentApplicationSettingsMobileProperties",
     "AgentApplicationSettingsNetworkAlias",
+    "AgentApplicationSettingsSessionReplay",
+    "AgentApplicationSettingsSessionTrace",
     "AgentApplicationSettingsSlowSql",
     "AgentApplicationSettingsThreadProfiler",
     "AgentApplicationSettingsTransactionTracer",
@@ -81,7 +84,7 @@ __all__ = [
     "AgentEnvironmentAttribute",
     "AgentEnvironmentLoadedModuleAttribute",
     "AgentFeatures",
-    "AgentRelease",
+    "AgentReleasesAgentRelease",
     "AiDecisionsAccountStitchedFields",
     "AiDecisionsAnnotationEntry",
     "AiDecisionsApplicableIncidentSearch",
@@ -119,6 +122,8 @@ __all__ = [
     "AiNotificationsChannelsResponse",
     "AiNotificationsConstraintError",
     "AiNotificationsConstraintsError",
+    "AiNotificationsCustomHeader",
+    "AiNotificationsCustomHeadersAuth",
     "AiNotificationsDataValidationError",
     "AiNotificationsDeleteResponse",
     "AiNotificationsDestination",
@@ -132,6 +137,7 @@ __all__ = [
     "AiNotificationsResponseError",
     "AiNotificationsSchema",
     "AiNotificationsSchemaField",
+    "AiNotificationsSecureUrl",
     "AiNotificationsSelectComponentOptions",
     "AiNotificationsSuggestion",
     "AiNotificationsSuggestionError",
@@ -207,7 +213,9 @@ __all__ = [
     "ApiAccessDeleteKeyResponse",
     "ApiAccessDeletedKey",
     "ApiAccessKeySearchResult",
+    "ApiAccessNrPlatformStitchedFields",
     "ApiAccessUpdateKeyResponse",
+    "ApiAccessValidateUserKeyResult",
     "ApmApplicationDeployment",
     "ApmApplicationEntitySettingsResult",
     "ApmApplicationRunningAgentVersions",
@@ -243,7 +251,9 @@ __all__ = [
     "CloudMigrateAwsGovCloudToAssumeRolePayload",
     "CloudRenameAccountPayload",
     "CloudService",
+    "CloudTemplateParam",
     "CloudUnlinkAccountPayload",
+    "CloudUpdateAccountPayload",
     "Consumption",
     "CrossAccountNrdbResultContainer",
     "CustomerAdministration",
@@ -307,6 +317,10 @@ __all__ = [
     "DataManagementRetention",
     "DataManagementRetentionValues",
     "DataManagementRule",
+    "DataSourceGapsActorStitchedFields",
+    "DataSourceGapsGap",
+    "DataSourceGapsGapType",
+    "DataSourceGapsGapsResult",
     "DistributedTracingActorStitchedFields",
     "DistributedTracingEntityTracingSummary",
     "DistributedTracingSpan",
@@ -440,6 +454,7 @@ __all__ = [
     "LogConfigurationsDeleteParsingRuleResponse",
     "LogConfigurationsGrokTestExtractedAttribute",
     "LogConfigurationsGrokTestResult",
+    "LogConfigurationsLiveArchiveConfiguration",
     "LogConfigurationsObfuscationAction",
     "LogConfigurationsObfuscationExpression",
     "LogConfigurationsObfuscationRule",
@@ -647,6 +662,7 @@ __all__ = [
     "SyntheticsDaysOfWeekOutput",
     "SyntheticsDeviceEmulation",
     "SyntheticsError",
+    "SyntheticsExtendedTypeMonitorRuntime",
     "SyntheticsLocations",
     "SyntheticsMonitorCreateError",
     "SyntheticsMonitorDeleteMutationResult",
@@ -785,6 +801,7 @@ __all__ = [
     "CloudAwsMediapackagevodIntegration",
     "CloudAwsMetadataIntegration",
     "CloudAwsMqIntegration",
+    "CloudAwsMsElasticacheIntegration",
     "CloudAwsMskIntegration",
     "CloudAwsNeptuneIntegration",
     "CloudAwsProvider",
@@ -974,6 +991,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AgentApplicationSettingsBrowserLoader,
     AgentApplicationSettingsNetworkFilterMode,
     AgentApplicationSettingsRecordSqlEnum,
+    AgentApplicationSettingsSessionTraceMode,
     AgentApplicationSettingsThresholdTypeEnum,
     AgentApplicationSettingsTracer,
     AgentApplicationSettingsUpdateErrorClass,
@@ -1069,6 +1087,7 @@ from newrelic_sb_sdk.graphql.enums import (
     DataManagementCategory,
     DataManagementType,
     DataManagementUnit,
+    DataSourceGapsGapTypeIdentifier,
     DistributedTracingSpanAnomalyType,
     DistributedTracingSpanClientType,
     DistributedTracingSpanProcessBoundary,
@@ -1118,6 +1137,7 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsDataPartitionRuleMatchingOperator,
     LogConfigurationsDataPartitionRuleMutationErrorType,
     LogConfigurationsDataPartitionRuleRetentionPolicyType,
+    LogConfigurationsLiveArchiveRetentionPolicyType,
     LogConfigurationsObfuscationMethod,
     LogConfigurationsParsingRuleMutationErrorType,
     MetricNormalizationRuleAction,
@@ -1214,8 +1234,6 @@ from newrelic_sb_sdk.graphql.input_objects import (
     AiNotificationsSuggestionFilter,
     AiNotificationsVariableFilter,
     AiNotificationsVariableSorter,
-    AiTopologyCollectorEdgeBlueprint,
-    AiTopologyCollectorVertexBlueprint,
     AiWorkflowsCreateWorkflowInput,
     AiWorkflowsFilters,
     AiWorkflowsTestWorkflowInput,
@@ -1245,6 +1263,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     CloudLinkCloudAccountsInput,
     CloudRenameAccountsInput,
     CloudUnlinkAccountsInput,
+    CloudUpdateCloudAccountsInput,
     DashboardInput,
     DashboardLiveUrlsFilterInput,
     DashboardSnapshotUrlInput,
@@ -1253,6 +1272,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     DashboardWidgetInput,
     DataManagementAccountFeatureSettingInput,
     DataManagementRuleInput,
+    DataSourceGapsGapsQuery,
     DomainTypeInput,
     EdgeCreateTraceFilterRulesInput,
     EdgeCreateTraceObserverInput,
@@ -1271,6 +1291,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     ErrorsInboxErrorGroupSearchFilterInput,
     ErrorsInboxErrorGroupSortOrderInput,
     ErrorsInboxResourceFilterInput,
+    ErrorsInboxStateVersionInput,
     EventsToMetricsCreateRuleInput,
     EventsToMetricsDeleteRuleInput,
     EventsToMetricsUpdateRuleInput,
@@ -1720,6 +1741,7 @@ class CloudProvider(sgqlc.types.Interface):
         "service",
         "services",
         "slug",
+        "template_params",
         "updated_at",
     )
     created_at = sgqlc.types.Field(
@@ -1753,6 +1775,13 @@ class CloudProvider(sgqlc.types.Interface):
     )
 
     slug = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="slug")
+
+    template_params = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null("CloudTemplateParam"))
+        ),
+        graphql_name="templateParams",
+    )
 
     updated_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochSeconds), graphql_name="updatedAt"
@@ -2603,6 +2632,7 @@ class Actor(sgqlc.types.Type):
         "api_access",
         "cloud",
         "dashboard",
+        "data_source_gaps",
         "distributed_tracing",
         "entities",
         "entity",
@@ -2659,6 +2689,10 @@ class Actor(sgqlc.types.Type):
 
     dashboard = sgqlc.types.Field(
         "DashboardActorStitchedFields", graphql_name="dashboard"
+    )
+
+    data_source_gaps = sgqlc.types.Field(
+        "DataSourceGapsActorStitchedFields", graphql_name="dataSourceGaps"
     )
 
     distributed_tracing = sgqlc.types.Field(
@@ -3014,7 +3048,12 @@ class AgentApplicationSettingsBrowserAjax(sgqlc.types.Type):
 
 class AgentApplicationSettingsBrowserBase(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("browser_config", "browser_monitoring")
+    __field_names__ = (
+        "browser_config",
+        "browser_monitoring",
+        "session_replay",
+        "session_trace",
+    )
     browser_config = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsBrowserConfig"),
         graphql_name="browserConfig",
@@ -3023,6 +3062,16 @@ class AgentApplicationSettingsBrowserBase(sgqlc.types.Type):
     browser_monitoring = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsBrowserMonitoring"),
         graphql_name="browserMonitoring",
+    )
+
+    session_replay = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsSessionReplay"),
+        graphql_name="sessionReplay",
+    )
+
+    session_trace = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsSessionTrace"),
+        graphql_name="sessionTrace",
     )
 
 
@@ -3166,6 +3215,60 @@ class AgentApplicationSettingsJfr(sgqlc.types.Type):
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
+class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "color",
+        "date",
+        "datetime_local",
+        "email",
+        "month",
+        "number",
+        "range",
+        "search",
+        "select",
+        "tel",
+        "text",
+        "text_area",
+        "time",
+        "url",
+        "week",
+    )
+    color = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="color")
+
+    date = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="date")
+
+    datetime_local = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="datetimeLocal"
+    )
+
+    email = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="email")
+
+    month = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="month")
+
+    number = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="number")
+
+    range = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="range")
+
+    search = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="search")
+
+    select = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="select")
+
+    tel = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="tel")
+
+    text = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="text")
+
+    text_area = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="textArea"
+    )
+
+    time = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="time")
+
+    url = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="url")
+
+    week = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="week")
+
+
 class AgentApplicationSettingsMobileBase(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("network_settings", "use_crash_reports")
@@ -3225,6 +3328,81 @@ class AgentApplicationSettingsNetworkAlias(sgqlc.types.Type):
 
     hosts = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="hosts"
+    )
+
+
+class AgentApplicationSettingsSessionReplay(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "auto_start",
+        "block_selector",
+        "collect_fonts",
+        "enabled",
+        "error_sampling_rate",
+        "inline_images",
+        "inline_stylesheet",
+        "mask_all_inputs",
+        "mask_input_options",
+        "mask_text_selector",
+        "sampling_rate",
+    )
+    auto_start = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="autoStart"
+    )
+
+    block_selector = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="blockSelector"
+    )
+
+    collect_fonts = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="collectFonts"
+    )
+
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    error_sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="errorSamplingRate"
+    )
+
+    inline_images = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="inlineImages"
+    )
+
+    inline_stylesheet = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="inlineStylesheet"
+    )
+
+    mask_all_inputs = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="maskAllInputs"
+    )
+
+    mask_input_options = sgqlc.types.Field(
+        sgqlc.types.non_null(AgentApplicationSettingsMaskInputOptions),
+        graphql_name="maskInputOptions",
+    )
+
+    mask_text_selector = sgqlc.types.Field(String, graphql_name="maskTextSelector")
+
+    sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="samplingRate"
+    )
+
+
+class AgentApplicationSettingsSessionTrace(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled", "error_sampling_rate", "mode", "sampling_rate")
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    error_sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="errorSamplingRate"
+    )
+
+    mode = sgqlc.types.Field(
+        AgentApplicationSettingsSessionTraceMode, graphql_name="mode"
+    )
+
+    sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="samplingRate"
     )
 
 
@@ -3535,10 +3713,25 @@ class AgentEnvironmentApplicationInstance(sgqlc.types.Type):
 
 class AgentEnvironmentApplicationInstanceDetails(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("host", "id", "language", "name")
+    __field_names__ = (
+        "host",
+        "host_display_name",
+        "id",
+        "instance_name",
+        "language",
+        "name",
+    )
     host = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="host")
 
+    host_display_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="hostDisplayName"
+    )
+
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    instance_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="instanceName"
+    )
 
     language = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="language")
 
@@ -3597,7 +3790,7 @@ class AgentFeatures(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
 
-class AgentRelease(sgqlc.types.Type):
+class AgentReleasesAgentRelease(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "bugs",
@@ -4995,6 +5188,27 @@ class AiNotificationsConstraintsError(sgqlc.types.Type):
     )
 
 
+class AiNotificationsCustomHeader(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("key",)
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+
+class AiNotificationsCustomHeadersAuth(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("auth_type", "custom_headers")
+    auth_type = sgqlc.types.Field(
+        sgqlc.types.non_null(AiNotificationsAuthType), graphql_name="authType"
+    )
+
+    custom_headers = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(AiNotificationsCustomHeader))
+        ),
+        graphql_name="customHeaders",
+    )
+
+
 class AiNotificationsDataValidationError(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("details", "fields")
@@ -5025,11 +5239,13 @@ class AiNotificationsDestination(sgqlc.types.Type):
         "active",
         "auth",
         "created_at",
+        "guid",
         "id",
         "is_user_authenticated",
         "last_sent",
         "name",
         "properties",
+        "secure_url",
         "status",
         "type",
         "updated_at",
@@ -5044,6 +5260,8 @@ class AiNotificationsDestination(sgqlc.types.Type):
     created_at = sgqlc.types.Field(
         sgqlc.types.non_null(DateTime), graphql_name="createdAt"
     )
+
+    guid = sgqlc.types.Field(sgqlc.types.non_null(EntityGuid), graphql_name="guid")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
@@ -5061,6 +5279,8 @@ class AiNotificationsDestination(sgqlc.types.Type):
         ),
         graphql_name="properties",
     )
+
+    secure_url = sgqlc.types.Field("AiNotificationsSecureUrl", graphql_name="secureUrl")
 
     status = sgqlc.types.Field(
         sgqlc.types.non_null(AiNotificationsDestinationStatus), graphql_name="status"
@@ -5224,6 +5444,12 @@ class AiNotificationsSchemaField(sgqlc.types.Type):
     mandatory = sgqlc.types.Field(
         sgqlc.types.non_null(Boolean), graphql_name="mandatory"
     )
+
+
+class AiNotificationsSecureUrl(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("prefix",)
+    prefix = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="prefix")
 
 
 class AiNotificationsSelectComponentOptions(sgqlc.types.Type):
@@ -5426,73 +5652,7 @@ class AiNotificationsVariableResult(sgqlc.types.Type):
 
 class AiTopologyAccountStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("edges", "graph", "vertices")
-    edges = sgqlc.types.Field(
-        sgqlc.types.non_null("AiTopologyEdgeListing"),
-        graphql_name="edges",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "cursor",
-                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
-                ),
-                (
-                    "edge_ids",
-                    sgqlc.types.Arg(
-                        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
-                        graphql_name="edgeIds",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `cursor` (`String`)
-    * `edge_ids` (`[ID!]`)
-    """
-
-    graph = sgqlc.types.Field(
-        sgqlc.types.non_null("AiTopologyGraph"), graphql_name="graph"
-    )
-
-    vertices = sgqlc.types.Field(
-        sgqlc.types.non_null("AiTopologyVertexListing"),
-        graphql_name="vertices",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "cursor",
-                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
-                ),
-                (
-                    "vertex_classes",
-                    sgqlc.types.Arg(
-                        sgqlc.types.list_of(
-                            sgqlc.types.non_null(AiTopologyVertexClass)
-                        ),
-                        graphql_name="vertexClasses",
-                        default=None,
-                    ),
-                ),
-                (
-                    "vertex_ids",
-                    sgqlc.types.Arg(
-                        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
-                        graphql_name="vertexIds",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `cursor` (`String`)
-    * `vertex_classes` (`[AiTopologyVertexClass!]`)
-    * `vertex_ids` (`[ID!]`)
-    """
+    __field_names__ = ()
 
 
 class AiTopologyCollectorOperationResult(sgqlc.types.Type):
@@ -6705,6 +6865,29 @@ class ApiAccessKeySearchResult(sgqlc.types.Type):
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
+class ApiAccessNrPlatformStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("validate_user_key",)
+    validate_user_key = sgqlc.types.Field(
+        "ApiAccessValidateUserKeyResult",
+        graphql_name="validateUserKey",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "key_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="keyId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `key_id` (`ID!`)
+    """
+
+
 class ApiAccessUpdateKeyResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("errors", "updated_keys")
@@ -6715,6 +6898,12 @@ class ApiAccessUpdateKeyResponse(sgqlc.types.Type):
     updated_keys = sgqlc.types.Field(
         sgqlc.types.list_of(ApiAccessKey), graphql_name="updatedKeys"
     )
+
+
+class ApiAccessValidateUserKeyResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("valid",)
+    valid = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="valid")
 
 
 class ApmApplicationDeployment(sgqlc.types.Type):
@@ -7555,6 +7744,29 @@ class CloudService(sgqlc.types.Type):
     )
 
 
+class CloudTemplateParam(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "autocomplete",
+        "immutable",
+        "label",
+        "name",
+        "placeholder",
+        "type",
+    )
+    autocomplete = sgqlc.types.Field(String, graphql_name="autocomplete")
+
+    immutable = sgqlc.types.Field(Boolean, graphql_name="immutable")
+
+    label = sgqlc.types.Field(String, graphql_name="label")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    placeholder = sgqlc.types.Field(String, graphql_name="placeholder")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
 class CloudUnlinkAccountPayload(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("errors", "unlinked_accounts")
@@ -7570,6 +7782,17 @@ class CloudUnlinkAccountPayload(sgqlc.types.Type):
             sgqlc.types.list_of(sgqlc.types.non_null(CloudLinkedAccount))
         ),
         graphql_name="unlinkedAccounts",
+    )
+
+
+class CloudUpdateAccountPayload(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("linked_accounts",)
+    linked_accounts = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(CloudLinkedAccount))
+        ),
+        graphql_name="linkedAccounts",
     )
 
 
@@ -8200,8 +8423,10 @@ class DashboardLineWidgetConfiguration(sgqlc.types.Type):
 
 class DashboardLiveUrl(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("created_at", "title", "type", "url", "uuid")
+    __field_names__ = ("created_at", "created_by", "title", "type", "url", "uuid")
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    created_by = sgqlc.types.Field("UserReference", graphql_name="createdBy")
 
     title = sgqlc.types.Field(String, graphql_name="title")
 
@@ -8865,6 +9090,75 @@ class DataManagementRule(sgqlc.types.Type):
     retention_in_days = sgqlc.types.Field(Int, graphql_name="retentionInDays")
 
 
+class DataSourceGapsActorStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("gaps",)
+    gaps = sgqlc.types.Field(
+        "DataSourceGapsGapsResult",
+        graphql_name="gaps",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "query",
+                    sgqlc.types.Arg(
+                        DataSourceGapsGapsQuery, graphql_name="query", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `query` (`DataSourceGapsGapsQuery`)
+    """
+
+
+class DataSourceGapsGap(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("account", "detected_at", "entity", "gap_type")
+    account = sgqlc.types.Field(AccountReference, graphql_name="account")
+
+    detected_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="detectedAt"
+    )
+
+    entity = sgqlc.types.Field(EntityOutline, graphql_name="entity")
+
+    gap_type = sgqlc.types.Field(
+        sgqlc.types.non_null("DataSourceGapsGapType"), graphql_name="gapType"
+    )
+
+
+class DataSourceGapsGapType(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("data_source_id", "display_name", "id")
+    data_source_id = sgqlc.types.Field(ID, graphql_name="dataSourceId")
+
+    display_name = sgqlc.types.Field(String, graphql_name="displayName")
+
+    id = sgqlc.types.Field(
+        sgqlc.types.non_null(DataSourceGapsGapTypeIdentifier), graphql_name="id"
+    )
+
+
+class DataSourceGapsGapsResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("next_cursor", "results", "total_count")
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    results = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(DataSourceGapsGap)),
+        graphql_name="results",
+    )
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
 class DistributedTracingActorStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("trace",)
@@ -9030,10 +9324,33 @@ class DistributedTracingTrace(sgqlc.types.Type):
 
 class DocumentationFields(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("agent_releases", "data_dictionary", "time_zones", "whats_new")
+    __field_names__ = (
+        "agent_releases",
+        "current_agent_release",
+        "data_dictionary",
+        "time_zones",
+        "whats_new",
+    )
     agent_releases = sgqlc.types.Field(
-        sgqlc.types.list_of(AgentRelease),
+        sgqlc.types.list_of(AgentReleasesAgentRelease),
         graphql_name="agentReleases",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "agent_name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(AgentReleasesFilter),
+                        graphql_name="agentName",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    current_agent_release = sgqlc.types.Field(
+        AgentReleasesAgentRelease,
+        graphql_name="currentAgentRelease",
         args=sgqlc.types.ArgDict(
             (
                 (
@@ -10087,8 +10404,17 @@ class ErrorsInboxResourcesResponse(sgqlc.types.Type):
 
 class ErrorsInboxUpdateErrorGroupStateResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("state",)
+    __field_names__ = ("resolve_in_next_version", "state", "versions")
+    resolve_in_next_version = sgqlc.types.Field(
+        Boolean, graphql_name="resolveInNextVersion"
+    )
+
     state = sgqlc.types.Field(ErrorsInboxErrorGroupState, graphql_name="state")
+
+    versions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("ErrorsInboxVersion")),
+        graphql_name="versions",
+    )
 
 
 class ErrorsInboxVersion(sgqlc.types.Type):
@@ -11059,6 +11385,7 @@ class LogConfigurationsAccountStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "data_partition_rules",
+        "live_archive_configurations",
         "obfuscation_expressions",
         "obfuscation_rules",
         "parsing_rules",
@@ -11068,6 +11395,13 @@ class LogConfigurationsAccountStitchedFields(sgqlc.types.Type):
     data_partition_rules = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("LogConfigurationsDataPartitionRule")),
         graphql_name="dataPartitionRules",
+    )
+
+    live_archive_configurations = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null("LogConfigurationsLiveArchiveConfiguration")
+        ),
+        graphql_name="liveArchiveConfigurations",
     )
 
     obfuscation_expressions = sgqlc.types.Field(
@@ -11268,6 +11602,45 @@ class LogConfigurationsGrokTestResult(sgqlc.types.Type):
     matched = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="matched")
 
 
+class LogConfigurationsLiveArchiveConfiguration(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "created_at",
+        "created_by",
+        "enabled",
+        "event_type",
+        "id",
+        "retention_policy",
+        "updated_at",
+        "updated_by",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(DateTime), graphql_name="createdAt"
+    )
+
+    created_by = sgqlc.types.Field("UserReference", graphql_name="createdBy")
+
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    event_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="eventType"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    retention_policy = sgqlc.types.Field(
+        sgqlc.types.non_null(LogConfigurationsLiveArchiveRetentionPolicyType),
+        graphql_name="retentionPolicy",
+    )
+
+    updated_at = sgqlc.types.Field(DateTime, graphql_name="updatedAt")
+
+    updated_by = sgqlc.types.Field("UserReference", graphql_name="updatedBy")
+
+
 class LogConfigurationsObfuscationAction(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("attributes", "expression", "id", "method")
@@ -11427,6 +11800,7 @@ class LogConfigurationsPipelineConfiguration(sgqlc.types.Type):
         "obfuscation_disabled",
         "parsing_disabled",
         "patterns_enabled",
+        "plugin_attributes_cleanup_enabled",
         "recursive_json_parsing_disabled",
         "transformation_disabled",
         "updated_at",
@@ -11452,6 +11826,10 @@ class LogConfigurationsPipelineConfiguration(sgqlc.types.Type):
 
     patterns_enabled = sgqlc.types.Field(
         sgqlc.types.non_null(Boolean), graphql_name="patternsEnabled"
+    )
+
+    plugin_attributes_cleanup_enabled = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="pluginAttributesCleanupEnabled"
     )
 
     recursive_json_parsing_disabled = sgqlc.types.Field(
@@ -13825,10 +14203,32 @@ class Organization(sgqlc.types.Type):
 
 class OrganizationAccount(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("id", "name", "region_code", "status")
+    __field_names__ = (
+        "created_at",
+        "id",
+        "name",
+        "parent_id",
+        "partnership_id",
+        "partnership_name",
+        "pay_method",
+        "region_code",
+        "status",
+    )
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(DateTime), graphql_name="createdAt"
+    )
+
     id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    parent_id = sgqlc.types.Field(Int, graphql_name="parentId")
+
+    partnership_id = sgqlc.types.Field(Int, graphql_name="partnershipId")
+
+    partnership_name = sgqlc.types.Field(String, graphql_name="partnershipName")
+
+    pay_method = sgqlc.types.Field(String, graphql_name="payMethod")
 
     region_code = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="regionCode"
@@ -14456,10 +14856,6 @@ class RootMutationType(sgqlc.types.Type):
         "ai_notifications_test_destination_by_id",
         "ai_notifications_update_channel",
         "ai_notifications_update_destination",
-        "ai_topology_collector_create_edges",
-        "ai_topology_collector_create_vertices",
-        "ai_topology_collector_delete_edges",
-        "ai_topology_collector_delete_vertices",
         "ai_workflows_create_workflow",
         "ai_workflows_delete_workflow",
         "ai_workflows_test_workflow",
@@ -14487,6 +14883,7 @@ class RootMutationType(sgqlc.types.Type):
         "cloud_migrate_aws_gov_cloud_to_assume_role",
         "cloud_rename_account",
         "cloud_unlink_account",
+        "cloud_update_account",
         "dashboard_add_widgets_to_page",
         "dashboard_create",
         "dashboard_create_snapshot_url",
@@ -14540,6 +14937,7 @@ class RootMutationType(sgqlc.types.Type):
         "log_configurations_delete_obfuscation_rule",
         "log_configurations_delete_parsing_rule",
         "log_configurations_update_data_partition_rule",
+        "log_configurations_update_live_archive_configuration",
         "log_configurations_update_obfuscation_expression",
         "log_configurations_update_obfuscation_rule",
         "log_configurations_update_parsing_rule",
@@ -15702,138 +16100,6 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
-    ai_topology_collector_create_edges = sgqlc.types.Field(
-        sgqlc.types.non_null(AiTopologyCollectorOperationResult),
-        graphql_name="aiTopologyCollectorCreateEdges",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "edges",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(
-                                sgqlc.types.non_null(AiTopologyCollectorEdgeBlueprint)
-                            )
-                        ),
-                        graphql_name="edges",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `edges` (`[AiTopologyCollectorEdgeBlueprint!]!`)
-    """
-
-    ai_topology_collector_create_vertices = sgqlc.types.Field(
-        sgqlc.types.non_null(AiTopologyCollectorOperationResult),
-        graphql_name="aiTopologyCollectorCreateVertices",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "vertices",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(
-                                sgqlc.types.non_null(AiTopologyCollectorVertexBlueprint)
-                            )
-                        ),
-                        graphql_name="vertices",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `vertices` (`[AiTopologyCollectorVertexBlueprint!]!`)
-    """
-
-    ai_topology_collector_delete_edges = sgqlc.types.Field(
-        sgqlc.types.non_null(AiTopologyCollectorOperationResult),
-        graphql_name="aiTopologyCollectorDeleteEdges",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "edge_ids",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(sgqlc.types.non_null(ID))
-                        ),
-                        graphql_name="edgeIds",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `edge_ids` (`[ID!]!`)
-    """
-
-    ai_topology_collector_delete_vertices = sgqlc.types.Field(
-        sgqlc.types.non_null(AiTopologyCollectorOperationResult),
-        graphql_name="aiTopologyCollectorDeleteVertices",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "account_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(Int),
-                        graphql_name="accountId",
-                        default=None,
-                    ),
-                ),
-                (
-                    "vertex_names",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            sgqlc.types.list_of(sgqlc.types.non_null(ID))
-                        ),
-                        graphql_name="vertexNames",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `account_id` (`Int!`)
-    * `vertex_names` (`[ID!]!`)
-    """
-
     ai_workflows_create_workflow = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsCreateWorkflowResponse),
         graphql_name="aiWorkflowsCreateWorkflow",
@@ -16533,6 +16799,31 @@ class RootMutationType(sgqlc.types.Type):
     * `account_id` (`Int!`)
     * `accounts` (`[CloudUnlinkAccountsInput]`)
     """
+
+    cloud_update_account = sgqlc.types.Field(
+        CloudUpdateAccountPayload,
+        graphql_name="cloudUpdateAccount",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "accounts",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(CloudUpdateCloudAccountsInput),
+                        graphql_name="accounts",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
 
     dashboard_add_widgets_to_page = sgqlc.types.Field(
         DashboardAddWidgetsToPageResult,
@@ -17353,10 +17644,24 @@ class RootMutationType(sgqlc.types.Type):
                     ),
                 ),
                 (
+                    "resolve_in_next_version",
+                    sgqlc.types.Arg(
+                        Boolean, graphql_name="resolveInNextVersion", default=None
+                    ),
+                ),
+                (
                     "state",
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(ErrorsInboxErrorGroupState),
                         graphql_name="state",
+                        default=None,
+                    ),
+                ),
+                (
+                    "versions",
+                    sgqlc.types.Arg(
+                        ErrorsInboxStateVersionInput,
+                        graphql_name="versions",
                         default=None,
                     ),
                 ),
@@ -17367,7 +17672,9 @@ class RootMutationType(sgqlc.types.Type):
 
     * `id` (`ID`)
     * `ids` (`[ID!]`)
+    * `resolve_in_next_version` (`Boolean`)
     * `state` (`ErrorsInboxErrorGroupState!`)
+    * `versions` (`ErrorsInboxStateVersionInput`)
     """
 
     events_to_metrics_create_rule = sgqlc.types.Field(
@@ -17926,6 +18233,49 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    log_configurations_update_live_archive_configuration = sgqlc.types.Field(
+        LogConfigurationsLiveArchiveConfiguration,
+        graphql_name="logConfigurationsUpdateLiveArchiveConfiguration",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "enabled",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Boolean),
+                        graphql_name="enabled",
+                        default=None,
+                    ),
+                ),
+                (
+                    "event_type",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="eventType",
+                        default=None,
+                    ),
+                ),
+                (
+                    "retention_policy",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            LogConfigurationsLiveArchiveRetentionPolicyType
+                        ),
+                        graphql_name="retentionPolicy",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     log_configurations_update_obfuscation_expression = sgqlc.types.Field(
         LogConfigurationsObfuscationExpression,
         graphql_name="logConfigurationsUpdateObfuscationExpression",
@@ -18358,7 +18708,7 @@ class RootMutationType(sgqlc.types.Type):
     )
 
     nerdpack_create = sgqlc.types.Field(
-        sgqlc.types.non_null(NerdpackData),
+        NerdpackData,
         graphql_name="nerdpackCreate",
         args=sgqlc.types.ArgDict(
             (
@@ -20882,6 +21232,7 @@ class SyntheticsBrokenLinksMonitor(sgqlc.types.Type):
         "modified_at",
         "name",
         "period",
+        "runtime",
         "status",
         "uri",
     )
@@ -20898,6 +21249,10 @@ class SyntheticsBrokenLinksMonitor(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     period = sgqlc.types.Field(SyntheticsMonitorPeriod, graphql_name="period")
+
+    runtime = sgqlc.types.Field(
+        "SyntheticsExtendedTypeMonitorRuntime", graphql_name="runtime"
+    )
 
     status = sgqlc.types.Field(SyntheticsMonitorStatus, graphql_name="status")
 
@@ -20938,6 +21293,7 @@ class SyntheticsCertCheckMonitor(sgqlc.types.Type):
         "name",
         "number_days_to_fail_before_cert_expires",
         "period",
+        "runtime",
         "status",
     )
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
@@ -20959,6 +21315,10 @@ class SyntheticsCertCheckMonitor(sgqlc.types.Type):
     )
 
     period = sgqlc.types.Field(SyntheticsMonitorPeriod, graphql_name="period")
+
+    runtime = sgqlc.types.Field(
+        "SyntheticsExtendedTypeMonitorRuntime", graphql_name="runtime"
+    )
 
     status = sgqlc.types.Field(SyntheticsMonitorStatus, graphql_name="status")
 
@@ -21063,6 +21423,14 @@ class SyntheticsError(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("description",)
     description = sgqlc.types.Field(String, graphql_name="description")
+
+
+class SyntheticsExtendedTypeMonitorRuntime(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("runtime_type", "runtime_type_version")
+    runtime_type = sgqlc.types.Field(String, graphql_name="runtimeType")
+
+    runtime_type_version = sgqlc.types.Field(SemVer, graphql_name="runtimeTypeVersion")
 
 
 class SyntheticsLocations(sgqlc.types.Type):
@@ -21647,6 +22015,7 @@ class SyntheticsStepMonitor(sgqlc.types.Type):
         "modified_at",
         "name",
         "period",
+        "runtime",
         "status",
         "steps",
     )
@@ -21667,6 +22036,10 @@ class SyntheticsStepMonitor(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     period = sgqlc.types.Field(SyntheticsMonitorPeriod, graphql_name="period")
+
+    runtime = sgqlc.types.Field(
+        SyntheticsExtendedTypeMonitorRuntime, graphql_name="runtime"
+    )
 
     status = sgqlc.types.Field(SyntheticsMonitorStatus, graphql_name="status")
 
@@ -23581,6 +23954,14 @@ class CloudAwsMqIntegration(sgqlc.types.Type, CloudIntegration):
         sgqlc.types.list_of(String), graphql_name="awsRegions"
     )
 
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudAwsMsElasticacheIntegration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = ("metrics_polling_interval",)
     metrics_polling_interval = sgqlc.types.Field(
         Int, graphql_name="metricsPollingInterval"
     )
@@ -25717,6 +26098,7 @@ class AiNotificationsAuth(sgqlc.types.Union):
     __schema__ = nerdgraph
     __types__ = (
         AiNotificationsBasicAuth,
+        AiNotificationsCustomHeadersAuth,
         AiNotificationsOAuth2Auth,
         AiNotificationsTokenAuth,
     )

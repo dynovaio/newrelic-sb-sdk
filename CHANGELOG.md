@@ -2,6 +2,164 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+* Add `AgentApplicationSettingsSessionTraceMode`,
+  `AgentApplicationSettingsSessionTraceModeInput`,
+  `DataSourceGapsGapTypeIdentifier` and
+  `LogConfigurationsLiveArchiveRetentionPolicyType` to enum types.
+* Add `CUSTOM_HEADERS` value to `AiNotificationsAuthType` choices.
+* Add `BROWSERAPPLICATION` and `MONITOR` values to
+  `AiTopologyCollectorVertexClass` choices.
+* Add `BROWSERAPPLICATION` and `MONITOR` values to
+  `AiTopologyVertexClass` choices.
+* Add `MONITORS` and `TRIGGERS` values to `EntityRelationshipEdgeType`
+  choices.
+* Add `GROUP` value to `MultiTenantAuthorizationRoleScopeEnum` choices.
+* Add `TYPE` value to `MultiTenantIdentityUserSortKey` choices.
+* Remove `ENABLED` value from `SyntheticsMonitorStatus` choices.
+* Add `AgentApplicationSettingsMaskInputOptionsInput`,
+  `AgentApplicationSettingsSessionReplayInput`,
+  `AgentApplicationSettingsSessionTraceInput`,
+  `AiNotificationsCustomHeaderInput`,
+  `AiNotificationsCustomHeadersAuthInput`,
+  `AiNotificationsSecureUrlInput`,
+  `AiNotificationsSecureUrlUpdate`,
+  `CloudAwsGovCloudUpdateAccountInput`,
+  `CloudAwsMsElasticacheIntegrationInput`,
+  `CloudAwsUpdateAccountInput`,
+  `CloudAzureUpdateAccountInput`,
+  `CloudGcpUpdateAccountInput`,
+  `CloudUpdateCloudAccountsInput`,
+  `DataSourceGapsGapsQuery`,
+  `ErrorsInboxStateVersionInput`,
+  `MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter`,
+  `MultiTenantAuthorizationRoleGroupIdInputFilter`,
+  `MultiTenantIdentityEmailVerificationStateInput`,
+  `MultiTenantIdentityUserGroupIdInput`,
+  `MultiTenantIdentityUserNotGroupIdInput` and
+  `SyntheticsExtendedTypeMonitorRuntimeInput` to input types.
+* Add `custom_headers` field to `AiNotificationsCredentialsInput` input type.
+* Update in `terms` field type in `AlertsNrqlConditionStaticInput` input type.
+* Add `aws_ms_elasticache` field to `CloudAwsDisableIntegrationsInput` input
+  type.
+* Add `aws_ms_elasticache` field to `CloudAwsIntegrationsInput` input
+  type.
+* Add `authentication_domain_id` field to
+  `MultiTenantAuthorizationGrantFilterInputExpression` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationGrantScopeTypeInputFilter` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationPermissionFilterRoleIdInput` input type.
+* Add `group_id` field to
+  `MultiTenantAuthorizationRoleFilterInputExpression` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationRoleIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationRoleNameInputFilter` input type.
+* Add `contains` field to
+  `MultiTenantAuthorizationRoleNameInputFilter` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationRoleScopeInputFilter` input type.
+* Allow null values for `eq` field in
+  `MultiTenantAuthorizationRoleTypeInputFilter` input type.
+* Allow null values for `eq` field in
+  `MultiTenantIdentityEmailVerificationStateInput` input type.
+* Allow null values for `eq` field in
+  `MultiTenantIdentityGroupIdInput` input type.
+* Add `excludes` field to
+  `MultiTenantIdentityGroupMemberIdInput` input type.
+* Allow null values for `contains` field in
+  `MultiTenantIdentityGroupMemberIdInput` input type.
+* Allow null values for `exists` field in
+  `MultiTenantIdentityPendingUpgradeRequestInput` input type.
+* Add `email_verification_state` and `group_id` fields to
+  `MultiTenantIdentityUserFilterInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationAccountIdFilterInput` input type.
+* Allow null values for `contains` field in
+  `OrganizationAccountNameFilterInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationAccountSharingModeFilterInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationAccountStatusFilterInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationContractCustomerIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationContractOrganizationIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationIdInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationOrganizationAccountIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationOrganizationAuthenticationDomainIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationOrganizationCreateJobCustomerIdInput` input type.
+* Allow null values for `eq` field in
+  `OrganizationOrganizationCustomerIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationOrganizationIdInputFilter` input type.
+* Allow null values for `eq` field in
+  `OrganizationTargetIdInput` input type.
+* Add `runtime` field to
+  `SyntheticsCreateBrokenLinksMonitorInput` input type.
+* Add `runtime` field to
+  `SyntheticsCreateCertCheckMonitorInput` input type.
+* Add `runtime` field to
+  `SyntheticsCreateStepMonitorInput` input type.
+* Add `runtime` field to
+  `SyntheticsUpdateBrokenLinksMonitorInput` input type.
+* Add `runtime` field to
+  `SyntheticsUpdateCertCheckMonitorInput` input type.
+* Add `runtime` field to
+  `SyntheticsUpdateStepMonitorInput` input type.
+* Rename `AgentRelease` to `AgentReleasesAgentRelease` object type.
+* Add `AgentApplicationSettingsMaskInputOptions`,
+  `AgentApplicationSettingsSessionReplay`,
+  `AgentApplicationSettingsSessionTrace`,
+  `AiNotificationsCustomHeader`,
+  `AiNotificationsCustomHeadersAuth`,
+  `AiNotificationsSecureUrl`,
+  `ApiAccessNrPlatformStitchedFields`,
+  `ApiAccessValidateUserKeyResult`,
+  `CloudTemplateParam`,
+  `CloudUpdateAccountPayload`,
+  `DataSourceGapsActorStitchedFields`,
+  `DataSourceGapsGap`,
+  `DataSourceGapsGapType`,
+  `DataSourceGapsGapsResult`,
+  `LogConfigurationsLiveArchiveConfiguration`,
+  `SyntheticsExtendedTypeMonitorRuntime`,
+  `CloudAwsMsElasticacheIntegration` to object types.
+* Add `template_params` field to `CloudProvider` object type.
+* Add `data_source_gaps` field to `Actor` object type.
+* Add `session_replay` and `session_trace` fields to
+  `AgentApplicationSettingsBrowserBase` object type.
+* Add `host_display_name` and `instance_name` fields to
+  `AgentEnvironmentApplicationInstanceDetails` object type.
+* Remove all fields from `AiTopologyAccountStitchedFields` object type.
+* Add `created_by` field to `DashboardLiveUrl` object type.
+* Add `current_agent_release` field to `DocumentationFields` object type.
+* Add `resolve_in_next_version` and `versions` fields to
+  `ErrorsInboxUpdateErrorGroupStateResponse` object type.
+* Add `live_archive_configurations` field to
+  `LogConfigurationsAccountStitchedFields` object type.
+* Add `created_at`, `parent_id`, `partnership_id`, `partnership_name`
+  and `pay_method` fields to `OrganizationAccount` object type.
+* Add `cloud_update_account` and
+  `log_configurations_update_live_archive_configuration` fields to
+  `RootMutationType` object type.
+* Remove `ai_topology_collector_create_edges`,
+  `ai_topology_collector_create_vertices`,
+  `ai_topology_collector_delete_edges` and
+  `ai_topology_collector_delete_vertices` fields from
+  `RootMutationType` object type.
+* Allow null values in `nerdpack_create` field in
+  `RootMutationType` object type.
+* Add `runtime` field to
+  `SyntheticsStepMonitor` object type.
+* Add `AiNotificationsCustomHeadersAuth` item to
+  `AiNotificationsAuth` union type.
+
 ## [0.18.0] - 2024-02-04
 
 * Update GraphQL submodule with a fresh schema version.
