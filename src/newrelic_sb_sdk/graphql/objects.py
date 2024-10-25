@@ -13,6 +13,8 @@ __all__ = [
     "CloudProvider",
     "CollectionEntity",
     "EdgeEndpointDetail",
+    "EntityManagementActor",
+    "EntityManagementEntity",
     "EntityRelationshipEdge",
     "ErrorsInboxErrorGroupBase",
     "ErrorsInboxResource",
@@ -50,6 +52,7 @@ __all__ = [
     "AgentApplicationSegmentsBrowserSegmentAllowListResult",
     "AgentApplicationSettingsApmBase",
     "AgentApplicationSettingsApmConfig",
+    "AgentApplicationSettingsApplicationExitInfo",
     "AgentApplicationSettingsBrowserAjax",
     "AgentApplicationSettingsBrowserBase",
     "AgentApplicationSettingsBrowserConfig",
@@ -223,6 +226,7 @@ __all__ = [
     "ApmApplicationSummaryData",
     "ApmBrowserApplicationSummaryData",
     "ApmExternalServiceSummaryData",
+    "AuthenticationDomainType",
     "AuthorizationManagementAuthenticationDomain",
     "AuthorizationManagementAuthenticationDomainSearch",
     "AuthorizationManagementGrantAccessPayload",
@@ -373,6 +377,22 @@ __all__ = [
     "EntityGoldenTag",
     "EntityGoldenTagsDomainTypeScoped",
     "EntityGoldenTagsDomainTypeScopedResponse",
+    "EntityManagementActorStitchedFields",
+    "EntityManagementAgentDeployment",
+    "EntityManagementBlob",
+    "EntityManagementDiscoverySettings",
+    "EntityManagementEntityDeleteResult",
+    "EntityManagementEntitySearchResult",
+    "EntityManagementFleetControlProperties",
+    "EntityManagementFleetDeployment",
+    "EntityManagementMetadata",
+    "EntityManagementNrqlRuleEngine",
+    "EntityManagementScopedReference",
+    "EntityManagementTag",
+    "EntityManagementTeamEntities",
+    "EntityManagementTeamExternalIntegration",
+    "EntityManagementTeamMember",
+    "EntityManagementTeamResource",
     "EntityRelationship",
     "EntityRelationshipNode",
     "EntityRelationshipRelatedEntitiesResult",
@@ -645,6 +665,7 @@ __all__ = [
     "StreamingExportAccountStitchedFields",
     "StreamingExportAwsDetails",
     "StreamingExportAzureDetails",
+    "StreamingExportGcpDetails",
     "StreamingExportRule",
     "SuggestedNrqlQueryAnomaly",
     "SuggestedNrqlQueryResponse",
@@ -850,6 +871,7 @@ __all__ = [
     "CloudBillingIntegration",
     "CloudCloudfrontIntegration",
     "CloudCloudtrailIntegration",
+    "CloudConfluentKafkaResourceIntegration",
     "CloudDynamodbIntegration",
     "CloudEbsIntegration",
     "CloudEc2Integration",
@@ -860,6 +882,7 @@ __all__ = [
     "CloudElasticsearchIntegration",
     "CloudElbIntegration",
     "CloudEmrIntegration",
+    "CloudFossaIssuesIntegration",
     "CloudGcpAiplatformIntegration",
     "CloudGcpAlloydbIntegration",
     "CloudGcpAppengineIntegration",
@@ -907,6 +930,21 @@ __all__ = [
     "DashboardEntityOutline",
     "EdgeAgentEndpointDetail",
     "EdgeHttpsEndpointDetail",
+    "EntityManagementAgentConfigurationEntity",
+    "EntityManagementAgentConfigurationVersionEntity",
+    "EntityManagementAgentEffectiveConfigurationEntity",
+    "EntityManagementAgentEntity",
+    "EntityManagementAgentTypeDefinitionEntity",
+    "EntityManagementCollectionEntity",
+    "EntityManagementFleetEntity",
+    "EntityManagementGenericEntity",
+    "EntityManagementScorecardEntity",
+    "EntityManagementScorecardRuleEntity",
+    "EntityManagementSystemActor",
+    "EntityManagementTeamEntity",
+    "EntityManagementTeamsOrganizationSettingsEntity",
+    "EntityManagementUserActor",
+    "EntityManagementUserEntity",
     "EntityRelationshipDetectedEdge",
     "EntityRelationshipUserDefinedEdge",
     "ErrorsInboxAssignErrorGroupError",
@@ -1038,6 +1076,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AiWorkflowsTestNotificationResponseStatus,
     AiWorkflowsTestResponseStatus,
     AiWorkflowsUpdateErrorType,
+    AlertsActionOnMutingRuleWindowEnded,
     AlertsDayOfWeek,
     AlertsFillOption,
     AlertsIncidentPreference,
@@ -1112,6 +1151,9 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenEventObjectId,
     EntityGoldenGoldenMetricsErrorType,
     EntityGoldenMetricUnit,
+    EntityManagementEntityScope,
+    EntityManagementManagedEntityType,
+    EntityManagementTeamExternalIntegrationType,
     EntityRelationshipEdgeType,
     EntityRelationshipType,
     EntityRelationshipUserDefinedCreateOrReplaceErrorType,
@@ -1185,6 +1227,8 @@ from newrelic_sb_sdk.graphql.enums import (
     StreamingExportStatus,
     SyntheticMonitorStatus,
     SyntheticMonitorType,
+    SyntheticsBrowser,
+    SyntheticsDevice,
     SyntheticsDeviceOrientation,
     SyntheticsDeviceType,
     SyntheticsMonitorCreateErrorType,
@@ -1239,6 +1283,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     AiWorkflowsTestWorkflowInput,
     AiWorkflowsUpdateWorkflowInput,
     AlertsMutingRuleInput,
+    AlertsMutingRulesFilterCriteriaInput,
     AlertsMutingRuleUpdateInput,
     AlertsNrqlConditionBaselineInput,
     AlertsNrqlConditionsSearchCriteriaInput,
@@ -1271,6 +1316,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     DashboardUpdateWidgetInput,
     DashboardWidgetInput,
     DataManagementAccountFeatureSettingInput,
+    DataManagementAccountLimitInput,
     DataManagementRuleInput,
     DataSourceGapsGapsQuery,
     DomainTypeInput,
@@ -1358,6 +1404,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     SortCriterionWithDirection,
     StreamingExportAwsInput,
     StreamingExportAzureInput,
+    StreamingExportGcpInput,
     StreamingExportRuleInput,
     SyntheticsCreateBrokenLinksMonitorInput,
     SyntheticsCreateCertCheckMonitorInput,
@@ -1592,6 +1639,7 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "type",
         "updated_at",
         "updated_by",
@@ -1633,6 +1681,8 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
         ),
         graphql_name="terms",
     )
+
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
 
     type = sgqlc.types.Field(
         sgqlc.types.non_null(AlertsNrqlConditionType), graphql_name="type"
@@ -1815,6 +1865,35 @@ class EdgeEndpointDetail(sgqlc.types.Interface):
     host = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="host")
 
     port = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="port")
+
+
+class EntityManagementActor(sgqlc.types.Interface):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class EntityManagementEntity(sgqlc.types.Interface):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "metadata", "name", "scope", "tags", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    metadata = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementMetadata"), graphql_name="metadata"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReference"), graphql_name="scope"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTag")),
+        graphql_name="tags",
+    )
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
 class EntityRelationshipEdge(sgqlc.types.Interface):
@@ -2636,6 +2715,7 @@ class Actor(sgqlc.types.Type):
         "distributed_tracing",
         "entities",
         "entity",
+        "entity_management",
         "entity_search",
         "errors_inbox",
         "incident_intelligence_environment",
@@ -2735,6 +2815,10 @@ class Actor(sgqlc.types.Type):
                 ),
             )
         ),
+    )
+
+    entity_management = sgqlc.types.Field(
+        "EntityManagementActorStitchedFields", graphql_name="entityManagement"
     )
 
     entity_search = sgqlc.types.Field(
@@ -3038,6 +3122,12 @@ class AgentApplicationSettingsApmConfig(sgqlc.types.Type):
     )
 
 
+class AgentApplicationSettingsApplicationExitInfo(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+
 class AgentApplicationSettingsBrowserAjax(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("deny_list",)
@@ -3271,7 +3361,12 @@ class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
 
 class AgentApplicationSettingsMobileBase(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("network_settings", "use_crash_reports")
+    __field_names__ = ("application_exit_info", "network_settings", "use_crash_reports")
+    application_exit_info = sgqlc.types.Field(
+        sgqlc.types.non_null(AgentApplicationSettingsApplicationExitInfo),
+        graphql_name="applicationExitInfo",
+    )
+
     network_settings = sgqlc.types.Field(
         "AgentApplicationSettingsMobileNetworkSettings", graphql_name="networkSettings"
     )
@@ -5836,7 +5931,13 @@ class AiWorkflowsDeleteWorkflowResponse(sgqlc.types.Type):
 
 class AiWorkflowsDestinationConfiguration(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("channel_id", "name", "notification_triggers", "type")
+    __field_names__ = (
+        "channel_id",
+        "name",
+        "notification_triggers",
+        "type",
+        "update_original_message",
+    )
     channel_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="channelId")
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
@@ -5848,6 +5949,10 @@ class AiWorkflowsDestinationConfiguration(sgqlc.types.Type):
 
     type = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsDestinationType), graphql_name="type"
+    )
+
+    update_original_message = sgqlc.types.Field(
+        Boolean, graphql_name="updateOriginalMessage"
     )
 
 
@@ -6093,7 +6198,20 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
     )
 
     muting_rules = sgqlc.types.Field(
-        sgqlc.types.list_of("AlertsMutingRule"), graphql_name="mutingRules"
+        sgqlc.types.list_of("AlertsMutingRule"),
+        graphql_name="mutingRules",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        AlertsMutingRulesFilterCriteriaInput,
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
     )
 
     nrql_condition = sgqlc.types.Field(
@@ -6206,12 +6324,14 @@ class AlertsMutingRule(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_id",
+        "action_on_muting_rule_window_ended",
         "condition",
         "created_at",
         "created_by_user",
         "description",
         "enabled",
         "id",
+        "muting_rule_lifecycle_event_published_at",
         "name",
         "schedule",
         "status",
@@ -6219,6 +6339,11 @@ class AlertsMutingRule(sgqlc.types.Type):
         "updated_by_user",
     )
     account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    action_on_muting_rule_window_ended = sgqlc.types.Field(
+        AlertsActionOnMutingRuleWindowEnded,
+        graphql_name="actionOnMutingRuleWindowEnded",
+    )
 
     condition = sgqlc.types.Field(
         sgqlc.types.non_null("AlertsMutingRuleConditionGroup"), graphql_name="condition"
@@ -6235,6 +6360,10 @@ class AlertsMutingRule(sgqlc.types.Type):
     enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    muting_rule_lifecycle_event_published_at = sgqlc.types.Field(
+        DateTime, graphql_name="mutingRuleLifecycleEventPublishedAt"
+    )
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
@@ -6533,6 +6662,7 @@ class AlertsNrqlConditionExpiration(sgqlc.types.Type):
     __field_names__ = (
         "close_violations_on_expiration",
         "expiration_duration",
+        "ignore_on_expected_termination",
         "open_violation_on_expiration",
     )
     close_violations_on_expiration = sgqlc.types.Field(
@@ -6541,6 +6671,10 @@ class AlertsNrqlConditionExpiration(sgqlc.types.Type):
 
     expiration_duration = sgqlc.types.Field(Seconds, graphql_name="expirationDuration")
 
+    ignore_on_expected_termination = sgqlc.types.Field(
+        Boolean, graphql_name="ignoreOnExpectedTermination"
+    )
+
     open_violation_on_expiration = sgqlc.types.Field(
         Boolean, graphql_name="openViolationOnExpiration"
     )
@@ -6548,7 +6682,9 @@ class AlertsNrqlConditionExpiration(sgqlc.types.Type):
 
 class AlertsNrqlConditionQuery(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("query",)
+    __field_names__ = ("data_account_id", "query")
+    data_account_id = sgqlc.types.Field(Int, graphql_name="dataAccountId")
+
     query = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="query")
 
 
@@ -7026,6 +7162,12 @@ class ApmExternalServiceSummaryData(sgqlc.types.Type):
     )
 
     throughput = sgqlc.types.Field(Float, graphql_name="throughput")
+
+
+class AuthenticationDomainType(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
 
 class AuthorizationManagementAuthenticationDomain(sgqlc.types.Type):
@@ -8423,10 +8565,25 @@ class DashboardLineWidgetConfiguration(sgqlc.types.Type):
 
 class DashboardLiveUrl(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("created_at", "created_by", "title", "type", "url", "uuid")
+    __field_names__ = (
+        "accounts",
+        "created_at",
+        "created_by",
+        "expires_on",
+        "title",
+        "type",
+        "url",
+        "uuid",
+    )
+    accounts = sgqlc.types.Field(
+        sgqlc.types.list_of(AccountReference), graphql_name="accounts"
+    )
+
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
 
     created_by = sgqlc.types.Field("UserReference", graphql_name="createdBy")
+
+    expires_on = sgqlc.types.Field(EpochMilliseconds, graphql_name="expiresOn")
 
     title = sgqlc.types.Field(String, graphql_name="title")
 
@@ -8447,7 +8604,7 @@ class DashboardLiveUrlError(sgqlc.types.Type):
 
 class DashboardLiveUrlResult(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("errors", "live_urls")
+    __field_names__ = ("errors", "live_urls", "next_cursor", "total_count")
     errors = sgqlc.types.Field(
         sgqlc.types.list_of(DashboardLiveUrlError), graphql_name="errors"
     )
@@ -8455,6 +8612,10 @@ class DashboardLiveUrlResult(sgqlc.types.Type):
     live_urls = sgqlc.types.Field(
         sgqlc.types.list_of(DashboardLiveUrl), graphql_name="liveUrls"
     )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
 
 
 class DashboardMarkdownWidgetConfiguration(sgqlc.types.Type):
@@ -8672,7 +8833,9 @@ class DashboardVariableNrqlQuery(sgqlc.types.Type):
 
 class DashboardVariableOptions(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("ignore_time_range",)
+    __field_names__ = ("excluded", "ignore_time_range")
+    excluded = sgqlc.types.Field(Boolean, graphql_name="excluded")
+
     ignore_time_range = sgqlc.types.Field(Boolean, graphql_name="ignoreTimeRange")
 
 
@@ -10054,6 +10217,247 @@ class EntityGoldenTagsDomainTypeScopedResponse(sgqlc.types.Type):
     )
 
     tags = sgqlc.types.Field(EntityGoldenTagsDomainTypeScoped, graphql_name="tags")
+
+
+class EntityManagementActorStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity", "entity_search")
+    entity = sgqlc.types.Field(
+        EntityManagementEntity,
+        graphql_name="entity",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_search = sgqlc.types.Field(
+        "EntityManagementEntitySearchResult",
+        graphql_name="entitySearch",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "query",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="query", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `cursor` (`String`)
+    * `query` (`String!`)
+    """
+
+
+class EntityManagementAgentDeployment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("completed_at", "deployed_at", "status")
+    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
+
+    deployed_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="deployedAt"
+    )
+
+    status = sgqlc.types.Field(String, graphql_name="status")
+
+
+class EntityManagementBlob(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("checksum", "checksum_algorithm", "content_type", "url")
+    checksum = sgqlc.types.Field(String, graphql_name="checksum")
+
+    checksum_algorithm = sgqlc.types.Field(String, graphql_name="checksumAlgorithm")
+
+    content_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="contentType"
+    )
+
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementDiscoverySettings(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled", "tag_keys")
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    tag_keys = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="tagKeys",
+    )
+
+
+class EntityManagementEntityDeleteResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class EntityManagementEntitySearchResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entities", "next_cursor")
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementEntity)),
+        graphql_name="entities",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class EntityManagementFleetControlProperties(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "current_deployment",
+        "environment",
+        "healthy",
+        "last_error",
+        "last_remote_config_error",
+        "last_remote_config_status",
+        "start_time",
+        "uid",
+    )
+    current_deployment = sgqlc.types.Field(
+        EntityManagementAgentDeployment, graphql_name="currentDeployment"
+    )
+
+    environment = sgqlc.types.Field(String, graphql_name="environment")
+
+    healthy = sgqlc.types.Field(Boolean, graphql_name="healthy")
+
+    last_error = sgqlc.types.Field(String, graphql_name="lastError")
+
+    last_remote_config_error = sgqlc.types.Field(
+        String, graphql_name="lastRemoteConfigError"
+    )
+
+    last_remote_config_status = sgqlc.types.Field(
+        String, graphql_name="lastRemoteConfigStatus"
+    )
+
+    start_time = sgqlc.types.Field(EpochMilliseconds, graphql_name="startTime")
+
+    uid = sgqlc.types.Field(String, graphql_name="uid")
+
+
+class EntityManagementFleetDeployment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "completed_at",
+        "configs_changed",
+        "deployed_at",
+        "entities_changed",
+        "status",
+    )
+    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
+
+    configs_changed = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="configsChanged"
+    )
+
+    deployed_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="deployedAt"
+    )
+
+    entities_changed = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="entitiesChanged"
+    )
+
+    status = sgqlc.types.Field(String, graphql_name="status")
+
+
+class EntityManagementMetadata(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("created_at", "created_by", "updated_at")
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    created_by = sgqlc.types.Field(EntityManagementActor, graphql_name="createdBy")
+
+    updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="updatedAt")
+
+
+class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("accounts", "query")
+    accounts = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(Int))),
+        graphql_name="accounts",
+    )
+
+    query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementScopedReference(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementEntityScope), graphql_name="type"
+    )
+
+
+class EntityManagementTag(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "values")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    values = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="values",
+    )
+
+
+class EntityManagementTeamEntities(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("static",)
+    static = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementEntity)),
+        graphql_name="static",
+    )
+
+
+class EntityManagementTeamExternalIntegration(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("external_id", "type")
+    external_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="externalId")
+
+    type = sgqlc.types.Field(
+        EntityManagementTeamExternalIntegrationType, graphql_name="type"
+    )
+
+
+class EntityManagementTeamMember(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("roles", "user")
+    roles = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="roles"
+    )
+
+    user = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementUserEntity"), graphql_name="user"
+    )
+
+
+class EntityManagementTeamResource(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("content", "title", "type")
+    content = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="content")
+
+    title = sgqlc.types.Field(String, graphql_name="title")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
 class EntityRelationship(sgqlc.types.Type):
@@ -12105,7 +12509,7 @@ class MultiTenantAuthorizationGrant(sgqlc.types.Type):
 
 class MultiTenantAuthorizationGrantCollection(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("items", "next_cursor")
+    __field_names__ = ("items", "next_cursor", "total_count")
     items = sgqlc.types.Field(
         sgqlc.types.non_null(
             sgqlc.types.list_of(sgqlc.types.non_null(MultiTenantAuthorizationGrant))
@@ -12114,6 +12518,10 @@ class MultiTenantAuthorizationGrantCollection(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    total_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="totalCount"
+    )
 
 
 class MultiTenantAuthorizationGrantGroup(sgqlc.types.Type):
@@ -12665,9 +13073,11 @@ class NerdpackAllowedAccount(sgqlc.types.Type):
 class NerdpackAssetInfo(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("name", "size_in_bytes")
-    name = sgqlc.types.Field(String, graphql_name="name")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
-    size_in_bytes = sgqlc.types.Field(Int, graphql_name="sizeInBytes")
+    size_in_bytes = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="sizeInBytes"
+    )
 
 
 class NerdpackData(sgqlc.types.Type):
@@ -12874,10 +13284,15 @@ class NerdpackVersion(sgqlc.types.Type):
         "version",
     )
     assets = sgqlc.types.Field(
-        sgqlc.types.list_of(NerdpackAssetInfo), graphql_name="assets"
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(NerdpackAssetInfo))
+        ),
+        graphql_name="assets",
     )
 
-    cli_version = sgqlc.types.Field(SemVer, graphql_name="cliVersion")
+    cli_version = sgqlc.types.Field(
+        sgqlc.types.non_null(SemVer), graphql_name="cliVersion"
+    )
 
     created_at = sgqlc.types.Field(
         sgqlc.types.non_null(DateTime), graphql_name="createdAt"
@@ -12887,15 +13302,21 @@ class NerdpackVersion(sgqlc.types.Type):
         sgqlc.types.non_null(Int), graphql_name="createdByUser"
     )
 
-    description = sgqlc.types.Field(String, graphql_name="description")
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
 
-    display_name = sgqlc.types.Field(String, graphql_name="displayName")
+    display_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="displayName"
+    )
 
     icon = sgqlc.types.Field(String, graphql_name="icon")
 
-    nerdpack_id = sgqlc.types.Field(ID, graphql_name="nerdpackId")
+    nerdpack_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="nerdpackId")
 
-    repository_url = sgqlc.types.Field(String, graphql_name="repositoryUrl")
+    repository_url = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="repositoryUrl"
+    )
 
     sdk_version = sgqlc.types.Field(String, graphql_name="sdkVersion")
 
@@ -12904,7 +13325,10 @@ class NerdpackVersion(sgqlc.types.Type):
     )
 
     tags = sgqlc.types.Field(
-        sgqlc.types.non_null(sgqlc.types.list_of(NerdpackTagName)), graphql_name="tags"
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(NerdpackTagName))
+        ),
+        graphql_name="tags",
     )
 
     version = sgqlc.types.Field(sgqlc.types.non_null(SemVer), graphql_name="version")
@@ -14816,6 +15240,7 @@ class RequestContext(sgqlc.types.Type):
 class RootMutationType(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
+        "account_management_cancel_account",
         "account_management_create_account",
         "account_management_update_account",
         "agent_application_create_browser",
@@ -14874,6 +15299,7 @@ class RootMutationType(sgqlc.types.Type):
         "api_access_create_keys",
         "api_access_delete_keys",
         "api_access_update_keys",
+        "authentication_domain_delete",
         "authorization_management_grant_access",
         "authorization_management_revoke_access",
         "change_tracking_create_deployment",
@@ -14894,6 +15320,7 @@ class RootMutationType(sgqlc.types.Type):
         "dashboard_update_widgets_in_page",
         "dashboard_widget_revoke_live_url",
         "data_management_copy_retentions",
+        "data_management_create_account_limit",
         "data_management_create_event_retention_rule",
         "data_management_create_retention_rules",
         "data_management_delete_event_retention_rule",
@@ -14908,6 +15335,7 @@ class RootMutationType(sgqlc.types.Type):
         "entity_golden_metrics_reset",
         "entity_golden_tags_override",
         "entity_golden_tags_reset",
+        "entity_management_delete",
         "entity_relationship_user_defined_create_or_replace",
         "entity_relationship_user_defined_delete",
         "errors_inbox_assign_error_group",
@@ -15030,6 +15458,21 @@ class RootMutationType(sgqlc.types.Type):
         "workload_duplicate",
         "workload_update",
     )
+    account_management_cancel_account = sgqlc.types.Field(
+        AccountManagementManagedAccount,
+        graphql_name="accountManagementCancelAccount",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
     account_management_create_account = sgqlc.types.Field(
         AccountManagementCreateResponse,
         graphql_name="accountManagementCreateAccount",
@@ -16570,6 +17013,21 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    authentication_domain_delete = sgqlc.types.Field(
+        AuthenticationDomainType,
+        graphql_name="authenticationDomainDelete",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
     authorization_management_grant_access = sgqlc.types.Field(
         AuthorizationManagementGrantAccessPayload,
         graphql_name="authorizationManagementGrantAccess",
@@ -17070,6 +17528,31 @@ class RootMutationType(sgqlc.types.Type):
     * `source_account_id` (`Int!`)
     """
 
+    data_management_create_account_limit = sgqlc.types.Field(
+        DataManagementAccountLimit,
+        graphql_name="dataManagementCreateAccountLimit",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "account_limit",
+                    sgqlc.types.Arg(
+                        DataManagementAccountLimitInput,
+                        graphql_name="accountLimit",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     data_management_create_event_retention_rule = sgqlc.types.Field(
         DataManagementRule,
         graphql_name="dataManagementCreateEventRetentionRule",
@@ -17513,6 +17996,21 @@ class RootMutationType(sgqlc.types.Type):
                         sgqlc.types.non_null(DomainTypeInput),
                         graphql_name="domainType",
                         default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_delete = sgqlc.types.Field(
+        EntityManagementEntityDeleteResult,
+        graphql_name="entityManagementDelete",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
                     ),
                 ),
             )
@@ -19311,6 +19809,14 @@ class RootMutationType(sgqlc.types.Type):
                     ),
                 ),
                 (
+                    "gcp_parameters",
+                    sgqlc.types.Arg(
+                        StreamingExportGcpInput,
+                        graphql_name="gcpParameters",
+                        default=None,
+                    ),
+                ),
+                (
                     "rule_parameters",
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(StreamingExportRuleInput),
@@ -19385,6 +19891,14 @@ class RootMutationType(sgqlc.types.Type):
                     sgqlc.types.Arg(
                         StreamingExportAzureInput,
                         graphql_name="azureParameters",
+                        default=None,
+                    ),
+                ),
+                (
+                    "gcp_parameters",
+                    sgqlc.types.Arg(
+                        StreamingExportGcpInput,
+                        graphql_name="gcpParameters",
                         default=None,
                     ),
                 ),
@@ -21097,6 +21611,18 @@ class StreamingExportAzureDetails(sgqlc.types.Type):
     )
 
 
+class StreamingExportGcpDetails(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("gcp_project_id", "pubsub_topic_id")
+    gcp_project_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="gcpProjectId"
+    )
+
+    pubsub_topic_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="pubsubTopicId"
+    )
+
+
 class StreamingExportRule(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -21105,6 +21631,7 @@ class StreamingExportRule(sgqlc.types.Type):
         "azure",
         "created_at",
         "description",
+        "gcp",
         "id",
         "message",
         "name",
@@ -21124,6 +21651,8 @@ class StreamingExportRule(sgqlc.types.Type):
     )
 
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    gcp = sgqlc.types.Field(StreamingExportGcpDetails, graphql_name="gcp")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
@@ -21743,7 +22272,9 @@ class SyntheticsScriptBrowserMonitor(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "advanced_options",
+        "browsers",
         "created_at",
+        "devices",
         "guid",
         "id",
         "locations",
@@ -21757,7 +22288,15 @@ class SyntheticsScriptBrowserMonitor(sgqlc.types.Type):
         "SyntheticsScriptBrowserMonitorAdvancedOptions", graphql_name="advancedOptions"
     )
 
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
 
@@ -21830,7 +22369,9 @@ class SyntheticsSimpleBrowserMonitor(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "advanced_options",
+        "browsers",
         "created_at",
+        "devices",
         "guid",
         "id",
         "locations",
@@ -21845,7 +22386,15 @@ class SyntheticsSimpleBrowserMonitor(sgqlc.types.Type):
         "SyntheticsSimpleBrowserMonitorAdvancedOptions", graphql_name="advancedOptions"
     )
 
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
 
@@ -22008,7 +22557,9 @@ class SyntheticsStepMonitor(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "advanced_options",
+        "browsers",
         "created_at",
+        "devices",
         "guid",
         "id",
         "locations",
@@ -22023,7 +22574,15 @@ class SyntheticsStepMonitor(sgqlc.types.Type):
         "SyntheticsStepMonitorAdvancedOptions", graphql_name="advancedOptions"
     )
 
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
 
@@ -24557,6 +25116,14 @@ class CloudCloudtrailIntegration(sgqlc.types.Type, CloudIntegration):
     )
 
 
+class CloudConfluentKafkaResourceIntegration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = ("metrics_polling_interval",)
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudDynamodbIntegration(sgqlc.types.Type, CloudIntegration):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -24809,6 +25376,14 @@ class CloudEmrIntegration(sgqlc.types.Type, CloudIntegration):
     tag_key = sgqlc.types.Field(String, graphql_name="tagKey")
 
     tag_value = sgqlc.types.Field(String, graphql_name="tagValue")
+
+
+class CloudFossaIssuesIntegration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = ("metrics_polling_interval",)
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
 
 
 class CloudGcpAiplatformIntegration(sgqlc.types.Type, CloudIntegration):
@@ -25390,6 +25965,171 @@ class EdgeHttpsEndpointDetail(sgqlc.types.Type, EdgeEndpointDetail):
     __schema__ = nerdgraph
     __field_names__ = ("url",)
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementAgentConfigurationEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("agent_type", "version_count")
+    agent_type = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="agentType")
+
+    version_count = sgqlc.types.Field(Int, graphql_name="versionCount")
+
+
+class EntityManagementAgentConfigurationVersionEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("agent_configuration", "blob", "version")
+    agent_configuration = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="agentConfiguration"
+    )
+
+    blob = sgqlc.types.Field(EntityManagementBlob, graphql_name="blob")
+
+    version = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="version")
+
+
+class EntityManagementAgentEffectiveConfigurationEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("blob",)
+    blob = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementBlob), graphql_name="blob"
+    )
+
+
+class EntityManagementAgentEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("agent_type", "fleet_control_properties")
+    agent_type = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="agentType")
+
+    fleet_control_properties = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementFleetControlProperties),
+        graphql_name="fleetControlProperties",
+    )
+
+
+class EntityManagementAgentTypeDefinitionEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("agent_type", "display_name")
+    agent_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="agentType"
+    )
+
+    display_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="displayName"
+    )
+
+
+class EntityManagementCollectionEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("current_deployment", "managed_entities", "managed_entity_type")
+    current_deployment = sgqlc.types.Field(
+        EntityManagementFleetDeployment, graphql_name="currentDeployment"
+    )
+
+    managed_entities = sgqlc.types.Field(
+        EntityManagementCollectionEntity, graphql_name="managedEntities"
+    )
+
+    managed_entity_type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementManagedEntityType),
+        graphql_name="managedEntityType",
+    )
+
+
+class EntityManagementGenericEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class EntityManagementScorecardEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("description",)
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+
+class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "enabled", "nrql_engine")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    nrql_engine = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementNrqlRuleEngine), graphql_name="nrqlEngine"
+    )
+
+
+class EntityManagementSystemActor(sgqlc.types.Type, EntityManagementActor):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class EntityManagementTeamEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "aliases",
+        "description",
+        "entities",
+        "external_integration",
+        "members",
+        "resources",
+    )
+    aliases = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="aliases"
+    )
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    entities = sgqlc.types.Field(EntityManagementTeamEntities, graphql_name="entities")
+
+    external_integration = sgqlc.types.Field(
+        EntityManagementTeamExternalIntegration, graphql_name="externalIntegration"
+    )
+
+    members = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTeamMember)),
+        graphql_name="members",
+    )
+
+    resources = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTeamResource)),
+        graphql_name="resources",
+    )
+
+
+class EntityManagementTeamsOrganizationSettingsEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("discovery",)
+    discovery = sgqlc.types.Field(
+        EntityManagementDiscoverySettings, graphql_name="discovery"
+    )
+
+
+class EntityManagementUserActor(sgqlc.types.Type, EntityManagementActor):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class EntityManagementUserEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("email", "user_id")
+    email = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="email")
+
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="userId")
 
 
 class EntityRelationshipDetectedEdge(sgqlc.types.Type, EntityRelationshipEdge):

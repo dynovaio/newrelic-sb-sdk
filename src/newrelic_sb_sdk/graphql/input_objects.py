@@ -5,6 +5,7 @@ __all__ = [
     "AgentApplicationSegmentsBrowserSegmentAllowListInput",
     "AgentApplicationSegmentsSegmentAllowListFilters",
     "AgentApplicationSettingsApmConfigInput",
+    "AgentApplicationSettingsApplicationExitInfoInput",
     "AgentApplicationSettingsBrowserAjaxInput",
     "AgentApplicationSettingsBrowserConfigInput",
     "AgentApplicationSettingsBrowserDistributedTracingInput",
@@ -142,6 +143,7 @@ __all__ = [
     "AlertsMutingRuleScheduleInput",
     "AlertsMutingRuleScheduleUpdateInput",
     "AlertsMutingRuleUpdateInput",
+    "AlertsMutingRulesFilterCriteriaInput",
     "AlertsNotificationChannelCreateConfiguration",
     "AlertsNotificationChannelUpdateConfiguration",
     "AlertsNrqlConditionBaselineInput",
@@ -268,6 +270,11 @@ __all__ = [
     "CloudBillingIntegrationInput",
     "CloudCloudfrontIntegrationInput",
     "CloudCloudtrailIntegrationInput",
+    "CloudConfluentDisableIntegrationsInput",
+    "CloudConfluentIntegrationsInput",
+    "CloudConfluentKafkaResourceIntegrationInput",
+    "CloudConfluentLinkAccountInput",
+    "CloudConfluentUpdateAccountInput",
     "CloudDisableAccountIntegrationInput",
     "CloudDisableIntegrationsInput",
     "CloudDynamodbIntegrationInput",
@@ -280,6 +287,11 @@ __all__ = [
     "CloudElasticsearchIntegrationInput",
     "CloudElbIntegrationInput",
     "CloudEmrIntegrationInput",
+    "CloudFossaDisableIntegrationsInput",
+    "CloudFossaIntegrationsInput",
+    "CloudFossaIssuesIntegrationInput",
+    "CloudFossaLinkAccountInput",
+    "CloudFossaUpdateAccountInput",
     "CloudGcpAiplatformIntegrationInput",
     "CloudGcpAlloydbIntegrationInput",
     "CloudGcpAppengineIntegrationInput",
@@ -358,7 +370,9 @@ __all__ = [
     "DashboardWidgetNrqlQueryInput",
     "DashboardWidgetVisualizationInput",
     "DataManagementAccountFeatureSettingInput",
+    "DataManagementAccountLimitInput",
     "DataManagementFeatureSettingLookup",
+    "DataManagementLimitLookupInput",
     "DataManagementRuleInput",
     "DataSourceGapsGapsQuery",
     "DateTimeWindowInput",
@@ -526,6 +540,7 @@ __all__ = [
     "SortCriterionWithDirection",
     "StreamingExportAwsInput",
     "StreamingExportAzureInput",
+    "StreamingExportGcpInput",
     "StreamingExportRuleInput",
     "SyntheticsCreateBrokenLinksMonitorInput",
     "SyntheticsCreateCertCheckMonitorInput",
@@ -645,6 +660,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AiWorkflowsMutingRulesHandling,
     AiWorkflowsNotificationTrigger,
     AiWorkflowsOperator,
+    AlertsActionOnMutingRuleWindowEnded,
     AlertsDayOfWeek,
     AlertsFillOption,
     AlertsIncidentPreference,
@@ -729,6 +745,8 @@ from newrelic_sb_sdk.graphql.enums import (
     ServiceLevelObjectiveRollingTimeWindowUnit,
     SortBy,
     StreamingExportPayloadCompression,
+    SyntheticsBrowser,
+    SyntheticsDevice,
     SyntheticsDeviceOrientation,
     SyntheticsDeviceType,
     SyntheticsMonitorDowntimeDayOfMonthOrdinal,
@@ -832,6 +850,12 @@ class AgentApplicationSettingsApmConfigInput(sgqlc.types.Input):
     use_server_side_config = sgqlc.types.Field(
         Boolean, graphql_name="useServerSideConfig"
     )
+
+
+class AgentApplicationSettingsApplicationExitInfoInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
 class AgentApplicationSettingsBrowserAjaxInput(sgqlc.types.Input):
@@ -1022,7 +1046,12 @@ class AgentApplicationSettingsMaskInputOptionsInput(sgqlc.types.Input):
 
 class AgentApplicationSettingsMobileSettingsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("network_settings", "use_crash_reports")
+    __field_names__ = ("application_exit_info", "network_settings", "use_crash_reports")
+    application_exit_info = sgqlc.types.Field(
+        AgentApplicationSettingsApplicationExitInfoInput,
+        graphql_name="applicationExitInfo",
+    )
+
     network_settings = sgqlc.types.Field(
         "AgentApplicationSettingsNetworkSettingsInput", graphql_name="networkSettings"
     )
@@ -2705,6 +2734,7 @@ class AiNotificationsDestinationFilter(sgqlc.types.Input):
     __field_names__ = (
         "active",
         "auth_type",
+        "exact_name",
         "id",
         "ids",
         "name",
@@ -2715,6 +2745,8 @@ class AiNotificationsDestinationFilter(sgqlc.types.Input):
     active = sgqlc.types.Field(Boolean, graphql_name="active")
 
     auth_type = sgqlc.types.Field(AiNotificationsAuthType, graphql_name="authType")
+
+    exact_name = sgqlc.types.Field(String, graphql_name="exactName")
 
     id = sgqlc.types.Field(ID, graphql_name="id")
 
@@ -3027,12 +3059,16 @@ class AiWorkflowsCreateWorkflowInput(sgqlc.types.Input):
 
 class AiWorkflowsDestinationConfigurationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("channel_id", "notification_triggers")
+    __field_names__ = ("channel_id", "notification_triggers", "update_original_message")
     channel_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="channelId")
 
     notification_triggers = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(AiWorkflowsNotificationTrigger)),
         graphql_name="notificationTriggers",
+    )
+
+    update_original_message = sgqlc.types.Field(
+        Boolean, graphql_name="updateOriginalMessage"
     )
 
 
@@ -3327,7 +3363,19 @@ class AlertsMutingRuleConditionInput(sgqlc.types.Input):
 
 class AlertsMutingRuleInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("condition", "description", "enabled", "name", "schedule")
+    __field_names__ = (
+        "action_on_muting_rule_window_ended",
+        "condition",
+        "description",
+        "enabled",
+        "name",
+        "schedule",
+    )
+    action_on_muting_rule_window_ended = sgqlc.types.Field(
+        AlertsActionOnMutingRuleWindowEnded,
+        graphql_name="actionOnMutingRuleWindowEnded",
+    )
+
     condition = sgqlc.types.Field(
         sgqlc.types.non_null(AlertsMutingRuleConditionGroupInput),
         graphql_name="condition",
@@ -3404,7 +3452,19 @@ class AlertsMutingRuleScheduleUpdateInput(sgqlc.types.Input):
 
 class AlertsMutingRuleUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("condition", "description", "enabled", "name", "schedule")
+    __field_names__ = (
+        "action_on_muting_rule_window_ended",
+        "condition",
+        "description",
+        "enabled",
+        "name",
+        "schedule",
+    )
+    action_on_muting_rule_window_ended = sgqlc.types.Field(
+        AlertsActionOnMutingRuleWindowEnded,
+        graphql_name="actionOnMutingRuleWindowEnded",
+    )
+
     condition = sgqlc.types.Field(
         AlertsMutingRuleConditionGroupInput, graphql_name="condition"
     )
@@ -3418,6 +3478,12 @@ class AlertsMutingRuleUpdateInput(sgqlc.types.Input):
     schedule = sgqlc.types.Field(
         AlertsMutingRuleScheduleUpdateInput, graphql_name="schedule"
     )
+
+
+class AlertsMutingRulesFilterCriteriaInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
 class AlertsNotificationChannelCreateConfiguration(sgqlc.types.Input):
@@ -3512,6 +3578,7 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "violation_time_limit",
         "violation_time_limit_seconds",
     )
@@ -3539,13 +3606,13 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
     signal = sgqlc.types.Field("AlertsNrqlConditionSignalInput", graphql_name="signal")
 
     terms = sgqlc.types.Field(
-        sgqlc.types.non_null(
-            sgqlc.types.list_of(
-                sgqlc.types.non_null("AlertsNrqlDynamicConditionTermsInput")
-            )
+        sgqlc.types.list_of(
+            sgqlc.types.non_null("AlertsNrqlDynamicConditionTermsInput")
         ),
         graphql_name="terms",
     )
+
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
 
     violation_time_limit = sgqlc.types.Field(
         AlertsViolationTimeLimit, graphql_name="violationTimeLimit"
@@ -3561,6 +3628,7 @@ class AlertsNrqlConditionExpirationInput(sgqlc.types.Input):
     __field_names__ = (
         "close_violations_on_expiration",
         "expiration_duration",
+        "ignore_on_expected_termination",
         "open_violation_on_expiration",
     )
     close_violations_on_expiration = sgqlc.types.Field(
@@ -3568,6 +3636,10 @@ class AlertsNrqlConditionExpirationInput(sgqlc.types.Input):
     )
 
     expiration_duration = sgqlc.types.Field(Seconds, graphql_name="expirationDuration")
+
+    ignore_on_expected_termination = sgqlc.types.Field(
+        Boolean, graphql_name="ignoreOnExpectedTermination"
+    )
 
     open_violation_on_expiration = sgqlc.types.Field(
         Boolean, graphql_name="openViolationOnExpiration"
@@ -3587,6 +3659,7 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "violation_time_limit",
         "violation_time_limit_seconds",
     )
@@ -3624,6 +3697,8 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
         ),
         graphql_name="terms",
     )
+
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
 
     violation_time_limit = sgqlc.types.Field(
         AlertsViolationTimeLimit, graphql_name="violationTimeLimit"
@@ -3687,6 +3762,7 @@ class AlertsNrqlConditionStaticInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "value_function",
         "violation_time_limit",
         "violation_time_limit_seconds",
@@ -3713,6 +3789,8 @@ class AlertsNrqlConditionStaticInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null("AlertsNrqlConditionTermsInput")),
         graphql_name="terms",
     )
+
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
 
     value_function = sgqlc.types.Field(
         AlertsNrqlStaticConditionValueFunction, graphql_name="valueFunction"
@@ -3768,6 +3846,7 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "violation_time_limit",
         "violation_time_limit_seconds",
     )
@@ -3798,6 +3877,8 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
         graphql_name="terms",
     )
 
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
+
     violation_time_limit = sgqlc.types.Field(
         AlertsViolationTimeLimit, graphql_name="violationTimeLimit"
     )
@@ -3820,6 +3901,7 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "violation_time_limit",
         "violation_time_limit_seconds",
     )
@@ -3852,6 +3934,8 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
         graphql_name="terms",
     )
 
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
+
     violation_time_limit = sgqlc.types.Field(
         AlertsViolationTimeLimit, graphql_name="violationTimeLimit"
     )
@@ -3880,6 +3964,7 @@ class AlertsNrqlConditionUpdateStaticInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "terms",
+        "title_template",
         "value_function",
         "violation_time_limit",
         "violation_time_limit_seconds",
@@ -3904,6 +3989,8 @@ class AlertsNrqlConditionUpdateStaticInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null(AlertsNrqlConditionTermsInput)),
         graphql_name="terms",
     )
+
+    title_template = sgqlc.types.Field(String, graphql_name="titleTemplate")
 
     value_function = sgqlc.types.Field(
         AlertsNrqlStaticConditionValueFunction, graphql_name="valueFunction"
@@ -7455,6 +7542,89 @@ class CloudCloudtrailIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudConfluentDisableIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("confluent_kafka_resource",)
+    confluent_kafka_resource = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="confluentKafkaResource",
+    )
+
+
+class CloudConfluentIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("confluent_kafka_resource",)
+    confluent_kafka_resource = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudConfluentKafkaResourceIntegrationInput"),
+        graphql_name="confluentKafkaResource",
+    )
+
+
+class CloudConfluentKafkaResourceIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudConfluentLinkAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("api_key", "api_secret", "external_id", "name")
+    api_key = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiKey"
+    )
+
+    api_secret = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiSecret"
+    )
+
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class CloudConfluentUpdateAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "api_key",
+        "api_secret",
+        "disabled",
+        "external_id",
+        "linked_account_id",
+        "name",
+    )
+    api_key = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiKey"
+    )
+
+    api_secret = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiSecret"
+    )
+
+    disabled = sgqlc.types.Field(Boolean, graphql_name="disabled")
+
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+
 class CloudDisableAccountIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("linked_account_id",)
@@ -7465,7 +7635,7 @@ class CloudDisableAccountIntegrationInput(sgqlc.types.Input):
 
 class CloudDisableIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "gcp")
+    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
     aws = sgqlc.types.Field(CloudAwsDisableIntegrationsInput, graphql_name="aws")
 
     aws_govcloud = sgqlc.types.Field(
@@ -7473,6 +7643,14 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
     )
 
     azure = sgqlc.types.Field(CloudAzureDisableIntegrationsInput, graphql_name="azure")
+
+    confluent = sgqlc.types.Field(
+        CloudConfluentDisableIntegrationsInput, graphql_name="confluent"
+    )
+
+    fossa = sgqlc.types.Field(
+        "CloudFossaDisableIntegrationsInput", graphql_name="fossa"
+    )
 
     gcp = sgqlc.types.Field("CloudGcpDisableIntegrationsInput", graphql_name="gcp")
 
@@ -7829,6 +8007,80 @@ class CloudEmrIntegrationInput(sgqlc.types.Input):
     tag_key = sgqlc.types.Field(String, graphql_name="tagKey")
 
     tag_value = sgqlc.types.Field(String, graphql_name="tagValue")
+
+
+class CloudFossaDisableIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("fossa_issues",)
+    fossa_issues = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudDisableAccountIntegrationInput),
+        graphql_name="fossaIssues",
+    )
+
+
+class CloudFossaIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("fossa_issues",)
+    fossa_issues = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudFossaIssuesIntegrationInput"),
+        graphql_name="fossaIssues",
+    )
+
+
+class CloudFossaIssuesIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudFossaLinkAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("api_key", "external_id", "name")
+    api_key = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiKey"
+    )
+
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class CloudFossaUpdateAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "api_key",
+        "disabled",
+        "external_id",
+        "linked_account_id",
+        "name",
+    )
+    api_key = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="apiKey"
+    )
+
+    disabled = sgqlc.types.Field(Boolean, graphql_name="disabled")
+
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
 
 
 class CloudGcpAiplatformIntegrationInput(sgqlc.types.Input):
@@ -8782,7 +9034,7 @@ class CloudIamIntegrationInput(sgqlc.types.Input):
 
 class CloudIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "gcp")
+    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
     aws = sgqlc.types.Field(CloudAwsIntegrationsInput, graphql_name="aws")
 
     aws_govcloud = sgqlc.types.Field(
@@ -8790,6 +9042,12 @@ class CloudIntegrationsInput(sgqlc.types.Input):
     )
 
     azure = sgqlc.types.Field(CloudAzureIntegrationsInput, graphql_name="azure")
+
+    confluent = sgqlc.types.Field(
+        CloudConfluentIntegrationsInput, graphql_name="confluent"
+    )
+
+    fossa = sgqlc.types.Field(CloudFossaIntegrationsInput, graphql_name="fossa")
 
     gcp = sgqlc.types.Field(CloudGcpIntegrationsInput, graphql_name="gcp")
 
@@ -8917,7 +9175,7 @@ class CloudLambdaIntegrationInput(sgqlc.types.Input):
 
 class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "gcp")
+    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsLinkAccountInput)),
         graphql_name="aws",
@@ -8931,6 +9189,16 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     azure = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAzureLinkAccountInput)),
         graphql_name="azure",
+    )
+
+    confluent = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudConfluentLinkAccountInput)),
+        graphql_name="confluent",
+    )
+
+    fossa = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudFossaLinkAccountInput)),
+        graphql_name="fossa",
     )
 
     gcp = sgqlc.types.Field(
@@ -9202,7 +9470,7 @@ class CloudUnlinkAccountsInput(sgqlc.types.Input):
 
 class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "gcp")
+    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsUpdateAccountInput)),
         graphql_name="aws",
@@ -9216,6 +9484,16 @@ class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     azure = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAzureUpdateAccountInput)),
         graphql_name="azure",
+    )
+
+    confluent = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudConfluentUpdateAccountInput)),
+        graphql_name="confluent",
+    )
+
+    fossa = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudFossaUpdateAccountInput)),
+        graphql_name="fossa",
     )
 
     gcp = sgqlc.types.Field(
@@ -9340,7 +9618,11 @@ class DashboardLineWidgetConfigurationInput(sgqlc.types.Input):
 
 class DashboardLiveUrlsFilterInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("type", "uuid")
+    __field_names__ = ("cursor", "entity_guid", "type", "uuid")
+    cursor = sgqlc.types.Field(String, graphql_name="cursor")
+
+    entity_guid = sgqlc.types.Field(EntityGuid, graphql_name="entityGuid")
+
     type = sgqlc.types.Field(DashboardLiveUrlType, graphql_name="type")
 
     uuid = sgqlc.types.Field(ID, graphql_name="uuid")
@@ -9538,7 +9820,9 @@ class DashboardVariableNrqlQueryInput(sgqlc.types.Input):
 
 class DashboardVariableOptionsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("ignore_time_range",)
+    __field_names__ = ("excluded", "ignore_time_range")
+    excluded = sgqlc.types.Field(Boolean, graphql_name="excluded")
+
     ignore_time_range = sgqlc.types.Field(Boolean, graphql_name="ignoreTimeRange")
 
 
@@ -9639,10 +9923,34 @@ class DataManagementAccountFeatureSettingInput(sgqlc.types.Input):
     locked = sgqlc.types.Field(Boolean, graphql_name="locked")
 
 
+class DataManagementAccountLimitInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("limit", "override_reason", "override_value", "qualifier")
+    limit = sgqlc.types.Field(
+        sgqlc.types.non_null("DataManagementLimitLookupInput"), graphql_name="limit"
+    )
+
+    override_reason = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="overrideReason"
+    )
+
+    override_value = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="overrideValue"
+    )
+
+    qualifier = sgqlc.types.Field(String, graphql_name="qualifier")
+
+
 class DataManagementFeatureSettingLookup(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("key",)
     key = sgqlc.types.Field(String, graphql_name="key")
+
+
+class DataManagementLimitLookupInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name",)
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
 
 class DataManagementRuleInput(sgqlc.types.Input):
@@ -11847,6 +12155,18 @@ class StreamingExportAzureInput(sgqlc.types.Input):
     )
 
 
+class StreamingExportGcpInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("gcp_project_id", "pubsub_topic_id")
+    gcp_project_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="gcpProjectId"
+    )
+
+    pubsub_topic_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="pubsubTopicId"
+    )
+
+
 class StreamingExportRuleInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("description", "name", "nrql", "payload_compression")
@@ -11981,6 +12301,8 @@ class SyntheticsCreateScriptBrowserMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -11995,6 +12317,14 @@ class SyntheticsCreateScriptBrowserMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(
         sgqlc.types.non_null("SyntheticsScriptedMonitorLocationsInput"),
@@ -12023,6 +12353,8 @@ class SyntheticsCreateSimpleBrowserMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -12037,6 +12369,14 @@ class SyntheticsCreateSimpleBrowserMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(
         sgqlc.types.non_null("SyntheticsLocationsInput"), graphql_name="locations"
@@ -12101,6 +12441,8 @@ class SyntheticsCreateStepMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -12114,6 +12456,14 @@ class SyntheticsCreateStepMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(
         sgqlc.types.non_null("SyntheticsScriptedMonitorLocationsInput"),
@@ -12519,6 +12869,8 @@ class SyntheticsUpdateScriptBrowserMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -12533,6 +12885,14 @@ class SyntheticsUpdateScriptBrowserMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(
         SyntheticsScriptedMonitorLocationsInput, graphql_name="locations"
@@ -12556,6 +12916,8 @@ class SyntheticsUpdateSimpleBrowserMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -12570,6 +12932,14 @@ class SyntheticsUpdateSimpleBrowserMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(SyntheticsLocationsInput, graphql_name="locations")
 
@@ -12622,6 +12992,8 @@ class SyntheticsUpdateStepMonitorInput(sgqlc.types.Input):
     __field_names__ = (
         "advanced_options",
         "apdex_target",
+        "browsers",
+        "devices",
         "locations",
         "name",
         "period",
@@ -12635,6 +13007,14 @@ class SyntheticsUpdateStepMonitorInput(sgqlc.types.Input):
     )
 
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+    browsers = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsBrowser), graphql_name="browsers"
+    )
+
+    devices = sgqlc.types.Field(
+        sgqlc.types.list_of(SyntheticsDevice), graphql_name="devices"
+    )
 
     locations = sgqlc.types.Field(
         SyntheticsScriptedMonitorLocationsInput, graphql_name="locations"

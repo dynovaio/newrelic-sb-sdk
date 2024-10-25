@@ -2,6 +2,143 @@
 
 ## [Unreleased]
 
+## [0.20.0] - 2024-10-25
+
+* Update GraphQL submodule with a fresh schema version.
+* Update dependencies
+* Add `AlertsActionOnMutingRuleWindowEnded`,
+  `EntityManagementEntityScope`,
+  `EntityManagementManagedEntityType`,
+  `EntityManagementTeamExternalIntegrationType`,
+  `SyntheticsBrowser` and `SyntheticsDevice` enum types.
+* Add `FIRST_SEEN` value to `ErrorsInboxErrorGroupSortOrderField` choices.
+* Change `MUTED` by `ENABLED` value in `SyntheticsMonitorStatus` choices.
+* Add `AgentApplicationSettingsApplicationExitInfoInput`,
+  `AlertsMutingRulesFilterCriteriaInput`,
+  `CloudConfluentDisableIntegrationsInput`,
+  `CloudConfluentIntegrationsInput`,
+  `CloudConfluentKafkaResourceIntegrationInput`,
+  `CloudConfluentLinkAccountInput`,
+  `CloudConfluentUpdateAccountInput`,
+  `CloudFossaDisableIntegrationsInput`,
+  `CloudFossaIntegrationsInput`,
+  `CloudFossaIssuesIntegrationInput`,
+  `CloudFossaLinkAccountInput`,
+  `CloudFossaUpdateAccountInput`,
+  `DataManagementAccountLimitInput`,
+  `DataManagementLimitLookupInput` and
+  `StreamingExportGcpInpu` input types.
+* Add `application_exit_info` field to
+  `AgentApplicationSettingsMobileSettingsInput` input type.
+* Add `exact_name` field to
+  `AiNotificationsDestinationFilte` input type.
+* Add `update_original_message` field to
+  `AiWorkflowsDestinationConfigurationInput` input type.
+* Add `action_on_muting_rule_window_ende` field to
+  `AlertsMutingRuleInput` input type.
+* Add `action_on_muting_rule_window_ende` field to
+  `AlertsMutingRuleUpdateInput` input type.
+* Add `title_template` field to `AlertsNrqlConditionBaselineInput` input type.
+* Add `ignore_on_expected_terminatio` field to
+  `AlertsNrqlConditionExpirationInput` input type.
+* Add `title_template` field to `AlertsNrqlConditionOutlierInput` input type.
+  `AlertsNrqlConditionExpirationInput` input type.
+* Add `title_template` field to `AlertsNrqlConditionStaticInput` input type.
+* Add `title_template` field to
+  `AlertsNrqlConditionUpdateBaselineInput` input type.
+* Add `title_template` field to
+  `AlertsNrqlConditionUpdateOutlierInput` input type.
+* Add `title_template` field to
+  `AlertsNrqlConditionUpdateStaticInput` input type.
+* Add `confluent` and `foss` fields to
+  `CloudDisableIntegrationsInput` input type.
+* Add `confluent` and `foss` fields to
+  `CloudIntegrationsInput` input type.
+* Add `confluent` and `foss` fields to
+  `CloudLinkCloudAccountsInput` input type.
+* Add `confluent` and `foss` fields to
+  `CloudUpdateCloudAccountsInput` input type.
+* Add `excluded` field to `DashboardVariableOptionsInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsCreateScriptBrowserMonitorInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsCreateSimpleBrowserMonitorInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsCreateStepMonitorInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsUpdateScriptBrowserMonitorInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsUpdateSimpleBrowserMonitorInput` input type.
+* Add `browsers` and `device` fields to
+  `SyntheticsUpdateStepMonitorInput` input type.
+* Add `EntityManagementActor`,
+  `EntityManagementEntity`,
+  `AgentApplicationSettingsApplicationExitInfo`,
+  `AuthenticationDomainType`,
+  `EntityManagementActorStitchedFields`,
+  `EntityManagementAgentDeployment`,
+  `EntityManagementBlob`,
+  `EntityManagementDiscoverySettings`,
+  `EntityManagementEntityDeleteResult`,
+  `EntityManagementEntitySearchResult`,
+  `EntityManagementFleetControlProperties`,
+  `EntityManagementFleetDeployment`,
+  `EntityManagementMetadata`,
+  `EntityManagementNrqlRuleEngine`,
+  `EntityManagementScopedReference`,
+  `EntityManagementTag`,
+  `EntityManagementTeamEntities`,
+  `EntityManagementTeamExternalIntegration`,
+  `EntityManagementTeamMember`,
+  `EntityManagementTeamResource`,
+  `StreamingExportGcpDetails`,
+  `CloudConfluentKafkaResourceIntegration`,
+  `CloudFossaIssuesIntegration`,
+  `EntityManagementAgentConfigurationEntity`,
+  `EntityManagementAgentConfigurationVersionEntity`,
+  `EntityManagementAgentEffectiveConfigurationEntity`,
+  `EntityManagementAgentEntity`,
+  `EntityManagementAgentTypeDefinitionEntity`,
+  `EntityManagementCollectionEntity`,
+  `EntityManagementFleetEntity`,
+  `EntityManagementGenericEntity`,
+  `EntityManagementScorecardEntity`,
+  `EntityManagementScorecardRuleEntity`,
+  `EntityManagementSystemActor`,
+  `EntityManagementTeamEntity`,
+  `EntityManagementTeamsOrganizationSettingsEntity`,
+  `EntityManagementUserActor` and
+  `EntityManagementUserEntity` types
+* Add `entity_managemen` field to `Actor` type.
+* Add `application_exit_info` field to
+  `AgentApplicationSettingsMobileSettings` type.
+* Add `update_original_messag` field to
+  `AiWorkflowsDestinationConfiguration` type.
+* Add `args` argument for `muting_rules` firled from
+  `AlertsAccountStitchedFields` type.
+* Add `action_on_muting_rule_window_ended` and
+  `muting_rule_lifecycle_event_published_at` fields to
+  `AlertsMutingRule` type.
+* Add `ignore_on_expected_termination` field to
+  `AlertsNrqlConditionExpiration` type.
+* Add `data_account_id` field to `AlertsNrqlConditionQuery` type.
+* Add `expires_on` field to `DashboardLiveUrl` type.
+* Add `next_curso` and `total_count` fields to `DashboardLiveUrlResult` type.
+* Add `excluded` field to `DashboardVariableOptions` type.
+* Add `total_count` field to `MultiTenantAuthorizationGrantCollection` type.
+* Update `name` and `size_in_bytes` field from `NerdpackAssetInfo` type to be
+  `non null`.
+* Update fields `assets`, `cli_version`, `description`, `display_name`,
+  `nerdpack_id`, `repository_url`, `tags` from `NerdpackVersion` type to be
+  `non null`.
+* Add `account_management_cancel_account`, `authentication_domain_delete`,
+  `data_management_create_account_limit` and `entity_management_delete`
+   fields to `RootMutationType` type.
+* Add `gcp` field to `StreamingExportRule` type.
+* Add `browsers` and `devices` fields to `SyntheticsScriptBrowserMonitor` type.
+* Add `browsers` and `devices` fields to `SyntheticsSimpleBrowserMonitor` type.
+* Add `browsers` and `devices` fields to `SyntheticsStepMonitor` type.
+
 ## [0.19.0] - 2024-06-15
 
 * Update GraphQL submodule with a fresh schema version.

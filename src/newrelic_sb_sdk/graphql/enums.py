@@ -61,6 +61,7 @@ __all__ = [
     "AiWorkflowsTestNotificationResponseStatus",
     "AiWorkflowsTestResponseStatus",
     "AiWorkflowsUpdateErrorType",
+    "AlertsActionOnMutingRuleWindowEnded",
     "AlertsDayOfWeek",
     "AlertsFillOption",
     "AlertsIncidentPreference",
@@ -141,6 +142,9 @@ __all__ = [
     "EntityGoldenGoldenMetricsErrorType",
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
+    "EntityManagementEntityScope",
+    "EntityManagementManagedEntityType",
+    "EntityManagementTeamExternalIntegrationType",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -246,6 +250,8 @@ __all__ = [
     "StreamingExportStatus",
     "SyntheticMonitorStatus",
     "SyntheticMonitorType",
+    "SyntheticsBrowser",
+    "SyntheticsDevice",
     "SyntheticsDeviceOrientation",
     "SyntheticsDeviceType",
     "SyntheticsMonitorCreateErrorType",
@@ -831,6 +837,11 @@ class AiWorkflowsUpdateErrorType(sgqlc.types.Enum):
         "UNSUPPORTED_CHANNEL_TYPE",
         "VALIDATION_ERROR",
     )
+
+
+class AlertsActionOnMutingRuleWindowEnded(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CLOSE_ISSUES_ON_INACTIVE", "DO_NOTHING")
 
 
 class AlertsDayOfWeek(sgqlc.types.Enum):
@@ -1602,6 +1613,21 @@ class EntityInfrastructureIntegrationType(sgqlc.types.Enum):
     )
 
 
+class EntityManagementEntityScope(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class EntityManagementManagedEntityType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("HOST", "KUBERNETESCLUSTER")
+
+
+class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("IAM_GROUP",)
+
+
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BOTH", "INBOUND", "OUTBOUND")
@@ -1714,7 +1740,7 @@ class ErrorsInboxDirection(sgqlc.types.Enum):
 
 class ErrorsInboxErrorGroupSortOrderField(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("LAST_OCCURRENCE_IN_WINDOW", "OCCURRENCES")
+    __choices__ = ("FIRST_SEEN", "LAST_OCCURRENCE_IN_WINDOW", "OCCURRENCES")
 
 
 class ErrorsInboxErrorGroupState(sgqlc.types.Enum):
@@ -2321,6 +2347,23 @@ class SyntheticMonitorType(sgqlc.types.Enum):
     )
 
 
+class SyntheticsBrowser(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CHROME", "EDGE", "FIREFOX", "NONE")
+
+
+class SyntheticsDevice(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "DESKTOP",
+        "MOBILE_LANDSCAPE",
+        "MOBILE_PORTRAIT",
+        "NONE",
+        "TABLET_LANDSCAPE",
+        "TABLET_PORTRAIT",
+    )
+
+
 class SyntheticsDeviceOrientation(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("LANDSCAPE", "NONE", "PORTRAIT")
@@ -2379,7 +2422,7 @@ class SyntheticsMonitorPeriod(sgqlc.types.Enum):
 
 class SyntheticsMonitorStatus(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DISABLED", "MUTED")
+    __choices__ = ("DISABLED", "ENABLED")
 
 
 class SyntheticsMonitorUpdateErrorType(sgqlc.types.Enum):
