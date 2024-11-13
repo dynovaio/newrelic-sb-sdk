@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+* Update GraphQL submodule with a fresh schema version.
+
 ## [0.20.0] - 2024-10-25
 
 * Update GraphQL submodule with a fresh schema version.
