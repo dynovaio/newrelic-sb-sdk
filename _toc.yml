@@ -1,20 +1,20 @@
 format: jb-book
 root: README.md
 chapters:
-  - file: notebooks/Core/Index
+  - file: notebooks/Core/Index.ipynb
     sections:
-      - file: notebooks/Core/Base
-      - file: notebooks/Core/Encoders
-      - file: notebooks/Core/Mixins
-  - file: notebooks/Client/Index
+      - file: notebooks/Core/Base.ipynb
+      - file: notebooks/Core/Encoders.ipynb
+      - file: notebooks/Core/Mixins.ipynb
+  - file: notebooks/Client/Index.ipynb
     sections:
-      - file: notebooks/Client/Client
-  - file: notebooks/GraphQL/Index
+      - file: notebooks/Client/Client.ipynb
+  - file: notebooks/GraphQL/Index.ipynb
     sections:
-      - file: notebooks/GraphQL/NerdGraph Schema to Notebooks
+      - file: notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb
       - file: notebooks/GraphQL/GraphQL.ipynb
       - file: notebooks/GraphQL/Scalars.ipynb
-      - file: notebooks/GraphQL/Enums
+      - file: notebooks/GraphQL/Enums.ipynb
       - file: notebooks/GraphQL/Input Objects.ipynb
       - file: notebooks/GraphQL/Objects.ipynb
   - file: notebooks/Dashboards/Index.ipynb
@@ -29,11 +29,11 @@ chapters:
       - file: notebooks/Alerts/Enums.ipynb
       - file: notebooks/Alerts/Utils.ipynb
       - file: notebooks/Alerts/Alerts.ipynb
-  - file: notebooks/Utils/Index
+  - file: notebooks/Utils/Index.ipynb
     sections:
-      - file: notebooks/Utils/Query
-      - file: notebooks/Utils/Response
-      - file: notebooks/Utils/Text
+      - file: notebooks/Utils/Query.ipynb
+      - file: notebooks/Utils/Response.ipynb
+      - file: notebooks/Utils/Text.ipynb
   - file: CHANGELOG.md
   - file: CONTRIBUTING.md
   - file: CODE_OF_CONDUCT.md

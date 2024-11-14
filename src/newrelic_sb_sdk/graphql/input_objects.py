@@ -343,6 +343,7 @@ __all__ = [
     "CloudUnlinkAccountsInput",
     "CloudUpdateCloudAccountsInput",
     "CloudVpcIntegrationInput",
+    "CollaborationAssistantConfigInput",
     "DashboardAreaWidgetConfigurationInput",
     "DashboardBarWidgetConfigurationInput",
     "DashboardBillboardWidgetConfigurationInput",
@@ -389,6 +390,8 @@ __all__ = [
     "EntityGoldenMetricInput",
     "EntityGoldenNrqlTimeWindowInput",
     "EntityGoldenTagInput",
+    "EntityManagementCollectionElementsFilter",
+    "EntityManagementCollectionIdFilterArgument",
     "EntityRelationshipEdgeFilter",
     "EntityRelationshipEdgeTypeFilter",
     "EntityRelationshipEntityDomainTypeFilter",
@@ -430,6 +433,7 @@ __all__ = [
     "MultiTenantAuthorizationGrantRoleIdInputFilter",
     "MultiTenantAuthorizationGrantScopeIdInputFilter",
     "MultiTenantAuthorizationGrantScopeTypeInputFilter",
+    "MultiTenantAuthorizationGrantScopeTypeV2InputFilter",
     "MultiTenantAuthorizationGrantSortInput",
     "MultiTenantAuthorizationPermissionFilter",
     "MultiTenantAuthorizationPermissionFilterRoleIdInput",
@@ -439,6 +443,7 @@ __all__ = [
     "MultiTenantAuthorizationRoleNameInputFilter",
     "MultiTenantAuthorizationRoleOrganizationIdInputFilter",
     "MultiTenantAuthorizationRoleScopeInputFilter",
+    "MultiTenantAuthorizationRoleScopeV2InputFilter",
     "MultiTenantAuthorizationRoleSortInput",
     "MultiTenantAuthorizationRoleTypeInputFilter",
     "MultiTenantIdentityAllowsCapabilityInput",
@@ -9539,6 +9544,14 @@ class CloudVpcIntegrationInput(sgqlc.types.Input):
     tag_value = sgqlc.types.Field(String, graphql_name="tagValue")
 
 
+class CollaborationAssistantConfigInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "value")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
+
+
 class DashboardAreaWidgetConfigurationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("nrql_queries",)
@@ -10143,6 +10156,21 @@ class EntityGoldenTagInput(sgqlc.types.Input):
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
 
 
+class EntityManagementCollectionElementsFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("collection_id",)
+    collection_id = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementCollectionIdFilterArgument"),
+        graphql_name="collectionId",
+    )
+
+
+class EntityManagementCollectionIdFilterArgument(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
+
+
 class EntityRelationshipEdgeFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("direction", "entity_domain_types", "relationship_types")
@@ -10576,10 +10604,12 @@ class InstallationRecipeStatus(sgqlc.types.Input):
 
 class InstallationStatusErrorInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("details", "message")
+    __field_names__ = ("details", "message", "optimized_message")
     details = sgqlc.types.Field(String, graphql_name="details")
 
     message = sgqlc.types.Field(String, graphql_name="message")
+
+    optimized_message = sgqlc.types.Field(String, graphql_name="optimizedMessage")
 
 
 class LogConfigurationsCreateDataPartitionRuleInput(sgqlc.types.Input):
@@ -10891,6 +10921,7 @@ class MultiTenantAuthorizationGrantFilterInputExpression(sgqlc.types.Input):
         "role_id",
         "scope_id",
         "scope_type",
+        "scope_v2_type",
     )
     authentication_domain_id = sgqlc.types.Field(
         MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter,
@@ -10920,6 +10951,11 @@ class MultiTenantAuthorizationGrantFilterInputExpression(sgqlc.types.Input):
 
     scope_type = sgqlc.types.Field(
         "MultiTenantAuthorizationGrantScopeTypeInputFilter", graphql_name="scopeType"
+    )
+
+    scope_v2_type = sgqlc.types.Field(
+        "MultiTenantAuthorizationGrantScopeTypeV2InputFilter",
+        graphql_name="scopeV2Type",
     )
 
 
@@ -10971,6 +11007,12 @@ class MultiTenantAuthorizationGrantScopeTypeInputFilter(sgqlc.types.Input):
     eq = sgqlc.types.Field(MultiTenantAuthorizationGrantScopeEnum, graphql_name="eq")
 
 
+class MultiTenantAuthorizationGrantScopeTypeV2InputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
 class MultiTenantAuthorizationGrantSortInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("direction", "key")
@@ -10999,7 +11041,15 @@ class MultiTenantAuthorizationPermissionFilterRoleIdInput(sgqlc.types.Input):
 
 class MultiTenantAuthorizationRoleFilterInputExpression(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("group_id", "id", "name", "organization_id", "scope", "type")
+    __field_names__ = (
+        "group_id",
+        "id",
+        "name",
+        "organization_id",
+        "scope",
+        "scope_v2",
+        "type",
+    )
     group_id = sgqlc.types.Field(
         "MultiTenantAuthorizationRoleGroupIdInputFilter", graphql_name="groupId"
     )
@@ -11019,6 +11069,10 @@ class MultiTenantAuthorizationRoleFilterInputExpression(sgqlc.types.Input):
 
     scope = sgqlc.types.Field(
         "MultiTenantAuthorizationRoleScopeInputFilter", graphql_name="scope"
+    )
+
+    scope_v2 = sgqlc.types.Field(
+        "MultiTenantAuthorizationRoleScopeV2InputFilter", graphql_name="scopeV2"
     )
 
     type = sgqlc.types.Field(
@@ -11060,6 +11114,12 @@ class MultiTenantAuthorizationRoleScopeInputFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("eq",)
     eq = sgqlc.types.Field(MultiTenantAuthorizationRoleScopeEnum, graphql_name="eq")
+
+
+class MultiTenantAuthorizationRoleScopeV2InputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(String, graphql_name="eq")
 
 
 class MultiTenantAuthorizationRoleSortInput(sgqlc.types.Input):

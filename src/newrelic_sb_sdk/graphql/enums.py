@@ -96,6 +96,8 @@ __all__ = [
     "ChartFormatType",
     "ChartImageType",
     "CloudMetricCollectionMode",
+    "CollaborationExternalApplicationType",
+    "CollaborationStatus",
     "DashboardAddWidgetsToPageErrorType",
     "DashboardAlertSeverity",
     "DashboardCreateErrorType",
@@ -144,6 +146,7 @@ __all__ = [
     "EntityInfrastructureIntegrationType",
     "EntityManagementEntityScope",
     "EntityManagementManagedEntityType",
+    "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
@@ -1106,6 +1109,16 @@ class CloudMetricCollectionMode(sgqlc.types.Enum):
     __choices__ = ("PULL", "PUSH")
 
 
+class CollaborationExternalApplicationType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CODESTREAM", "EMAIL", "SLACK", "TEAMS")
+
+
+class CollaborationStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ARCHIVED", "CLOSED", "OPEN")
+
+
 class DashboardAddWidgetsToPageErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("FORBIDDEN_OPERATION", "INVALID_INPUT", "PAGE_NOT_FOUND")
@@ -1623,6 +1636,11 @@ class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __choices__ = ("HOST", "KUBERNETESCLUSTER")
 
 
+class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CONTAINS", "ENDS_WITH", "STARTS_WITH")
+
+
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("IAM_GROUP",)
@@ -1935,7 +1953,7 @@ class MetricNormalizationRuleErrorType(sgqlc.types.Enum):
 
 class MultiTenantAuthorizationGrantScopeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION")
+    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION", "OTHER")
 
 
 class MultiTenantAuthorizationGrantSortEnum(sgqlc.types.Enum):
@@ -1950,7 +1968,7 @@ class MultiTenantAuthorizationPermissionCategoryEnum(sgqlc.types.Enum):
 
 class MultiTenantAuthorizationRoleScopeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION")
+    __choices__ = ("ACCOUNT", "GROUP", "ORGANIZATION", "OTHER")
 
 
 class MultiTenantAuthorizationRoleSortEnum(sgqlc.types.Enum):

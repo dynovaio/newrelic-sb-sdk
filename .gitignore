@@ -4,6 +4,7 @@
 !.dockerignore
 !.editorconfig
 !.env.template
+!.github
 !.gitignore
 !.gitlab-ci.yml
 !.isort.cfg
