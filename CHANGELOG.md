@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.21.0] - 2024-11-14
+
 * Update development dependencies.
 * Update GraphQL submodule with a fresh schema version.
 * Add `CollaborationRawContextMetadata` scalar type.
