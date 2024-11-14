@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.22.0] - 2024-11-14
+
 * Include property `schema` in `NewRelicGqlClient` to store the schema of
   the GraphQL API.
 * Include `User-Agent` header in `NewRelicGqlClient` and `NewRelicRestClient`
