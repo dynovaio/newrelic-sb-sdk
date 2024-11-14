@@ -5,7 +5,7 @@ d = {
         "branch": "master",
         "doc_baseurl": "/open-source/newrelic-sb-sdk/",
         "doc_host": "https://softbutterfly.gitlab.io",
-        "git_url": "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/tree/master/",
+        "git_url": "https://github/dynova/newrelic-sb-sdk/tree/master/",
         "lib_path": "src/newrelic_sb_sdk",
     },
     "syms": {
