@@ -592,6 +592,14 @@ d = {
                 "GraphQL/enums.html#cloudmetriccollectionmode",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.CollaborationExternalApplicationType": (
+                "GraphQL/enums.html#collaborationexternalapplicationtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.CollaborationStatus": (
+                "GraphQL/enums.html#collaborationstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.DashboardAddWidgetsToPageErrorType": (
                 "GraphQL/enums.html#dashboardaddwidgetstopageerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -782,6 +790,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementManagedEntityType": (
                 "GraphQL/enums.html#entitymanagementmanagedentitytype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementSyncGroupRuleConditionType": (
+                "GraphQL/enums.html#entitymanagementsyncgroupruleconditiontype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementTeamExternalIntegrationType": (
@@ -2746,6 +2758,10 @@ d = {
                 "GraphQL/input objects.html#cloudvpcintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CollaborationAssistantConfigInput": (
+                "GraphQL/input objects.html#collaborationassistantconfiginput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.DashboardAreaWidgetConfigurationInput": (
                 "GraphQL/input objects.html#dashboardareawidgetconfigurationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2933,6 +2949,16 @@ d = {
                 "GraphQL/input objects.html#entitygoldentaginput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCollectionElementsFilter": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcollectionelementsfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCollectionIdFilterArgument": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcollectionidfilterargument",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityRelationshipEdgeFilter": (
                 "GraphQL/input objects.html#entityrelationshipedgefilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3117,6 +3143,11 @@ d = {
                 "objects.html#multitenantauthorizationgrantscopetypeinputfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantScopeTypeV2InputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationgrantscopetypev2inputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationGrantSortInput": (
                 "GraphQL/input objects.html#multitenantauthorizationgrantsortinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3159,6 +3190,11 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleScopeInputFilter": (
                 "GraphQL/input "
                 "objects.html#multitenantauthorizationrolescopeinputfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleScopeV2InputFilter": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationrolescopev2inputfilter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleSortInput": (
@@ -3995,6 +4031,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsapplicationexitinfo",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsApplicationLogging": (
+                "GraphQL/objects.html#agentapplicationsettingsapplicationlogging",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsBrowserAjax": (
                 "GraphQL/objects.html#agentapplicationsettingsbrowserajax",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4027,6 +4067,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingserrorcollector",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsForwarding": (
+                "GraphQL/objects.html#agentapplicationsettingsforwarding",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsIgnoredStatusCodeRule": (
                 "GraphQL/objects.html#agentapplicationsettingsignoredstatuscoderule",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4035,8 +4079,16 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsjfr",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsLocalDecorating": (
+                "GraphQL/objects.html#agentapplicationsettingslocaldecorating",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMaskInputOptions": (
                 "GraphQL/objects.html#agentapplicationsettingsmaskinputoptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMetrics": (
+                "GraphQL/objects.html#agentapplicationsettingsmetrics",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMobileBase": (
@@ -5491,6 +5543,106 @@ d = {
                 "GraphQL/objects.html#cloudvpcintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationActorStitchedFields": (
+                "GraphQL/objects.html#collaborationactorstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationBotResponse": (
+                "GraphQL/objects.html#collaborationbotresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationBotResponseFeedback": (
+                "GraphQL/objects.html#collaborationbotresponsefeedback",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationCodeMark": (
+                "GraphQL/objects.html#collaborationcodemark",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationComment": (
+                "GraphQL/objects.html#collaborationcomment",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationCommentConnection": (
+                "GraphQL/objects.html#collaborationcommentconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationCommentCreator": (
+                "GraphQL/objects.html#collaborationcommentcreator",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationCommentSyncStatus": (
+                "GraphQL/objects.html#collaborationcommentsyncstatus",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationContext": (
+                "GraphQL/objects.html#collaborationcontext",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationEmail": (
+                "GraphQL/objects.html#collaborationemail",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationExternalCommentCreator": (
+                "GraphQL/objects.html#collaborationexternalcommentcreator",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationExternalServiceConnection": (
+                "GraphQL/objects.html#collaborationexternalserviceconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationExternalServiceConnectionGroup": (
+                "GraphQL/objects.html#collaborationexternalserviceconnectiongroup",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationFile": (
+                "GraphQL/objects.html#collaborationfile",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationGrokMessage": (
+                "GraphQL/objects.html#collaborationgrokmessage",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationLinkedContexts": (
+                "GraphQL/objects.html#collaborationlinkedcontexts",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationMention": (
+                "GraphQL/objects.html#collaborationmention",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationMessageSent": (
+                "GraphQL/objects.html#collaborationmessagesent",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationSocketConnection": (
+                "GraphQL/objects.html#collaborationsocketconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationSubscriber": (
+                "GraphQL/objects.html#collaborationsubscriber",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationSubscriberConnection": (
+                "GraphQL/objects.html#collaborationsubscriberconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationSubscriptionsWithUnread": (
+                "GraphQL/objects.html#collaborationsubscriptionswithunread",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationThread": (
+                "GraphQL/objects.html#collaborationthread",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationThreadConnection": (
+                "GraphQL/objects.html#collaborationthreadconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CollaborationThreadsCount": (
+                "GraphQL/objects.html#collaborationthreadscount",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CollectionEntity": (
                 "GraphQL/objects.html#collectionentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6031,6 +6183,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementblob",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionElementsResult": (
+                "GraphQL/objects.html#entitymanagementcollectionelementsresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionEntity": (
                 "GraphQL/objects.html#entitymanagementcollectionentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6085,6 +6241,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementScorecardRuleEntity": (
                 "GraphQL/objects.html#entitymanagementscorecardruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSyncGroupRule": (
+                "GraphQL/objects.html#entitymanagementsyncgrouprule",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSyncGroupRuleCondition": (
+                "GraphQL/objects.html#entitymanagementsyncgrouprulecondition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSyncGroupsSettings": (
+                "GraphQL/objects.html#entitymanagementsyncgroupssettings",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSystemActor": (
@@ -7999,6 +8167,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.scalars.AttributeMap": (
                 "GraphQL/scalars.html#attributemap",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
+            "newrelic_sb_sdk.graphql.scalars.CollaborationRawContextMetadata": (
+                "GraphQL/scalars.html#collaborationrawcontextmetadata",
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
             "newrelic_sb_sdk.graphql.scalars.DashboardWidgetRawConfiguration": (

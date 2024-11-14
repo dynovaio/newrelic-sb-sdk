@@ -53,6 +53,7 @@ __all__ = [
     "AgentApplicationSettingsApmBase",
     "AgentApplicationSettingsApmConfig",
     "AgentApplicationSettingsApplicationExitInfo",
+    "AgentApplicationSettingsApplicationLogging",
     "AgentApplicationSettingsBrowserAjax",
     "AgentApplicationSettingsBrowserBase",
     "AgentApplicationSettingsBrowserConfig",
@@ -61,9 +62,12 @@ __all__ = [
     "AgentApplicationSettingsBrowserPrivacy",
     "AgentApplicationSettingsBrowserProperties",
     "AgentApplicationSettingsErrorCollector",
+    "AgentApplicationSettingsForwarding",
     "AgentApplicationSettingsIgnoredStatusCodeRule",
     "AgentApplicationSettingsJfr",
+    "AgentApplicationSettingsLocalDecorating",
     "AgentApplicationSettingsMaskInputOptions",
+    "AgentApplicationSettingsMetrics",
     "AgentApplicationSettingsMobileBase",
     "AgentApplicationSettingsMobileNetworkSettings",
     "AgentApplicationSettingsMobileProperties",
@@ -258,6 +262,31 @@ __all__ = [
     "CloudTemplateParam",
     "CloudUnlinkAccountPayload",
     "CloudUpdateAccountPayload",
+    "CollaborationActorStitchedFields",
+    "CollaborationBotResponse",
+    "CollaborationBotResponseFeedback",
+    "CollaborationCodeMark",
+    "CollaborationComment",
+    "CollaborationCommentConnection",
+    "CollaborationCommentCreator",
+    "CollaborationCommentSyncStatus",
+    "CollaborationContext",
+    "CollaborationEmail",
+    "CollaborationExternalCommentCreator",
+    "CollaborationExternalServiceConnection",
+    "CollaborationExternalServiceConnectionGroup",
+    "CollaborationFile",
+    "CollaborationGrokMessage",
+    "CollaborationLinkedContexts",
+    "CollaborationMention",
+    "CollaborationMessageSent",
+    "CollaborationSocketConnection",
+    "CollaborationSubscriber",
+    "CollaborationSubscriberConnection",
+    "CollaborationSubscriptionsWithUnread",
+    "CollaborationThread",
+    "CollaborationThreadConnection",
+    "CollaborationThreadsCount",
     "Consumption",
     "CrossAccountNrdbResultContainer",
     "CustomerAdministration",
@@ -380,6 +409,7 @@ __all__ = [
     "EntityManagementActorStitchedFields",
     "EntityManagementAgentDeployment",
     "EntityManagementBlob",
+    "EntityManagementCollectionElementsResult",
     "EntityManagementDiscoverySettings",
     "EntityManagementEntityDeleteResult",
     "EntityManagementEntitySearchResult",
@@ -388,6 +418,9 @@ __all__ = [
     "EntityManagementMetadata",
     "EntityManagementNrqlRuleEngine",
     "EntityManagementScopedReference",
+    "EntityManagementSyncGroupRule",
+    "EntityManagementSyncGroupRuleCondition",
+    "EntityManagementSyncGroupsSettings",
     "EntityManagementTag",
     "EntityManagementTeamEntities",
     "EntityManagementTeamExternalIntegration",
@@ -1107,6 +1140,8 @@ from newrelic_sb_sdk.graphql.enums import (
     ChartFormatType,
     ChartImageType,
     CloudMetricCollectionMode,
+    CollaborationExternalApplicationType,
+    CollaborationStatus,
     DashboardAddWidgetsToPageErrorType,
     DashboardAlertSeverity,
     DashboardCreateErrorType,
@@ -1153,6 +1188,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenMetricUnit,
     EntityManagementEntityScope,
     EntityManagementManagedEntityType,
+    EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
     EntityRelationshipEdgeType,
     EntityRelationshipType,
@@ -1309,6 +1345,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     CloudRenameAccountsInput,
     CloudUnlinkAccountsInput,
     CloudUpdateCloudAccountsInput,
+    CollaborationAssistantConfigInput,
     DashboardInput,
     DashboardLiveUrlsFilterInput,
     DashboardSnapshotUrlInput,
@@ -1329,6 +1366,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntityGoldenMetricInput,
     EntityGoldenNrqlTimeWindowInput,
     EntityGoldenTagInput,
+    EntityManagementCollectionElementsFilter,
     EntityRelationshipEdgeFilter,
     EntitySearchOptions,
     EntitySearchQueryBuilder,
@@ -1452,6 +1490,7 @@ from newrelic_sb_sdk.graphql.scalars import (
     AiDecisionsRuleExpression,
     AttributeMap,
     Boolean,
+    CollaborationRawContextMetadata,
     DashboardWidgetRawConfiguration,
     Date,
     DateTime,
@@ -1627,6 +1666,8 @@ class AlertsNotificationChannel(sgqlc.types.Interface):
 class AlertsNrqlCondition(sgqlc.types.Interface):
     __schema__ = nerdgraph
     __field_names__ = (
+        "created_at",
+        "created_by",
         "description",
         "enabled",
         "entity",
@@ -1645,6 +1686,10 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
         "updated_by",
         "violation_time_limit_seconds",
     )
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    created_by = sgqlc.types.Field("UserReference", graphql_name="createdBy")
+
     description = sgqlc.types.Field(String, graphql_name="description")
 
     enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
@@ -2710,6 +2755,7 @@ class Actor(sgqlc.types.Type):
         "accounts",
         "api_access",
         "cloud",
+        "collaboration",
         "dashboard",
         "data_source_gaps",
         "distributed_tracing",
@@ -2766,6 +2812,10 @@ class Actor(sgqlc.types.Type):
     )
 
     cloud = sgqlc.types.Field("CloudActorFields", graphql_name="cloud")
+
+    collaboration = sgqlc.types.Field(
+        "CollaborationActorStitchedFields", graphql_name="collaboration"
+    )
 
     dashboard = sgqlc.types.Field(
         "DashboardActorStitchedFields", graphql_name="dashboard"
@@ -3067,6 +3117,7 @@ class AgentApplicationSettingsApmBase(sgqlc.types.Type):
     __field_names__ = (
         "alias",
         "apm_config",
+        "application_logging",
         "capture_memcache_keys",
         "error_collector",
         "jfr",
@@ -3081,6 +3132,10 @@ class AgentApplicationSettingsApmBase(sgqlc.types.Type):
     apm_config = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsApmConfig"),
         graphql_name="apmConfig",
+    )
+
+    application_logging = sgqlc.types.Field(
+        "AgentApplicationSettingsApplicationLogging", graphql_name="applicationLogging"
     )
 
     capture_memcache_keys = sgqlc.types.Field(
@@ -3126,6 +3181,26 @@ class AgentApplicationSettingsApplicationExitInfo(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("enabled",)
     enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+
+class AgentApplicationSettingsApplicationLogging(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled", "forwarding", "local_decorating", "metrics")
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+    forwarding = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsForwarding"),
+        graphql_name="forwarding",
+    )
+
+    local_decorating = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsLocalDecorating"),
+        graphql_name="localDecorating",
+    )
+
+    metrics = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsMetrics"), graphql_name="metrics"
+    )
 
 
 class AgentApplicationSettingsBrowserAjax(sgqlc.types.Type):
@@ -3287,6 +3362,16 @@ class AgentApplicationSettingsErrorCollector(sgqlc.types.Type):
     )
 
 
+class AgentApplicationSettingsForwarding(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled", "max_samples_stored")
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    max_samples_stored = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="maxSamplesStored"
+    )
+
+
 class AgentApplicationSettingsIgnoredStatusCodeRule(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("hosts", "status_codes")
@@ -3303,6 +3388,12 @@ class AgentApplicationSettingsJfr(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("enabled",)
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+
+class AgentApplicationSettingsLocalDecorating(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
 
 
 class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
@@ -3357,6 +3448,12 @@ class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
     url = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="url")
 
     week = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="week")
+
+
+class AgentApplicationSettingsMetrics(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
 
 
 class AgentApplicationSettingsMobileBase(sgqlc.types.Type):
@@ -3580,6 +3677,7 @@ class AgentApplicationSettingsUpdateResult(sgqlc.types.Type):
     __field_names__ = (
         "alias",
         "apm_settings",
+        "application_logging",
         "browser_properties",
         "browser_settings",
         "errors",
@@ -3590,6 +3688,10 @@ class AgentApplicationSettingsUpdateResult(sgqlc.types.Type):
 
     apm_settings = sgqlc.types.Field(
         AgentApplicationSettingsApmBase, graphql_name="apmSettings"
+    )
+
+    application_logging = sgqlc.types.Field(
+        AgentApplicationSettingsApplicationLogging, graphql_name="applicationLogging"
     )
 
     browser_properties = sgqlc.types.Field(
@@ -7938,6 +8040,1449 @@ class CloudUpdateAccountPayload(sgqlc.types.Type):
     )
 
 
+class CollaborationActorStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "bot_responses_by_ids",
+        "code_marks_by_ids",
+        "comment_by_id",
+        "comments_by_ids",
+        "comments_by_thread_id",
+        "comments_by_thread_ids",
+        "context_by_id",
+        "contexts_by_entity_guid",
+        "contexts_by_ids",
+        "email_by_address",
+        "email_by_id",
+        "emails_by_ids",
+        "external_service_connection_by_id",
+        "file_by_id",
+        "grok_messages_by_ids",
+        "mention_by_id",
+        "mentions_by_ids",
+        "subscriber_by_id",
+        "subscribers_by_thread_id",
+        "subscribers_by_user_id",
+        "subscriptions",
+        "subscriptions_unread",
+        "thread_by_id",
+        "threads_all",
+        "threads_by_context_id",
+        "threads_by_context_ids",
+        "threads_by_ids",
+        "threads_count_by_context_id",
+        "web_socket_connect_url",
+    )
+    bot_responses_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationBotResponse"),
+        graphql_name="botResponsesByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    code_marks_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationCodeMark"),
+        graphql_name="codeMarksByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    comment_by_id = sgqlc.types.Field(
+        "CollaborationComment",
+        graphql_name="commentById",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    comments_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationComment"),
+        graphql_name="commentsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    comments_by_thread_id = sgqlc.types.Field(
+        "CollaborationCommentConnection",
+        graphql_name="commentsByThreadId",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    comments_by_thread_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationCommentConnection"),
+        graphql_name="commentsByThreadIds",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "thread_ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="threadIds",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `first` (`Int`) (default: `10`)
+    * `last` (`Int`)
+    * `thread_ids` (`[ID]!`)
+    """
+
+    context_by_id = sgqlc.types.Field(
+        "CollaborationContext",
+        graphql_name="contextById",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    contexts_by_entity_guid = sgqlc.types.Field(
+        "CollaborationLinkedContexts",
+        graphql_name="contextsByEntityGuid",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "entity_guid",
+                    sgqlc.types.Arg(
+                        EntityGuid, graphql_name="entityGuid", default=None
+                    ),
+                ),
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    contexts_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationContext"),
+        graphql_name="contextsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(ID), graphql_name="ids", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]`)
+    """
+
+    email_by_address = sgqlc.types.Field(
+        "CollaborationEmail",
+        graphql_name="emailByAddress",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "email_address",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="emailAddress",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    email_by_id = sgqlc.types.Field(
+        "CollaborationEmail",
+        graphql_name="emailById",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    emails_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationEmail"),
+        graphql_name="emailsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    external_service_connection_by_id = sgqlc.types.Field(
+        "CollaborationExternalServiceConnection",
+        graphql_name="externalServiceConnectionById",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    file_by_id = sgqlc.types.Field(
+        "CollaborationFile",
+        graphql_name="fileById",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "thumbnail",
+                    sgqlc.types.Arg(Boolean, graphql_name="thumbnail", default=None),
+                ),
+            )
+        ),
+    )
+
+    grok_messages_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationGrokMessage"),
+        graphql_name="grokMessagesByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    mention_by_id = sgqlc.types.Field(
+        "CollaborationMention",
+        graphql_name="mentionById",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    mentions_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationMention"),
+        graphql_name="mentionsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(ID), graphql_name="ids", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]`)
+    """
+
+    subscriber_by_id = sgqlc.types.Field(
+        "CollaborationSubscriber",
+        graphql_name="subscriberById",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    subscribers_by_thread_id = sgqlc.types.Field(
+        "CollaborationSubscriberConnection",
+        graphql_name="subscribersByThreadId",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    subscribers_by_user_id = sgqlc.types.Field(
+        "CollaborationSubscriberConnection",
+        graphql_name="subscribersByUserId",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "subscriber_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="subscriberId",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    subscriptions = sgqlc.types.Field(
+        "CollaborationSubscriberConnection",
+        graphql_name="subscriptions",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    subscriptions_unread = sgqlc.types.Field(
+        "CollaborationSubscriptionsWithUnread",
+        graphql_name="subscriptionsUnread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "context_id",
+                    sgqlc.types.Arg(ID, graphql_name="contextId", default=None),
+                ),
+            )
+        ),
+    )
+
+    thread_by_id = sgqlc.types.Field(
+        "CollaborationThread",
+        graphql_name="threadById",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    threads_all = sgqlc.types.Field(
+        "CollaborationThreadConnection",
+        graphql_name="threadsAll",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "filter",
+                    sgqlc.types.Arg(String, graphql_name="filter", default=None),
+                ),
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    threads_by_context_id = sgqlc.types.Field(
+        "CollaborationThreadConnection",
+        graphql_name="threadsByContextId",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "context_id",
+                    sgqlc.types.Arg(ID, graphql_name="contextId", default=None),
+                ),
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "visibility",
+                    sgqlc.types.Arg(String, graphql_name="visibility", default=None),
+                ),
+            )
+        ),
+    )
+
+    threads_by_context_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationThreadConnection"),
+        graphql_name="threadsByContextIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "context_ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(ID), graphql_name="contextIds", default=None
+                    ),
+                ),
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "visibility",
+                    sgqlc.types.Arg(String, graphql_name="visibility", default=None),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `context_ids` (`[ID]`)
+    * `first` (`Int`) (default: `10`)
+    * `last` (`Int`)
+    * `visibility` (`String`)
+    """
+
+    threads_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationThread"),
+        graphql_name="threadsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(ID), graphql_name="ids", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]`)
+    """
+
+    threads_count_by_context_id = sgqlc.types.Field(
+        "CollaborationThreadsCount",
+        graphql_name="threadsCountByContextId",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "context_id",
+                    sgqlc.types.Arg(ID, graphql_name="contextId", default=None),
+                ),
+            )
+        ),
+    )
+
+    web_socket_connect_url = sgqlc.types.Field(
+        "CollaborationSocketConnection", graphql_name="webSocketConnectUrl"
+    )
+
+
+class CollaborationBotResponse(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "created_at",
+        "deactivated",
+        "id",
+        "modified_at",
+        "organization_id",
+        "payload",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    payload = sgqlc.types.Field(String, graphql_name="payload")
+
+
+class CollaborationBotResponseFeedback(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("rating", "response_id")
+    rating = sgqlc.types.Field(Int, graphql_name="rating")
+
+    response_id = sgqlc.types.Field(ID, graphql_name="responseId")
+
+
+class CollaborationCodeMark(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "code",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "file",
+        "id",
+        "modified_at",
+        "organization_id",
+        "permalink",
+        "repo",
+        "sha",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    code = sgqlc.types.Field(String, graphql_name="code")
+
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    creator_id = sgqlc.types.Field(ID, graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    file = sgqlc.types.Field(String, graphql_name="file")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="modifiedAt")
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    permalink = sgqlc.types.Field(String, graphql_name="permalink")
+
+    repo = sgqlc.types.Field(String, graphql_name="repo")
+
+    sha = sgqlc.types.Field(String, graphql_name="sha")
+
+
+class CollaborationComment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "attributes",
+        "body",
+        "capability_id",
+        "context_id",
+        "context_metadata",
+        "created_at",
+        "creator",
+        "creator_id",
+        "deactivated",
+        "display_name",
+        "edited",
+        "external_application_type",
+        "external_creator",
+        "external_creator_id",
+        "id",
+        "mentions",
+        "modified_at",
+        "organization_id",
+        "reference_url",
+        "reply_to",
+        "sync_statuses",
+        "system_message_type",
+        "thread_id",
+        "time_picker_from",
+        "time_picker_to",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    attributes = sgqlc.types.Field(String, graphql_name="attributes")
+
+    body = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="body")
+
+    capability_id = sgqlc.types.Field(String, graphql_name="capabilityId")
+
+    context_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="contextId")
+
+    context_metadata = sgqlc.types.Field(
+        CollaborationRawContextMetadata, graphql_name="contextMetadata"
+    )
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator = sgqlc.types.Field("CollaborationCommentCreator", graphql_name="creator")
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    display_name = sgqlc.types.Field(String, graphql_name="displayName")
+
+    edited = sgqlc.types.Field(Boolean, graphql_name="edited")
+
+    external_application_type = sgqlc.types.Field(
+        String, graphql_name="externalApplicationType"
+    )
+
+    external_creator = sgqlc.types.Field(
+        "CollaborationExternalCommentCreator", graphql_name="externalCreator"
+    )
+
+    external_creator_id = sgqlc.types.Field(ID, graphql_name="externalCreatorId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    mentions = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationMention"), graphql_name="mentions"
+    )
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="organizationId"
+    )
+
+    reference_url = sgqlc.types.Field(String, graphql_name="referenceUrl")
+
+    reply_to = sgqlc.types.Field(ID, graphql_name="replyTo")
+
+    sync_statuses = sgqlc.types.Field(
+        sgqlc.types.list_of("CollaborationCommentSyncStatus"),
+        graphql_name="syncStatuses",
+    )
+
+    system_message_type = sgqlc.types.Field(String, graphql_name="systemMessageType")
+
+    thread_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="threadId")
+
+    time_picker_from = sgqlc.types.Field(
+        EpochMilliseconds, graphql_name="timePickerFrom"
+    )
+
+    time_picker_to = sgqlc.types.Field(EpochMilliseconds, graphql_name="timePickerTo")
+
+
+class CollaborationCommentConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationComment), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class CollaborationCommentCreator(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("email", "name", "user_id")
+    email = sgqlc.types.Field(String, graphql_name="email")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="userId")
+
+
+class CollaborationCommentSyncStatus(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("app_type", "error", "ok")
+    app_type = sgqlc.types.Field(String, graphql_name="appType")
+
+    error = sgqlc.types.Field(String, graphql_name="error")
+
+    ok = sgqlc.types.Field(Boolean, graphql_name="ok")
+
+
+class CollaborationContext(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "context_metadata",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "entity_guid",
+        "id",
+        "latest_thread_comment_creator_id",
+        "latest_thread_comment_id",
+        "latest_thread_comment_time",
+        "latest_thread_id",
+        "modified_at",
+        "organization_id",
+        "reference_url",
+        "thread",
+        "thread_count",
+        "threads",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    context_metadata = sgqlc.types.Field(
+        CollaborationRawContextMetadata, graphql_name="contextMetadata"
+    )
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    entity_guid = sgqlc.types.Field(EntityGuid, graphql_name="entityGuid")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    latest_thread_comment_creator_id = sgqlc.types.Field(
+        ID, graphql_name="latestThreadCommentCreatorId"
+    )
+
+    latest_thread_comment_id = sgqlc.types.Field(
+        ID, graphql_name="latestThreadCommentId"
+    )
+
+    latest_thread_comment_time = sgqlc.types.Field(
+        EpochMilliseconds, graphql_name="latestThreadCommentTime"
+    )
+
+    latest_thread_id = sgqlc.types.Field(ID, graphql_name="latestThreadId")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="organizationId"
+    )
+
+    reference_url = sgqlc.types.Field(String, graphql_name="referenceUrl")
+
+    thread = sgqlc.types.Field(
+        "CollaborationThread",
+        graphql_name="thread",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    thread_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="threadCount"
+    )
+
+    threads = sgqlc.types.Field(
+        "CollaborationThreadConnection",
+        graphql_name="threads",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `first` (`Int`) (default: `10`)
+    * `last` (`Int`)
+    """
+
+
+class CollaborationEmail(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "created_at",
+        "creator_id",
+        "email_address",
+        "id",
+        "modified_at",
+        "organization_id",
+        "registered_at",
+        "status",
+        "user_id",
+    )
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    email_address = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="emailAddress"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    registered_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="registeredAt")
+
+    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+    user_id = sgqlc.types.Field(ID, graphql_name="userId")
+
+
+class CollaborationExternalCommentCreator(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "created_at",
+        "email_address",
+        "id",
+        "modified_at",
+        "user_id",
+        "user_name",
+    )
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    email_address = sgqlc.types.Field(String, graphql_name="emailAddress")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="modifiedAt")
+
+    user_id = sgqlc.types.Field(Int, graphql_name="userId")
+
+    user_name = sgqlc.types.Field(String, graphql_name="userName")
+
+
+class CollaborationExternalServiceConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "channel_id",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "id",
+        "organization_id",
+        "session_id",
+        "thread_id",
+        "type",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    channel_id = sgqlc.types.Field(ID, graphql_name="channelId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="organizationId"
+    )
+
+    session_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="sessionId")
+
+    thread_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="threadId")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
+class CollaborationExternalServiceConnectionGroup(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationExternalServiceConnection),
+        graphql_name="entities",
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class CollaborationFile(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "external_application_type",
+        "external_creator_id",
+        "file_name",
+        "file_path",
+        "has_thumbnail",
+        "id",
+        "is_screenshot",
+        "modified_at",
+        "organization_id",
+        "upload_url",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(ID, graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    external_application_type = sgqlc.types.Field(
+        String, graphql_name="externalApplicationType"
+    )
+
+    external_creator_id = sgqlc.types.Field(String, graphql_name="externalCreatorId")
+
+    file_name = sgqlc.types.Field(String, graphql_name="fileName")
+
+    file_path = sgqlc.types.Field(String, graphql_name="filePath")
+
+    has_thumbnail = sgqlc.types.Field(Boolean, graphql_name="hasThumbnail")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    is_screenshot = sgqlc.types.Field(Boolean, graphql_name="isScreenshot")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    upload_url = sgqlc.types.Field(String, graphql_name="uploadUrl")
+
+
+class CollaborationGrokMessage(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "card",
+        "content",
+        "context",
+        "created_at",
+        "creator_id",
+        "id",
+        "modified_at",
+        "role",
+        "thread_id",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    card = sgqlc.types.Field(String, graphql_name="card")
+
+    content = sgqlc.types.Field(String, graphql_name="content")
+
+    context = sgqlc.types.Field(CollaborationRawContextMetadata, graphql_name="context")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(ID, graphql_name="creatorId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    role = sgqlc.types.Field(String, graphql_name="role")
+
+    thread_id = sgqlc.types.Field(ID, graphql_name="threadId")
+
+
+class CollaborationLinkedContexts(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entities", "next_cursor")
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationContext), graphql_name="entities"
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class CollaborationMention(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "comment_id",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "email",
+        "external_application_type",
+        "external_creator_id",
+        "id",
+        "mentionable_item_id",
+        "modified_at",
+        "type",
+    )
+    comment_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="commentId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="deactivated"
+    )
+
+    email = sgqlc.types.Field(CollaborationEmail, graphql_name="email")
+
+    external_application_type = sgqlc.types.Field(
+        CollaborationExternalApplicationType, graphql_name="externalApplicationType"
+    )
+
+    external_creator_id = sgqlc.types.Field(ID, graphql_name="externalCreatorId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    mentionable_item_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="mentionableItemId"
+    )
+
+    modified_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="modifiedAt")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
+class CollaborationMessageSent(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "sent_at", "sync_statuses")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    sent_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="sentAt"
+    )
+
+    sync_statuses = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationCommentSyncStatus), graphql_name="syncStatuses"
+    )
+
+
+class CollaborationSocketConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("nr_connection_id", "url")
+    nr_connection_id = sgqlc.types.Field(String, graphql_name="nrConnectionId")
+
+    url = sgqlc.types.Field(SecureValue, graphql_name="url")
+
+
+class CollaborationSubscriber(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "actively_subscribed",
+        "comments_read_count",
+        "context_id",
+        "created_at",
+        "external_application_type",
+        "external_creator_id",
+        "id",
+        "last_comment_read_id",
+        "mention_count",
+        "mentions_read_count",
+        "modified_at",
+        "organization_id",
+        "thread",
+        "thread_id",
+        "unread_comment_deleted_count",
+        "user_id",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    actively_subscribed = sgqlc.types.Field(Boolean, graphql_name="activelySubscribed")
+
+    comments_read_count = sgqlc.types.Field(Int, graphql_name="commentsReadCount")
+
+    context_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="contextId")
+
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    external_application_type = sgqlc.types.Field(
+        String, graphql_name="externalApplicationType"
+    )
+
+    external_creator_id = sgqlc.types.Field(ID, graphql_name="externalCreatorId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    last_comment_read_id = sgqlc.types.Field(ID, graphql_name="lastCommentReadId")
+
+    mention_count = sgqlc.types.Field(Int, graphql_name="mentionCount")
+
+    mentions_read_count = sgqlc.types.Field(Int, graphql_name="mentionsReadCount")
+
+    modified_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="modifiedAt")
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="organizationId"
+    )
+
+    thread = sgqlc.types.Field("CollaborationThread", graphql_name="thread")
+
+    thread_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="threadId")
+
+    unread_comment_deleted_count = sgqlc.types.Field(
+        Int, graphql_name="unreadCommentDeletedCount"
+    )
+
+    user_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="userId")
+
+
+class CollaborationSubscriberConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationSubscriber), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class CollaborationSubscriptionsWithUnread(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("subscriptions", "unread_comment_count", "unread_thread_count")
+    subscriptions = sgqlc.types.Field(String, graphql_name="subscriptions")
+
+    unread_comment_count = sgqlc.types.Field(Int, graphql_name="unreadCommentCount")
+
+    unread_thread_count = sgqlc.types.Field(Int, graphql_name="unreadThreadCount")
+
+
+class CollaborationThread(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "comment",
+        "comment_count",
+        "comments",
+        "context_id",
+        "context_metadata",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "deleted_comment_count",
+        "external_application_type",
+        "external_service_connections",
+        "first_comment_id",
+        "id",
+        "latest_comment_creator_id",
+        "latest_comment_id",
+        "latest_comment_time",
+        "modified_at",
+        "organization_id",
+        "reference_url",
+        "status",
+        "subscriber",
+        "subscribers",
+    )
+    account_id = sgqlc.types.Field(Int, graphql_name="accountId")
+
+    comment = sgqlc.types.Field(
+        CollaborationComment,
+        graphql_name="comment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    comment_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="commentCount"
+    )
+
+    comments = sgqlc.types.Field(
+        CollaborationCommentConnection,
+        graphql_name="comments",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+            )
+        ),
+    )
+
+    context_id = sgqlc.types.Field(ID, graphql_name="contextId")
+
+    context_metadata = sgqlc.types.Field(
+        CollaborationRawContextMetadata, graphql_name="contextMetadata"
+    )
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(ID, graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    deleted_comment_count = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="deletedCommentCount"
+    )
+
+    external_application_type = sgqlc.types.Field(
+        String, graphql_name="externalApplicationType"
+    )
+
+    external_service_connections = sgqlc.types.Field(
+        CollaborationExternalServiceConnectionGroup,
+        graphql_name="externalServiceConnections",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+            )
+        ),
+    )
+
+    first_comment_id = sgqlc.types.Field(ID, graphql_name="firstCommentId")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    latest_comment_creator_id = sgqlc.types.Field(
+        ID, graphql_name="latestCommentCreatorId"
+    )
+
+    latest_comment_id = sgqlc.types.Field(ID, graphql_name="latestCommentId")
+
+    latest_comment_time = sgqlc.types.Field(
+        EpochMilliseconds, graphql_name="latestCommentTime"
+    )
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    reference_url = sgqlc.types.Field(String, graphql_name="referenceUrl")
+
+    status = sgqlc.types.Field(String, graphql_name="status")
+
+    subscriber = sgqlc.types.Field(
+        CollaborationSubscriber,
+        graphql_name="subscriber",
+        args=sgqlc.types.ArgDict(
+            (("id", sgqlc.types.Arg(ID, graphql_name="id", default=None)),)
+        ),
+    )
+
+    subscribers = sgqlc.types.Field(
+        CollaborationSubscriberConnection,
+        graphql_name="subscribers",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `first` (`Int`) (default: `10`)
+    * `last` (`Int`)
+    """
+
+
+class CollaborationThreadConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(CollaborationThread), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class CollaborationThreadsCount(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("closed", "open")
+    closed = sgqlc.types.Field(Int, graphql_name="closed")
+
+    open = sgqlc.types.Field(Int, graphql_name="open")
+
+
 class Consumption(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("customer_id",)
@@ -10221,7 +11766,28 @@ class EntityGoldenTagsDomainTypeScopedResponse(sgqlc.types.Type):
 
 class EntityManagementActorStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("entity", "entity_search")
+    __field_names__ = ("collection_elements", "entity", "entity_search")
+    collection_elements = sgqlc.types.Field(
+        "EntityManagementCollectionElementsResult",
+        graphql_name="collectionElements",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "cursor",
+                    sgqlc.types.Arg(String, graphql_name="cursor", default=None),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(EntityManagementCollectionElementsFilter),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     entity = sgqlc.types.Field(
         EntityManagementEntity,
         graphql_name="entity",
@@ -10286,6 +11852,19 @@ class EntityManagementBlob(sgqlc.types.Type):
     )
 
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementCollectionElementsResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("items", "next_cursor")
+    items = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementEntity))
+        ),
+        graphql_name="items",
+    )
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
 class EntityManagementDiscoverySettings(sgqlc.types.Type):
@@ -10354,25 +11933,34 @@ class EntityManagementFleetControlProperties(sgqlc.types.Type):
 class EntityManagementFleetDeployment(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
-        "completed_at",
         "configs_changed",
+        "configuration_versions",
         "deployed_at",
+        "description",
         "entities_changed",
+        "name",
         "status",
     )
-    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
-
     configs_changed = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="configsChanged"
+    )
+
+    configuration_versions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
+        graphql_name="configurationVersions",
     )
 
     deployed_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochMilliseconds), graphql_name="deployedAt"
     )
 
+    description = sgqlc.types.Field(String, graphql_name="description")
+
     entities_changed = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="entitiesChanged"
     )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     status = sgqlc.types.Field(String, graphql_name="status")
 
@@ -10405,6 +11993,41 @@ class EntityManagementScopedReference(sgqlc.types.Type):
 
     type = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementEntityScope), graphql_name="type"
+    )
+
+
+class EntityManagementSyncGroupRule(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("conditions",)
+    conditions = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null("EntityManagementSyncGroupRuleCondition")
+            )
+        ),
+        graphql_name="conditions",
+    )
+
+
+class EntityManagementSyncGroupRuleCondition(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("type", "value")
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementSyncGroupRuleConditionType),
+        graphql_name="type",
+    )
+
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
+
+
+class EntityManagementSyncGroupsSettings(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled", "rules")
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    rules = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementSyncGroupRule)),
+        graphql_name="rules",
     )
 
 
@@ -11705,10 +13328,12 @@ class InstallationRecipeEventResult(sgqlc.types.Type):
 
 class InstallationStatusError(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("details", "message")
+    __field_names__ = ("details", "message", "optimized_message")
     details = sgqlc.types.Field(String, graphql_name="details")
 
     message = sgqlc.types.Field(String, graphql_name="message")
+
+    optimized_message = sgqlc.types.Field(String, graphql_name="optimizedMessage")
 
 
 class JavaFlightRecorderFlamegraph(sgqlc.types.Type):
@@ -15310,6 +16935,34 @@ class RootMutationType(sgqlc.types.Type):
         "cloud_rename_account",
         "cloud_unlink_account",
         "cloud_update_account",
+        "collaboration_create_code_mark",
+        "collaboration_create_comment",
+        "collaboration_create_context",
+        "collaboration_create_email",
+        "collaboration_create_external_service_connection",
+        "collaboration_create_mention",
+        "collaboration_create_thread",
+        "collaboration_deactivate_code_mark",
+        "collaboration_deactivate_comment",
+        "collaboration_deactivate_context",
+        "collaboration_deactivate_external_service_connection",
+        "collaboration_deactivate_file",
+        "collaboration_deactivate_mention",
+        "collaboration_deactivate_thread",
+        "collaboration_feedback_on_bot_response",
+        "collaboration_get_upload_url",
+        "collaboration_register_email",
+        "collaboration_send_message",
+        "collaboration_set_external_service_connection_channel",
+        "collaboration_socket_subscribe",
+        "collaboration_subscribe_to_thread",
+        "collaboration_unsubscribe_from_thread",
+        "collaboration_update_comment",
+        "collaboration_update_context_add_comment",
+        "collaboration_update_context_add_thread",
+        "collaboration_update_subscription_read_info",
+        "collaboration_update_thread_add_comment",
+        "collaboration_update_thread_status",
         "dashboard_add_widgets_to_page",
         "dashboard_create",
         "dashboard_create_snapshot_url",
@@ -17277,6 +18930,746 @@ class RootMutationType(sgqlc.types.Type):
                         sgqlc.types.non_null(CloudUpdateCloudAccountsInput),
                         graphql_name="accounts",
                         default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_code_mark = sgqlc.types.Field(
+        CollaborationCodeMark,
+        graphql_name="collaborationCreateCodeMark",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "code",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="code", default=None
+                    ),
+                ),
+                (
+                    "file",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="file", default=None
+                    ),
+                ),
+                (
+                    "permalink",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="permalink",
+                        default=None,
+                    ),
+                ),
+                (
+                    "repo",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="repo", default=None
+                    ),
+                ),
+                (
+                    "sha",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="sha", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_comment = sgqlc.types.Field(
+        CollaborationComment,
+        graphql_name="collaborationCreateComment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "assistant",
+                    sgqlc.types.Arg(String, graphql_name="assistant", default=None),
+                ),
+                (
+                    "assistant_config",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(CollaborationAssistantConfigInput),
+                        graphql_name="assistantConfig",
+                        default=None,
+                    ),
+                ),
+                (
+                    "body",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="body", default=None
+                    ),
+                ),
+                (
+                    "capability_id",
+                    sgqlc.types.Arg(String, graphql_name="capabilityId", default=None),
+                ),
+                (
+                    "context_metadata",
+                    sgqlc.types.Arg(
+                        CollaborationRawContextMetadata,
+                        graphql_name="contextMetadata",
+                        default=None,
+                    ),
+                ),
+                (
+                    "destination_id",
+                    sgqlc.types.Arg(String, graphql_name="destinationId", default=None),
+                ),
+                (
+                    "display_name",
+                    sgqlc.types.Arg(String, graphql_name="displayName", default=None),
+                ),
+                (
+                    "n_rconnection_id",
+                    sgqlc.types.Arg(
+                        String, graphql_name="nRConnectionId", default=None
+                    ),
+                ),
+                (
+                    "reference_url",
+                    sgqlc.types.Arg(String, graphql_name="referenceUrl", default=None),
+                ),
+                (
+                    "slack_channel_id",
+                    sgqlc.types.Arg(
+                        String, graphql_name="slackChannelId", default=None
+                    ),
+                ),
+                (
+                    "suppress3rd_party_file_share",
+                    sgqlc.types.Arg(
+                        Boolean, graphql_name="suppress3rdPartyFileShare", default=None
+                    ),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+                (
+                    "time_picker_from",
+                    sgqlc.types.Arg(
+                        EpochMilliseconds, graphql_name="timePickerFrom", default=None
+                    ),
+                ),
+                (
+                    "time_picker_to",
+                    sgqlc.types.Arg(
+                        EpochMilliseconds, graphql_name="timePickerTo", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `assistant` (`String`)
+    * `assistant_config` (`[CollaborationAssistantConfigInput]`)
+    * `body` (`String!`)
+    * `capability_id` (`String`)
+    * `context_metadata` (`CollaborationRawContextMetadata`)
+    * `destination_id` (`String`)
+    * `display_name` (`String`)
+    * `n_rconnection_id` (`String`)
+    * `reference_url` (`String`)
+    * `slack_channel_id` (`String`)
+    * `suppress3rd_party_file_share` (`Boolean`)
+    * `thread_id` (`ID!`)
+    * `time_picker_from` (`EpochMilliseconds`)
+    * `time_picker_to` (`EpochMilliseconds`)
+    """
+
+    collaboration_create_context = sgqlc.types.Field(
+        CollaborationContext,
+        graphql_name="collaborationCreateContext",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(Int, graphql_name="accountId", default=None),
+                ),
+                (
+                    "context_metadata",
+                    sgqlc.types.Arg(
+                        CollaborationRawContextMetadata,
+                        graphql_name="contextMetadata",
+                        default=None,
+                    ),
+                ),
+                (
+                    "entity_guid",
+                    sgqlc.types.Arg(
+                        EntityGuid, graphql_name="entityGuid", default=None
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "reference_url",
+                    sgqlc.types.Arg(String, graphql_name="referenceUrl", default=None),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_email = sgqlc.types.Field(
+        CollaborationEmail,
+        graphql_name="collaborationCreateEmail",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "email_address",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="emailAddress",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_external_service_connection = sgqlc.types.Field(
+        CollaborationExternalServiceConnection,
+        graphql_name="collaborationCreateExternalServiceConnection",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "channel_id",
+                    sgqlc.types.Arg(ID, graphql_name="channelId", default=None),
+                ),
+                (
+                    "session_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="sessionId", default=None
+                    ),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+                (
+                    "type",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="type", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_mention = sgqlc.types.Field(
+        CollaborationMention,
+        graphql_name="collaborationCreateMention",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "comment_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="commentId", default=None
+                    ),
+                ),
+                (
+                    "external_application_type",
+                    sgqlc.types.Arg(
+                        CollaborationExternalApplicationType,
+                        graphql_name="externalApplicationType",
+                        default=None,
+                    ),
+                ),
+                (
+                    "external_creator_id",
+                    sgqlc.types.Arg(ID, graphql_name="externalCreatorId", default=None),
+                ),
+                (
+                    "mentionable_item_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="mentionableItemId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "type",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="type", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_create_thread = sgqlc.types.Field(
+        CollaborationThread,
+        graphql_name="collaborationCreateThread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "context_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="contextId", default=None
+                    ),
+                ),
+                (
+                    "context_metadata",
+                    sgqlc.types.Arg(
+                        CollaborationRawContextMetadata,
+                        graphql_name="contextMetadata",
+                        default=None,
+                    ),
+                ),
+                (
+                    "external_application_type",
+                    sgqlc.types.Arg(
+                        String, graphql_name="externalApplicationType", default=None
+                    ),
+                ),
+                (
+                    "reference_url",
+                    sgqlc.types.Arg(String, graphql_name="referenceUrl", default=None),
+                ),
+                (
+                    "visibility",
+                    sgqlc.types.Arg(String, graphql_name="visibility", default=None),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_code_mark = sgqlc.types.Field(
+        CollaborationCodeMark,
+        graphql_name="collaborationDeactivateCodeMark",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_comment = sgqlc.types.Field(
+        CollaborationComment,
+        graphql_name="collaborationDeactivateComment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_context = sgqlc.types.Field(
+        CollaborationContext,
+        graphql_name="collaborationDeactivateContext",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_external_service_connection = sgqlc.types.Field(
+        CollaborationExternalServiceConnection,
+        graphql_name="collaborationDeactivateExternalServiceConnection",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_file = sgqlc.types.Field(
+        String,
+        graphql_name="collaborationDeactivateFile",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_mention = sgqlc.types.Field(
+        CollaborationMention,
+        graphql_name="collaborationDeactivateMention",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_deactivate_thread = sgqlc.types.Field(
+        CollaborationThread,
+        graphql_name="collaborationDeactivateThread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_feedback_on_bot_response = sgqlc.types.Field(
+        CollaborationBotResponseFeedback,
+        graphql_name="collaborationFeedbackOnBotResponse",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "content",
+                    sgqlc.types.Arg(String, graphql_name="content", default=None),
+                ),
+                (
+                    "rating",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int), graphql_name="rating", default=None
+                    ),
+                ),
+                (
+                    "response_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="responseId",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_get_upload_url = sgqlc.types.Field(
+        CollaborationFile,
+        graphql_name="collaborationGetUploadUrl",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "file_name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="fileName", default=None
+                    ),
+                ),
+                (
+                    "is_screenshot",
+                    sgqlc.types.Arg(Boolean, graphql_name="isScreenshot", default=None),
+                ),
+            )
+        ),
+    )
+
+    collaboration_register_email = sgqlc.types.Field(
+        CollaborationEmail, graphql_name="collaborationRegisterEmail"
+    )
+
+    collaboration_send_message = sgqlc.types.Field(
+        CollaborationMessageSent,
+        graphql_name="collaborationSendMessage",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "body",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="body", default=None
+                    ),
+                ),
+                (
+                    "destination_id",
+                    sgqlc.types.Arg(String, graphql_name="destinationId", default=None),
+                ),
+                (
+                    "email_addresses",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(String),
+                        graphql_name="emailAddresses",
+                        default=None,
+                    ),
+                ),
+                (
+                    "reference_url",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="referenceUrl",
+                        default=None,
+                    ),
+                ),
+                (
+                    "shared_to_type",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="sharedToType",
+                        default=None,
+                    ),
+                ),
+                (
+                    "slack_channel_id",
+                    sgqlc.types.Arg(
+                        String, graphql_name="slackChannelId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_id` (`Int!`)
+    * `body` (`String!`)
+    * `destination_id` (`String`)
+    * `email_addresses` (`[String]`)
+    * `reference_url` (`String!`)
+    * `shared_to_type` (`String!`)
+    * `slack_channel_id` (`String`)
+    """
+
+    collaboration_set_external_service_connection_channel = sgqlc.types.Field(
+        CollaborationExternalServiceConnection,
+        graphql_name="collaborationSetExternalServiceConnectionChannel",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "channel_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="channelId", default=None
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_socket_subscribe = sgqlc.types.Field(
+        String,
+        graphql_name="collaborationSocketSubscribe",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "nr_connection_id",
+                    sgqlc.types.Arg(
+                        String, graphql_name="nrConnectionId", default=None
+                    ),
+                ),
+                (
+                    "subscription_keys",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(String),
+                        graphql_name="subscriptionKeys",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `nr_connection_id` (`String`)
+    * `subscription_keys` (`[String]`)
+    """
+
+    collaboration_subscribe_to_thread = sgqlc.types.Field(
+        CollaborationSubscriber,
+        graphql_name="collaborationSubscribeToThread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+                ("user_id", sgqlc.types.Arg(ID, graphql_name="userId", default=None)),
+            )
+        ),
+    )
+
+    collaboration_unsubscribe_from_thread = sgqlc.types.Field(
+        CollaborationSubscriber,
+        graphql_name="collaborationUnsubscribeFromThread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_comment = sgqlc.types.Field(
+        CollaborationComment,
+        graphql_name="collaborationUpdateComment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "body",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="body", default=None
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_context_add_comment = sgqlc.types.Field(
+        CollaborationContext,
+        graphql_name="collaborationUpdateContextAddComment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "comment_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="commentId", default=None
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_context_add_thread = sgqlc.types.Field(
+        CollaborationContext,
+        graphql_name="collaborationUpdateContextAddThread",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_subscription_read_info = sgqlc.types.Field(
+        CollaborationSubscriber,
+        graphql_name="collaborationUpdateSubscriptionReadInfo",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "comments_read_count",
+                    sgqlc.types.Arg(
+                        Int, graphql_name="commentsReadCount", default=None
+                    ),
+                ),
+                (
+                    "last_comment_read_id",
+                    sgqlc.types.Arg(ID, graphql_name="lastCommentReadId", default=None),
+                ),
+                (
+                    "mentions_read_count",
+                    sgqlc.types.Arg(
+                        Int, graphql_name="mentionsReadCount", default=None
+                    ),
+                ),
+                (
+                    "thread_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="threadId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_thread_add_comment = sgqlc.types.Field(
+        CollaborationThread,
+        graphql_name="collaborationUpdateThreadAddComment",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "comment_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="commentId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collaboration_update_thread_status = sgqlc.types.Field(
+        CollaborationThread,
+        graphql_name="collaborationUpdateThreadStatus",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "status",
+                    sgqlc.types.Arg(
+                        CollaborationStatus, graphql_name="status", default=None
                     ),
                 ),
             )
@@ -25972,7 +28365,9 @@ class EntityManagementAgentConfigurationEntity(
 ):
     __schema__ = nerdgraph
     __field_names__ = ("agent_type", "version_count")
-    agent_type = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="agentType")
+    agent_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="agentType"
+    )
 
     version_count = sgqlc.types.Field(Int, graphql_name="versionCount")
 
@@ -26004,7 +28399,9 @@ class EntityManagementAgentEffectiveConfigurationEntity(
 class EntityManagementAgentEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
     __field_names__ = ("agent_type", "fleet_control_properties")
-    agent_type = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="agentType")
+    agent_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="agentType"
+    )
 
     fleet_control_properties = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementFleetControlProperties),
@@ -26055,8 +28452,10 @@ class EntityManagementGenericEntity(sgqlc.types.Type, EntityManagementEntity):
 
 class EntityManagementScorecardEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
-    __field_names__ = ("description",)
+    __field_names__ = ("description", "rules")
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    rules = sgqlc.types.Field(EntityManagementCollectionEntity, graphql_name="rules")
 
 
 class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEntity):
@@ -26113,9 +28512,13 @@ class EntityManagementTeamsOrganizationSettingsEntity(
     sgqlc.types.Type, EntityManagementEntity
 ):
     __schema__ = nerdgraph
-    __field_names__ = ("discovery",)
+    __field_names__ = ("discovery", "sync_groups")
     discovery = sgqlc.types.Field(
         EntityManagementDiscoverySettings, graphql_name="discovery"
+    )
+
+    sync_groups = sgqlc.types.Field(
+        EntityManagementSyncGroupsSettings, graphql_name="syncGroups"
     )
 
 

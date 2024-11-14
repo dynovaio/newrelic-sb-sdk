@@ -3,6 +3,99 @@
 ## [Unreleased]
 
 * Update GraphQL submodule with a fresh schema version.
+* Add `CollaborationRawContextMetadata` scalar type.
+* Add `CollaborationExternalApplicationType`, `CollaborationStatus`,
+  `EntityManagementSyncGroupRuleConditionType` enum types.
+* Add `OTHER` value to `MultiTenantAuthorizationRoleScopeEnum` choices.
+* Add `CollaborationAssistantConfigInput`,
+  `EntityManagementCollectionElementsFilter`,
+  `EntityManagementCollectionIdFilterArgument`,
+  `MultiTenantAuthorizationGrantScopeTypeV2InputFilter`,
+  `MultiTenantAuthorizationRoleScopeV2InputFilter` input types.
+* Add `optimized_message` field to `InstallationStatusErrorInput` input type.
+* Add `scope_v2_type` field to
+  `MultiTenantAuthorizationGrantFilterInputExpression` input type.
+* Add `scope_v2` field to
+  `MultiTenantAuthorizationRoleFilterInputExpression` input type.
+* Add `AgentApplicationSettingsApplicationLogging`,
+  `AgentApplicationSettingsForwarding`,
+  `AgentApplicationSettingsLocalDecorating`,
+  `AgentApplicationSettingsMetrics`,
+  `CollaborationActorStitchedFields`,
+  `CollaborationBotResponse`,
+  `CollaborationBotResponseFeedback`,
+  `CollaborationCodeMark`,
+  `CollaborationComment`,
+  `CollaborationCommentConnection`,
+  `CollaborationCommentCreator`,
+  `CollaborationCommentSyncStatus`,
+  `CollaborationContext`,
+  `CollaborationEmail`,
+  `CollaborationExternalCommentCreator`,
+  `CollaborationExternalServiceConnection`,
+  `CollaborationExternalServiceConnectionGroup`,
+  `CollaborationFile`,
+  `CollaborationGrokMessage`,
+  `CollaborationLinkedContexts`,
+  `CollaborationMention`,
+  `CollaborationMessageSent`,
+  `CollaborationSocketConnection`,
+  `CollaborationSubscriber`,
+  `CollaborationSubscriberConnection`,
+  `CollaborationSubscriptionsWithUnread`,
+  `CollaborationThread`,
+  `CollaborationThreadConnection`,
+  `CollaborationThreadsCount`,
+  `EntityManagementCollectionElementsResult`,
+  `EntityManagementSyncGroupRule`,
+  `EntityManagementSyncGroupRuleCondition`,
+  `EntityManagementSyncGroupsSettings` object types.
+* Add `created_at` and `created_by` fields to `AlertsNrqlCondition` interface
+  type.
+* Add `collaboration` field to `Actor` type.
+* Add `application_logging` field to `AgentApplicationSettingsApmBase` type.
+* Add `application_logging` field to
+  `AgentApplicationSettingsUpdateResult` type.
+* Add `collection_elements` field to `EntityManagementActorStitchedFields`
+  type.
+* Add `configuration_versions`, `description` and `name` field to
+  `EntityManagementFleetDeployment` type.
+* Add `optimized_message` field to `InstallationStatusError` type.
+* Add `collaboration_create_code_mark`,
+  `collaboration_create_comment`,
+  `collaboration_create_context`,
+  `collaboration_create_email`,
+  `collaboration_create_external_service_connection`,
+  `collaboration_create_mention`,
+  `collaboration_create_thread`,
+  `collaboration_deactivate_code_mark`,
+  `collaboration_deactivate_comment`,
+  `collaboration_deactivate_context`,
+  `collaboration_deactivate_external_service_connection`,
+  `collaboration_deactivate_file`,
+  `collaboration_deactivate_mention`,
+  `collaboration_deactivate_thread`,
+  `collaboration_feedback_on_bot_response`,
+  `collaboration_get_upload_url`,
+  `collaboration_register_email`,
+  `collaboration_send_message`,
+  `collaboration_set_external_service_connection_channel`,
+  `collaboration_socket_subscribe`,
+  `collaboration_subscribe_to_thread`,
+  `collaboration_unsubscribe_from_thread`,
+  `collaboration_update_comment`,
+  `collaboration_update_context_add_comment`,
+  `collaboration_update_context_add_thread`,
+  `collaboration_update_subscription_read_info`,
+  `collaboration_update_thread_add_comment` and
+  `collaboration_update_thread_status` fields to `RootMutationType` type.
+* Update `agent_type` field type from `ID` to `String` in
+  `EntityManagementAgentConfigurationEntity` type.
+* Update `agent_type` field type from `ID` to `String` in
+  `EntityManagementAgentEntity` type.
+* Add `rules` field to `EntityManagementScorecardEntity` type.
+* Add `sync_groups` filed to `EntityManagementTeamsOrganizationSettingsEntity`
+  type.
 
 ## [0.20.0] - 2024-10-25
 
