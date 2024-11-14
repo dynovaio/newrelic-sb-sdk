@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+* Update development dependencies.
 * Update GraphQL submodule with a fresh schema version.
 * Add `CollaborationRawContextMetadata` scalar type.
 * Add `CollaborationExternalApplicationType`, `CollaborationStatus`,
