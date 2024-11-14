@@ -8322,5 +8322,6 @@ d = {
                 "newrelic_sb_sdk/utils/text.py",
             ),
         },
+        "newrelic_sb_sdk.version": {},
     },
 }

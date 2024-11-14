@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+* Include property `schema` in `NewRelicGqlClient` to store the schema of
+  the GraphQL API.
+* Include `User-Agent` header in `NewRelicGqlClient` and `NewRelicRestClient`
+  to identify the client making the request.
+* Specify version typle in `version.py` file.
+* Add class `NewRelicError` to handle errors from `NewRelicGqlClient`.
+* Add function `raise_response_errors`ro raise errors for responses
+  obtained from `NewRelicGqlClient`.
+* Add `shortcuts` submodule.
+
 ## [0.21.0] - 2024-11-14
 
 * Update development dependencies.

@@ -13,6 +13,7 @@ from sgqlc.types import Schema
 from ..graphql import nerdgraph
 from ..graphql.objects import RootMutationType, RootQueryType
 from ..utils.query import build_query
+from ..version import VERSION
 
 
 def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
@@ -43,12 +44,18 @@ class NewRelicGqlClient(Session):
 
         self.headers.update(
             {
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "API-Key": new_relic_user_key,
+                "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
 
         self._setup_schema()
+
+    @staticmethod
+    def _get_version():
+        return ".".join(VERSION)
 
     def _setup_schema(self):
         self._schema.query_type = RootQueryType
@@ -86,7 +93,13 @@ class NewRelicRestClient(Session):
 
         self.headers.update(
             {
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Api-Key": new_relic_user_key,
+                "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+
+    @staticmethod
+    def _get_version():
+        return ".".join(VERSION)
