@@ -16,12 +16,7 @@ observability platform tasks
 
 ## Requirements
 
-* Python 3.8.1 or higher
-* `enforce-typing`
-* `python-dotenv`
-* `requests`
-* `semver`
-* `sgqlc`
+* Python 3.9.0 or higher
 
 ## Install
 
@@ -74,8 +69,8 @@ print_response(response)
 
 ## Docs
 
+* [Documentación](https://dynovaio.github.io/newrelic-sb-sdk)
 * [Ejemplos](https://gitlab.com/softbutterfly/open-source/newrelic-playground)
-* [Wiki](https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk/)
 
 ## Changelog
 

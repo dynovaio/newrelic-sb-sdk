@@ -10,7 +10,7 @@ license = "MIT License"
 readme = "README.md"
 homepage = "https://github.com/dynovaio/newrelic-sb-sdk"
 repository = "https://github.com/dynovaio/newrelic-sb-sdk"
-documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk/"
+documentation = "https://dynovaio.github.io/newrelic-sb-sdk"
 keywords = [
   "Softbutterfly",
   "New Relic",
