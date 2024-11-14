@@ -1,11 +1,23 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 title: New Relic SB SDK
-author: SoftButterfly Development Team
-copyright: "2022"
-logo: notebooks/_assets/logo.png
-exclude_patterns: [".*", "renv", "_build", "data", "src"]
+author: Dynova Development Team
+copyright: "2022 - 2024"
+logo: https://github.com/dynovaio/open-source-office/blob/master/assets/dynova/dynova-logo-195x64.png?raw=true
 only_build_toc_files: true
+exclude_patterns:
+  - .*
+  - _build
+  - _config.yml
+  - _templates
+  - .git
+  - .github
+  - .ipynb_checkpoints
+  - .venv
+  - .vscode
+  - data
+  - renv
+  - src
 launch_buttons:
   notebook_interface: "jupyterlab"
 
@@ -14,7 +26,7 @@ launch_buttons:
 
 execute:
   timeout: 100
-  execute_notebooks: 'off'
+  execute_notebooks: "off"
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -27,18 +39,18 @@ latex:
 
 # Information about where the book exists on the web
 repository:
-  url: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/ # Online location of your book
-  branch: master # Which branch of the repository should be used when creating links (optional)
+  url: https://github.com/dynovaio/newrelic-sb-sdk/ # Online location of your book
   path_to_book: docs # Optional path to your book, relative to the repository root
+  branch: master # Which branch of the repository should be used when creating links (optional)
 
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
-  favicon: notebooks/_assets/favicon.png
-  use_issues_button: false
-  use_edit_page_button: false
+  favicon: https://github.com/dynovaio/open-source-office/blob/master/assets/dynova/dynova-favicon-black.png?raw=true
+  use_issues_button: true
+  use_edit_page_button: true
   use_repository_button: true
-  baseurl: https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk
+  baseurl: https://dynovaio.gitlab.io/newrelic-sb-sdk
 
 parse:
   myst_enable_extensions:
