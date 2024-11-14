@@ -8262,6 +8262,28 @@ d = {
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
         },
+        "newrelic_sb_sdk.shortcuts.accounts": {
+            "newrelic_sb_sdk.shortcuts.accounts.get_account": (
+                "Shortcuts/accounts.html#get_account",
+                "newrelic_sb_sdk/shortcuts/accounts.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.accounts.get_all_accounts": (
+                "Shortcuts/accounts.html#get_all_accounts",
+                "newrelic_sb_sdk/shortcuts/accounts.py",
+            ),
+        },
+        "newrelic_sb_sdk.shortcuts.credentials": {
+            "newrelic_sb_sdk.shortcuts.credentials.validate": (
+                "Shortcuts/credentials.html#validate",
+                "newrelic_sb_sdk/shortcuts/credentials.py",
+            )
+        },
+        "newrelic_sb_sdk.utils.exceptions": {
+            "newrelic_sb_sdk.utils.exceptions.NewRelicError": (
+                "Utils/exceptions.html#newrelicerror",
+                "newrelic_sb_sdk/utils/exceptions.py",
+            )
+        },
         "newrelic_sb_sdk.utils.query": {
             "newrelic_sb_sdk.utils.query.build_query": (
                 "Utils/query.html#build_query",
@@ -8275,6 +8297,10 @@ d = {
             ),
             "newrelic_sb_sdk.utils.response.print_response": (
                 "Utils/response.html#print_response",
+                "newrelic_sb_sdk/utils/response.py",
+            ),
+            "newrelic_sb_sdk.utils.response.raise_response_errors": (
+                "Utils/response.html#raise_response_errors",
                 "newrelic_sb_sdk/utils/response.py",
             ),
         },
@@ -8296,5 +8322,6 @@ d = {
                 "newrelic_sb_sdk/utils/text.py",
             ),
         },
+        "newrelic_sb_sdk.version": {},
     },
 }

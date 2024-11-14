@@ -8,8 +8,12 @@ from typing import Any, Dict, Union
 
 import dotenv
 from requests import Response, Session
+from sgqlc.types import Schema
 
+from ..graphql import nerdgraph
+from ..graphql.objects import RootMutationType, RootQueryType
 from ..utils.query import build_query
+from ..version import VERSION
 
 
 def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
@@ -32,17 +36,30 @@ def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> s
 class NewRelicGqlClient(Session):
     """Client for New Relic GraphQL API."""
 
-    url: str = "https://api.newrelic.com/graphql"
+    _url: str = "https://api.newrelic.com/graphql"
+    _schema: Schema = nerdgraph
 
     def __init__(self, *, new_relic_user_key: str):
         super().__init__()
 
         self.headers.update(
             {
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "API-Key": new_relic_user_key,
+                "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+
+        self._setup_schema()
+
+    @staticmethod
+    def _get_version():
+        return ".".join(VERSION)
+
+    def _setup_schema(self):
+        self._schema.query_type = RootQueryType
+        self._schema.mutation_type = RootMutationType
 
     def execute(
         self, query: str, *, variables: Union[Dict[str, Any], None] = None, **kwargs
@@ -53,13 +70,17 @@ class NewRelicGqlClient(Session):
                 "variables": variables,
             },
         )
-        return self.post(self.url, data=data, **kwargs)
+        return self.post(self._url, data=data, **kwargs)
 
     @staticmethod
     def build_query(
         template: str, *, params: Union[Dict[str, Any], None] = None
     ) -> str:
         return build_query(template, params=params)
+
+    @property
+    def schema(self) -> Schema:
+        return self._schema
 
 
 class NewRelicRestClient(Session):
@@ -72,7 +93,13 @@ class NewRelicRestClient(Session):
 
         self.headers.update(
             {
+                "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Api-Key": new_relic_user_key,
+                "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+
+    @staticmethod
+    def _get_version():
+        return ".".join(VERSION)

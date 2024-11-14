@@ -31,9 +31,14 @@ chapters:
       - file: notebooks/Alerts/Alerts.ipynb
   - file: notebooks/Utils/Index.ipynb
     sections:
+      - file: notebooks/Utils/Exceptions.ipynb
       - file: notebooks/Utils/Query.ipynb
       - file: notebooks/Utils/Response.ipynb
       - file: notebooks/Utils/Text.ipynb
+  - file: notebooks/Shortcuts/Index.ipynb
+    sections:
+      - file: notebooks/Shortcuts/Accounts.ipynb
+      - file: notebooks/Shortcuts/Credentials.ipynb
   - file: CHANGELOG.md
   - file: CONTRIBUTING.md
   - file: CODE_OF_CONDUCT.md

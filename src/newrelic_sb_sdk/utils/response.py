@@ -1,8 +1,13 @@
-__all__ = ["print_response", "get_response_data"]
+__all__ = ["print_response", "get_response_data", "raise_response_errors"]
 
 
 import json
 from typing import Any, Dict, Union
+
+from requests import Response
+
+from ..graphql.objects import Account
+from .exceptions import NewRelicError
 
 
 def print_response(response, compact: bool = False):
@@ -29,3 +34,18 @@ def get_response_data(
                 data = data.get(key)
 
     return data
+
+
+def raise_response_errors(*, response: Response, account: Account | None = None):
+    response.raise_for_status()
+
+    response_json = response.json()
+
+    if errors := response_json.get("errors", None):
+        for error in errors:
+            message = error["message"]
+
+            if account:
+                message = f"{account.id} - {account.name} - {message}"
+
+            raise NewRelicError(message)
