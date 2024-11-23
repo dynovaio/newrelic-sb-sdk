@@ -47,8 +47,6 @@ newrelic = NewRelicGqlClient(new_relic_user_key=YOUR_NEW_RELIC_USER_KEY)
 operation = Operation(nerdgraph.query_type)
 operation.actor.user()
 
-operation = operation.__to_graphql__()
-
 response = newrelic.execute(operation)
 
 print_response(response)
