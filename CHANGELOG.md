@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.23.0] - 2024-11-23
+
 * Fix references to github in the documentation.
 * Replace `|` with `Union` to avoid breaks with python versions earlier than
   3.10
