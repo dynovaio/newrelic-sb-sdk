@@ -9,6 +9,13 @@
 * Add support for `Operation` type in `query` agument from
   `NewRelicGqlClient.execute`.
 * Update GraphQL submodule with a fresh schema version.
+* Add `MICROSOFT_TEAMS` value to `AiNotificationsChannelType` enum type.
+* Add `MICROSOFT_TEAMS` value to `AiNotificationsDestinationType` enum type.
+* Add `AlertsNrqlTerms` object type.
+* `AlertsNrqlConditionTerms` inherits from `AlertsNrqlTerms` object type.
+* Add `AlertsNrqlConditionTermsWithForecast` inherits from `AlertsNrqlTerms`
+  object type.
+* Add `typev2` field to `MultiTenantAuthorizationGrantScope` object type.
 
 ## [0.22.0] - 2024-11-14
 

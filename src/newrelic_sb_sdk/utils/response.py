@@ -36,7 +36,7 @@ def get_response_data(
     return data
 
 
-def raise_response_errors(*, response: Response, account: Account | None = None):
+def raise_response_errors(*, response: Response, account: Union[Account, None] = None):
     response.raise_for_status()
 
     response_json = response.json()

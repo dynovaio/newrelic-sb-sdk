@@ -5,6 +5,7 @@ __all__ = [
     "AlertableEntityOutline",
     "AlertsNotificationChannel",
     "AlertsNrqlCondition",
+    "AlertsNrqlTerms",
     "ApiAccessKey",
     "ApiAccessKeyError",
     "ApmBrowserApplicationEntity",
@@ -201,7 +202,6 @@ __all__ = [
     "AlertsNrqlConditionExpiration",
     "AlertsNrqlConditionQuery",
     "AlertsNrqlConditionSignal",
-    "AlertsNrqlConditionTerms",
     "AlertsNrqlConditionsSearchResultSet",
     "AlertsOpsGenieNotificationChannelConfig",
     "AlertsPagerDutyNotificationChannelConfig",
@@ -817,6 +817,8 @@ __all__ = [
     "AlertsEmailNotificationChannel",
     "AlertsHipChatNotificationChannel",
     "AlertsNrqlBaselineCondition",
+    "AlertsNrqlConditionTerms",
+    "AlertsNrqlConditionTermsWithForecast",
     "AlertsNrqlOutlierCondition",
     "AlertsNrqlStaticCondition",
     "AlertsOpsGenieNotificationChannel",
@@ -1722,7 +1724,7 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
 
     terms = sgqlc.types.Field(
         sgqlc.types.non_null(
-            sgqlc.types.list_of(sgqlc.types.non_null("AlertsNrqlConditionTerms"))
+            sgqlc.types.list_of(sgqlc.types.non_null("AlertsNrqlTerms"))
         ),
         graphql_name="terms",
     )
@@ -1739,6 +1741,35 @@ class AlertsNrqlCondition(sgqlc.types.Interface):
 
     violation_time_limit_seconds = sgqlc.types.Field(
         Seconds, graphql_name="violationTimeLimitSeconds"
+    )
+
+
+class AlertsNrqlTerms(sgqlc.types.Interface):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "operator",
+        "priority",
+        "threshold",
+        "threshold_duration",
+        "threshold_occurrences",
+    )
+    operator = sgqlc.types.Field(
+        sgqlc.types.non_null(AlertsNrqlConditionTermsOperator), graphql_name="operator"
+    )
+
+    priority = sgqlc.types.Field(
+        sgqlc.types.non_null(AlertsNrqlConditionPriority), graphql_name="priority"
+    )
+
+    threshold = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name="threshold")
+
+    threshold_duration = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="thresholdDuration"
+    )
+
+    threshold_occurrences = sgqlc.types.Field(
+        sgqlc.types.non_null(AlertsNrqlConditionThresholdOccurrences),
+        graphql_name="thresholdOccurrences",
     )
 
 
@@ -6819,35 +6850,6 @@ class AlertsNrqlConditionSignal(sgqlc.types.Type):
     fill_value = sgqlc.types.Field(Float, graphql_name="fillValue")
 
     slide_by = sgqlc.types.Field(Seconds, graphql_name="slideBy")
-
-
-class AlertsNrqlConditionTerms(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "operator",
-        "priority",
-        "threshold",
-        "threshold_duration",
-        "threshold_occurrences",
-    )
-    operator = sgqlc.types.Field(
-        sgqlc.types.non_null(AlertsNrqlConditionTermsOperator), graphql_name="operator"
-    )
-
-    priority = sgqlc.types.Field(
-        sgqlc.types.non_null(AlertsNrqlConditionPriority), graphql_name="priority"
-    )
-
-    threshold = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name="threshold")
-
-    threshold_duration = sgqlc.types.Field(
-        sgqlc.types.non_null(Int), graphql_name="thresholdDuration"
-    )
-
-    threshold_occurrences = sgqlc.types.Field(
-        sgqlc.types.non_null(AlertsNrqlConditionThresholdOccurrences),
-        graphql_name="thresholdOccurrences",
-    )
 
 
 class AlertsNrqlConditionsSearchResultSet(sgqlc.types.Type):
@@ -14165,13 +14167,15 @@ class MultiTenantAuthorizationGrantRole(sgqlc.types.Type):
 
 class MultiTenantAuthorizationGrantScope(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("id", "type")
+    __field_names__ = ("id", "type", "typev2")
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
 
     type = sgqlc.types.Field(
         sgqlc.types.non_null(MultiTenantAuthorizationGrantScopeEnum),
         graphql_name="type",
     )
+
+    typev2 = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="typev2")
 
 
 class MultiTenantAuthorizationPermission(sgqlc.types.Type):
@@ -26131,6 +26135,16 @@ class AlertsNrqlBaselineCondition(sgqlc.types.Type, AlertsNrqlCondition):
         sgqlc.types.non_null(AlertsNrqlBaselineDirection),
         graphql_name="baselineDirection",
     )
+
+
+class AlertsNrqlConditionTerms(sgqlc.types.Type, AlertsNrqlTerms):
+    __schema__ = nerdgraph
+    __field_names__ = ()
+
+
+class AlertsNrqlConditionTermsWithForecast(sgqlc.types.Type, AlertsNrqlTerms):
+    __schema__ = nerdgraph
+    __field_names__ = ()
 
 
 class AlertsNrqlOutlierCondition(sgqlc.types.Type, AlertsNrqlCondition):
