@@ -82,7 +82,7 @@ Check out our [contribution guide](./CONTRIBUTING.md).
 
 ## Contributors
 
-See the list of contributors [here](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/graphs/develop).
+See the list of contributors [here](https://github.com/dynovaio/newrelic-sb-sdk/graphs/contributors).
 
 ## License
 

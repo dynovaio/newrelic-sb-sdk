@@ -43,7 +43,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.22.0/newrelic-sb-sdk-v0.22.0.tar.gz"
+"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.22.0.zip"
 "Bug Tracker" = "https://github.com/dynovaio/newrelic-sb-sdk/issues"
 
 [tool.poetry.dependencies]

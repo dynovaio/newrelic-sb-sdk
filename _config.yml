@@ -50,7 +50,7 @@ html:
   use_issues_button: true
   use_edit_page_button: true
   use_repository_button: true
-  baseurl: https://dynovaio.gitlab.io/newrelic-sb-sdk
+  baseurl: https://dynovaio.github.io/newrelic-sb-sdk
 
 parse:
   myst_enable_extensions:
