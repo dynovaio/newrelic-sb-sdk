@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+* Fix references to github in the documentation.
+* Replace `|` with `Union` to avoid breaks with python versions earlier than
+  3.10
+* Delete unused submodules Core, Dashboards adn Alerts
+* Add support for `Operation` type in `query` agument from
+  `NewRelicGqlClient.execute`.
+* Update GraphQL submodule with a fresh schema version.
+
 ## [0.22.0] - 2024-11-14
 
 * Include property `schema` in `NewRelicGqlClient` to store the schema of
