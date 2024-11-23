@@ -1,11 +1,6 @@
 format: jb-book
 root: README.md
 chapters:
-  - file: notebooks/Core/Index.ipynb
-    sections:
-      - file: notebooks/Core/Base.ipynb
-      - file: notebooks/Core/Encoders.ipynb
-      - file: notebooks/Core/Mixins.ipynb
   - file: notebooks/Client/Index.ipynb
     sections:
       - file: notebooks/Client/Client.ipynb
@@ -17,18 +12,6 @@ chapters:
       - file: notebooks/GraphQL/Enums.ipynb
       - file: notebooks/GraphQL/Input Objects.ipynb
       - file: notebooks/GraphQL/Objects.ipynb
-  - file: notebooks/Dashboards/Index.ipynb
-    sections:
-      - file: notebooks/Dashboards/Enums.ipynb
-      - file: notebooks/Dashboards/Utils.ipynb
-      - file: notebooks/Dashboards/Widgets.ipynb
-      - file: notebooks/Dashboards/Pages.ipynb
-      - file: notebooks/Dashboards/Dashboards.ipynb
-  - file: notebooks/Alerts/Index.ipynb
-    sections:
-      - file: notebooks/Alerts/Enums.ipynb
-      - file: notebooks/Alerts/Utils.ipynb
-      - file: notebooks/Alerts/Alerts.ipynb
   - file: notebooks/Utils/Index.ipynb
     sections:
       - file: notebooks/Utils/Exceptions.ipynb

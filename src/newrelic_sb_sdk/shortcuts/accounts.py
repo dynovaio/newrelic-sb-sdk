@@ -1,7 +1,7 @@
 __all__ = ["get_all_accounts", "get_account"]
 
 
-from typing import List
+from typing import List, Union
 
 from sgqlc.operation import Operation
 
@@ -15,7 +15,7 @@ def get_all_accounts(
     *,
     client: NewRelicGqlClient,
     include_event_types: bool = False,
-    time_window: TimeWindowInput | None = None,
+    time_window: Union[TimeWindowInput, None] = None,
 ) -> List[Account]:
     operation = Operation(client.schema.query_type)
 
@@ -28,9 +28,7 @@ def get_all_accounts(
         else:
             operation.actor.accounts.reporting_event_types()
 
-    response = client.execute(
-        operation.__to_graphql__(),
-    )
+    response = client.execute(operation)
 
     raise_response_errors(response=response)
 
@@ -48,9 +46,7 @@ def get_account(*, client: NewRelicGqlClient, account_id: int) -> Account:
     account.id()
     account.name()
 
-    response = client.execute(
-        operation.__to_graphql__(),
-    )
+    response = client.execute(operation)
 
     raise_response_errors(response=response)
 

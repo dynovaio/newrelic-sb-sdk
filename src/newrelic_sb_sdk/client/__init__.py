@@ -8,6 +8,7 @@ from typing import Any, Dict, Union
 
 import dotenv
 from requests import Response, Session
+from sgqlc.operation import Operation
 from sgqlc.types import Schema
 
 from ..graphql import nerdgraph
@@ -62,8 +63,15 @@ class NewRelicGqlClient(Session):
         self._schema.mutation_type = RootMutationType
 
     def execute(
-        self, query: str, *, variables: Union[Dict[str, Any], None] = None, **kwargs
+        self,
+        query: Union[str, Operation],
+        *,
+        variables: Union[Dict[str, Any], None] = None,
+        **kwargs,
     ) -> Response:
+        if isinstance(query, Operation):
+            query = query.__to_graphql__()
+
         data = json.dumps(
             {
                 "query": query,

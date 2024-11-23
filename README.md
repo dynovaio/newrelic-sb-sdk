@@ -47,8 +47,6 @@ newrelic = NewRelicGqlClient(new_relic_user_key=YOUR_NEW_RELIC_USER_KEY)
 operation = Operation(nerdgraph.query_type)
 operation.actor.user()
 
-operation = operation.__to_graphql__()
-
 response = newrelic.execute(operation)
 
 print_response(response)
@@ -82,7 +80,7 @@ Check out our [contribution guide](./CONTRIBUTING.md).
 
 ## Contributors
 
-See the list of contributors [here](https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/graphs/develop).
+See the list of contributors [here](https://github.com/dynovaio/newrelic-sb-sdk/graphs/contributors).
 
 ## License
 

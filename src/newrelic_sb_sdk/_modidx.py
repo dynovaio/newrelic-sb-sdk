@@ -3,206 +3,12 @@
 d = {
     "settings": {
         "branch": "master",
-        "doc_baseurl": "/open-source/newrelic-sb-sdk/",
-        "doc_host": "https://softbutterfly.gitlab.io",
-        "git_url": "https://github/dynova/newrelic-sb-sdk/tree/master/",
+        "doc_baseurl": "/newrelic-sb-sdk/",
+        "doc_host": "https://dynovaio.github.io",
+        "git_url": "https://github.com/dynova/newrelic-sb-sdk/tree/master/",
         "lib_path": "src/newrelic_sb_sdk",
     },
     "syms": {
-        "newrelic_sb_sdk.alerts.enums": {
-            "newrelic_sb_sdk.alerts.enums.AlertSeverity": (
-                "Alerts/enums.html#alertseverity",
-                "newrelic_sb_sdk/alerts/enums.py",
-            ),
-            "newrelic_sb_sdk.alerts.enums.AlertsIncidentPreference": (
-                "Alerts/enums.html#alertsincidentpreference",
-                "newrelic_sb_sdk/alerts/enums.py",
-            ),
-            "newrelic_sb_sdk.alerts.enums.AlertsNrqlConditionsType": (
-                "Alerts/enums.html#alertsnrqlconditionstype",
-                "newrelic_sb_sdk/alerts/enums.py",
-            ),
-            "newrelic_sb_sdk.alerts.enums.EntityType": (
-                "Alerts/enums.html#entitytype",
-                "newrelic_sb_sdk/alerts/enums.py",
-            ),
-        },
-        "newrelic_sb_sdk.alerts.utils": {
-            "newrelic_sb_sdk.alerts.utils.generate_clauses": (
-                "Alerts/utils.html#generate_clauses",
-                "newrelic_sb_sdk/alerts/utils.py",
-            ),
-            "newrelic_sb_sdk.alerts.utils.generate_nrql_query_string": (
-                "Alerts/utils.html#generate_nrql_query_string",
-                "newrelic_sb_sdk/alerts/utils.py",
-            ),
-            "newrelic_sb_sdk.alerts.utils.get_function_by_metric": (
-                "Alerts/utils.html#get_function_by_metric",
-                "newrelic_sb_sdk/alerts/utils.py",
-            ),
-        },
-        "newrelic_sb_sdk.core.base": {
-            "newrelic_sb_sdk.core.base.BaseEntity": (
-                "Core/base.html#baseentity",
-                "newrelic_sb_sdk/core/base.py",
-            ),
-            "newrelic_sb_sdk.core.base.BaseEnum": (
-                "Core/base.html#baseenum",
-                "newrelic_sb_sdk/core/base.py",
-            ),
-            "newrelic_sb_sdk.core.base.BaseEnum.__repr__": (
-                "Core/base.html#baseenum.__repr__",
-                "newrelic_sb_sdk/core/base.py",
-            ),
-            "newrelic_sb_sdk.core.base.BaseEnum.to_json": (
-                "Core/base.html#baseenum.to_json",
-                "newrelic_sb_sdk/core/base.py",
-            ),
-        },
-        "newrelic_sb_sdk.core.encoders": {
-            "newrelic_sb_sdk.core.encoders.EntityEncoder": (
-                "Core/encoders.html#entityencoder",
-                "newrelic_sb_sdk/core/encoders.py",
-            ),
-            "newrelic_sb_sdk.core.encoders.EntityEncoder.default": (
-                "Core/encoders.html#entityencoder.default",
-                "newrelic_sb_sdk/core/encoders.py",
-            ),
-        },
-        "newrelic_sb_sdk.core.mixins": {
-            "newrelic_sb_sdk.core.mixins.GQLMixin": (
-                "Core/mixins.html#gqlmixin",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.GQLMixin.get_gql_input": (
-                "Core/mixins.html#gqlmixin.get_gql_input",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.GQLMixin.gql": (
-                "Core/mixins.html#gqlmixin.gql",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin": (
-                "Core/mixins.html#jsonmixin",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin._dumps_json": (
-                "Core/mixins.html#jsonmixin._dumps_json",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin._load_json": (
-                "Core/mixins.html#jsonmixin._load_json",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin._process_properties": (
-                "Core/mixins.html#jsonmixin._process_properties",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin._process_property": (
-                "Core/mixins.html#jsonmixin._process_property",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin.from_json": (
-                "Core/mixins.html#jsonmixin.from_json",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.JSONMixin.to_json": (
-                "Core/mixins.html#jsonmixin.to_json",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-            "newrelic_sb_sdk.core.mixins.SerializableMixin": (
-                "Core/mixins.html#serializablemixin",
-                "newrelic_sb_sdk/core/mixins.py",
-            ),
-        },
-        "newrelic_sb_sdk.dashboards.enums": {
-            "newrelic_sb_sdk.dashboards.enums.AlertSeverity": (
-                "Dashboards/enums.html#alertseverity",
-                "newrelic_sb_sdk/dashboards/enums.py",
-            ),
-            "newrelic_sb_sdk.dashboards.enums.DashboardPermission": (
-                "Dashboards/enums.html#dashboardpermission",
-                "newrelic_sb_sdk/dashboards/enums.py",
-            ),
-            "newrelic_sb_sdk.dashboards.enums.WidgetType": (
-                "Dashboards/enums.html#widgettype",
-                "newrelic_sb_sdk/dashboards/enums.py",
-            ),
-            "newrelic_sb_sdk.dashboards.enums.WidgetVisualizationId": (
-                "Dashboards/enums.html#widgetvisualizationid",
-                "newrelic_sb_sdk/dashboards/enums.py",
-            ),
-        },
-        "newrelic_sb_sdk.dashboards.pages": {
-            "newrelic_sb_sdk.dashboards.pages.Page": (
-                "Dashboards/pages.html#page",
-                "newrelic_sb_sdk/dashboards/pages.py",
-            )
-        },
-        "newrelic_sb_sdk.dashboards.utils": {
-            "newrelic_sb_sdk.dashboards.utils.NRQLQuery": (
-                "Dashboards/utils.html#nrqlquery",
-                "newrelic_sb_sdk/dashboards/utils.py",
-            ),
-            "newrelic_sb_sdk.dashboards.utils.OwnerInfo": (
-                "Dashboards/utils.html#ownerinfo",
-                "newrelic_sb_sdk/dashboards/utils.py",
-            ),
-            "newrelic_sb_sdk.dashboards.utils.Threshold": (
-                "Dashboards/utils.html#threshold",
-                "newrelic_sb_sdk/dashboards/utils.py",
-            ),
-        },
-        "newrelic_sb_sdk.dashboards.widgets": {
-            "newrelic_sb_sdk.dashboards.widgets.AreaWidgetConfiguration": (
-                "Dashboards/widgets.html#areawidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.BarWidgetConfiguration": (
-                "Dashboards/widgets.html#barwidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.BaseNRQLQueryWidgetConfiguration": (
-                "Dashboards/widgets.html#basenrqlquerywidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.BillboardWidgetConfiguration": (
-                "Dashboards/widgets.html#billboardwidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.LineWidgetConfiguration": (
-                "Dashboards/widgets.html#linewidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.MarkdownWidgetConfiguration": (
-                "Dashboards/widgets.html#markdownwidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.PieWidgetConfiguration": (
-                "Dashboards/widgets.html#piewidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.TableWidgetConfiguration": (
-                "Dashboards/widgets.html#tablewidgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.Widget": (
-                "Dashboards/widgets.html#widget",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.WidgetConfiguration": (
-                "Dashboards/widgets.html#widgetconfiguration",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.WidgetLayout": (
-                "Dashboards/widgets.html#widgetlayout",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-            "newrelic_sb_sdk.dashboards.widgets.WidgetVisualization": (
-                "Dashboards/widgets.html#widgetvisualization",
-                "newrelic_sb_sdk/dashboards/widgets.py",
-            ),
-        },
         "newrelic_sb_sdk.graphql.enums": {
             "newrelic_sb_sdk.graphql.enums.AgentApplicationBrowserLoader": (
                 "GraphQL/enums.html#agentapplicationbrowserloader",
@@ -4711,6 +4517,10 @@ d = {
                 "GraphQL/objects.html#alertsnrqlconditionterms",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AlertsNrqlConditionTermsWithForecast": (
+                "GraphQL/objects.html#alertsnrqlconditiontermswithforecast",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AlertsNrqlConditionsSearchResultSet": (
                 "GraphQL/objects.html#alertsnrqlconditionssearchresultset",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4721,6 +4531,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AlertsNrqlStaticCondition": (
                 "GraphQL/objects.html#alertsnrqlstaticcondition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AlertsNrqlTerms": (
+                "GraphQL/objects.html#alertsnrqlterms",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AlertsOpsGenieNotificationChannel": (
