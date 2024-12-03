@@ -78,6 +78,8 @@ ruff = "^0.7.3"
 tbump = "^6.11.0"
 tox = "^4.23.2"
 types-requests = "^2.32.0.20241016"
+pygments-sb-nrql = "^0.2.0"
+poethepoet = "^0.31.1"
 
 [tool.black]
 target_version = ['py311']
