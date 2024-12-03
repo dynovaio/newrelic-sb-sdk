@@ -103,6 +103,11 @@ exclude = '''
 )/
 '''
 
+[tool.poe.tasks]
+"schema:update"   = "jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb' && git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"lint"            = "pre-commit run --all"
+"package:update"  = "nbdev_export"
+
 [tool.pytest.ini_options]
 testpaths = "tests"
 python_files = [
