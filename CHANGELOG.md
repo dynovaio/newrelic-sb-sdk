@@ -4,6 +4,7 @@
 
 * Update development dependencies.
 * Update GraphQL submodule with a fresh schema version.
+* Add logger settings.
 * Add `KUBERNETES` value to `AgentReleasesFilter` enum type.
 
 ## [0.23.0] - 2024-11-23
