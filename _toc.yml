@@ -22,6 +22,7 @@ chapters:
     sections:
       - file: notebooks/Shortcuts/Accounts.ipynb
       - file: notebooks/Shortcuts/Credentials.ipynb
+      - file: notebooks/Shortcuts/Nrql.ipynb
   - file: CHANGELOG.md
   - file: CONTRIBUTING.md
   - file: CODE_OF_CONDUCT.md

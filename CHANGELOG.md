@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+## [0.24.0] - 2024-12-03
+
+* Update development dependencies.
+* Update GraphQL submodule with a fresh schema version.
+* Add logger settings.
+* Add poethepoet as task runner.
+* Add `KUBERNETES` value to `AgentReleasesFilter` enum type.
+* Add `Nrql` to `shortcuts` submodule.
+
 ## [0.23.0] - 2024-11-23
 
 * Fix references to github in the documentation.

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.23.0"
+version = "0.24.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -43,7 +43,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.23.0.zip"
+"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.24.0.zip"
 "Bug Tracker" = "https://github.com/dynovaio/newrelic-sb-sdk/issues"
 
 [tool.poetry.dependencies]
@@ -78,6 +78,8 @@ ruff = "^0.7.3"
 tbump = "^6.11.0"
 tox = "^4.23.2"
 types-requests = "^2.32.0.20241016"
+pygments-sb-nrql = "^0.2.0"
+poethepoet = "^0.31.1"
 
 [tool.black]
 target_version = ['py311']
@@ -101,12 +103,19 @@ exclude = '''
 )/
 '''
 
+[tool.poe.tasks]
+"lint"            = "poetry run pre-commit run --all"
+"schema:update"   = "poetry run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"version:update"  = "poetry run tbump --no-push --no-tag"
+"package:update"  = "poetry run nbdev_export"
+
 [tool.pytest.ini_options]
 testpaths = "tests"
 python_files = [
   "**/test_*.py",
 ]
-filterwarnings =[
+filterwarnings = [
   "ignore::DeprecationWarning",
   "ignore::PendingDeprecationWarning"
 ]

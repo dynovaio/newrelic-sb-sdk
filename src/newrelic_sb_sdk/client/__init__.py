@@ -1,7 +1,13 @@
-__all__ = ["get_new_relic_user_key_from_env", "NewRelicGqlClient", "NewRelicRestClient"]
+__all__ = [
+    "logger",
+    "get_new_relic_user_key_from_env",
+    "NewRelicGqlClient",
+    "NewRelicRestClient",
+]
 
 
 import json
+import logging
 import os
 import pathlib
 from typing import Any, Dict, Union
@@ -15,6 +21,8 @@ from ..graphql import nerdgraph
 from ..graphql.objects import RootMutationType, RootQueryType
 from ..utils.query import build_query
 from ..version import VERSION
+
+logger = logging.getLogger("newrelic_sb_sdk")
 
 
 def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
@@ -51,6 +59,7 @@ class NewRelicGqlClient(Session):
                 "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+        logger.debug("NewRelicGqlClient initialized with headers: %r", self.headers)
 
         self._setup_schema()
 
@@ -78,6 +87,10 @@ class NewRelicGqlClient(Session):
                 "variables": variables,
             },
         )
+
+        logger.debug("NewRelicGqlClient executing with query: %r", query)
+        logger.debug("NewRelicGqlClient executing with variables: %r", variables)
+
         return self.post(self._url, data=data, **kwargs)
 
     @staticmethod
@@ -107,6 +120,8 @@ class NewRelicRestClient(Session):
                 "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+
+        logger.debug("NewRelicRestClient initialized with headers: %r", self.headers)
 
     @staticmethod
     def _get_version():
