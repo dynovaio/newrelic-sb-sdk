@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.24.0] - 2024-12-03
+
 * Update development dependencies.
 * Update GraphQL submodule with a fresh schema version.
 * Add logger settings.
