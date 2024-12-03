@@ -104,16 +104,18 @@ exclude = '''
 '''
 
 [tool.poe.tasks]
-"schema:update"   = "jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb' && git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
-"lint"            = "pre-commit run --all"
-"package:update"  = "nbdev_export"
+"lint"            = "poetry run pre-commit run --all"
+"schema:update"   = "poetry run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"version:update"  = "poetry run tbump --no-push --no-tag"
+"package:update"  = "poetry run nbdev_export"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
 python_files = [
   "**/test_*.py",
 ]
-filterwarnings =[
+filterwarnings = [
   "ignore::DeprecationWarning",
   "ignore::PendingDeprecationWarning"
 ]

@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+* Update development dependencies.
+* Update GraphQL submodule with a fresh schema version.
+* Add `KUBERNETES` value to `AgentReleasesFilter` enum type.
+
 ## [0.23.0] - 2024-11-23
 
 * Fix references to github in the documentation.

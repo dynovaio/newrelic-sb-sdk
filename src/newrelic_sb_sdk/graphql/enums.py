@@ -375,6 +375,7 @@ class AgentReleasesFilter(sgqlc.types.Enum):
         "INFRASTRUCTURE",
         "IOS",
         "JAVA",
+        "KUBERNETES",
         "NODEJS",
         "PHP",
         "PYTHON",
