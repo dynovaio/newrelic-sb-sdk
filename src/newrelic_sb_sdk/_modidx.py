@@ -8092,6 +8092,20 @@ d = {
                 "newrelic_sb_sdk/shortcuts/credentials.py",
             )
         },
+        "newrelic_sb_sdk.shortcuts.nrql": {
+            "newrelic_sb_sdk.shortcuts.nrql._check_nrql_query_progress": (
+                "Shortcuts/nrql.html#_check_nrql_query_progress",
+                "newrelic_sb_sdk/shortcuts/nrql.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.nrql._perform_nrql_query": (
+                "Shortcuts/nrql.html#_perform_nrql_query",
+                "newrelic_sb_sdk/shortcuts/nrql.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.nrql.perform_nrql_query": (
+                "Shortcuts/nrql.html#perform_nrql_query",
+                "newrelic_sb_sdk/shortcuts/nrql.py",
+            ),
+        },
         "newrelic_sb_sdk.utils.exceptions": {
             "newrelic_sb_sdk.utils.exceptions.NewRelicError": (
                 "Utils/exceptions.html#newrelicerror",
