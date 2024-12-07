@@ -105,6 +105,7 @@ exclude = '''
 
 [tool.poe.tasks]
 "lint"            = "poetry run pre-commit run --all"
+"test"            = "poetry run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
 "schema:update"   = "poetry run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "version:update"  = "poetry run tbump --no-push --no-tag"
