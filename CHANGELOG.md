@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 * Fix tests
+* Use pytest-vcr with tests
 * Update devops scripts
 * Update GraphQL submodule with a fresh schema version.
 * Add `MICROSOFT_TEAMS` value to `AiWorkflowsDestinationType` enum type.
