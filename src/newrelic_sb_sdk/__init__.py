@@ -2,7 +2,7 @@ import logging
 
 from .version import VERSION
 
-__version__ = "0.24.0"
+__version__ = "0.25.0"
 
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.NullHandler())

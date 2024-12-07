@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.25.0] - 2024-12-07
+
 * Fix tests
 * Use pytest-vcr with tests
 * Update devops scripts
