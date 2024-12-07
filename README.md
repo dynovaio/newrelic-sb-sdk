@@ -11,8 +11,7 @@
 
 # New Relic SB SDK
 
-New Relic SDK built by SoftButterfly to automate common New Relic One
-observability platform tasks
+New Relic SDK built by Dynova to automate common SRE tasks with New Relic API.
 
 ## Requirements
 

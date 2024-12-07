@@ -747,6 +747,7 @@ class AiWorkflowsDestinationType(sgqlc.types.Enum):
         "EMAIL",
         "EVENT_BRIDGE",
         "JIRA",
+        "MICROSOFT_TEAMS",
         "PAGERDUTY_ACCOUNT_INTEGRATION",
         "PAGERDUTY_SERVICE_INTEGRATION",
         "SERVICE_NOW",
@@ -1646,7 +1647,7 @@ class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
 
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("IAM_GROUP",)
+    __choices__ = ("GITHUB_TEAM", "IAM_GROUP")
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):

@@ -2,6 +2,34 @@
 
 ## [Unreleased]
 
+## [0.25.0] - 2024-12-07
+
+* Fix tests
+* Use pytest-vcr with tests
+* Update devops scripts
+* Update GraphQL submodule with a fresh schema version.
+* Add `MICROSOFT_TEAMS` value to `AiWorkflowsDestinationType` enum type.
+* Add `GITHUB_TEAM` value to `EntityManagementTeamExternalIntegrationType`
+  enum type.
+* Add `AuthorizationManagementEntity`,
+  `AuthorizationManagementEntityAccessGrants` input types.
+* Add `entity_access_grants` field to `AuthorizationManagementGrantAccess`
+  object type.
+* Add `EntityManagementUserMetadata`,
+  `EntityManagementPipelineCloudRuleEntity` object type.
+* Update `forwarding`, `local_decorating` and `metrics` fields in
+  `AgentApplicationSettingsApplicationLogging` type to be `non null`.
+* Allow null values for `enabled` and `max_samples_stored` fields in
+  `AgentApplicationSettingsMetrics` type.
+* Allow null values for `enabled` field in
+  `AgentApplicationSettingsLocalDecorating` type.
+* Add `canary_managed_entities`, `managed_entities_changed`,
+  `managed_entities_required_to_change`, `supervised_agent_entities_changed`,
+  `supervised_agent_entities_required_to_change` fields to
+  `EntityManagementFleetDeployment` type.
+* Add `active_deployment`, `draft_deployment`, `in_progress_deployment` and
+  `proposed_deployment` field to `EntityManagementFleetEntity` type.
+
 ## [0.24.0] - 2024-12-03
 
 * Update development dependencies.

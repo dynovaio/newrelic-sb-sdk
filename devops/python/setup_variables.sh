@@ -9,3 +9,7 @@ export POETRY_CACHE_DIR="$CI_PROJECT_DIR/.cache/pypoetry"
 if ! command -v poetry > /dev/null 2>&1 ; then
     export PATH="$POETRY_HOME/bin:$PATH"
 fi
+
+for line in $(env | grep DOTENV_); do
+    echo "${line#DOTENV_}" >> .env;
+done
