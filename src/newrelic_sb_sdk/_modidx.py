@@ -1927,6 +1927,15 @@ d = {
                 "objects.html#authorizationmanagementaccountaccessgrant",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementEntity": (
+                "GraphQL/input objects.html#authorizationmanagemententity",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementEntityAccessGrants": (
+                "GraphQL/input "
+                "objects.html#authorizationmanagemententityaccessgrants",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementGrantAccess": (
                 "GraphQL/input objects.html#authorizationmanagementgrantaccess",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -6045,6 +6054,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementnrqlruleengine",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntity": (
+                "GraphQL/objects.html#entitymanagementpipelinecloudruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementScopedReference": (
                 "GraphQL/objects.html#entitymanagementscopedreference",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6107,6 +6120,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementUserEntity": (
                 "GraphQL/objects.html#entitymanagementuserentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementUserMetadata": (
+                "GraphQL/objects.html#entitymanagementusermetadata",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityOutline": (

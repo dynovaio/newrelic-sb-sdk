@@ -426,6 +426,7 @@ __all__ = [
     "EntityManagementTeamExternalIntegration",
     "EntityManagementTeamMember",
     "EntityManagementTeamResource",
+    "EntityManagementUserMetadata",
     "EntityRelationship",
     "EntityRelationshipNode",
     "EntityRelationshipRelatedEntitiesResult",
@@ -973,6 +974,7 @@ __all__ = [
     "EntityManagementCollectionEntity",
     "EntityManagementFleetEntity",
     "EntityManagementGenericEntity",
+    "EntityManagementPipelineCloudRuleEntity",
     "EntityManagementScorecardEntity",
     "EntityManagementScorecardRuleEntity",
     "EntityManagementSystemActor",
@@ -3220,17 +3222,15 @@ class AgentApplicationSettingsApplicationLogging(sgqlc.types.Type):
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
     forwarding = sgqlc.types.Field(
-        sgqlc.types.non_null("AgentApplicationSettingsForwarding"),
-        graphql_name="forwarding",
+        "AgentApplicationSettingsForwarding", graphql_name="forwarding"
     )
 
     local_decorating = sgqlc.types.Field(
-        sgqlc.types.non_null("AgentApplicationSettingsLocalDecorating"),
-        graphql_name="localDecorating",
+        "AgentApplicationSettingsLocalDecorating", graphql_name="localDecorating"
     )
 
     metrics = sgqlc.types.Field(
-        sgqlc.types.non_null("AgentApplicationSettingsMetrics"), graphql_name="metrics"
+        "AgentApplicationSettingsMetrics", graphql_name="metrics"
     )
 
 
@@ -3396,11 +3396,9 @@ class AgentApplicationSettingsErrorCollector(sgqlc.types.Type):
 class AgentApplicationSettingsForwarding(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("enabled", "max_samples_stored")
-    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
-    max_samples_stored = sgqlc.types.Field(
-        sgqlc.types.non_null(Int), graphql_name="maxSamplesStored"
-    )
+    max_samples_stored = sgqlc.types.Field(Int, graphql_name="maxSamplesStored")
 
 
 class AgentApplicationSettingsIgnoredStatusCodeRule(sgqlc.types.Type):
@@ -3424,7 +3422,7 @@ class AgentApplicationSettingsJfr(sgqlc.types.Type):
 class AgentApplicationSettingsLocalDecorating(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("enabled",)
-    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
 class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
@@ -3484,7 +3482,7 @@ class AgentApplicationSettingsMaskInputOptions(sgqlc.types.Type):
 class AgentApplicationSettingsMetrics(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("enabled",)
-    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
 class AgentApplicationSettingsMobileBase(sgqlc.types.Type):
@@ -11935,14 +11933,25 @@ class EntityManagementFleetControlProperties(sgqlc.types.Type):
 class EntityManagementFleetDeployment(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
+        "canary_managed_entities",
         "configs_changed",
         "configuration_versions",
         "deployed_at",
         "description",
         "entities_changed",
+        "managed_entities_changed",
+        "managed_entities_required_to_change",
+        "metadata",
         "name",
         "status",
+        "supervised_agent_entities_changed",
+        "supervised_agent_entities_required_to_change",
     )
+    canary_managed_entities = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
+        graphql_name="canaryManagedEntities",
+    )
+
     configs_changed = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="configsChanged"
     )
@@ -11962,9 +11971,29 @@ class EntityManagementFleetDeployment(sgqlc.types.Type):
         sgqlc.types.non_null(Int), graphql_name="entitiesChanged"
     )
 
+    managed_entities_changed = sgqlc.types.Field(
+        Int, graphql_name="managedEntitiesChanged"
+    )
+
+    managed_entities_required_to_change = sgqlc.types.Field(
+        Int, graphql_name="managedEntitiesRequiredToChange"
+    )
+
+    metadata = sgqlc.types.Field(
+        "EntityManagementUserMetadata", graphql_name="metadata"
+    )
+
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     status = sgqlc.types.Field(String, graphql_name="status")
+
+    supervised_agent_entities_changed = sgqlc.types.Field(
+        Int, graphql_name="supervisedAgentEntitiesChanged"
+    )
+
+    supervised_agent_entities_required_to_change = sgqlc.types.Field(
+        Int, graphql_name="supervisedAgentEntitiesRequiredToChange"
+    )
 
 
 class EntityManagementMetadata(sgqlc.types.Type):
@@ -12083,6 +12112,16 @@ class EntityManagementTeamResource(sgqlc.types.Type):
     title = sgqlc.types.Field(String, graphql_name="title")
 
     type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
+class EntityManagementUserMetadata(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("created_at", "updated_at", "user_id")
+    created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
+
+    updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="updatedAt")
+
+    user_id = sgqlc.types.Field(ID, graphql_name="userId")
 
 
 class EntityRelationship(sgqlc.types.Type):
@@ -28444,9 +28483,29 @@ class EntityManagementCollectionEntity(sgqlc.types.Type, EntityManagementEntity)
 
 class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
-    __field_names__ = ("current_deployment", "managed_entities", "managed_entity_type")
+    __field_names__ = (
+        "active_deployment",
+        "current_deployment",
+        "draft_deployment",
+        "in_progress_deployment",
+        "managed_entities",
+        "managed_entity_type",
+        "proposed_deployment",
+    )
+    active_deployment = sgqlc.types.Field(
+        EntityManagementFleetDeployment, graphql_name="activeDeployment"
+    )
+
     current_deployment = sgqlc.types.Field(
         EntityManagementFleetDeployment, graphql_name="currentDeployment"
+    )
+
+    draft_deployment = sgqlc.types.Field(
+        EntityManagementFleetDeployment, graphql_name="draftDeployment"
+    )
+
+    in_progress_deployment = sgqlc.types.Field(
+        EntityManagementFleetDeployment, graphql_name="inProgressDeployment"
     )
 
     managed_entities = sgqlc.types.Field(
@@ -28458,10 +28517,22 @@ class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
         graphql_name="managedEntityType",
     )
 
+    proposed_deployment = sgqlc.types.Field(
+        EntityManagementFleetDeployment, graphql_name="proposedDeployment"
+    )
+
 
 class EntityManagementGenericEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
     __field_names__ = ()
+
+
+class EntityManagementPipelineCloudRuleEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "nrql")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    nrql = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="nrql")
 
 
 class EntityManagementScorecardEntity(sgqlc.types.Type, EntityManagementEntity):

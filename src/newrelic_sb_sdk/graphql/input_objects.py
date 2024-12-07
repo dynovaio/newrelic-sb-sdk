@@ -187,6 +187,8 @@ __all__ = [
     "ApiAccessUpdateUserKeyInput",
     "ApmApplicationEntitySettings",
     "AuthorizationManagementAccountAccessGrant",
+    "AuthorizationManagementEntity",
+    "AuthorizationManagementEntityAccessGrants",
     "AuthorizationManagementGrantAccess",
     "AuthorizationManagementGroupAccessGrant",
     "AuthorizationManagementOrganizationAccessGrant",
@@ -4440,10 +4442,29 @@ class AuthorizationManagementAccountAccessGrant(sgqlc.types.Input):
     role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
 
 
+class AuthorizationManagementEntity(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
+
+
+class AuthorizationManagementEntityAccessGrants(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity", "role_id")
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null(AuthorizationManagementEntity), graphql_name="entity"
+    )
+
+    role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
+
+
 class AuthorizationManagementGrantAccess(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_access_grants",
+        "entity_access_grants",
         "group_access_grants",
         "group_id",
         "organization_access_grants",
@@ -4453,6 +4474,13 @@ class AuthorizationManagementGrantAccess(sgqlc.types.Input):
             sgqlc.types.non_null(AuthorizationManagementAccountAccessGrant)
         ),
         graphql_name="accountAccessGrants",
+    )
+
+    entity_access_grants = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(AuthorizationManagementEntityAccessGrants)
+        ),
+        graphql_name="entityAccessGrants",
     )
 
     group_access_grants = sgqlc.types.Field(
@@ -4490,6 +4518,7 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_access_grants",
+        "entity_access_grants",
         "group_access_grants",
         "group_id",
         "organization_access_grants",
@@ -4499,6 +4528,13 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
             sgqlc.types.non_null(AuthorizationManagementAccountAccessGrant)
         ),
         graphql_name="accountAccessGrants",
+    )
+
+    entity_access_grants = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(AuthorizationManagementEntityAccessGrants)
+        ),
+        graphql_name="entityAccessGrants",
     )
 
     group_access_grants = sgqlc.types.Field(
