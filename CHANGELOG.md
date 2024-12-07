@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+* Fix tests
+* Update devops scripts
+* Update GraphQL submodule with a fresh schema version.
+
 ## [0.24.0] - 2024-12-03
 
 * Update development dependencies.
