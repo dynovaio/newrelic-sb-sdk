@@ -80,6 +80,7 @@ tox = "^4.23.2"
 types-requests = "^2.32.0.20241016"
 pygments-sb-nrql = "^0.2.0"
 poethepoet = "^0.31.1"
+pytest-vcr = "^1.0.2"
 
 [tool.black]
 target_version = ['py311']
@@ -110,6 +111,8 @@ exclude = '''
 "schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "version:update"  = "poetry run tbump --no-push --no-tag"
 "package:update"  = "poetry run nbdev_export"
+"freeze"          = "poetry export --without-hashes --format requirements.txt --output requirements.txt"
+"freeze:dev"      = "poetry export --without-hashes --format requirements.txt --output requirements.dev.txt --with=dev"
 
 [tool.pytest.ini_options]
 testpaths = "tests"
