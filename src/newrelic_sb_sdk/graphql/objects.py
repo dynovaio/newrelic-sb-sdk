@@ -407,7 +407,6 @@ __all__ = [
     "EntityGoldenTagsDomainTypeScoped",
     "EntityGoldenTagsDomainTypeScopedResponse",
     "EntityManagementActorStitchedFields",
-    "EntityManagementAgentDeployment",
     "EntityManagementBlob",
     "EntityManagementCollectionElementsResult",
     "EntityManagementDiscoverySettings",
@@ -11828,18 +11827,6 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
     """
 
 
-class EntityManagementAgentDeployment(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("completed_at", "deployed_at", "status")
-    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
-
-    deployed_at = sgqlc.types.Field(
-        sgqlc.types.non_null(EpochMilliseconds), graphql_name="deployedAt"
-    )
-
-    status = sgqlc.types.Field(String, graphql_name="status")
-
-
 class EntityManagementBlob(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("checksum", "checksum_algorithm", "content_type", "url")
@@ -11898,7 +11885,6 @@ class EntityManagementEntitySearchResult(sgqlc.types.Type):
 class EntityManagementFleetControlProperties(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
-        "current_deployment",
         "environment",
         "healthy",
         "last_error",
@@ -11907,10 +11893,6 @@ class EntityManagementFleetControlProperties(sgqlc.types.Type):
         "start_time",
         "uid",
     )
-    current_deployment = sgqlc.types.Field(
-        EntityManagementAgentDeployment, graphql_name="currentDeployment"
-    )
-
     environment = sgqlc.types.Field(String, graphql_name="environment")
 
     healthy = sgqlc.types.Field(Boolean, graphql_name="healthy")
@@ -16239,6 +16221,7 @@ class Organization(sgqlc.types.Type):
         "customer_id",
         "id",
         "name",
+        "storage_account_id",
         "telemetry_id",
         "user_management",
     )
@@ -16285,6 +16268,8 @@ class Organization(sgqlc.types.Type):
     id = sgqlc.types.Field(ID, graphql_name="id")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    storage_account_id = sgqlc.types.Field(Int, graphql_name="storageAccountId")
 
     telemetry_id = sgqlc.types.Field(String, graphql_name="telemetryId")
 
@@ -16516,7 +16501,7 @@ class OrganizationCustomerContractWrapper(sgqlc.types.Type):
 
 class OrganizationCustomerOrganization(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("contract_id", "customer_id", "id", "name")
+    __field_names__ = ("contract_id", "customer_id", "id", "name", "storage_account_id")
     contract_id = sgqlc.types.Field(ID, graphql_name="contractId")
 
     customer_id = sgqlc.types.Field(String, graphql_name="customerId")
@@ -16524,6 +16509,8 @@ class OrganizationCustomerOrganization(sgqlc.types.Type):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    storage_account_id = sgqlc.types.Field(Int, graphql_name="storageAccountId")
 
 
 class OrganizationCustomerOrganizationWrapper(sgqlc.types.Type):

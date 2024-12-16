@@ -2977,6 +2977,11 @@ d = {
                 "objects.html#multitenantauthorizationpermissionfilterroleidinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationPermissionFilterScopeInput": (
+                "GraphQL/input "
+                "objects.html#multitenantauthorizationpermissionfilterscopeinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MultiTenantAuthorizationRoleFilterInputExpression": (
                 "GraphQL/input "
                 "objects.html#multitenantauthorizationrolefilterinputexpression",
@@ -5984,10 +5989,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementAgentConfigurationVersionEntity": (
                 "GraphQL/objects.html#entitymanagementagentconfigurationversionentity",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementAgentDeployment": (
-                "GraphQL/objects.html#entitymanagementagentdeployment",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementAgentEffectiveConfigurationEntity": (

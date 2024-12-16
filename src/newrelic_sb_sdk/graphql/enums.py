@@ -1659,6 +1659,7 @@ class EntityRelationshipEdgeType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
         "BUILT_FROM",
+        "BYPASS_CALLS",
         "CALLS",
         "CONNECTS_TO",
         "CONSUMES",

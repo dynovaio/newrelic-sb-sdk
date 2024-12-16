@@ -439,6 +439,7 @@ __all__ = [
     "MultiTenantAuthorizationGrantSortInput",
     "MultiTenantAuthorizationPermissionFilter",
     "MultiTenantAuthorizationPermissionFilterRoleIdInput",
+    "MultiTenantAuthorizationPermissionFilterScopeInput",
     "MultiTenantAuthorizationRoleFilterInputExpression",
     "MultiTenantAuthorizationRoleGroupIdInputFilter",
     "MultiTenantAuthorizationRoleIdInputFilter",
@@ -11063,9 +11064,13 @@ class MultiTenantAuthorizationGrantSortInput(sgqlc.types.Input):
 
 class MultiTenantAuthorizationPermissionFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("role_id",)
+    __field_names__ = ("role_id", "scope")
     role_id = sgqlc.types.Field(
         "MultiTenantAuthorizationPermissionFilterRoleIdInput", graphql_name="roleId"
+    )
+
+    scope = sgqlc.types.Field(
+        "MultiTenantAuthorizationPermissionFilterScopeInput", graphql_name="scope"
     )
 
 
@@ -11073,6 +11078,12 @@ class MultiTenantAuthorizationPermissionFilterRoleIdInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("eq",)
     eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+
+class MultiTenantAuthorizationPermissionFilterScopeInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(String, graphql_name="eq")
 
 
 class MultiTenantAuthorizationRoleFilterInputExpression(sgqlc.types.Input):
