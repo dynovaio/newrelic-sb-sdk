@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+## [0.26.0] - 2024-12-16
+
+* Add `BYPASS_CALLS` value to `EntityRelationshipEdgeType` enum type.
+* Add `scope` field to `MultiTenantAuthorizationPermissionFilter` input type.
+* Add `MultiTenantAuthorizationPermissionFilterScopeInput` input type.
+* Remove `EntityManagementAgentDeployment` object type.
+* Remove `current_deployment` field from
+  `EntityManagementFleetControlProperties` object type.
+* Add `storage_account_id` field to `Organization` object type.
+* Add `storage_account_id` field to `OrganizationCustomerOrganization` object
+  type.
+
 ## [0.25.0] - 2024-12-07
 
 * Fix tests
