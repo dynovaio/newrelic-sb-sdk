@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.26.0] - 2024-12-16
+
 * Add `BYPASS_CALLS` value to `EntityRelationshipEdgeType` enum type.
 * Add `scope` field to `MultiTenantAuthorizationPermissionFilter` input type.
 * Add `MultiTenantAuthorizationPermissionFilterScopeInput` input type.
