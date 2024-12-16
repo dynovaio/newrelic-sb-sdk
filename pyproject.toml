@@ -109,10 +109,42 @@ exclude = '''
 "test"            = "poetry run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
 "schema:update"   = "poetry run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
-"version:update"  = "poetry run tbump --no-push --no-tag"
+"schema:stage"    = "git add notebooks/GraphQL"
+"schema:commit"   = "git commit -m 'Update: generate GraphQL notebooks with new schema'"
 "package:update"  = "poetry run nbdev_export"
+"package:stage"   = "git add src"
+"package:commit"  = "git commit -m 'Update: refresh src module from notebooks'"
+"version:update"  = "poetry run tbump --no-push --no-tag"
 "freeze"          = "poetry export --without-hashes --format requirements.txt --output requirements.txt"
 "freeze:dev"      = "poetry export --without-hashes --format requirements.txt --output requirements.dev.txt --with=dev"
+
+[tool.poe.tasks."schema:upgrade"]
+sequence = [
+  { ref = "schema:update"},
+  { ref = "schema:checkout"},
+  { ref = "lint"},
+  { ref = "schema:stage"},
+  { ref = "schema:commit"},
+]
+ignore_fail = true
+
+[tool.poe.tasks."package:upgrade"]
+sequence = [
+  { ref = "package:update"},
+  { ref = "lint"},
+  { ref = "package:stage" },
+  { ref = "package:commit" },
+  { cmd = "git diff HEAD~1 HEAD > .diff.txt" },
+]
+ignore_fail = true
+
+[tool.poe.tasks."package:release"]
+sequence = [
+  { cmd = "git flow release start ${version}"},
+  { cmd = "poetry run tbump --no-push --no-tag --non-interactive ${version}" },
+  { cmd = "env GIT_EDITOR=: git flow release finish -m 'Release'"},
+]
+args = [{name = "version", positional = true}]
 
 [tool.pytest.ini_options]
 testpaths = "tests"
