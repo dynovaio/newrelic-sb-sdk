@@ -224,6 +224,7 @@ __all__ = [
     "Nr1CatalogSubmitMetadataErrorType",
     "Nr1CatalogSupportLevel",
     "Nr1CatalogSupportedEntityTypesMode",
+    "NrqlCancelQueryMutationRequestStatus",
     "NrqlDropRulesAction",
     "NrqlDropRulesErrorReason",
     "OrganizationAccountShareSortDirectionEnum",
@@ -468,7 +469,13 @@ class AiIssuesIssueState(sgqlc.types.Enum):
 
 class AiIssuesIssueUserAction(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACK", "RESOLVE", "UNACK")
+    __choices__ = (
+        "ACK",
+        "CLOSE_BY_MUTING_RULE_ID",
+        "MARK_AS_INVESTIGATING",
+        "RESOLVE",
+        "UNACK",
+    )
 
 
 class AiIssuesPriority(sgqlc.types.Enum):
@@ -2167,6 +2174,11 @@ class Nr1CatalogSupportLevel(sgqlc.types.Enum):
 class Nr1CatalogSupportedEntityTypesMode(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ALL", "NONE", "SPECIFIC")
+
+
+class NrqlCancelQueryMutationRequestStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCEPTED", "REJECTED")
 
 
 class NrqlDropRulesAction(sgqlc.types.Enum):

@@ -270,6 +270,10 @@ __all__ = [
     "CloudAzureVmsIntegrationInput",
     "CloudAzureVpngatewaysIntegrationInput",
     "CloudBillingIntegrationInput",
+    "CloudCciAwsDisableIntegrationsInput",
+    "CloudCciAwsIntegrationsInput",
+    "CloudCciAwsLinkAccountInput",
+    "CloudCciAwsS3IntegrationInput",
     "CloudCloudfrontIntegrationInput",
     "CloudCloudtrailIntegrationInput",
     "CloudConfluentDisableIntegrationsInput",
@@ -7525,6 +7529,64 @@ class CloudBillingIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudCciAwsDisableIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("cci_aws_s3",)
+    cci_aws_s3 = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="cciAwsS3",
+    )
+
+
+class CloudCciAwsIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("cci_aws_s3",)
+    cci_aws_s3 = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudCciAwsS3IntegrationInput"), graphql_name="cciAwsS3"
+    )
+
+
+class CloudCciAwsLinkAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("arn", "external_id", "name")
+    arn = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="arn")
+
+    external_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="externalId"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class CloudCciAwsS3IntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+        "s3_bucket_name",
+        "s3_bucket_path",
+        "s3_bucket_region",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+    s3_bucket_name = sgqlc.types.Field(String, graphql_name="s3BucketName")
+
+    s3_bucket_path = sgqlc.types.Field(String, graphql_name="s3BucketPath")
+
+    s3_bucket_region = sgqlc.types.Field(String, graphql_name="s3BucketRegion")
+
+
 class CloudCloudfrontIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -7677,7 +7739,15 @@ class CloudDisableAccountIntegrationInput(sgqlc.types.Input):
 
 class CloudDisableIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
+    __field_names__ = (
+        "aws",
+        "aws_govcloud",
+        "azure",
+        "cci_aws",
+        "confluent",
+        "fossa",
+        "gcp",
+    )
     aws = sgqlc.types.Field(CloudAwsDisableIntegrationsInput, graphql_name="aws")
 
     aws_govcloud = sgqlc.types.Field(
@@ -7685,6 +7755,10 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
     )
 
     azure = sgqlc.types.Field(CloudAzureDisableIntegrationsInput, graphql_name="azure")
+
+    cci_aws = sgqlc.types.Field(
+        CloudCciAwsDisableIntegrationsInput, graphql_name="cciAws"
+    )
 
     confluent = sgqlc.types.Field(
         CloudConfluentDisableIntegrationsInput, graphql_name="confluent"
@@ -9076,7 +9150,15 @@ class CloudIamIntegrationInput(sgqlc.types.Input):
 
 class CloudIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
+    __field_names__ = (
+        "aws",
+        "aws_govcloud",
+        "azure",
+        "cci_aws",
+        "confluent",
+        "fossa",
+        "gcp",
+    )
     aws = sgqlc.types.Field(CloudAwsIntegrationsInput, graphql_name="aws")
 
     aws_govcloud = sgqlc.types.Field(
@@ -9084,6 +9166,8 @@ class CloudIntegrationsInput(sgqlc.types.Input):
     )
 
     azure = sgqlc.types.Field(CloudAzureIntegrationsInput, graphql_name="azure")
+
+    cci_aws = sgqlc.types.Field(CloudCciAwsIntegrationsInput, graphql_name="cciAws")
 
     confluent = sgqlc.types.Field(
         CloudConfluentIntegrationsInput, graphql_name="confluent"
@@ -9217,7 +9301,15 @@ class CloudLambdaIntegrationInput(sgqlc.types.Input):
 
 class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
+    __field_names__ = (
+        "aws",
+        "aws_govcloud",
+        "azure",
+        "cci_aws",
+        "confluent",
+        "fossa",
+        "gcp",
+    )
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsLinkAccountInput)),
         graphql_name="aws",
@@ -9231,6 +9323,11 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     azure = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAzureLinkAccountInput)),
         graphql_name="azure",
+    )
+
+    cci_aws = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudCciAwsLinkAccountInput)),
+        graphql_name="cciAws",
     )
 
     confluent = sgqlc.types.Field(

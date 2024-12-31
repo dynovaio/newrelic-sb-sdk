@@ -910,6 +910,10 @@ d = {
                 "GraphQL/enums.html#nr1catalogsupportedentitytypesmode",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.NrqlCancelQueryMutationRequestStatus": (
+                "GraphQL/enums.html#nrqlcancelquerymutationrequeststatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.NrqlDropRulesAction": (
                 "GraphQL/enums.html#nrqldroprulesaction",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -2269,6 +2273,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudBillingIntegrationInput": (
                 "GraphQL/input objects.html#cloudbillingintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCciAwsDisableIntegrationsInput": (
+                "GraphQL/input objects.html#cloudcciawsdisableintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCciAwsIntegrationsInput": (
+                "GraphQL/input objects.html#cloudcciawsintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCciAwsLinkAccountInput": (
+                "GraphQL/input objects.html#cloudcciawslinkaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCciAwsS3IntegrationInput": (
+                "GraphQL/input objects.html#cloudcciawss3integrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudCloudfrontIntegrationInput": (
@@ -5087,6 +5107,10 @@ d = {
                 "GraphQL/objects.html#cloudbillingintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudCciAwsS3Integration": (
+                "GraphQL/objects.html#cloudcciawss3integration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudCloudfrontIntegration": (
                 "GraphQL/objects.html#cloudcloudfrontintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7127,6 +7151,10 @@ d = {
                 "GraphQL/objects.html#nrdbresultcontainer",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.NrqlCancelQueryMutationResponse": (
+                "GraphQL/objects.html#nrqlcancelquerymutationresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.NrqlDropRulesAccountStitchedFields": (
                 "GraphQL/objects.html#nrqldroprulesaccountstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7245,6 +7273,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationInformation": (
                 "GraphQL/objects.html#organizationinformation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.OrganizationNrdbResultContainer": (
+                "GraphQL/objects.html#organizationnrdbresultcontainer",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.OrganizationOrganizationAdministrator": (
