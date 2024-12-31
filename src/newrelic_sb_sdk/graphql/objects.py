@@ -612,6 +612,7 @@ __all__ = [
     "NrdbMetadataTimeWindow",
     "NrdbQueryProgress",
     "NrdbResultContainer",
+    "NrqlCancelQueryMutationResponse",
     "NrqlDropRulesAccountStitchedFields",
     "NrqlDropRulesCreateDropRuleFailure",
     "NrqlDropRulesCreateDropRuleResult",
@@ -642,6 +643,7 @@ __all__ = [
     "OrganizationCustomerOrganizationWrapper",
     "OrganizationError",
     "OrganizationInformation",
+    "OrganizationNrdbResultContainer",
     "OrganizationOrganizationAdministrator",
     "OrganizationOrganizationCreateAsyncCustomerResult",
     "OrganizationOrganizationCreateAsyncJobResult",
@@ -904,6 +906,7 @@ __all__ = [
     "CloudBaseIntegration",
     "CloudBaseProvider",
     "CloudBillingIntegration",
+    "CloudCciAwsS3Integration",
     "CloudCloudfrontIntegration",
     "CloudCloudtrailIntegration",
     "CloudConfluentKafkaResourceIntegration",
@@ -1249,6 +1252,7 @@ from newrelic_sb_sdk.graphql.enums import (
     Nr1CatalogSubmitMetadataErrorType,
     Nr1CatalogSupportedEntityTypesMode,
     Nr1CatalogSupportLevel,
+    NrqlCancelQueryMutationRequestStatus,
     NrqlDropRulesAction,
     NrqlDropRulesErrorReason,
     OrganizationAuthenticationTypeEnum,
@@ -4760,6 +4764,8 @@ class AiIssuesIssue(sgqlc.types.Type):
         "entity_types",
         "event_type",
         "incident_ids",
+        "investigated_at",
+        "investigated_by",
         "is_correlated",
         "is_idle",
         "issue_id",
@@ -4864,6 +4870,12 @@ class AiIssuesIssue(sgqlc.types.Type):
     incident_ids = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="incidentIds"
     )
+
+    investigated_at = sgqlc.types.Field(
+        EpochMilliseconds, graphql_name="investigatedAt"
+    )
+
+    investigated_by = sgqlc.types.Field(String, graphql_name="investigatedBy")
 
     is_correlated = sgqlc.types.Field(
         sgqlc.types.non_null(Boolean), graphql_name="isCorrelated"
@@ -16052,6 +16064,18 @@ class NrdbResultContainer(sgqlc.types.Type):
     total_result = sgqlc.types.Field(NrdbResult, graphql_name="totalResult")
 
 
+class NrqlCancelQueryMutationResponse(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_id", "rejection_reason", "request_status")
+    query_id = sgqlc.types.Field(String, graphql_name="queryId")
+
+    rejection_reason = sgqlc.types.Field(String, graphql_name="rejectionReason")
+
+    request_status = sgqlc.types.Field(
+        NrqlCancelQueryMutationRequestStatus, graphql_name="requestStatus"
+    )
+
+
 class NrqlDropRulesAccountStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("list",)
@@ -16544,6 +16568,42 @@ class OrganizationInformation(sgqlc.types.Type):
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
 
+class OrganizationNrdbResultContainer(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "current_results",
+        "metadata",
+        "nrql",
+        "other_result",
+        "previous_results",
+        "query_progress",
+        "raw_response",
+        "results",
+        "total_result",
+    )
+    current_results = sgqlc.types.Field(
+        sgqlc.types.list_of(NrdbResult), graphql_name="currentResults"
+    )
+
+    metadata = sgqlc.types.Field(NrdbMetadata, graphql_name="metadata")
+
+    nrql = sgqlc.types.Field(Nrql, graphql_name="nrql")
+
+    other_result = sgqlc.types.Field(NrdbResult, graphql_name="otherResult")
+
+    previous_results = sgqlc.types.Field(
+        sgqlc.types.list_of(NrdbResult), graphql_name="previousResults"
+    )
+
+    query_progress = sgqlc.types.Field(NrdbQueryProgress, graphql_name="queryProgress")
+
+    raw_response = sgqlc.types.Field(NrdbRawResults, graphql_name="rawResponse")
+
+    results = sgqlc.types.Field(sgqlc.types.list_of(NrdbResult), graphql_name="results")
+
+    total_result = sgqlc.types.Field(NrdbResult, graphql_name="totalResult")
+
+
 class OrganizationOrganizationAdministrator(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("organization_id", "organization_name")
@@ -16922,6 +16982,7 @@ class RootMutationType(sgqlc.types.Type):
         "ai_decisions_update_rule",
         "ai_issues_ack_issue",
         "ai_issues_close_incident",
+        "ai_issues_mark_as_investigating",
         "ai_issues_resolve_issue",
         "ai_issues_unack_issue",
         "ai_issues_update_grace_period",
@@ -17075,6 +17136,7 @@ class RootMutationType(sgqlc.types.Type):
         "nr1_catalog_install_alert_policy_template",
         "nr1_catalog_install_dashboard_template",
         "nr1_catalog_submit_metadata",
+        "nrql_cancel_query",
         "nrql_drop_rules_create",
         "nrql_drop_rules_delete",
         "organization_create",
@@ -17824,6 +17886,29 @@ class RootMutationType(sgqlc.types.Type):
                         sgqlc.types.non_null(ID),
                         graphql_name="incidentId",
                         default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    ai_issues_mark_as_investigating = sgqlc.types.Field(
+        AiIssuesIssueUserActionResponse,
+        graphql_name="aiIssuesMarkAsInvestigating",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "issue_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="issueId", default=None
                     ),
                 ),
             )
@@ -21834,6 +21919,23 @@ class RootMutationType(sgqlc.types.Type):
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(Nr1CatalogSubmitMetadataInput),
                         graphql_name="nerdpackMetadata",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    nrql_cancel_query = sgqlc.types.Field(
+        NrqlCancelQueryMutationResponse,
+        graphql_name="nrqlCancelQuery",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "query_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="queryId",
                         default=None,
                     ),
                 ),
@@ -27511,6 +27613,25 @@ class CloudBillingIntegration(sgqlc.types.Type, CloudIntegration):
     metrics_polling_interval = sgqlc.types.Field(
         Int, graphql_name="metricsPollingInterval"
     )
+
+
+class CloudCciAwsS3Integration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "metrics_polling_interval",
+        "s3_bucket_name",
+        "s3_bucket_path",
+        "s3_bucket_region",
+    )
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+    s3_bucket_name = sgqlc.types.Field(String, graphql_name="s3BucketName")
+
+    s3_bucket_path = sgqlc.types.Field(String, graphql_name="s3BucketPath")
+
+    s3_bucket_region = sgqlc.types.Field(String, graphql_name="s3BucketRegion")
 
 
 class CloudCloudfrontIntegration(sgqlc.types.Type, CloudIntegration):
