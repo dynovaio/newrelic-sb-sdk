@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.27.0] - 2024-12-31
+
 * Add `NrqlCancelQueryMutationRequestStatus` enum type.
 * Add `MARK_AS_INVESTIGATING` value to `AiIssuesIssueUserAction` enum type.
 * Add `CloudCciAwsDisableIntegrationsInput`, `CloudCciAwsIntegrationsInput`,
