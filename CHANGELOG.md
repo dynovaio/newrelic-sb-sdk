@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+* Add `NrqlCancelQueryMutationRequestStatus` enum type.
+* Add `MARK_AS_INVESTIGATING` value to `AiIssuesIssueUserAction` enum type.
+* Add `CloudCciAwsDisableIntegrationsInput`, `CloudCciAwsIntegrationsInput`,
+  `CloudCciAwsLinkAccountInput`, `CloudCciAwsS3IntegrationInput` input types.
+* Add `cci_aws` field to `CloudDisableIntegrationsInput` input type.
+* Add `cci_aws` field to `CloudIntegrationsInput` input type.
+* Add `cci_aws` field to `CloudLinkCloudAccountsInput` input type.
+* Add `NrqlCancelQueryMutationResponse`, `OrganizationNrdbResultContainer`,
+  `CloudCciAwsS3Integration`, `NrqlCancelQueryMutationRequestStatus` object
+  types.
+* Add `investigated_at` and `investigated_by` fields to `AiIssuesIssue` object
+  type.
+* Add `ai_issues_mark_as_investigating` and `nrql_cancel_query` fields to
+  `OrganizationOrganizationAdministrator` object type.
+
 ## [0.26.0] - 2024-12-16
 
 * Add `BYPASS_CALLS` value to `EntityRelationshipEdgeType` enum type.

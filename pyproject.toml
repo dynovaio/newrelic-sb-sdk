@@ -134,7 +134,7 @@ sequence = [
   { ref = "lint"},
   { ref = "package:stage" },
   { ref = "package:commit" },
-  { cmd = "git diff HEAD~1 HEAD > .diff.txt" },
+  { cmd = "git diff HEAD~1 HEAD -- > .diff.txt" },
 ]
 ignore_fail = true
 
