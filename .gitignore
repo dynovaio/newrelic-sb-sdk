@@ -8,11 +8,11 @@
 !.gitignore
 !.gitlab-ci.yml
 !.isort.cfg
-!.markdownlint.json
+!.mdlrc
+!.mdlrc.rb
 !.pre-commit-config.yaml
 !.pylintrc*
 !.python-version
-!.remarkrc
 !.shellcheckrc
 !.tox.ini
 !.travis.yml
