@@ -178,6 +178,8 @@ __all__ = [
     "AlertsAccountStitchedFields",
     "AlertsCampfireNotificationChannelConfig",
     "AlertsConditionDeleteResponse",
+    "AlertsCrossAccountElectionStatus",
+    "AlertsCrossAccountParticipant",
     "AlertsEmailNotificationChannelConfig",
     "AlertsHipChatNotificationChannelConfig",
     "AlertsMutingRule",
@@ -407,16 +409,26 @@ __all__ = [
     "EntityGoldenTagsDomainTypeScoped",
     "EntityGoldenTagsDomainTypeScopedResponse",
     "EntityManagementActorStitchedFields",
+    "EntityManagementAgentDeployment",
     "EntityManagementBlob",
+    "EntityManagementBlobSignature",
     "EntityManagementCollectionElementsResult",
+    "EntityManagementCve",
     "EntityManagementDiscoverySettings",
     "EntityManagementEntityDeleteResult",
     "EntityManagementEntitySearchResult",
     "EntityManagementFleetControlProperties",
     "EntityManagementFleetDeployment",
+    "EntityManagementImpactedEntityReference",
+    "EntityManagementInfrastructureManager",
+    "EntityManagementManagedEntitiesRing",
     "EntityManagementMetadata",
     "EntityManagementNrqlRuleEngine",
+    "EntityManagementRingDeploymentTracker",
     "EntityManagementScopedReference",
+    "EntityManagementSecurityFindingPackage",
+    "EntityManagementSecurityFindingRemediation",
+    "EntityManagementSignatureDetails",
     "EntityManagementSyncGroupRule",
     "EntityManagementSyncGroupRuleCondition",
     "EntityManagementSyncGroupsSettings",
@@ -426,6 +438,7 @@ __all__ = [
     "EntityManagementTeamMember",
     "EntityManagementTeamResource",
     "EntityManagementUserMetadata",
+    "EntityManagementVulnerabilityUiUrls",
     "EntityRelationship",
     "EntityRelationshipNode",
     "EntityRelationshipRelatedEntitiesResult",
@@ -847,6 +860,7 @@ __all__ = [
     "CloudAutoscalingIntegration",
     "CloudAwsAppsyncIntegration",
     "CloudAwsAthenaIntegration",
+    "CloudAwsAutoDiscoveryIntegration",
     "CloudAwsCognitoIntegration",
     "CloudAwsConnectIntegration",
     "CloudAwsDirectconnectIntegration",
@@ -974,11 +988,13 @@ __all__ = [
     "EntityManagementAgentEntity",
     "EntityManagementAgentTypeDefinitionEntity",
     "EntityManagementCollectionEntity",
+    "EntityManagementFleetDeploymentEntity",
     "EntityManagementFleetEntity",
     "EntityManagementGenericEntity",
     "EntityManagementPipelineCloudRuleEntity",
     "EntityManagementScorecardEntity",
     "EntityManagementScorecardRuleEntity",
+    "EntityManagementSecurityFindingEntity",
     "EntityManagementSystemActor",
     "EntityManagementTeamEntity",
     "EntityManagementTeamsOrganizationSettingsEntity",
@@ -1193,9 +1209,14 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenGoldenMetricsErrorType,
     EntityGoldenMetricUnit,
     EntityManagementEntityScope,
+    EntityManagementFleetDeploymentPhase,
     EntityManagementManagedEntityType,
+    EntityManagementRiskSeverity,
+    EntityManagementSecurityFindingSubType,
+    EntityManagementSecurityFindingType,
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
+    EntityManagementVulnerabilityStatus,
     EntityRelationshipEdgeType,
     EntityRelationshipType,
     EntityRelationshipUserDefinedCreateOrReplaceErrorType,
@@ -6317,6 +6338,8 @@ class AiWorkflowsWorkflows(sgqlc.types.Type):
 class AlertsAccountStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
+        "cross_account_election",
+        "cross_account_participants",
         "muting_rule",
         "muting_rules",
         "nrql_condition",
@@ -6324,6 +6347,15 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
         "policies_search",
         "policy",
     )
+    cross_account_election = sgqlc.types.Field(
+        "AlertsCrossAccountElectionStatus", graphql_name="crossAccountElection"
+    )
+
+    cross_account_participants = sgqlc.types.Field(
+        sgqlc.types.list_of("AlertsCrossAccountParticipant"),
+        graphql_name="crossAccountParticipants",
+    )
+
     muting_rule = sgqlc.types.Field(
         "AlertsMutingRule",
         graphql_name="mutingRule",
@@ -6442,6 +6474,20 @@ class AlertsConditionDeleteResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("id",)
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class AlertsCrossAccountElectionStatus(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("election_status",)
+    election_status = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="electionStatus"
+    )
+
+
+class AlertsCrossAccountParticipant(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("account_id",)
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
 
 
 class AlertsEmailNotificationChannelConfig(sgqlc.types.Type):
@@ -11839,9 +11885,42 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
     """
 
 
+class EntityManagementAgentDeployment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "completed_at",
+        "fleet",
+        "id",
+        "managed_entity",
+        "started_at",
+        "status",
+    )
+    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
+
+    fleet = sgqlc.types.Field(ID, graphql_name="fleet")
+
+    id = sgqlc.types.Field(String, graphql_name="id")
+
+    managed_entity = sgqlc.types.Field(ID, graphql_name="managedEntity")
+
+    started_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="startedAt")
+
+    status = sgqlc.types.Field(String, graphql_name="status")
+
+
 class EntityManagementBlob(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("checksum", "checksum_algorithm", "content_type", "url")
+    __field_names__ = (
+        "blob_signature",
+        "checksum",
+        "checksum_algorithm",
+        "content_type",
+        "url",
+    )
+    blob_signature = sgqlc.types.Field(
+        "EntityManagementBlobSignature", graphql_name="blobSignature"
+    )
+
     checksum = sgqlc.types.Field(String, graphql_name="checksum")
 
     checksum_algorithm = sgqlc.types.Field(String, graphql_name="checksumAlgorithm")
@@ -11851,6 +11930,31 @@ class EntityManagementBlob(sgqlc.types.Type):
     )
 
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementBlobSignature(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "security_findings",
+        "signature_error",
+        "signatures",
+        "validation_error",
+    )
+    security_findings = sgqlc.types.Field(Boolean, graphql_name="securityFindings")
+
+    signature_error = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="signatureError"
+    )
+
+    signatures = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementSignatureDetails")),
+        graphql_name="signatures",
+    )
+
+    validation_error = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)),
+        graphql_name="validationError",
+    )
 
 
 class EntityManagementCollectionElementsResult(sgqlc.types.Type):
@@ -11864,6 +11968,38 @@ class EntityManagementCollectionElementsResult(sgqlc.types.Type):
     )
 
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+
+class EntityManagementCve(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "cvss_score",
+        "cvss_vector",
+        "description",
+        "disclosed_at",
+        "disclosure_url",
+        "epss_percentile",
+        "epss_score",
+        "exploit_known",
+        "id",
+    )
+    cvss_score = sgqlc.types.Field(String, graphql_name="cvssScore")
+
+    cvss_vector = sgqlc.types.Field(String, graphql_name="cvssVector")
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    disclosed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="disclosedAt")
+
+    disclosure_url = sgqlc.types.Field(String, graphql_name="disclosureUrl")
+
+    epss_percentile = sgqlc.types.Field(String, graphql_name="epssPercentile")
+
+    epss_score = sgqlc.types.Field(String, graphql_name="epssScore")
+
+    exploit_known = sgqlc.types.Field(Boolean, graphql_name="exploitKnown")
+
+    id = sgqlc.types.Field(ID, graphql_name="id")
 
 
 class EntityManagementDiscoverySettings(sgqlc.types.Type):
@@ -11897,6 +12033,7 @@ class EntityManagementEntitySearchResult(sgqlc.types.Type):
 class EntityManagementFleetControlProperties(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
+        "applied_deployment",
         "environment",
         "healthy",
         "last_error",
@@ -11904,7 +12041,12 @@ class EntityManagementFleetControlProperties(sgqlc.types.Type):
         "last_remote_config_status",
         "start_time",
         "uid",
+        "version",
     )
+    applied_deployment = sgqlc.types.Field(
+        EntityManagementAgentDeployment, graphql_name="appliedDeployment"
+    )
+
     environment = sgqlc.types.Field(String, graphql_name="environment")
 
     healthy = sgqlc.types.Field(Boolean, graphql_name="healthy")
@@ -11922,6 +12064,8 @@ class EntityManagementFleetControlProperties(sgqlc.types.Type):
     start_time = sgqlc.types.Field(EpochMilliseconds, graphql_name="startTime")
 
     uid = sgqlc.types.Field(String, graphql_name="uid")
+
+    version = sgqlc.types.Field(String, graphql_name="version")
 
 
 class EntityManagementFleetDeployment(sgqlc.types.Type):
@@ -11990,6 +12134,38 @@ class EntityManagementFleetDeployment(sgqlc.types.Type):
     )
 
 
+class EntityManagementImpactedEntityReference(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "name", "scope", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReference"), graphql_name="scope"
+    )
+
+    type = sgqlc.types.Field(String, graphql_name="type")
+
+
+class EntityManagementInfrastructureManager(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("type", "version")
+    type = sgqlc.types.Field(String, graphql_name="type")
+
+    version = sgqlc.types.Field(String, graphql_name="version")
+
+
+class EntityManagementManagedEntitiesRing(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("managed_entities", "name")
+    managed_entities = sgqlc.types.Field(
+        "EntityManagementCollectionEntity", graphql_name="managedEntities"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+
 class EntityManagementMetadata(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("created_at", "created_by", "updated_at")
@@ -12011,6 +12187,18 @@ class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
 
 
+class EntityManagementRingDeploymentTracker(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("completed_at", "name", "started_at", "status")
+    completed_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="completedAt")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    started_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="startedAt")
+
+    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+
 class EntityManagementScopedReference(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("id", "type")
@@ -12019,6 +12207,52 @@ class EntityManagementScopedReference(sgqlc.types.Type):
     type = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementEntityScope), graphql_name="type"
     )
+
+
+class EntityManagementSecurityFindingPackage(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("artifact", "name", "version")
+    artifact = sgqlc.types.Field(String, graphql_name="artifact")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    version = sgqlc.types.Field(String, graphql_name="version")
+
+
+class EntityManagementSecurityFindingRemediation(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("remediation_exists", "upgrade_action")
+    remediation_exists = sgqlc.types.Field(Boolean, graphql_name="remediationExists")
+
+    upgrade_action = sgqlc.types.Field(String, graphql_name="upgradeAction")
+
+
+class EntityManagementSignatureDetails(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "checksum",
+        "checksum_algorithm",
+        "key_id",
+        "signature",
+        "signature_specification",
+        "signing_algorithm",
+        "signing_domain",
+    )
+    checksum = sgqlc.types.Field(String, graphql_name="checksum")
+
+    checksum_algorithm = sgqlc.types.Field(String, graphql_name="checksumAlgorithm")
+
+    key_id = sgqlc.types.Field(String, graphql_name="keyId")
+
+    signature = sgqlc.types.Field(String, graphql_name="signature")
+
+    signature_specification = sgqlc.types.Field(
+        String, graphql_name="signatureSpecification"
+    )
+
+    signing_algorithm = sgqlc.types.Field(String, graphql_name="signingAlgorithm")
+
+    signing_domain = sgqlc.types.Field(String, graphql_name="signingDomain")
 
 
 class EntityManagementSyncGroupRule(sgqlc.types.Type):
@@ -12116,6 +12350,14 @@ class EntityManagementUserMetadata(sgqlc.types.Type):
     updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="updatedAt")
 
     user_id = sgqlc.types.Field(ID, graphql_name="userId")
+
+
+class EntityManagementVulnerabilityUiUrls(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("details_url", "tab_url")
+    details_url = sgqlc.types.Field(String, graphql_name="detailsUrl")
+
+    tab_url = sgqlc.types.Field(String, graphql_name="tabUrl")
 
 
 class EntityRelationship(sgqlc.types.Type):
@@ -17012,6 +17254,8 @@ class RootMutationType(sgqlc.types.Type):
         "alerts_policy_create",
         "alerts_policy_delete",
         "alerts_policy_update",
+        "alerts_update_cross_account_election",
+        "alerts_update_cross_account_elections",
         "api_access_create_keys",
         "api_access_delete_keys",
         "api_access_update_keys",
@@ -18729,6 +18973,63 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+
+    alerts_update_cross_account_election = sgqlc.types.Field(
+        AlertsCrossAccountElectionStatus,
+        graphql_name="alertsUpdateCrossAccountElection",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "election_status",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Boolean),
+                        graphql_name="electionStatus",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    alerts_update_cross_account_elections = sgqlc.types.Field(
+        AlertsCrossAccountElectionStatus,
+        graphql_name="alertsUpdateCrossAccountElections",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            sgqlc.types.list_of(sgqlc.types.non_null(Int))
+                        ),
+                        graphql_name="accountIds",
+                        default=None,
+                    ),
+                ),
+                (
+                    "election_status",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Boolean),
+                        graphql_name="electionStatus",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `account_ids` (`[Int!]!`)
+    * `election_status` (`Boolean!`)
+    """
 
     api_access_create_keys = sgqlc.types.Field(
         ApiAccessCreateKeyResponse,
@@ -25241,12 +25542,16 @@ class TimeZoneInfo(sgqlc.types.Type):
 
 class User(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("email", "id", "name")
+    __field_names__ = ("created_at", "email", "id", "name", "time_zone_name")
+    created_at = sgqlc.types.Field(Int, graphql_name="createdAt")
+
     email = sgqlc.types.Field(String, graphql_name="email")
 
     id = sgqlc.types.Field(Int, graphql_name="id")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    time_zone_name = sgqlc.types.Field(String, graphql_name="timeZoneName")
 
 
 class UserManagementAddUsersToGroupsPayload(sgqlc.types.Type):
@@ -26917,6 +27222,18 @@ class CloudAwsAthenaIntegration(sgqlc.types.Type, CloudIntegration):
     )
 
 
+class CloudAwsAutoDiscoveryIntegration(sgqlc.types.Type, CloudIntegration):
+    __schema__ = nerdgraph
+    __field_names__ = ("aws_regions", "metrics_polling_interval")
+    aws_regions = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="awsRegions"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudAwsCognitoIntegration(sgqlc.types.Type, CloudIntegration):
     __schema__ = nerdgraph
     __field_names__ = ("aws_regions", "metrics_polling_interval")
@@ -28559,7 +28876,12 @@ class EntityManagementAgentEffectiveConfigurationEntity(
 
 class EntityManagementAgentEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
-    __field_names__ = ("agent_type", "fleet_control_properties")
+    __field_names__ = (
+        "agent_type",
+        "fleet_control_properties",
+        "infrastructure_managers",
+        "version",
+    )
     agent_type = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="agentType"
     )
@@ -28568,6 +28890,13 @@ class EntityManagementAgentEntity(sgqlc.types.Type, EntityManagementEntity):
         sgqlc.types.non_null(EntityManagementFleetControlProperties),
         graphql_name="fleetControlProperties",
     )
+
+    infrastructure_managers = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityManagementInfrastructureManager),
+        graphql_name="infrastructureManagers",
+    )
+
+    version = sgqlc.types.Field(String, graphql_name="version")
 
 
 class EntityManagementAgentTypeDefinitionEntity(
@@ -28589,44 +28918,61 @@ class EntityManagementCollectionEntity(sgqlc.types.Type, EntityManagementEntity)
     __field_names__ = ()
 
 
+class EntityManagementFleetDeploymentEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "configuration_versions",
+        "description",
+        "fleet_id",
+        "phase",
+        "rings_deployment_tracker",
+    )
+    configuration_versions = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
+        graphql_name="configurationVersions",
+    )
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    fleet_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="fleetId")
+
+    phase = sgqlc.types.Field(
+        EntityManagementFleetDeploymentPhase, graphql_name="phase"
+    )
+
+    rings_deployment_tracker = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityManagementRingDeploymentTracker),
+        graphql_name="ringsDeploymentTracker",
+    )
+
+
 class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
     __field_names__ = (
-        "active_deployment",
         "current_deployment",
-        "draft_deployment",
-        "in_progress_deployment",
+        "description",
         "managed_entities",
+        "managed_entities_rings",
         "managed_entity_type",
-        "proposed_deployment",
     )
-    active_deployment = sgqlc.types.Field(
-        EntityManagementFleetDeployment, graphql_name="activeDeployment"
-    )
-
     current_deployment = sgqlc.types.Field(
         EntityManagementFleetDeployment, graphql_name="currentDeployment"
     )
 
-    draft_deployment = sgqlc.types.Field(
-        EntityManagementFleetDeployment, graphql_name="draftDeployment"
-    )
-
-    in_progress_deployment = sgqlc.types.Field(
-        EntityManagementFleetDeployment, graphql_name="inProgressDeployment"
-    )
+    description = sgqlc.types.Field(String, graphql_name="description")
 
     managed_entities = sgqlc.types.Field(
         EntityManagementCollectionEntity, graphql_name="managedEntities"
     )
 
+    managed_entities_rings = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementManagedEntitiesRing)),
+        graphql_name="managedEntitiesRings",
+    )
+
     managed_entity_type = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementManagedEntityType),
         graphql_name="managedEntityType",
-    )
-
-    proposed_deployment = sgqlc.types.Field(
-        EntityManagementFleetDeployment, graphql_name="proposedDeployment"
     )
 
 
@@ -28663,6 +29009,75 @@ class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEnti
     )
 
 
+class EntityManagementSecurityFindingEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "cve",
+        "finding_sub_type",
+        "finding_type",
+        "finding_updated_at",
+        "first_detected",
+        "impacted_entity",
+        "last_seen",
+        "package",
+        "remediation",
+        "severity",
+        "source",
+        "status",
+        "vulnerability_identifier",
+        "vulnerability_ui_links",
+    )
+    cve = sgqlc.types.Field(EntityManagementCve, graphql_name="cve")
+
+    finding_sub_type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementSecurityFindingSubType),
+        graphql_name="findingSubType",
+    )
+
+    finding_type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementSecurityFindingType),
+        graphql_name="findingType",
+    )
+
+    finding_updated_at = sgqlc.types.Field(
+        EpochMilliseconds, graphql_name="findingUpdatedAt"
+    )
+
+    first_detected = sgqlc.types.Field(EpochMilliseconds, graphql_name="firstDetected")
+
+    impacted_entity = sgqlc.types.Field(
+        EntityManagementImpactedEntityReference, graphql_name="impactedEntity"
+    )
+
+    last_seen = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSeen")
+
+    package = sgqlc.types.Field(
+        EntityManagementSecurityFindingPackage, graphql_name="package"
+    )
+
+    remediation = sgqlc.types.Field(
+        EntityManagementSecurityFindingRemediation, graphql_name="remediation"
+    )
+
+    severity = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementRiskSeverity), graphql_name="severity"
+    )
+
+    source = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="source")
+
+    status = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementVulnerabilityStatus), graphql_name="status"
+    )
+
+    vulnerability_identifier = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="vulnerabilityIdentifier"
+    )
+
+    vulnerability_ui_links = sgqlc.types.Field(
+        EntityManagementVulnerabilityUiUrls, graphql_name="vulnerabilityUiLinks"
+    )
+
+
 class EntityManagementSystemActor(sgqlc.types.Type, EntityManagementActor):
     __schema__ = nerdgraph
     __field_names__ = ()
@@ -28670,29 +29085,15 @@ class EntityManagementSystemActor(sgqlc.types.Type, EntityManagementActor):
 
 class EntityManagementTeamEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
-    __field_names__ = (
-        "aliases",
-        "description",
-        "entities",
-        "external_integration",
-        "members",
-        "resources",
-    )
+    __field_names__ = ("aliases", "description", "external_integration", "resources")
     aliases = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="aliases"
     )
 
     description = sgqlc.types.Field(String, graphql_name="description")
 
-    entities = sgqlc.types.Field(EntityManagementTeamEntities, graphql_name="entities")
-
     external_integration = sgqlc.types.Field(
         EntityManagementTeamExternalIntegration, graphql_name="externalIntegration"
-    )
-
-    members = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTeamMember)),
-        graphql_name="members",
     )
 
     resources = sgqlc.types.Field(
