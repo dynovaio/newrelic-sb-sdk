@@ -145,9 +145,14 @@ __all__ = [
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
     "EntityManagementEntityScope",
+    "EntityManagementFleetDeploymentPhase",
     "EntityManagementManagedEntityType",
+    "EntityManagementRiskSeverity",
+    "EntityManagementSecurityFindingSubType",
+    "EntityManagementSecurityFindingType",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
+    "EntityManagementVulnerabilityStatus",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -340,7 +345,7 @@ class AgentApplicationSettingsThresholdTypeEnum(sgqlc.types.Enum):
 
 class AgentApplicationSettingsTracer(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("CROSS_APPLICATION_TRACER", "DISTRIBUTED_TRACING", "NONE")
+    __choices__ = ("CROSS_APPLICATION_TRACER", "DISTRIBUTED_TRACING", "NONE", "OPT_OUT")
 
 
 class AgentApplicationSettingsUpdateErrorClass(sgqlc.types.Enum):
@@ -372,13 +377,17 @@ class AgentReleasesFilter(sgqlc.types.Enum):
         "BROWSER",
         "DOTNET",
         "ELIXIR",
+        "FLUENTBIT",
         "GO",
         "INFRASTRUCTURE",
         "IOS",
         "JAVA",
         "KUBERNETES",
         "NODEJS",
+        "NRDOT",
         "PHP",
+        "PIPELINE_CONTROL_GATEWAY",
+        "PROMETHEUS",
         "PYTHON",
         "RUBY",
         "SDK",
@@ -790,6 +799,7 @@ class AiWorkflowsNotificationTrigger(sgqlc.types.Enum):
         "ACKNOWLEDGED",
         "ACTIVATED",
         "CLOSED",
+        "INVESTIGATING",
         "OTHER_UPDATES",
         "PRIORITY_CHANGED",
     )
@@ -1642,9 +1652,47 @@ class EntityManagementEntityScope(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT", "ORGANIZATION")
 
 
+class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("COMPLETED", "CREATED", "FAILED", "IN_PROGRESS")
+
+
 class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HOST", "KUBERNETESCLUSTER")
+
+
+class EntityManagementRiskSeverity(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CRITICAL", "HIGH", "INFO", "LOW", "MEDIUM", "UNKNOWN")
+
+
+class EntityManagementSecurityFindingSubType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "DOTNET_LIBRARY_VULNERABILITY",
+        "GO_LIBRARY_VULNERABILITY",
+        "INFRA_OS_VULNERABILITY",
+        "INFRA_PACKAGE_VULNERABILITY",
+        "JAVA_LIBRARY_VULNERABILITY",
+        "NODEJS_LIBRARY_VULNERABILITY",
+        "OTHER",
+        "PHP_LIBRARY_VULNERABILITY",
+        "PYTHON_LIBRARY_VULNERABILITY",
+        "RUBY_LIBRARY_VULNERABILITY",
+    )
+
+
+class EntityManagementSecurityFindingType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "APPLICATION_VULNERABILITY",
+        "INFRASTRUCTURE_VULNERABILITY",
+        "LIBRARY_VULNERABILITY",
+        "OTHER",
+        "SECURITY_EVENT",
+        "SYSTEM_VULNERABILITY",
+    )
 
 
 class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
@@ -1655,6 +1703,11 @@ class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("GITHUB_TEAM", "IAM_GROUP")
+
+
+class EntityManagementVulnerabilityStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("AFFECTED", "IGNORED", "NO_LONGER_DETECTED", "UNKNOWN")
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):

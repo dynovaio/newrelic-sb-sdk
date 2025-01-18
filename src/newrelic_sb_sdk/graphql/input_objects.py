@@ -202,6 +202,7 @@ __all__ = [
     "CloudAutoscalingIntegrationInput",
     "CloudAwsAppsyncIntegrationInput",
     "CloudAwsAthenaIntegrationInput",
+    "CloudAwsAutoDiscoveryIntegrationInput",
     "CloudAwsCognitoIntegrationInput",
     "CloudAwsConnectIntegrationInput",
     "CloudAwsDirectconnectIntegrationInput",
@@ -3723,7 +3724,9 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
 
 class AlertsNrqlConditionQueryInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("evaluation_offset", "query")
+    __field_names__ = ("data_account_id", "evaluation_offset", "query")
+    data_account_id = sgqlc.types.Field(Int, graphql_name="dataAccountId")
+
     evaluation_offset = sgqlc.types.Field(Int, graphql_name="evaluationOffset")
 
     query = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="query")
@@ -3959,7 +3962,9 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
 
 class AlertsNrqlConditionUpdateQueryInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("evaluation_offset", "query")
+    __field_names__ = ("data_account_id", "evaluation_offset", "query")
+    data_account_id = sgqlc.types.Field(Int, graphql_name="dataAccountId")
+
     evaluation_offset = sgqlc.types.Field(Int, graphql_name="evaluationOffset")
 
     query = sgqlc.types.Field(String, graphql_name="query")
@@ -4782,6 +4787,31 @@ class CloudAwsAthenaIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudAwsAutoDiscoveryIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "aws_regions",
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    aws_regions = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="awsRegions"
+    )
+
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudAwsCognitoIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -4865,6 +4895,7 @@ class CloudAwsDisableIntegrationsInput(sgqlc.types.Input):
         "autoscaling",
         "aws_appsync",
         "aws_athena",
+        "aws_auto_discovery",
         "aws_cognito",
         "aws_connect",
         "aws_directconnect",
@@ -4938,6 +4969,11 @@ class CloudAwsDisableIntegrationsInput(sgqlc.types.Input):
     aws_athena = sgqlc.types.Field(
         sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
         graphql_name="awsAthena",
+    )
+
+    aws_auto_discovery = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="awsAutoDiscovery",
     )
 
     aws_cognito = sgqlc.types.Field(
@@ -5546,6 +5582,7 @@ class CloudAwsIntegrationsInput(sgqlc.types.Input):
         "autoscaling",
         "aws_appsync",
         "aws_athena",
+        "aws_auto_discovery",
         "aws_cognito",
         "aws_connect",
         "aws_directconnect",
@@ -5616,6 +5653,11 @@ class CloudAwsIntegrationsInput(sgqlc.types.Input):
 
     aws_athena = sgqlc.types.Field(
         sgqlc.types.list_of(CloudAwsAthenaIntegrationInput), graphql_name="awsAthena"
+    )
+
+    aws_auto_discovery = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudAwsAutoDiscoveryIntegrationInput),
+        graphql_name="awsAutoDiscovery",
     )
 
     aws_cognito = sgqlc.types.Field(
@@ -7548,11 +7590,13 @@ class CloudCciAwsIntegrationsInput(sgqlc.types.Input):
 
 class CloudCciAwsLinkAccountInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("arn", "external_id", "name")
+    __field_names__ = ("arn", "external_id", "metric_collection_mode", "name")
     arn = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="arn")
 
-    external_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="externalId"
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    metric_collection_mode = sgqlc.types.Field(
+        CloudMetricCollectionMode, graphql_name="metricCollectionMode"
     )
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
