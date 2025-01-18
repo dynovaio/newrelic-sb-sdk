@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.28.0] - 2025-01-18
+
 * Add `EntityManagementFleetDeploymentPhase`, `EntityManagementRiskSeverity`,
   `EntityManagementSecurityFindingSubType`,
   `EntityManagementSecurityFindingType` and
