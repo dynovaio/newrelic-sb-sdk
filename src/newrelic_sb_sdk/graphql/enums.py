@@ -145,7 +145,10 @@ __all__ = [
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
     "EntityManagementEntityScope",
+    "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
+    "EntityManagementHostingPlatform",
+    "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
     "EntityManagementRiskSeverity",
     "EntityManagementSecurityFindingSubType",
@@ -181,6 +184,7 @@ __all__ = [
     "IncidentIntelligenceEnvironmentSupportedEnvironmentKind",
     "InstallationInstallStateType",
     "InstallationRecipeStatusType",
+    "KnowledgeSearchSources",
     "LogConfigurationsCreateDataPartitionRuleErrorType",
     "LogConfigurationsDataPartitionRuleMatchingOperator",
     "LogConfigurationsDataPartitionRuleMutationErrorType",
@@ -1652,9 +1656,40 @@ class EntityManagementEntityScope(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT", "ORGANIZATION")
 
 
+class EntityManagementExternalOwnerType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GROUP", "ORGANIZATION", "USER", "WORKSPACE")
+
+
 class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("COMPLETED", "CREATED", "FAILED", "IN_PROGRESS")
+
+
+class EntityManagementHostingPlatform(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB")
+
+
+class EntityManagementLicenseName(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "AFL_3_0",
+        "AGPL_3_0",
+        "APACHE_2_0",
+        "BSD_3_CLAUSE",
+        "CDDL",
+        "EPL_2_0",
+        "GPL_3_0",
+        "GPL_3_0_ONLY",
+        "GPL_3_0_PLUS",
+        "LGPL_3_0",
+        "LGPL_3_0_ONLY",
+        "LGPL_3_0_PLUS",
+        "MIT",
+        "MPL_1_1",
+        "MPL_2_0",
+    )
 
 
 class EntityManagementManagedEntityType(sgqlc.types.Enum):
@@ -1955,6 +1990,11 @@ class InstallationRecipeStatusType(sgqlc.types.Enum):
         "SKIPPED",
         "UNSUPPORTED",
     )
+
+
+class KnowledgeSearchSources(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DOCS",)
 
 
 class LogConfigurationsCreateDataPartitionRuleErrorType(sgqlc.types.Enum):

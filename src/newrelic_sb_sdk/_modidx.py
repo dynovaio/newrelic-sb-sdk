@@ -594,8 +594,20 @@ d = {
                 "GraphQL/enums.html#entitymanagemententityscope",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementExternalOwnerType": (
+                "GraphQL/enums.html#entitymanagementexternalownertype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementFleetDeploymentPhase": (
                 "GraphQL/enums.html#entitymanagementfleetdeploymentphase",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementHostingPlatform": (
+                "GraphQL/enums.html#entitymanagementhostingplatform",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementLicenseName": (
+                "GraphQL/enums.html#entitymanagementlicensename",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementManagedEntityType": (
@@ -736,6 +748,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.InstallationRecipeStatusType": (
                 "GraphQL/enums.html#installationrecipestatustype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.KnowledgeSearchSources": (
+                "GraphQL/enums.html#knowledgesearchsources",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.LogConfigurationsCreateDataPartitionRuleErrorType": (
@@ -2621,6 +2637,10 @@ d = {
                 "GraphQL/input objects.html#collaborationassistantconfiginput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CustomRoleContainerInput": (
+                "GraphQL/input objects.html#customrolecontainerinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.DashboardAreaWidgetConfigurationInput": (
                 "GraphQL/input objects.html#dashboardareawidgetconfigurationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2816,6 +2836,49 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementCollectionIdFilterArgument": (
                 "GraphQL/input "
                 "objects.html#entitymanagementcollectionidfilterargument",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementExternalOwnerCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementexternalownercreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementExternalOwnerUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementexternalownerupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementGenericEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementgenericentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementGitRepositoryEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementgitrepositoryentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementGitRepositoryEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementgitrepositoryentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementRepositoryLicenseCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementrepositorylicensecreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementRepositoryLicenseUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementrepositorylicenseupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementScopedReferenceInput": (
+                "GraphQL/input objects.html#entitymanagementscopedreferenceinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTagInput": (
+                "GraphQL/input objects.html#entitymanagementtaginput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityRelationshipEdgeFilter": (
@@ -4587,6 +4650,10 @@ d = {
                 "GraphQL/objects.html#alertsnrqlconditiontermswithforecast",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AlertsNrqlConditionTermsWithPrediction": (
+                "GraphQL/objects.html#alertsnrqlconditiontermswithprediction",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AlertsNrqlConditionsSearchResultSet": (
                 "GraphQL/objects.html#alertsnrqlconditionssearchresultset",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -5543,6 +5610,10 @@ d = {
                 "GraphQL/objects.html#crossaccountnrdbresultcontainer",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CustomRoleRoleMutationResult": (
+                "GraphQL/objects.html#customrolerolemutationresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CustomerAdministration": (
                 "GraphQL/objects.html#customeradministration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6083,6 +6154,14 @@ d = {
                 "GraphQL/objects.html#entitymanagementcollectionentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceIntegration": (
+                "GraphQL/objects.html#entitymanagementconfluenceintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceRagSettingsEntity": (
+                "GraphQL/objects.html#entitymanagementconfluenceragsettingsentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCve": (
                 "GraphQL/objects.html#entitymanagementcve",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6103,6 +6182,10 @@ d = {
                 "GraphQL/objects.html#entitymanagemententitysearchresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementExternalOwner": (
+                "GraphQL/objects.html#entitymanagementexternalowner",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementFleetControlProperties": (
                 "GraphQL/objects.html#entitymanagementfleetcontrolproperties",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6121,6 +6204,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGenericEntity": (
                 "GraphQL/objects.html#entitymanagementgenericentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGenericEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementgenericentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitRepositoryEntity": (
+                "GraphQL/objects.html#entitymanagementgitrepositoryentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitRepositoryEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementgitrepositoryentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitRepositoryEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementgitrepositoryentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementImpactedEntityReference": (
@@ -6147,6 +6246,18 @@ d = {
                 "GraphQL/objects.html#entitymanagementpipelinecloudruleentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRagDocumentEntity": (
+                "GraphQL/objects.html#entitymanagementragdocumententity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRagToolEntity": (
+                "GraphQL/objects.html#entitymanagementragtoolentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRepositoryLicense": (
+                "GraphQL/objects.html#entitymanagementrepositorylicense",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRingDeploymentTracker": (
                 "GraphQL/objects.html#entitymanagementringdeploymenttracker",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6165,10 +6276,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSecurityFindingEntity": (
                 "GraphQL/objects.html#entitymanagementsecurityfindingentity",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementSecurityFindingPackage": (
-                "GraphQL/objects.html#entitymanagementsecurityfindingpackage",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSecurityFindingRemediation": (
@@ -6629,6 +6736,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.KeyTransactionUpdateResult": (
                 "GraphQL/objects.html#keytransactionupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.KnowledgeDocsStitchedFields": (
+                "GraphQL/objects.html#knowledgedocsstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.KnowledgeSearchResponse": (
+                "GraphQL/objects.html#knowledgesearchresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.KnowledgeSearchResult": (
+                "GraphQL/objects.html#knowledgesearchresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.LogConfigurationsAccountStitchedFields": (
