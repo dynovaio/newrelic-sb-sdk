@@ -2,6 +2,53 @@
 
 ## [Unreleased]
 
+* Add `EntityManagementFleetDeploymentPhase`, `EntityManagementRiskSeverity`,
+  `EntityManagementSecurityFindingSubType`,
+  `EntityManagementSecurityFindingType` and
+  `EntityManagementVulnerabilityStatus` enum types.
+* Add `OPT_OUT` value to `AgentApplicationSettingsTracer` enum type.
+* Add `FLUENTBIT`, `NRDOT`, `PIPELINE_CONTROL_GATEWAY` and `PROMETHEUS` values
+  to `AgentReleasesFilter` enum type.
+* Add `INVESTIGATING` value to `AiWorkflowsNotificationTrigger` enum type.
+* Add `CloudAwsAutoDiscoveryIntegrationInput` input type.
+* Add `data_account_id` field to `AlertsNrqlConditionQueryInput` input type.
+* Add `data_account_id` field to `AlertsNrqlConditionUpdateQueryInput` object
+  type.
+* Add `aws_auto_discovery` field to `CloudAwsDisableIntegrationsInput` input
+  type.
+* Add `aws_auto_discovery` field to `CloudAwsIntegrationsInput` input
+  type.
+* Add `metric_collection_mode` field to `CloudCciAwsLinkAccountInput` input
+  type.
+* Add `AlertsCrossAccountElectionStatus`, `AlertsCrossAccountParticipant`,
+  `EntityManagementAgentDeployment`, `EntityManagementBlobSignature`,
+  `EntityManagementCve`, `EntityManagementImpactedEntityReference`,
+  `EntityManagementInfrastructureManager`,
+  `EntityManagementManagedEntitiesRing`,
+  `EntityManagementRingDeploymentTracker`,
+  `EntityManagementSecurityFindingPackage`,
+  `EntityManagementSecurityFindingRemediation`,
+  `EntityManagementSignatureDetails`, `EntityManagementVulnerabilityUiUrls`,
+  `CloudAwsAutoDiscoveryIntegration`, `EntityManagementFleetDeploymentEntity`
+  and `EntityManagementSecurityFindingEntity` object types.
+* Add `cross_account_election` and `cross_account_participants` fields to
+  `AlertsAccountStitchedFields` object type.
+* Add `blob_signature` field to `EntityManagementBlob` object type.
+* Add `applied_deployment` and `version` fields to
+  `EntityManagementFleetControlProperties` object type.
+* Add `alerts_update_cross_account_election` and
+  `alerts_update_cross_account_elections` fields to `RootMutationType` object
+  type.
+* Add `created_at` and `time_zone_name` fields to `User` object type.
+* Add `infrastructure_managers` and `version` fields to
+  `EntityManagementAgentEntity` object type.
+* Remove `active_deployment`, `draft_deployment` and `in_progress_deployment`
+  fields from `EntityManagementFleetEntity` object type.
+* Add `description` and `managed_entities_rings` fields to
+  `EntityManagementFleetEntity` object type.
+* Remove `entities` and `members` fields from `EntityManagementTeamEntity`
+  object type.
+
 ## [0.29.0] - 2025-02-09
 
 * Add `EntityManagementFleetDeploymentPhase`, `EntityManagementRiskSeverity`,
