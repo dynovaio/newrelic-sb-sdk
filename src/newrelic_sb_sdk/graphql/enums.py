@@ -150,12 +150,8 @@ __all__ = [
     "EntityManagementHostingPlatform",
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
-    "EntityManagementRiskSeverity",
-    "EntityManagementSecurityFindingSubType",
-    "EntityManagementSecurityFindingType",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
-    "EntityManagementVulnerabilityStatus",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -275,6 +271,8 @@ __all__ = [
     "SyntheticsMonitorUpdateErrorType",
     "SyntheticsPrivateLocationMutationErrorType",
     "SyntheticsStepType",
+    "SystemIdentityIdentitySortFieldKey",
+    "SystemIdentitySortOrder",
     "TaggingMutationErrorType",
     "UserManagementGroupSortKey",
     "UserManagementRequestedTierName",
@@ -1658,7 +1656,7 @@ class EntityManagementEntityScope(sgqlc.types.Enum):
 
 class EntityManagementExternalOwnerType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("GROUP", "ORGANIZATION", "USER", "WORKSPACE")
+    __choices__ = ("GROUP", "ORGANIZATION", "OTHER", "USER", "WORKSPACE")
 
 
 class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
@@ -1668,7 +1666,7 @@ class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
 
 class EntityManagementHostingPlatform(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB")
+    __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB", "OTHER")
 
 
 class EntityManagementLicenseName(sgqlc.types.Enum):
@@ -1677,57 +1675,31 @@ class EntityManagementLicenseName(sgqlc.types.Enum):
         "AFL_3_0",
         "AGPL_3_0",
         "APACHE_2_0",
+        "BSD_2_CLAUSE",
         "BSD_3_CLAUSE",
+        "BSL_1_0",
+        "CC0_1_0",
         "CDDL",
         "EPL_2_0",
+        "GPL_2_0",
         "GPL_3_0",
         "GPL_3_0_ONLY",
         "GPL_3_0_PLUS",
+        "LGPL_2_1",
         "LGPL_3_0",
         "LGPL_3_0_ONLY",
         "LGPL_3_0_PLUS",
         "MIT",
         "MPL_1_1",
         "MPL_2_0",
+        "NA",
+        "UNLICENSE",
     )
 
 
 class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HOST", "KUBERNETESCLUSTER")
-
-
-class EntityManagementRiskSeverity(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("CRITICAL", "HIGH", "INFO", "LOW", "MEDIUM", "UNKNOWN")
-
-
-class EntityManagementSecurityFindingSubType(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = (
-        "DOTNET_LIBRARY_VULNERABILITY",
-        "GO_LIBRARY_VULNERABILITY",
-        "INFRA_OS_VULNERABILITY",
-        "INFRA_PACKAGE_VULNERABILITY",
-        "JAVA_LIBRARY_VULNERABILITY",
-        "NODEJS_LIBRARY_VULNERABILITY",
-        "OTHER",
-        "PHP_LIBRARY_VULNERABILITY",
-        "PYTHON_LIBRARY_VULNERABILITY",
-        "RUBY_LIBRARY_VULNERABILITY",
-    )
-
-
-class EntityManagementSecurityFindingType(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = (
-        "APPLICATION_VULNERABILITY",
-        "INFRASTRUCTURE_VULNERABILITY",
-        "LIBRARY_VULNERABILITY",
-        "OTHER",
-        "SECURITY_EVENT",
-        "SYSTEM_VULNERABILITY",
-    )
 
 
 class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
@@ -1738,11 +1710,6 @@ class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("GITHUB_TEAM", "IAM_GROUP")
-
-
-class EntityManagementVulnerabilityStatus(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("AFFECTED", "IGNORED", "NO_LONGER_DETECTED", "UNKNOWN")
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
@@ -2588,6 +2555,16 @@ class SyntheticsStepType(sgqlc.types.Enum):
         "SELECT_ELEMENT",
         "TEXT_ENTRY",
     )
+
+
+class SystemIdentityIdentitySortFieldKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CLIENT_ID", "ID", "NAME")
+
+
+class SystemIdentitySortOrder(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASC", "DESC")
 
 
 class TaggingMutationErrorType(sgqlc.types.Enum):
