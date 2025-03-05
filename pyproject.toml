@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.29.0"
+version = "0.30.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -43,7 +43,7 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.29.0.zip"
+"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.30.0.zip"
 "Bug Tracker" = "https://github.com/dynovaio/newrelic-sb-sdk/issues"
 
 [tool.poetry.dependencies]
