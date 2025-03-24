@@ -421,6 +421,10 @@ __all__ = [
     "EntityManagementCollectionEntityCreateResult",
     "EntityManagementCollectionEntityUpdateResult",
     "EntityManagementConfiguration",
+    "EntityManagementConfluenceIntegrationCreateResult",
+    "EntityManagementConfluenceIntegrationUpdateResult",
+    "EntityManagementConfluenceRagSettingsEntityCreateResult",
+    "EntityManagementConfluenceRagSettingsEntityUpdateResult",
     "EntityManagementDeploymentAgentConfigurationVersion",
     "EntityManagementDiscoverySettings",
     "EntityManagementEntityDeleteResult",
@@ -436,6 +440,8 @@ __all__ = [
     "EntityManagementManagedEntitiesRing",
     "EntityManagementMetadata",
     "EntityManagementNrqlRuleEngine",
+    "EntityManagementRagToolEntityCreateResult",
+    "EntityManagementRagToolEntityUpdateResult",
     "EntityManagementRelationship",
     "EntityManagementRelationshipCreateResult",
     "EntityManagementRelationshipDeleteResult",
@@ -1438,9 +1444,15 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntityManagementCollectionElementsFilter,
     EntityManagementCollectionEntityCreateInput,
     EntityManagementCollectionEntityUpdateInput,
+    EntityManagementConfluenceIntegrationCreateInput,
+    EntityManagementConfluenceIntegrationUpdateInput,
+    EntityManagementConfluenceRagSettingsEntityCreateInput,
+    EntityManagementConfluenceRagSettingsEntityUpdateInput,
     EntityManagementGenericEntityUpdateInput,
     EntityManagementGitRepositoryEntityCreateInput,
     EntityManagementGitRepositoryEntityUpdateInput,
+    EntityManagementRagToolEntityCreateInput,
+    EntityManagementRagToolEntityUpdateInput,
     EntityManagementRelationshipCreateInput,
     EntityManagementScorecardEntityCreateInput,
     EntityManagementScorecardEntityUpdateInput,
@@ -3641,6 +3653,7 @@ class AgentApplicationSettingsSessionReplay(sgqlc.types.Type):
         "collect_fonts",
         "enabled",
         "error_sampling_rate",
+        "fix_stylesheets",
         "inline_images",
         "inline_stylesheet",
         "mask_all_inputs",
@@ -3664,6 +3677,10 @@ class AgentApplicationSettingsSessionReplay(sgqlc.types.Type):
 
     error_sampling_rate = sgqlc.types.Field(
         sgqlc.types.non_null(Float), graphql_name="errorSamplingRate"
+    )
+
+    fix_stylesheets = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="fixStylesheets"
     )
 
     inline_images = sgqlc.types.Field(
@@ -11145,6 +11162,7 @@ class DistributedTracingSpan(sgqlc.types.Type):
         "span_anomalies",
         "timestamp",
         "trace_id",
+        "transaction_name",
     )
     attributes = sgqlc.types.Field(
         DistributedTracingSpanAttributes, graphql_name="attributes"
@@ -11179,6 +11197,8 @@ class DistributedTracingSpan(sgqlc.types.Type):
     )
 
     trace_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="traceId")
+
+    transaction_name = sgqlc.types.Field(String, graphql_name="transactionName")
 
 
 class DistributedTracingSpanAnomaly(sgqlc.types.Type):
@@ -12170,6 +12190,42 @@ class EntityManagementConfiguration(sgqlc.types.Type):
     updated_by = sgqlc.types.Field(String, graphql_name="updatedBy")
 
 
+class EntityManagementConfluenceIntegrationCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementConfluenceIntegration"),
+        graphql_name="entity",
+    )
+
+
+class EntityManagementConfluenceIntegrationUpdateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementConfluenceIntegration"),
+        graphql_name="entity",
+    )
+
+
+class EntityManagementConfluenceRagSettingsEntityCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementConfluenceRagSettingsEntity"),
+        graphql_name="entity",
+    )
+
+
+class EntityManagementConfluenceRagSettingsEntityUpdateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementConfluenceRagSettingsEntity"),
+        graphql_name="entity",
+    )
+
+
 class EntityManagementDeploymentAgentConfigurationVersion(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("id",)
@@ -12373,12 +12429,14 @@ class EntityManagementManagedEntitiesRing(sgqlc.types.Type):
 
 class EntityManagementMetadata(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("created_at", "created_by", "updated_at")
+    __field_names__ = ("created_at", "created_by", "updated_at", "updated_by")
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
 
     created_by = sgqlc.types.Field(EntityManagementActor, graphql_name="createdBy")
 
     updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="updatedAt")
+
+    updated_by = sgqlc.types.Field(EntityManagementActor, graphql_name="updatedBy")
 
 
 class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
@@ -12390,6 +12448,22 @@ class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementRagToolEntityCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementRagToolEntity"), graphql_name="entity"
+    )
+
+
+class EntityManagementRagToolEntityUpdateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementRagToolEntity"), graphql_name="entity"
+    )
 
 
 class EntityManagementRelationship(sgqlc.types.Type):
@@ -17691,7 +17765,10 @@ class RootMutationType(sgqlc.types.Type):
         "entity_golden_tags_reset",
         "entity_management_add_collection_members",
         "entity_management_create_collection",
+        "entity_management_create_confluence_integration",
+        "entity_management_create_confluence_rag_settings",
         "entity_management_create_git_repository",
+        "entity_management_create_rag_tool",
         "entity_management_create_relationship",
         "entity_management_create_scorecard",
         "entity_management_create_scorecard_rule",
@@ -17701,7 +17778,10 @@ class RootMutationType(sgqlc.types.Type):
         "entity_management_remove_collection_members",
         "entity_management_update",
         "entity_management_update_collection",
+        "entity_management_update_confluence_integration",
+        "entity_management_update_confluence_rag_settings",
         "entity_management_update_git_repository",
+        "entity_management_update_rag_tool",
         "entity_management_update_scorecard",
         "entity_management_update_scorecard_rule",
         "entity_management_update_team",
@@ -21425,6 +21505,44 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    entity_management_create_confluence_integration = sgqlc.types.Field(
+        EntityManagementConfluenceIntegrationCreateResult,
+        graphql_name="entityManagementCreateConfluenceIntegration",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "confluence_integration",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementConfluenceIntegrationCreateInput
+                        ),
+                        graphql_name="confluenceIntegration",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_create_confluence_rag_settings = sgqlc.types.Field(
+        EntityManagementConfluenceRagSettingsEntityCreateResult,
+        graphql_name="entityManagementCreateConfluenceRagSettings",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "confluence_rag_settings_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementConfluenceRagSettingsEntityCreateInput
+                        ),
+                        graphql_name="confluenceRagSettingsEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     entity_management_create_git_repository = sgqlc.types.Field(
         EntityManagementGitRepositoryEntityCreateResult,
         graphql_name="entityManagementCreateGitRepository",
@@ -21437,6 +21555,23 @@ class RootMutationType(sgqlc.types.Type):
                             EntityManagementGitRepositoryEntityCreateInput
                         ),
                         graphql_name="gitRepositoryEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_create_rag_tool = sgqlc.types.Field(
+        EntityManagementRagToolEntityCreateResult,
+        graphql_name="entityManagementCreateRagTool",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "rag_tool_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(EntityManagementRagToolEntityCreateInput),
+                        graphql_name="ragToolEntity",
                         default=None,
                     ),
                 ),
@@ -21638,6 +21773,56 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    entity_management_update_confluence_integration = sgqlc.types.Field(
+        EntityManagementConfluenceIntegrationUpdateResult,
+        graphql_name="entityManagementUpdateConfluenceIntegration",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "confluence_integration",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementConfluenceIntegrationUpdateInput
+                        ),
+                        graphql_name="confluenceIntegration",
+                        default=None,
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_update_confluence_rag_settings = sgqlc.types.Field(
+        EntityManagementConfluenceRagSettingsEntityUpdateResult,
+        graphql_name="entityManagementUpdateConfluenceRagSettings",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "confluence_rag_settings_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementConfluenceRagSettingsEntityUpdateInput
+                        ),
+                        graphql_name="confluenceRagSettingsEntity",
+                        default=None,
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
     entity_management_update_git_repository = sgqlc.types.Field(
         EntityManagementGitRepositoryEntityUpdateResult,
         graphql_name="entityManagementUpdateGitRepository",
@@ -21657,6 +21842,29 @@ class RootMutationType(sgqlc.types.Type):
                     "id",
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_update_rag_tool = sgqlc.types.Field(
+        EntityManagementRagToolEntityUpdateResult,
+        graphql_name="entityManagementUpdateRagTool",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "rag_tool_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(EntityManagementRagToolEntityUpdateInput),
+                        graphql_name="ragToolEntity",
+                        default=None,
                     ),
                 ),
             )

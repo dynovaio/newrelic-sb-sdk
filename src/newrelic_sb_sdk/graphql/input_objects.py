@@ -406,6 +406,10 @@ __all__ = [
     "EntityManagementCollectionEntityCreateInput",
     "EntityManagementCollectionEntityUpdateInput",
     "EntityManagementCollectionIdFilterArgument",
+    "EntityManagementConfluenceIntegrationCreateInput",
+    "EntityManagementConfluenceIntegrationUpdateInput",
+    "EntityManagementConfluenceRagSettingsEntityCreateInput",
+    "EntityManagementConfluenceRagSettingsEntityUpdateInput",
     "EntityManagementDiscoverySettingsUpdateInput",
     "EntityManagementEntityReferenceInput",
     "EntityManagementExternalOwnerCreateInput",
@@ -415,6 +419,8 @@ __all__ = [
     "EntityManagementGitRepositoryEntityUpdateInput",
     "EntityManagementNrqlRuleEngineCreateInput",
     "EntityManagementNrqlRuleEngineUpdateInput",
+    "EntityManagementRagToolEntityCreateInput",
+    "EntityManagementRagToolEntityUpdateInput",
     "EntityManagementRelationshipCreateInput",
     "EntityManagementRepositoryLicenseCreateInput",
     "EntityManagementRepositoryLicenseUpdateInput",
@@ -1180,6 +1186,7 @@ class AgentApplicationSettingsSessionReplayInput(sgqlc.types.Input):
         "collect_fonts",
         "enabled",
         "error_sampling_rate",
+        "fix_stylesheets",
         "inline_images",
         "inline_stylesheet",
         "mask_all_inputs",
@@ -1196,6 +1203,8 @@ class AgentApplicationSettingsSessionReplayInput(sgqlc.types.Input):
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
     error_sampling_rate = sgqlc.types.Field(Float, graphql_name="errorSamplingRate")
+
+    fix_stylesheets = sgqlc.types.Field(Boolean, graphql_name="fixStylesheets")
 
     inline_images = sgqlc.types.Field(Boolean, graphql_name="inlineImages")
 
@@ -10479,6 +10488,116 @@ class EntityManagementCollectionIdFilterArgument(sgqlc.types.Input):
     eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
 
 
+class EntityManagementConfluenceIntegrationCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "confluence_user_id",
+        "name",
+        "scope",
+        "secret_key",
+        "tags",
+        "url",
+    )
+    confluence_user_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="confluenceUserId"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    secret_key = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="secretKey"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementConfluenceIntegrationUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("confluence_user_id", "name", "secret_key", "tags", "url")
+    confluence_user_id = sgqlc.types.Field(String, graphql_name="confluenceUserId")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    secret_key = sgqlc.types.Field(String, graphql_name="secretKey")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+    url = sgqlc.types.Field(String, graphql_name="url")
+
+
+class EntityManagementConfluenceRagSettingsEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "confluence_integration_id",
+        "confluence_query",
+        "interval_seconds",
+        "name",
+        "scope",
+        "tags",
+    )
+    confluence_integration_id = sgqlc.types.Field(
+        sgqlc.types.non_null(ID), graphql_name="confluenceIntegrationId"
+    )
+
+    confluence_query = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="confluenceQuery"
+    )
+
+    interval_seconds = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="intervalSeconds"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementConfluenceRagSettingsEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "confluence_integration_id",
+        "confluence_query",
+        "interval_seconds",
+        "name",
+        "tags",
+    )
+    confluence_integration_id = sgqlc.types.Field(
+        ID, graphql_name="confluenceIntegrationId"
+    )
+
+    confluence_query = sgqlc.types.Field(String, graphql_name="confluenceQuery")
+
+    interval_seconds = sgqlc.types.Field(Int, graphql_name="intervalSeconds")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
 class EntityManagementDiscoverySettingsUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("enabled", "tag_keys")
@@ -10523,7 +10642,7 @@ class EntityManagementExternalOwnerUpdateInput(sgqlc.types.Input):
 class EntityManagementGenericEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("name", "tags")
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+    name = sgqlc.types.Field(String, graphql_name="name")
 
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
@@ -10718,6 +10837,39 @@ class EntityManagementNrqlRuleEngineUpdateInput(sgqlc.types.Input):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementRagToolEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "name", "scope", "tags")
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementRagToolEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "name", "tags")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
 
 
 class EntityManagementRelationshipCreateInput(sgqlc.types.Input):
