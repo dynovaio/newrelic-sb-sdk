@@ -2858,6 +2858,26 @@ d = {
                 "objects.html#entitymanagementcollectionidfilterargument",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfluenceIntegrationCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementconfluenceintegrationcreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfluenceIntegrationUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementconfluenceintegrationupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfluenceRagSettingsEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementconfluenceragsettingsentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfluenceRagSettingsEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementconfluenceragsettingsentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementDiscoverySettingsUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementdiscoverysettingsupdateinput",
@@ -2900,6 +2920,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementNrqlRuleEngineUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementnrqlruleengineupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementRagToolEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementragtoolentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementRagToolEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementragtoolentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementRelationshipCreateInput": (
@@ -6331,8 +6361,24 @@ d = {
                 "GraphQL/objects.html#entitymanagementconfluenceintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceIntegrationCreateResult": (
+                "GraphQL/objects.html#entitymanagementconfluenceintegrationcreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceIntegrationUpdateResult": (
+                "GraphQL/objects.html#entitymanagementconfluenceintegrationupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceRagSettingsEntity": (
                 "GraphQL/objects.html#entitymanagementconfluenceragsettingsentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceRagSettingsEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementconfluenceragsettingsentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementConfluenceRagSettingsEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementconfluenceragsettingsentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementDeploymentAgentConfigurationVersion": (
@@ -6433,6 +6479,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRagToolEntity": (
                 "GraphQL/objects.html#entitymanagementragtoolentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRagToolEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementragtoolentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRagToolEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementragtoolentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRelationship": (
