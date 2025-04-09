@@ -417,6 +417,7 @@ __all__ = [
     "EntityManagementAgentDeployment",
     "EntityManagementBlob",
     "EntityManagementBlobSignature",
+    "EntityManagementCharacterTextSplitterOptions",
     "EntityManagementCollectionElementsResult",
     "EntityManagementCollectionEntityCreateResult",
     "EntityManagementCollectionEntityUpdateResult",
@@ -438,8 +439,10 @@ __all__ = [
     "EntityManagementGitRepositoryEntityUpdateResult",
     "EntityManagementInfrastructureManager",
     "EntityManagementManagedEntitiesRing",
+    "EntityManagementMarkdownTextSplitterOptions",
     "EntityManagementMetadata",
     "EntityManagementNrqlRuleEngine",
+    "EntityManagementPipelineCloudRuleEntityCreateResult",
     "EntityManagementRagToolEntityCreateResult",
     "EntityManagementRagToolEntityUpdateResult",
     "EntityManagementRelationship",
@@ -462,6 +465,7 @@ __all__ = [
     "EntityManagementTeamExternalIntegration",
     "EntityManagementTeamResource",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateResult",
+    "EntityManagementTokenTextSplitterOptions",
     "EntityManagementUserMetadata",
     "EntityRelationship",
     "EntityRelationshipNode",
@@ -1251,6 +1255,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenEventObjectId,
     EntityGoldenGoldenMetricsErrorType,
     EntityGoldenMetricUnit,
+    EntityManagementEncodingName,
     EntityManagementEntityScope,
     EntityManagementExternalOwnerType,
     EntityManagementFleetDeploymentPhase,
@@ -1259,6 +1264,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementManagedEntityType,
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
+    EntityManagementTextSplitterType,
     EntityRelationshipEdgeType,
     EntityRelationshipType,
     EntityRelationshipUserDefinedCreateOrReplaceErrorType,
@@ -1268,6 +1274,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityType,
     ErrorsInboxAssignErrorGroupErrorType,
     ErrorsInboxErrorGroupState,
+    ErrorsInboxIssueType,
     ErrorsInboxUpdateErrorGroupStateErrorType,
     EventsToMetricsErrorReason,
     HistoricalDataExportStatus,
@@ -1451,6 +1458,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntityManagementGenericEntityUpdateInput,
     EntityManagementGitRepositoryEntityCreateInput,
     EntityManagementGitRepositoryEntityUpdateInput,
+    EntityManagementPipelineCloudRuleEntityCreateInput,
     EntityManagementRagToolEntityCreateInput,
     EntityManagementRagToolEntityUpdateInput,
     EntityManagementRelationshipCreateInput,
@@ -2096,6 +2104,7 @@ class ErrorsInboxErrorGroupBase(sgqlc.types.Interface):
         "first_seen_at",
         "id",
         "is_custom",
+        "issue_type",
         "last_seen_at",
         "message",
         "name",
@@ -2117,6 +2126,8 @@ class ErrorsInboxErrorGroupBase(sgqlc.types.Interface):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
     is_custom = sgqlc.types.Field(Boolean, graphql_name="isCustom")
+
+    issue_type = sgqlc.types.Field(ErrorsInboxIssueType, graphql_name="issueType")
 
     last_seen_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSeenAt")
 
@@ -3659,6 +3670,7 @@ class AgentApplicationSettingsSessionReplay(sgqlc.types.Type):
         "mask_all_inputs",
         "mask_input_options",
         "mask_text_selector",
+        "preload",
         "sampling_rate",
     )
     auto_start = sgqlc.types.Field(
@@ -3701,6 +3713,8 @@ class AgentApplicationSettingsSessionReplay(sgqlc.types.Type):
     )
 
     mask_text_selector = sgqlc.types.Field(String, graphql_name="maskTextSelector")
+
+    preload = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="preload")
 
     sampling_rate = sgqlc.types.Field(
         sgqlc.types.non_null(Float), graphql_name="samplingRate"
@@ -12147,6 +12161,18 @@ class EntityManagementBlobSignature(sgqlc.types.Type):
     )
 
 
+class EntityManagementCharacterTextSplitterOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("is_separator_regex", "separator")
+    is_separator_regex = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="isSeparatorRegex"
+    )
+
+    separator = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="separator"
+    )
+
+
 class EntityManagementCollectionElementsResult(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("items", "next_cursor")
@@ -12427,6 +12453,19 @@ class EntityManagementManagedEntitiesRing(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
 
+class EntityManagementMarkdownTextSplitterOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("headers_to_split_on", "return_each_line")
+    headers_to_split_on = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)),
+        graphql_name="headersToSplitOn",
+    )
+
+    return_each_line = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="returnEachLine"
+    )
+
+
 class EntityManagementMetadata(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("created_at", "created_by", "updated_at", "updated_by")
@@ -12448,6 +12487,15 @@ class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementPipelineCloudRuleEntityCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementPipelineCloudRuleEntity"),
+        graphql_name="entity",
+    )
 
 
 class EntityManagementRagToolEntityCreateResult(sgqlc.types.Type):
@@ -12689,6 +12737,14 @@ class EntityManagementTeamsOrganizationSettingsEntityUpdateResult(sgqlc.types.Ty
     entity = sgqlc.types.Field(
         sgqlc.types.non_null("EntityManagementTeamsOrganizationSettingsEntity"),
         graphql_name="entity",
+    )
+
+
+class EntityManagementTokenTextSplitterOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("encoding_name",)
+    encoding_name = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementEncodingName), graphql_name="encodingName"
     )
 
 
@@ -17768,6 +17824,7 @@ class RootMutationType(sgqlc.types.Type):
         "entity_management_create_confluence_integration",
         "entity_management_create_confluence_rag_settings",
         "entity_management_create_git_repository",
+        "entity_management_create_pipeline_cloud_rule",
         "entity_management_create_rag_tool",
         "entity_management_create_relationship",
         "entity_management_create_scorecard",
@@ -21562,6 +21619,25 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    entity_management_create_pipeline_cloud_rule = sgqlc.types.Field(
+        EntityManagementPipelineCloudRuleEntityCreateResult,
+        graphql_name="entityManagementCreatePipelineCloudRule",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "pipeline_cloud_rule_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementPipelineCloudRuleEntityCreateInput
+                        ),
+                        graphql_name="pipelineCloudRuleEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     entity_management_create_rag_tool = sgqlc.types.Field(
         EntityManagementRagToolEntityCreateResult,
         graphql_name="entityManagementCreateRagTool",
@@ -24182,6 +24258,10 @@ class RootMutationType(sgqlc.types.Type):
                     ),
                 ),
                 (
+                    "shared",
+                    sgqlc.types.Arg(Boolean, graphql_name="shared", default=None),
+                ),
+                (
                     "verified_script_execution",
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(Boolean),
@@ -24662,6 +24742,10 @@ class RootMutationType(sgqlc.types.Type):
                         graphql_name="guid",
                         default=None,
                     ),
+                ),
+                (
+                    "shared",
+                    sgqlc.types.Arg(Boolean, graphql_name="shared", default=None),
                 ),
                 (
                     "verified_script_execution",
@@ -26315,6 +26399,7 @@ class SyntheticsPrivateLocationMutationResult(sgqlc.types.Type):
         "key",
         "location_id",
         "name",
+        "shared",
         "verified_script_execution",
     )
     account_id = sgqlc.types.Field(Int, graphql_name="accountId")
@@ -26335,6 +26420,8 @@ class SyntheticsPrivateLocationMutationResult(sgqlc.types.Type):
     location_id = sgqlc.types.Field(String, graphql_name="locationId")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    shared = sgqlc.types.Field(Boolean, graphql_name="shared")
 
     verified_script_execution = sgqlc.types.Field(
         Boolean, graphql_name="verifiedScriptExecution"
@@ -30419,12 +30506,27 @@ class EntityManagementConfluenceRagSettingsEntity(
 ):
     __schema__ = nerdgraph
     __field_names__ = (
+        "character_text_splitter_options",
+        "chunk_overlap",
+        "chunk_size",
         "confluence_integration_id",
         "confluence_query",
         "interval_seconds",
         "last_pull_time",
+        "markdown_text_splitter_options",
         "next_pull_time",
+        "text_splitter_type",
+        "token_text_splitter_options",
     )
+    character_text_splitter_options = sgqlc.types.Field(
+        EntityManagementCharacterTextSplitterOptions,
+        graphql_name="characterTextSplitterOptions",
+    )
+
+    chunk_overlap = sgqlc.types.Field(Int, graphql_name="chunkOverlap")
+
+    chunk_size = sgqlc.types.Field(Int, graphql_name="chunkSize")
+
     confluence_integration_id = sgqlc.types.Field(
         sgqlc.types.non_null(ID), graphql_name="confluenceIntegrationId"
     )
@@ -30439,7 +30541,21 @@ class EntityManagementConfluenceRagSettingsEntity(
 
     last_pull_time = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastPullTime")
 
+    markdown_text_splitter_options = sgqlc.types.Field(
+        EntityManagementMarkdownTextSplitterOptions,
+        graphql_name="markdownTextSplitterOptions",
+    )
+
     next_pull_time = sgqlc.types.Field(EpochMilliseconds, graphql_name="nextPullTime")
+
+    text_splitter_type = sgqlc.types.Field(
+        EntityManagementTextSplitterType, graphql_name="textSplitterType"
+    )
+
+    token_text_splitter_options = sgqlc.types.Field(
+        EntityManagementTokenTextSplitterOptions,
+        graphql_name="tokenTextSplitterOptions",
+    )
 
 
 class EntityManagementFleetDeploymentEntity(sgqlc.types.Type, EntityManagementEntity):
@@ -30472,7 +30588,12 @@ class EntityManagementFleetDeploymentEntity(sgqlc.types.Type, EntityManagementEn
 
 class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "managed_entity_rings", "managed_entity_type")
+    __field_names__ = (
+        "description",
+        "managed_entity_rings",
+        "managed_entity_type",
+        "product",
+    )
     description = sgqlc.types.Field(String, graphql_name="description")
 
     managed_entity_rings = sgqlc.types.Field(
@@ -30482,6 +30603,10 @@ class EntityManagementFleetEntity(sgqlc.types.Type, EntityManagementEntity):
     managed_entity_type = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementManagedEntityType),
         graphql_name="managedEntityType",
+    )
+
+    product = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="product"
     )
 
 

@@ -590,6 +590,10 @@ d = {
                 "GraphQL/enums.html#entityinfrastructureintegrationtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementEncodingName": (
+                "GraphQL/enums.html#entitymanagementencodingname",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementEntityScope": (
                 "GraphQL/enums.html#entitymanagemententityscope",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -620,6 +624,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementTeamExternalIntegrationType": (
                 "GraphQL/enums.html#entitymanagementteamexternalintegrationtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementTextSplitterType": (
+                "GraphQL/enums.html#entitymanagementtextsplittertype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityRelationshipEdgeDirection": (
@@ -680,6 +688,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.ErrorsInboxEventSource": (
                 "GraphQL/enums.html#errorsinboxeventsource",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.ErrorsInboxIssueType": (
+                "GraphQL/enums.html#errorsinboxissuetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.ErrorsInboxResourceType": (
@@ -2838,6 +2850,16 @@ d = {
                 "GraphQL/input objects.html#entitygoldentaginput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCharacterTextSplitterOptionsCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcharactertextsplitteroptionscreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCharacterTextSplitterOptionsUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcharactertextsplitteroptionsupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementCollectionElementsFilter": (
                 "GraphQL/input "
                 "objects.html#entitymanagementcollectionelementsfilter",
@@ -2912,6 +2934,16 @@ d = {
                 "objects.html#entitymanagementgitrepositoryentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementMarkdownTextSplitterOptionsCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementmarkdowntextsplitteroptionscreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementMarkdownTextSplitterOptionsUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementmarkdowntextsplitteroptionsupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementNrqlRuleEngineCreateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementnrqlruleenginecreateinput",
@@ -2920,6 +2952,11 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementNrqlRuleEngineUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementnrqlruleengineupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementPipelineCloudRuleEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementpipelinecloudruleentitycreateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementRagToolEntityCreateInput": (
@@ -3018,6 +3055,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsOrganizationSettingsEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementteamsorganizationsettingsentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTokenTextSplitterOptionsCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementtokentextsplitteroptionscreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTokenTextSplitterOptionsUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementtokentextsplitteroptionsupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityRelationshipEdgeFilter": (
@@ -6337,6 +6384,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementblobsignature",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCharacterTextSplitterOptions": (
+                "GraphQL/objects.html#entitymanagementcharactertextsplitteroptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionElementsResult": (
                 "GraphQL/objects.html#entitymanagementcollectionelementsresult",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6461,6 +6512,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementmanagedentitiesring",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementMarkdownTextSplitterOptions": (
+                "GraphQL/objects.html#entitymanagementmarkdowntextsplitteroptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementMetadata": (
                 "GraphQL/objects.html#entitymanagementmetadata",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6471,6 +6526,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntity": (
                 "GraphQL/objects.html#entitymanagementpipelinecloudruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementpipelinecloudruleentitycreateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRagDocumentEntity": (
@@ -6587,6 +6646,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsOrganizationSettingsEntityUpdateResult": (
                 "GraphQL/objects.html#entitymanagementteamsorganizationsettingsentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementTokenTextSplitterOptions": (
+                "GraphQL/objects.html#entitymanagementtokentextsplitteroptions",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementUserActor": (
