@@ -402,6 +402,8 @@ __all__ = [
     "EntityGoldenMetricInput",
     "EntityGoldenNrqlTimeWindowInput",
     "EntityGoldenTagInput",
+    "EntityManagementCharacterTextSplitterOptionsCreateInput",
+    "EntityManagementCharacterTextSplitterOptionsUpdateInput",
     "EntityManagementCollectionElementsFilter",
     "EntityManagementCollectionEntityCreateInput",
     "EntityManagementCollectionEntityUpdateInput",
@@ -417,8 +419,11 @@ __all__ = [
     "EntityManagementGenericEntityUpdateInput",
     "EntityManagementGitRepositoryEntityCreateInput",
     "EntityManagementGitRepositoryEntityUpdateInput",
+    "EntityManagementMarkdownTextSplitterOptionsCreateInput",
+    "EntityManagementMarkdownTextSplitterOptionsUpdateInput",
     "EntityManagementNrqlRuleEngineCreateInput",
     "EntityManagementNrqlRuleEngineUpdateInput",
+    "EntityManagementPipelineCloudRuleEntityCreateInput",
     "EntityManagementRagToolEntityCreateInput",
     "EntityManagementRagToolEntityUpdateInput",
     "EntityManagementRelationshipCreateInput",
@@ -440,6 +445,8 @@ __all__ = [
     "EntityManagementTeamResourceCreateInput",
     "EntityManagementTeamResourceUpdateInput",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateInput",
+    "EntityManagementTokenTextSplitterOptionsCreateInput",
+    "EntityManagementTokenTextSplitterOptionsUpdateInput",
     "EntityRelationshipEdgeFilter",
     "EntityRelationshipEdgeTypeFilter",
     "EntityRelationshipEntityDomainTypeFilter",
@@ -760,12 +767,14 @@ from newrelic_sb_sdk.graphql.enums import (
     EdgeTraceFilterAction,
     EntityAlertSeverity,
     EntityInfrastructureIntegrationType,
+    EntityManagementEncodingName,
     EntityManagementEntityScope,
     EntityManagementExternalOwnerType,
     EntityManagementHostingPlatform,
     EntityManagementLicenseName,
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
+    EntityManagementTextSplitterType,
     EntityRelationshipEdgeDirection,
     EntityRelationshipEdgeType,
     EntitySearchQueryBuilderDomain,
@@ -1192,6 +1201,7 @@ class AgentApplicationSettingsSessionReplayInput(sgqlc.types.Input):
         "mask_all_inputs",
         "mask_input_options",
         "mask_text_selector",
+        "preload",
         "sampling_rate",
     )
     auto_start = sgqlc.types.Field(Boolean, graphql_name="autoStart")
@@ -1217,6 +1227,8 @@ class AgentApplicationSettingsSessionReplayInput(sgqlc.types.Input):
     )
 
     mask_text_selector = sgqlc.types.Field(String, graphql_name="maskTextSelector")
+
+    preload = sgqlc.types.Field(Boolean, graphql_name="preload")
 
     sampling_rate = sgqlc.types.Field(Float, graphql_name="samplingRate")
 
@@ -10446,6 +10458,30 @@ class EntityGoldenTagInput(sgqlc.types.Input):
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
 
 
+class EntityManagementCharacterTextSplitterOptionsCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("is_separator_regex", "separator")
+    is_separator_regex = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="isSeparatorRegex"
+    )
+
+    separator = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="separator"
+    )
+
+
+class EntityManagementCharacterTextSplitterOptionsUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("is_separator_regex", "separator")
+    is_separator_regex = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="isSeparatorRegex"
+    )
+
+    separator = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="separator"
+    )
+
+
 class EntityManagementCollectionElementsFilter(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("collection_id",)
@@ -10541,13 +10577,28 @@ class EntityManagementConfluenceIntegrationUpdateInput(sgqlc.types.Input):
 class EntityManagementConfluenceRagSettingsEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "character_text_splitter_options",
+        "chunk_overlap",
+        "chunk_size",
         "confluence_integration_id",
         "confluence_query",
         "interval_seconds",
+        "markdown_text_splitter_options",
         "name",
         "scope",
         "tags",
+        "text_splitter_type",
+        "token_text_splitter_options",
     )
+    character_text_splitter_options = sgqlc.types.Field(
+        EntityManagementCharacterTextSplitterOptionsCreateInput,
+        graphql_name="characterTextSplitterOptions",
+    )
+
+    chunk_overlap = sgqlc.types.Field(Int, graphql_name="chunkOverlap")
+
+    chunk_size = sgqlc.types.Field(Int, graphql_name="chunkSize")
+
     confluence_integration_id = sgqlc.types.Field(
         sgqlc.types.non_null(ID), graphql_name="confluenceIntegrationId"
     )
@@ -10558,6 +10609,11 @@ class EntityManagementConfluenceRagSettingsEntityCreateInput(sgqlc.types.Input):
 
     interval_seconds = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="intervalSeconds"
+    )
+
+    markdown_text_splitter_options = sgqlc.types.Field(
+        "EntityManagementMarkdownTextSplitterOptionsCreateInput",
+        graphql_name="markdownTextSplitterOptions",
     )
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
@@ -10572,16 +10628,40 @@ class EntityManagementConfluenceRagSettingsEntityCreateInput(sgqlc.types.Input):
         graphql_name="tags",
     )
 
+    text_splitter_type = sgqlc.types.Field(
+        EntityManagementTextSplitterType, graphql_name="textSplitterType"
+    )
+
+    token_text_splitter_options = sgqlc.types.Field(
+        "EntityManagementTokenTextSplitterOptionsCreateInput",
+        graphql_name="tokenTextSplitterOptions",
+    )
+
 
 class EntityManagementConfluenceRagSettingsEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "character_text_splitter_options",
+        "chunk_overlap",
+        "chunk_size",
         "confluence_integration_id",
         "confluence_query",
         "interval_seconds",
+        "markdown_text_splitter_options",
         "name",
         "tags",
+        "text_splitter_type",
+        "token_text_splitter_options",
     )
+    character_text_splitter_options = sgqlc.types.Field(
+        EntityManagementCharacterTextSplitterOptionsUpdateInput,
+        graphql_name="characterTextSplitterOptions",
+    )
+
+    chunk_overlap = sgqlc.types.Field(Int, graphql_name="chunkOverlap")
+
+    chunk_size = sgqlc.types.Field(Int, graphql_name="chunkSize")
+
     confluence_integration_id = sgqlc.types.Field(
         ID, graphql_name="confluenceIntegrationId"
     )
@@ -10590,11 +10670,25 @@ class EntityManagementConfluenceRagSettingsEntityUpdateInput(sgqlc.types.Input):
 
     interval_seconds = sgqlc.types.Field(Int, graphql_name="intervalSeconds")
 
+    markdown_text_splitter_options = sgqlc.types.Field(
+        "EntityManagementMarkdownTextSplitterOptionsUpdateInput",
+        graphql_name="markdownTextSplitterOptions",
+    )
+
     name = sgqlc.types.Field(String, graphql_name="name")
 
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
+    )
+
+    text_splitter_type = sgqlc.types.Field(
+        EntityManagementTextSplitterType, graphql_name="textSplitterType"
+    )
+
+    token_text_splitter_options = sgqlc.types.Field(
+        "EntityManagementTokenTextSplitterOptionsUpdateInput",
+        graphql_name="tokenTextSplitterOptions",
     )
 
 
@@ -10817,6 +10911,32 @@ class EntityManagementGitRepositoryEntityUpdateInput(sgqlc.types.Input):
     url = sgqlc.types.Field(String, graphql_name="url")
 
 
+class EntityManagementMarkdownTextSplitterOptionsCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("headers_to_split_on", "return_each_line")
+    headers_to_split_on = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)),
+        graphql_name="headersToSplitOn",
+    )
+
+    return_each_line = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="returnEachLine"
+    )
+
+
+class EntityManagementMarkdownTextSplitterOptionsUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("headers_to_split_on", "return_each_line")
+    headers_to_split_on = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)),
+        graphql_name="headersToSplitOn",
+    )
+
+    return_each_line = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="returnEachLine"
+    )
+
+
 class EntityManagementNrqlRuleEngineCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("accounts", "query")
@@ -10837,6 +10957,26 @@ class EntityManagementNrqlRuleEngineUpdateInput(sgqlc.types.Input):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementPipelineCloudRuleEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "name", "nrql", "scope", "tags")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    nrql = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="nrql")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
 
 
 class EntityManagementRagToolEntityCreateInput(sgqlc.types.Input):
@@ -11177,6 +11317,22 @@ class EntityManagementTeamsOrganizationSettingsEntityUpdateInput(sgqlc.types.Inp
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTagInput)),
         graphql_name="tags",
+    )
+
+
+class EntityManagementTokenTextSplitterOptionsCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("encoding_name",)
+    encoding_name = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementEncodingName), graphql_name="encodingName"
+    )
+
+
+class EntityManagementTokenTextSplitterOptionsUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("encoding_name",)
+    encoding_name = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementEncodingName), graphql_name="encodingName"
     )
 
 

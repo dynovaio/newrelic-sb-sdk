@@ -144,6 +144,7 @@ __all__ = [
     "EntityGoldenGoldenMetricsErrorType",
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
+    "EntityManagementEncodingName",
     "EntityManagementEntityScope",
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
@@ -152,6 +153,7 @@ __all__ = [
     "EntityManagementManagedEntityType",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
+    "EntityManagementTextSplitterType",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -167,6 +169,7 @@ __all__ = [
     "ErrorsInboxErrorGroupSortOrderField",
     "ErrorsInboxErrorGroupState",
     "ErrorsInboxEventSource",
+    "ErrorsInboxIssueType",
     "ErrorsInboxResourceType",
     "ErrorsInboxUpdateErrorGroupStateErrorType",
     "EventsToMetricsErrorReason",
@@ -1649,6 +1652,11 @@ class EntityInfrastructureIntegrationType(sgqlc.types.Enum):
     )
 
 
+class EntityManagementEncodingName(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CL100_K_BASE", "GPT_3_5_TURBO", "O200_K_BASE")
+
+
 class EntityManagementEntityScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "ORGANIZATION")
@@ -1710,6 +1718,15 @@ class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("GITHUB_TEAM", "IAM_GROUP")
+
+
+class EntityManagementTextSplitterType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "CHARACTER_TEXT_SPLITTER",
+        "MARKDOWN_TEXT_SPLITTER",
+        "TOKEN_TEXT_SPLITTER",
+    )
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
@@ -1847,6 +1864,11 @@ class ErrorsInboxEventSource(sgqlc.types.Enum):
     )
 
 
+class ErrorsInboxIssueType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ERROR", "PERFORMANCE")
+
+
 class ErrorsInboxResourceType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("JIRA_ISSUE",)
@@ -1961,7 +1983,7 @@ class InstallationRecipeStatusType(sgqlc.types.Enum):
 
 class KnowledgeSearchSources(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DOCS",)
+    __choices__ = ("ARTICLES", "DOCS", "FORUM")
 
 
 class LogConfigurationsCreateDataPartitionRuleErrorType(sgqlc.types.Enum):
@@ -2476,6 +2498,7 @@ class SyntheticsMonitorCreateErrorType(sgqlc.types.Enum):
         "INTERNAL_SERVER_ERROR",
         "NOT_FOUND",
         "PAYMENT_REQUIRED",
+        "RATE_LIMITED",
         "TAGGING_ERROR",
         "UNAUTHORIZED",
         "UNKNOWN_ERROR",
@@ -2527,6 +2550,7 @@ class SyntheticsMonitorUpdateErrorType(sgqlc.types.Enum):
         "INTERNAL_SERVER_ERROR",
         "NOT_FOUND",
         "PAYMENT_REQUIRED",
+        "RATE_LIMITED",
         "SCRIPT_ERROR",
         "TAGGING_ERROR",
         "UNAUTHORIZED",
