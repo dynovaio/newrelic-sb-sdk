@@ -338,6 +338,10 @@ d = {
                 "GraphQL/enums.html#alertsnrqldynamicconditiontermsoperator",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AlertsNrqlSignalSeasonality": (
+                "GraphQL/enums.html#alertsnrqlsignalseasonality",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AlertsNrqlStaticConditionValueFunction": (
                 "GraphQL/enums.html#alertsnrqlstaticconditionvaluefunction",
                 "newrelic_sb_sdk/graphql/enums.py",
