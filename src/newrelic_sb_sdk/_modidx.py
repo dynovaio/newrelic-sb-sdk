@@ -338,6 +338,10 @@ d = {
                 "GraphQL/enums.html#alertsnrqldynamicconditiontermsoperator",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AlertsNrqlSignalSeasonality": (
+                "GraphQL/enums.html#alertsnrqlsignalseasonality",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AlertsNrqlStaticConditionValueFunction": (
                 "GraphQL/enums.html#alertsnrqlstaticconditionvaluefunction",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -8707,6 +8711,64 @@ d = {
                 "newrelic_sb_sdk/shortcuts/credentials.py",
             )
         },
+        "newrelic_sb_sdk.shortcuts.dashboards": {
+            "newrelic_sb_sdk.shortcuts.dashboards._patch_datetime": (
+                "Shortcuts/dashboards.html#_patch_datetime",
+                "newrelic_sb_sdk/shortcuts/dashboards.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.dashboards.get_all_dashboards": (
+                "Shortcuts/dashboards.html#get_all_dashboards",
+                "newrelic_sb_sdk/shortcuts/dashboards.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.dashboards.get_dashboard": (
+                "Shortcuts/dashboards.html#get_dashboard",
+                "newrelic_sb_sdk/shortcuts/dashboards.py",
+            ),
+        },
+        "newrelic_sb_sdk.shortcuts.historical_data_export": {
+            "newrelic_sb_sdk.shortcuts.historical_data_export._perform_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#_perform_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.can_execute_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#can_execute_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.cancel_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#cancel_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.create_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#create_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.get_all_historical_data_exports": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#get_all_historical_data_exports",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.get_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#get_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+            "newrelic_sb_sdk.shortcuts.historical_data_export.perform_historical_data_export": (
+                "Shortcuts/historical "
+                "data "
+                "export.html#perform_historical_data_export",
+                "newrelic_sb_sdk/shortcuts/historical_data_export.py",
+            ),
+        },
         "newrelic_sb_sdk.shortcuts.nrql": {
             "newrelic_sb_sdk.shortcuts.nrql._check_nrql_query_progress": (
                 "Shortcuts/nrql.html#_check_nrql_query_progress",
@@ -8716,9 +8778,35 @@ d = {
                 "Shortcuts/nrql.html#_perform_nrql_query",
                 "newrelic_sb_sdk/shortcuts/nrql.py",
             ),
+            "newrelic_sb_sdk.shortcuts.nrql.nrql": (
+                "Shortcuts/nrql.html#nrql",
+                "newrelic_sb_sdk/shortcuts/nrql.py",
+            ),
             "newrelic_sb_sdk.shortcuts.nrql.perform_nrql_query": (
                 "Shortcuts/nrql.html#perform_nrql_query",
                 "newrelic_sb_sdk/shortcuts/nrql.py",
+            ),
+        },
+        "newrelic_sb_sdk.utils.download": {
+            "newrelic_sb_sdk.utils.download.Downloader": (
+                "Utils/download.html#downloader",
+                "newrelic_sb_sdk/utils/download.py",
+            ),
+            "newrelic_sb_sdk.utils.download.Downloader.__init__": (
+                "Utils/download.html#downloader.__init__",
+                "newrelic_sb_sdk/utils/download.py",
+            ),
+            "newrelic_sb_sdk.utils.download.Downloader.run": (
+                "Utils/download.html#downloader.run",
+                "newrelic_sb_sdk/utils/download.py",
+            ),
+            "newrelic_sb_sdk.utils.download.download_file": (
+                "Utils/download.html#download_file",
+                "newrelic_sb_sdk/utils/download.py",
+            ),
+            "newrelic_sb_sdk.utils.download.download_files": (
+                "Utils/download.html#download_files",
+                "newrelic_sb_sdk/utils/download.py",
             ),
         },
         "newrelic_sb_sdk.utils.exceptions": {

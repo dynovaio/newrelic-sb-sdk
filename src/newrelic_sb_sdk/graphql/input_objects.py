@@ -743,6 +743,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AlertsNrqlConditionTermsOperator,
     AlertsNrqlConditionThresholdOccurrences,
     AlertsNrqlDynamicConditionTermsOperator,
+    AlertsNrqlSignalSeasonality,
     AlertsNrqlStaticConditionValueFunction,
     AlertsOpsGenieDataCenterRegion,
     AlertsSignalAggregationMethod,
@@ -3664,6 +3665,7 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "signal_seasonality",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -3691,6 +3693,10 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field("AlertsNrqlConditionSignalInput", graphql_name="signal")
+
+    signal_seasonality = sgqlc.types.Field(
+        AlertsNrqlSignalSeasonality, graphql_name="signalSeasonality"
+    )
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -3949,6 +3955,7 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "signal_seasonality",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -3973,6 +3980,10 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field(AlertsNrqlConditionSignalInput, graphql_name="signal")
+
+    signal_seasonality = sgqlc.types.Field(
+        AlertsNrqlSignalSeasonality, graphql_name="signalSeasonality"
+    )
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(

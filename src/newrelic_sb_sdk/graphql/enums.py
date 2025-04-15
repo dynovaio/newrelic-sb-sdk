@@ -81,6 +81,7 @@ __all__ = [
     "AlertsNrqlConditionThresholdOccurrences",
     "AlertsNrqlConditionType",
     "AlertsNrqlDynamicConditionTermsOperator",
+    "AlertsNrqlSignalSeasonality",
     "AlertsNrqlStaticConditionValueFunction",
     "AlertsOpsGenieDataCenterRegion",
     "AlertsSignalAggregationMethod",
@@ -1032,6 +1033,11 @@ class AlertsNrqlConditionType(sgqlc.types.Enum):
 class AlertsNrqlDynamicConditionTermsOperator(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ABOVE",)
+
+
+class AlertsNrqlSignalSeasonality(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DAILY", "HOURLY", "NONE", "WEEKLY")
 
 
 class AlertsNrqlStaticConditionValueFunction(sgqlc.types.Enum):

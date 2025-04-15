@@ -14,6 +14,7 @@ chapters:
       - file: notebooks/GraphQL/Objects.ipynb
   - file: notebooks/Utils/Index.ipynb
     sections:
+      - file: notebooks/Utils/Download.ipynb
       - file: notebooks/Utils/Exceptions.ipynb
       - file: notebooks/Utils/Query.ipynb
       - file: notebooks/Utils/Response.ipynb
@@ -22,6 +23,8 @@ chapters:
     sections:
       - file: notebooks/Shortcuts/Accounts.ipynb
       - file: notebooks/Shortcuts/Credentials.ipynb
+      - file: notebooks/Shortcuts/Dashboards.ipynb
+      - file: notebooks/Shortcuts/Historical Data Export.ipynb
       - file: notebooks/Shortcuts/Nrql.ipynb
   - file: CHANGELOG.md
   - file: CONTRIBUTING.md

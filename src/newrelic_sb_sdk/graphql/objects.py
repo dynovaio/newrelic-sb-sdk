@@ -1197,6 +1197,7 @@ from newrelic_sb_sdk.graphql.enums import (
     AlertsNrqlConditionTermsOperator,
     AlertsNrqlConditionThresholdOccurrences,
     AlertsNrqlConditionType,
+    AlertsNrqlSignalSeasonality,
     AlertsOpsGenieDataCenterRegion,
     AlertsSignalAggregationMethod,
     AlertsWebhookCustomPayloadType,
@@ -2670,6 +2671,7 @@ class Account(sgqlc.types.Type):
         "nerd_storage",
         "nrql",
         "nrql_drop_rules",
+        "nrql_query_progress",
         "pixie",
         "streaming_export",
         "synthetics",
@@ -2773,6 +2775,21 @@ class Account(sgqlc.types.Type):
 
     nrql_drop_rules = sgqlc.types.Field(
         "NrqlDropRulesAccountStitchedFields", graphql_name="nrqlDropRules"
+    )
+
+    nrql_query_progress = sgqlc.types.Field(
+        "NrdbResultContainer",
+        graphql_name="nrqlQueryProgress",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "query_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="queryId", default=None
+                    ),
+                ),
+            )
+        ),
     )
 
     pixie = sgqlc.types.Field("PixieAccountStitchedFields", graphql_name="pixie")
@@ -2908,6 +2925,7 @@ class Actor(sgqlc.types.Type):
         "nerdpacks",
         "nr1_catalog",
         "nrql",
+        "nrql_query_progress",
         "organization",
         "pixie",
         "query_history",
@@ -3129,6 +3147,36 @@ class Actor(sgqlc.types.Type):
     * `options` (`NrqlQueryOptions`)
     * `query` (`Nrql!`)
     * `timeout` (`Seconds`)
+    """
+
+    nrql_query_progress = sgqlc.types.Field(
+        "CrossAccountNrdbResultContainer",
+        graphql_name="nrqlQueryProgress",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "accounts",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            sgqlc.types.list_of(sgqlc.types.non_null(Int))
+                        ),
+                        graphql_name="accounts",
+                        default=None,
+                    ),
+                ),
+                (
+                    "query_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="queryId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `accounts` (`[Int!]!`)
+    * `query_id` (`ID!`)
     """
 
     organization = sgqlc.types.Field("Organization", graphql_name="organization")
@@ -16978,6 +17026,7 @@ class Organization(sgqlc.types.Type):
         "customer_id",
         "id",
         "name",
+        "nrql_query_progress",
         "storage_account_id",
         "telemetry_id",
         "user_management",
@@ -17025,6 +17074,36 @@ class Organization(sgqlc.types.Type):
     id = sgqlc.types.Field(ID, graphql_name="id")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    nrql_query_progress = sgqlc.types.Field(
+        "OrganizationNrdbResultContainer",
+        graphql_name="nrqlQueryProgress",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "accounts",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            sgqlc.types.list_of(sgqlc.types.non_null(Int))
+                        ),
+                        graphql_name="accounts",
+                        default=None,
+                    ),
+                ),
+                (
+                    "query_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="queryId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `accounts` (`[Int!]!`)
+    * `query_id` (`ID!`)
+    """
 
     storage_account_id = sgqlc.types.Field(Int, graphql_name="storageAccountId")
 
@@ -28125,10 +28204,14 @@ class AlertsHipChatNotificationChannel(sgqlc.types.Type, AlertsNotificationChann
 
 class AlertsNrqlBaselineCondition(sgqlc.types.Type, AlertsNrqlCondition):
     __schema__ = nerdgraph
-    __field_names__ = ("baseline_direction",)
+    __field_names__ = ("baseline_direction", "signal_seasonality")
     baseline_direction = sgqlc.types.Field(
         sgqlc.types.non_null(AlertsNrqlBaselineDirection),
         graphql_name="baselineDirection",
+    )
+
+    signal_seasonality = sgqlc.types.Field(
+        AlertsNrqlSignalSeasonality, graphql_name="signalSeasonality"
     )
 
 
