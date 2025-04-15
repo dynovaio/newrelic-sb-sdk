@@ -47,6 +47,16 @@
   `EntityManagementFleetEntity` object type.
 * Remove `entities` and `members` fields from `EntityManagementTeamEntity`
   object type.
+* Add new `_get_variable_from_env` and `get_new_relic_account_id_from_env`,
+  refactor `get_new_relic_user_key_from_env` using `_get_variable_from_env`.
+* Add new `nrql` function, update retry logic in `perform_nrql_query`, deprecate
+  `max_retry` in favor of `max_retries` in `perform_nrql_query`.
+* Add Download notebook for utility functions for download files from
+  historical data export.
+* Add Dashboards notebook for shortcut functions related to dashboards
+* Update rename `variable_values` to `variables` param in
+  `_check_nrql_query_progress`,
+* Add new Historical Data Export notebook for hsitorical data export operations.
 
 ## [0.32.0] - 2025-04-08
 
