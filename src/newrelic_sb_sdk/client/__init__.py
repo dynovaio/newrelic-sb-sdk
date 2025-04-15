@@ -1,5 +1,6 @@
 __all__ = [
     "logger",
+    "get_new_relic_account_id_from_env",
     "get_new_relic_user_key_from_env",
     "NewRelicGqlClient",
     "NewRelicRestClient",
@@ -10,7 +11,8 @@ import json
 import logging
 import os
 import pathlib
-from typing import Any, Dict, Union
+import warnings
+from typing import Any, Callable, Dict, Union
 
 import dotenv
 from requests import Response, Session
@@ -25,8 +27,12 @@ from ..version import VERSION
 logger = logging.getLogger("newrelic_sb_sdk")
 
 
-def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
-    """Recovery new relic credentials from environmentn variables."""
+def _get_variable_from_env(
+    variable_name: str,
+    env_file_name: Union[str, None] = None,
+    caster: Union[Callable, None] = None,
+) -> Any:
+    """Recover environment variable from environment or .env file."""
 
     if env_file_name is not None:
         env_file = pathlib.Path(env_file_name)
@@ -34,12 +40,46 @@ def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> s
         if env_file.exists():
             dotenv.load_dotenv(env_file)
 
-    new_relic_user_key = os.environ.get("NEW_RELIC_USER_KEY", None)
+    variable = os.environ.get(variable_name, None)
 
-    if new_relic_user_key is None:
-        raise ValueError("Environment variable NEW_RELIC_USER_KEY is not set.")
+    if variable is None:
+        raise ValueError(f"Environment variable '{variable_name}' is not set.")
 
-    return new_relic_user_key
+    if caster is not None:
+        try:
+            variable = caster(variable)
+        except Exception as e:
+            raise ValueError(
+                f"Failed to cast environment variable '{variable_name}': {e}."
+            ) from e
+
+    logger.debug(
+        "Environment variable '%s' loaded: %r (type: %r).",
+        variable_name,
+        variable,
+        type(variable),
+    )
+
+    return variable
+
+
+def get_new_relic_account_id_from_env(env_file_name: Union[str, None] = None) -> int:
+    """Recovery new relic account id from environmentn variables."""
+
+    return _get_variable_from_env(
+        "NEW_RELIC_ACCOUNT_ID",
+        env_file_name,
+        caster=int,
+    )
+
+
+def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
+    """Recovery new relic credentials from environmentn variables."""
+
+    return _get_variable_from_env(
+        "NEW_RELIC_USER_KEY",
+        env_file_name,
+    )
 
 
 class NewRelicGqlClient(Session):
@@ -59,6 +99,7 @@ class NewRelicGqlClient(Session):
                 "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
         )
+
         logger.debug("NewRelicGqlClient initialized with headers: %r", self.headers)
 
         self._setup_schema()
@@ -119,6 +160,13 @@ class NewRelicRestClient(Session):
                 "Api-Key": new_relic_user_key,
                 "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
+        )
+
+        warnings.warn(
+            "NewRelicRestClient is deprecated. Use NewRelicGqlClient instead."
+            " NewRelicRestClient will be removed in future versions.",
+            DeprecationWarning,
+            stacklevel=2,
         )
 
         logger.debug("NewRelicRestClient initialized with headers: %r", self.headers)

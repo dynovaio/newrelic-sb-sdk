@@ -1,9 +1,11 @@
-__all__ = ["logger", "perform_nrql_query"]
+__all__ = ["logger", "nrql", "perform_nrql_query"]
 
 
 import logging
 import time
-from typing import List
+import warnings
+from textwrap import dedent
+from typing import List, Union
 
 from sgqlc.operation import Operation
 from sgqlc.types import ID, Arg, Int, Variable, list_of, non_null
@@ -22,6 +24,10 @@ from ..utils.response import raise_response_errors
 logger = logging.getLogger("newrelic_sb_sdk")
 
 
+def nrql(query: str) -> Nrql:
+    return Nrql(dedent(query.strip()))
+
+
 def _perform_nrql_query(
     *,
     client: NewRelicGqlClient,
@@ -30,6 +36,8 @@ def _perform_nrql_query(
     timeout: int = 60,
     async_: bool = False,
 ) -> CrossAccountNrdbResultContainer:
+    # pylint: disable=redefined-outer-name
+
     logger.debug(
         "%d - %s - Performing NRQL query: %s",
         account.id,
@@ -110,7 +118,7 @@ def _check_nrql_query_progress(
 
     response = client.execute(
         operation,
-        variable_values={
+        variables={
             "accounts": [account.id],
             "queryId": query_id,
         },
@@ -130,9 +138,21 @@ def perform_nrql_query(
     account: Account,
     nrql_query: Nrql,
     timeout: int = 60,
-    max_retry: int = 5,
+    max_retry: Union[int, None] = None,
+    max_retries: int = 5,
     retry_delay: int = 5,
 ) -> List[NrdbResult]:
+    # pylint: disable=redefined-outer-name
+
+    if max_retry is not None:
+        warnings.warn(
+            f"{account.id} - {account.name} - max_retry is deprecated and will "
+            "be removed in the future. Use max_retries instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        max_retries = max_retry
+
     logger.debug(
         "%d - %s - Performing NRQL query: %s",
         account.id,
@@ -144,7 +164,7 @@ def perform_nrql_query(
         json_data={},
     )
 
-    for retry in range(max_retry):
+    for retry in range(max_retries):
         try:
             nrql = _perform_nrql_query(
                 client=client,
@@ -161,34 +181,7 @@ def perform_nrql_query(
                 nrql.query_progress.query_id,
             )
 
-        except NewRelicError as e:
-            if retry == max_retry - 1:
-                raise e
-
-            logger.error(
-                "%d - %s - Failed to perform NRQL with error: %s",
-                account.id,
-                account.name,
-                str(e),
-            )
-            logger.error(
-                "%d - %s - Retrying NRQL query with trial: %d",
-                account.id,
-                account.name,
-                retry,
-            )
-            logger.error(
-                "%d - %s - Waiting for %d seconds before retrying",
-                account.id,
-                account.name,
-                retry_delay,
-            )
-
-            time.sleep(retry_delay)
-
-    for retry in range(max_retry):
-        try:
-            while nrql is not None and not nrql.query_progress.completed:
+            while not nrql.query_progress.completed:
                 logger.debug(
                     "%d - %s - NRQL query %s is not completed yet, "
                     "waiting for %d seconds",
@@ -206,22 +199,23 @@ def perform_nrql_query(
                     query_id=nrql.query_progress.query_id,
                 )
 
+            break
+
         except NewRelicError as e:
-            if retry == max_retry - 1:
+            if retry == max_retries - 1:
                 raise e
 
             logger.error(
-                "%d - %s - Failed to get progress of NRQL query %s with error: %s",
+                "%d - %s - Failed to perform NRQL with error: %s",
                 account.id,
                 account.name,
-                nrql.query_progress.query_id,
                 str(e),
             )
             logger.error(
                 "%d - %s - Retrying NRQL query with trial: %d",
                 account.id,
                 account.name,
-                retry,
+                retry + 1,
             )
             logger.error(
                 "%d - %s - Waiting for %d seconds before retrying",
