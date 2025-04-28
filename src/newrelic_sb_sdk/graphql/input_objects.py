@@ -402,6 +402,8 @@ __all__ = [
     "EntityGoldenMetricInput",
     "EntityGoldenNrqlTimeWindowInput",
     "EntityGoldenTagInput",
+    "EntityManagementCategoryScopeCreateInput",
+    "EntityManagementCategoryScopeUpdateInput",
     "EntityManagementCharacterTextSplitterOptionsCreateInput",
     "EntityManagementCharacterTextSplitterOptionsUpdateInput",
     "EntityManagementCollectionElementsFilter",
@@ -419,10 +421,18 @@ __all__ = [
     "EntityManagementGenericEntityUpdateInput",
     "EntityManagementGitRepositoryEntityCreateInput",
     "EntityManagementGitRepositoryEntityUpdateInput",
+    "EntityManagementInboxIssueCategoryEntityCreateInput",
+    "EntityManagementInboxIssueCategoryEntityUpdateInput",
     "EntityManagementMarkdownTextSplitterOptionsCreateInput",
     "EntityManagementMarkdownTextSplitterOptionsUpdateInput",
+    "EntityManagementNPlusOneDatabaseQuerySettingCreateInput",
+    "EntityManagementNPlusOneDatabaseQuerySettingUpdateInput",
+    "EntityManagementNPlusOneDatabaseSettingCreateInput",
+    "EntityManagementNPlusOneDatabaseSettingUpdateInput",
     "EntityManagementNrqlRuleEngineCreateInput",
     "EntityManagementNrqlRuleEngineUpdateInput",
+    "EntityManagementPerformanceInboxSettingEntityCreateInput",
+    "EntityManagementPerformanceInboxSettingEntityUpdateInput",
     "EntityManagementPipelineCloudRuleEntityCreateInput",
     "EntityManagementRagToolEntityCreateInput",
     "EntityManagementRagToolEntityUpdateInput",
@@ -434,6 +444,8 @@ __all__ = [
     "EntityManagementScorecardEntityUpdateInput",
     "EntityManagementScorecardRuleEntityCreateInput",
     "EntityManagementScorecardRuleEntityUpdateInput",
+    "EntityManagementSlowDatabaseQuerySettingCreateInput",
+    "EntityManagementSlowDatabaseQuerySettingUpdateInput",
     "EntityManagementSyncGroupRuleConditionUpdateInput",
     "EntityManagementSyncGroupRuleUpdateInput",
     "EntityManagementSyncGroupsSettingsUpdateInput",
@@ -768,10 +780,12 @@ from newrelic_sb_sdk.graphql.enums import (
     EdgeTraceFilterAction,
     EntityAlertSeverity,
     EntityInfrastructureIntegrationType,
+    EntityManagementCategoryScopeType,
     EntityManagementEncodingName,
     EntityManagementEntityScope,
     EntityManagementExternalOwnerType,
     EntityManagementHostingPlatform,
+    EntityManagementIssueType,
     EntityManagementLicenseName,
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
@@ -10469,6 +10483,26 @@ class EntityGoldenTagInput(sgqlc.types.Input):
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
 
 
+class EntityManagementCategoryScopeCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementCategoryScopeType), graphql_name="type"
+    )
+
+
+class EntityManagementCategoryScopeUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementCategoryScopeType), graphql_name="type"
+    )
+
+
 class EntityManagementCharacterTextSplitterOptionsCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("is_separator_regex", "separator")
@@ -10922,6 +10956,87 @@ class EntityManagementGitRepositoryEntityUpdateInput(sgqlc.types.Input):
     url = sgqlc.types.Field(String, graphql_name="url")
 
 
+class EntityManagementInboxIssueCategoryEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "category_scope",
+        "category_type",
+        "issue_type",
+        "message_attributes",
+        "name",
+        "name_attributes",
+        "scope",
+        "tags",
+    )
+    category_scope = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementCategoryScopeCreateInput),
+        graphql_name="categoryScope",
+    )
+
+    category_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="categoryType"
+    )
+
+    issue_type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementIssueType), graphql_name="issueType"
+    )
+
+    message_attributes = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="messageAttributes"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    name_attributes = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name="nameAttributes"
+    )
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementInboxIssueCategoryEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "category_scope",
+        "category_type",
+        "issue_type",
+        "message_attributes",
+        "name",
+        "name_attributes",
+        "tags",
+    )
+    category_scope = sgqlc.types.Field(
+        EntityManagementCategoryScopeUpdateInput, graphql_name="categoryScope"
+    )
+
+    category_type = sgqlc.types.Field(String, graphql_name="categoryType")
+
+    issue_type = sgqlc.types.Field(EntityManagementIssueType, graphql_name="issueType")
+
+    message_attributes = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="messageAttributes"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    name_attributes = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="nameAttributes"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
 class EntityManagementMarkdownTextSplitterOptionsCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("headers_to_split_on", "return_each_line")
@@ -10948,6 +11063,46 @@ class EntityManagementMarkdownTextSplitterOptionsUpdateInput(sgqlc.types.Input):
     )
 
 
+class EntityManagementNPlusOneDatabaseQuerySettingCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
+class EntityManagementNPlusOneDatabaseQuerySettingUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
+class EntityManagementNPlusOneDatabaseSettingCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
+class EntityManagementNPlusOneDatabaseSettingUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
 class EntityManagementNrqlRuleEngineCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("accounts", "query")
@@ -10968,6 +11123,76 @@ class EntityManagementNrqlRuleEngineUpdateInput(sgqlc.types.Input):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementPerformanceInboxSettingEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "n_plus_one_database_query_setting",
+        "n_plus_one_database_setting",
+        "name",
+        "scope",
+        "slow_database_query_setting",
+        "tags",
+    )
+    n_plus_one_database_query_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseQuerySettingCreateInput,
+        graphql_name="nPlusOneDatabaseQuerySetting",
+    )
+
+    n_plus_one_database_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseSettingCreateInput,
+        graphql_name="nPlusOneDatabaseSetting",
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    slow_database_query_setting = sgqlc.types.Field(
+        "EntityManagementSlowDatabaseQuerySettingCreateInput",
+        graphql_name="slowDatabaseQuerySetting",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementPerformanceInboxSettingEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "n_plus_one_database_query_setting",
+        "n_plus_one_database_setting",
+        "name",
+        "slow_database_query_setting",
+        "tags",
+    )
+    n_plus_one_database_query_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseQuerySettingUpdateInput,
+        graphql_name="nPlusOneDatabaseQuerySetting",
+    )
+
+    n_plus_one_database_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseSettingUpdateInput,
+        graphql_name="nPlusOneDatabaseSetting",
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    slow_database_query_setting = sgqlc.types.Field(
+        "EntityManagementSlowDatabaseQuerySettingUpdateInput",
+        graphql_name="slowDatabaseQuerySetting",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
 
 
 class EntityManagementPipelineCloudRuleEntityCreateInput(sgqlc.types.Input):
@@ -11144,6 +11369,22 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
+    )
+
+
+class EntityManagementSlowDatabaseQuerySettingCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_duration_threshold_ms",)
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
+class EntityManagementSlowDatabaseQuerySettingUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_duration_threshold_ms",)
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
     )
 
 

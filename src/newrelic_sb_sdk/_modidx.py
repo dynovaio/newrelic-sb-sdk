@@ -594,6 +594,10 @@ d = {
                 "GraphQL/enums.html#entityinfrastructureintegrationtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCategoryScopeType": (
+                "GraphQL/enums.html#entitymanagementcategoryscopetype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementEncodingName": (
                 "GraphQL/enums.html#entitymanagementencodingname",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -612,6 +616,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementHostingPlatform": (
                 "GraphQL/enums.html#entitymanagementhostingplatform",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementIssueType": (
+                "GraphQL/enums.html#entitymanagementissuetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementLicenseName": (
@@ -2854,6 +2862,16 @@ d = {
                 "GraphQL/input objects.html#entitygoldentaginput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCategoryScopeCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcategoryscopecreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementCategoryScopeUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementcategoryscopeupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementCharacterTextSplitterOptionsCreateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementcharactertextsplitteroptionscreateinput",
@@ -2938,6 +2956,16 @@ d = {
                 "objects.html#entitymanagementgitrepositoryentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementInboxIssueCategoryEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementinboxissuecategoryentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementInboxIssueCategoryEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementinboxissuecategoryentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementMarkdownTextSplitterOptionsCreateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementmarkdowntextsplitteroptionscreateinput",
@@ -2948,6 +2976,26 @@ d = {
                 "objects.html#entitymanagementmarkdowntextsplitteroptionsupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementNPlusOneDatabaseQuerySettingCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementnplusonedatabasequerysettingcreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementNPlusOneDatabaseQuerySettingUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementnplusonedatabasequerysettingupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementNPlusOneDatabaseSettingCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementnplusonedatabasesettingcreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementNPlusOneDatabaseSettingUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementnplusonedatabasesettingupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementNrqlRuleEngineCreateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementnrqlruleenginecreateinput",
@@ -2956,6 +3004,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementNrqlRuleEngineUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementnrqlruleengineupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementPerformanceInboxSettingEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementperformanceinboxsettingentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementPerformanceInboxSettingEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementperformanceinboxsettingentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementPipelineCloudRuleEntityCreateInput": (
@@ -3009,6 +3067,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementScorecardRuleEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementscorecardruleentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementSlowDatabaseQuerySettingCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementslowdatabasequerysettingcreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementSlowDatabaseQuerySettingUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementslowdatabasequerysettingupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementSyncGroupRuleConditionUpdateInput": (
@@ -6388,6 +6456,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementblobsignature",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCategoryScope": (
+                "GraphQL/objects.html#entitymanagementcategoryscope",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCharacterTextSplitterOptions": (
                 "GraphQL/objects.html#entitymanagementcharactertextsplitteroptions",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6508,6 +6580,18 @@ d = {
                 "GraphQL/objects.html#entitymanagementgitrepositoryentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementInboxIssueCategoryEntity": (
+                "GraphQL/objects.html#entitymanagementinboxissuecategoryentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementInboxIssueCategoryEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementinboxissuecategoryentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementInboxIssueCategoryEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementinboxissuecategoryentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementInfrastructureManager": (
                 "GraphQL/objects.html#entitymanagementinfrastructuremanager",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6524,8 +6608,28 @@ d = {
                 "GraphQL/objects.html#entitymanagementmetadata",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementNPlusOneDatabaseQuerySetting": (
+                "GraphQL/objects.html#entitymanagementnplusonedatabasequerysetting",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementNPlusOneDatabaseSetting": (
+                "GraphQL/objects.html#entitymanagementnplusonedatabasesetting",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlRuleEngine": (
                 "GraphQL/objects.html#entitymanagementnrqlruleengine",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntity": (
+                "GraphQL/objects.html#entitymanagementperformanceinboxsettingentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementperformanceinboxsettingentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementperformanceinboxsettingentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntity": (
@@ -6602,6 +6706,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSignatureDetails": (
                 "GraphQL/objects.html#entitymanagementsignaturedetails",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSlowDatabaseQuerySetting": (
+                "GraphQL/objects.html#entitymanagementslowdatabasequerysetting",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSyncGroupRule": (
