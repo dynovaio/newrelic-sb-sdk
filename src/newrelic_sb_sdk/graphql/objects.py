@@ -417,6 +417,7 @@ __all__ = [
     "EntityManagementAgentDeployment",
     "EntityManagementBlob",
     "EntityManagementBlobSignature",
+    "EntityManagementCategoryScope",
     "EntityManagementCharacterTextSplitterOptions",
     "EntityManagementCollectionElementsResult",
     "EntityManagementCollectionEntityCreateResult",
@@ -437,11 +438,17 @@ __all__ = [
     "EntityManagementGenericEntityUpdateResult",
     "EntityManagementGitRepositoryEntityCreateResult",
     "EntityManagementGitRepositoryEntityUpdateResult",
+    "EntityManagementInboxIssueCategoryEntityCreateResult",
+    "EntityManagementInboxIssueCategoryEntityUpdateResult",
     "EntityManagementInfrastructureManager",
     "EntityManagementManagedEntitiesRing",
     "EntityManagementMarkdownTextSplitterOptions",
     "EntityManagementMetadata",
+    "EntityManagementNPlusOneDatabaseQuerySetting",
+    "EntityManagementNPlusOneDatabaseSetting",
     "EntityManagementNrqlRuleEngine",
+    "EntityManagementPerformanceInboxSettingEntityCreateResult",
+    "EntityManagementPerformanceInboxSettingEntityUpdateResult",
     "EntityManagementPipelineCloudRuleEntityCreateResult",
     "EntityManagementRagToolEntityCreateResult",
     "EntityManagementRagToolEntityUpdateResult",
@@ -456,6 +463,7 @@ __all__ = [
     "EntityManagementScorecardRuleEntityCreateResult",
     "EntityManagementScorecardRuleEntityUpdateResult",
     "EntityManagementSignatureDetails",
+    "EntityManagementSlowDatabaseQuerySetting",
     "EntityManagementSyncGroupRule",
     "EntityManagementSyncGroupRuleCondition",
     "EntityManagementSyncGroupsSettings",
@@ -1037,6 +1045,8 @@ __all__ = [
     "EntityManagementGenericEntity",
     "EntityManagementGitHubIntegrationEntity",
     "EntityManagementGitRepositoryEntity",
+    "EntityManagementInboxIssueCategoryEntity",
+    "EntityManagementPerformanceInboxSettingEntity",
     "EntityManagementPipelineCloudRuleEntity",
     "EntityManagementRagDocumentEntity",
     "EntityManagementRagToolEntity",
@@ -1256,11 +1266,13 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenEventObjectId,
     EntityGoldenGoldenMetricsErrorType,
     EntityGoldenMetricUnit,
+    EntityManagementCategoryScopeType,
     EntityManagementEncodingName,
     EntityManagementEntityScope,
     EntityManagementExternalOwnerType,
     EntityManagementFleetDeploymentPhase,
     EntityManagementHostingPlatform,
+    EntityManagementIssueType,
     EntityManagementLicenseName,
     EntityManagementManagedEntityType,
     EntityManagementSyncGroupRuleConditionType,
@@ -1459,6 +1471,10 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntityManagementGenericEntityUpdateInput,
     EntityManagementGitRepositoryEntityCreateInput,
     EntityManagementGitRepositoryEntityUpdateInput,
+    EntityManagementInboxIssueCategoryEntityCreateInput,
+    EntityManagementInboxIssueCategoryEntityUpdateInput,
+    EntityManagementPerformanceInboxSettingEntityCreateInput,
+    EntityManagementPerformanceInboxSettingEntityUpdateInput,
     EntityManagementPipelineCloudRuleEntityCreateInput,
     EntityManagementRagToolEntityCreateInput,
     EntityManagementRagToolEntityUpdateInput,
@@ -12209,6 +12225,16 @@ class EntityManagementBlobSignature(sgqlc.types.Type):
     )
 
 
+class EntityManagementCategoryScope(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementCategoryScopeType), graphql_name="type"
+    )
+
+
 class EntityManagementCharacterTextSplitterOptions(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("is_separator_regex", "separator")
@@ -12483,6 +12509,24 @@ class EntityManagementGitRepositoryEntityUpdateResult(sgqlc.types.Type):
     )
 
 
+class EntityManagementInboxIssueCategoryEntityCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementInboxIssueCategoryEntity"),
+        graphql_name="entity",
+    )
+
+
+class EntityManagementInboxIssueCategoryEntityUpdateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementInboxIssueCategoryEntity"),
+        graphql_name="entity",
+    )
+
+
 class EntityManagementInfrastructureManager(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("type", "version")
@@ -12526,6 +12570,26 @@ class EntityManagementMetadata(sgqlc.types.Type):
     updated_by = sgqlc.types.Field(EntityManagementActor, graphql_name="updatedBy")
 
 
+class EntityManagementNPlusOneDatabaseQuerySetting(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
+class EntityManagementNPlusOneDatabaseSetting(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_count_threshold", "query_duration_threshold_ms")
+    query_count_threshold = sgqlc.types.Field(Int, graphql_name="queryCountThreshold")
+
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
+
+
 class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("accounts", "query")
@@ -12535,6 +12599,24 @@ class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementPerformanceInboxSettingEntityCreateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementPerformanceInboxSettingEntity"),
+        graphql_name="entity",
+    )
+
+
+class EntityManagementPerformanceInboxSettingEntityUpdateResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity",)
+    entity = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementPerformanceInboxSettingEntity"),
+        graphql_name="entity",
+    )
 
 
 class EntityManagementPipelineCloudRuleEntityCreateResult(sgqlc.types.Type):
@@ -12695,6 +12777,14 @@ class EntityManagementSignatureDetails(sgqlc.types.Type):
     signing_algorithm = sgqlc.types.Field(String, graphql_name="signingAlgorithm")
 
     signing_domain = sgqlc.types.Field(String, graphql_name="signingDomain")
+
+
+class EntityManagementSlowDatabaseQuerySetting(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("query_duration_threshold_ms",)
+    query_duration_threshold_ms = sgqlc.types.Field(
+        Milliseconds, graphql_name="queryDurationThresholdMs"
+    )
 
 
 class EntityManagementSyncGroupRule(sgqlc.types.Type):
@@ -17903,6 +17993,8 @@ class RootMutationType(sgqlc.types.Type):
         "entity_management_create_confluence_integration",
         "entity_management_create_confluence_rag_settings",
         "entity_management_create_git_repository",
+        "entity_management_create_inbox_issue_category",
+        "entity_management_create_performance_inbox_setting",
         "entity_management_create_pipeline_cloud_rule",
         "entity_management_create_rag_tool",
         "entity_management_create_relationship",
@@ -17917,6 +18009,8 @@ class RootMutationType(sgqlc.types.Type):
         "entity_management_update_confluence_integration",
         "entity_management_update_confluence_rag_settings",
         "entity_management_update_git_repository",
+        "entity_management_update_inbox_issue_category",
+        "entity_management_update_performance_inbox_setting",
         "entity_management_update_rag_tool",
         "entity_management_update_scorecard",
         "entity_management_update_scorecard_rule",
@@ -21698,6 +21792,44 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    entity_management_create_inbox_issue_category = sgqlc.types.Field(
+        EntityManagementInboxIssueCategoryEntityCreateResult,
+        graphql_name="entityManagementCreateInboxIssueCategory",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "inbox_issue_category_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementInboxIssueCategoryEntityCreateInput
+                        ),
+                        graphql_name="inboxIssueCategoryEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_create_performance_inbox_setting = sgqlc.types.Field(
+        EntityManagementPerformanceInboxSettingEntityCreateResult,
+        graphql_name="entityManagementCreatePerformanceInboxSetting",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "performance_inbox_setting_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementPerformanceInboxSettingEntityCreateInput
+                        ),
+                        graphql_name="performanceInboxSettingEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     entity_management_create_pipeline_cloud_rule = sgqlc.types.Field(
         EntityManagementPipelineCloudRuleEntityCreateResult,
         graphql_name="entityManagementCreatePipelineCloudRule",
@@ -21997,6 +22129,56 @@ class RootMutationType(sgqlc.types.Type):
                     "id",
                     sgqlc.types.Arg(
                         sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_update_inbox_issue_category = sgqlc.types.Field(
+        EntityManagementInboxIssueCategoryEntityUpdateResult,
+        graphql_name="entityManagementUpdateInboxIssueCategory",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "inbox_issue_category_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementInboxIssueCategoryEntityUpdateInput
+                        ),
+                        graphql_name="inboxIssueCategoryEntity",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    entity_management_update_performance_inbox_setting = sgqlc.types.Field(
+        EntityManagementPerformanceInboxSettingEntityUpdateResult,
+        graphql_name="entityManagementUpdatePerformanceInboxSetting",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "performance_inbox_setting_entity",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(
+                            EntityManagementPerformanceInboxSettingEntityUpdateInput
+                        ),
+                        graphql_name="performanceInboxSettingEntity",
+                        default=None,
                     ),
                 ),
             )
@@ -30798,6 +30980,63 @@ class EntityManagementGitRepositoryEntity(sgqlc.types.Type, EntityManagementEnti
     primary_language = sgqlc.types.Field(String, graphql_name="primaryLanguage")
 
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
+
+
+class EntityManagementInboxIssueCategoryEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "category_scope",
+        "category_type",
+        "issue_type",
+        "message_attributes",
+        "name_attributes",
+    )
+    category_scope = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementCategoryScope),
+        graphql_name="categoryScope",
+    )
+
+    category_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="categoryType"
+    )
+
+    issue_type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementIssueType), graphql_name="issueType"
+    )
+
+    message_attributes = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="messageAttributes"
+    )
+
+    name_attributes = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name="nameAttributes"
+    )
+
+
+class EntityManagementPerformanceInboxSettingEntity(
+    sgqlc.types.Type, EntityManagementEntity
+):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "n_plus_one_database_query_setting",
+        "n_plus_one_database_setting",
+        "slow_database_query_setting",
+    )
+    n_plus_one_database_query_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseQuerySetting,
+        graphql_name="nPlusOneDatabaseQuerySetting",
+    )
+
+    n_plus_one_database_setting = sgqlc.types.Field(
+        EntityManagementNPlusOneDatabaseSetting, graphql_name="nPlusOneDatabaseSetting"
+    )
+
+    slow_database_query_setting = sgqlc.types.Field(
+        EntityManagementSlowDatabaseQuerySetting,
+        graphql_name="slowDatabaseQuerySetting",
+    )
 
 
 class EntityManagementPipelineCloudRuleEntity(sgqlc.types.Type, EntityManagementEntity):

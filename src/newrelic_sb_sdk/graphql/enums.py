@@ -145,11 +145,13 @@ __all__ = [
     "EntityGoldenGoldenMetricsErrorType",
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
+    "EntityManagementCategoryScopeType",
     "EntityManagementEncodingName",
     "EntityManagementEntityScope",
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
+    "EntityManagementIssueType",
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
     "EntityManagementSyncGroupRuleConditionType",
@@ -1037,7 +1039,7 @@ class AlertsNrqlDynamicConditionTermsOperator(sgqlc.types.Enum):
 
 class AlertsNrqlSignalSeasonality(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("DAILY", "HOURLY", "NONE", "WEEKLY")
+    __choices__ = ("DAILY", "HOURLY", "NEW_RELIC_CALCULATION", "NONE", "WEEKLY")
 
 
 class AlertsNrqlStaticConditionValueFunction(sgqlc.types.Enum):
@@ -1658,6 +1660,11 @@ class EntityInfrastructureIntegrationType(sgqlc.types.Enum):
     )
 
 
+class EntityManagementCategoryScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "GLOBAL")
+
+
 class EntityManagementEncodingName(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CL100_K_BASE", "GPT_3_5_TURBO", "O200_K_BASE")
@@ -1681,6 +1688,11 @@ class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
 class EntityManagementHostingPlatform(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB", "OTHER")
+
+
+class EntityManagementIssueType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ERROR", "PERFORMANCE")
 
 
 class EntityManagementLicenseName(sgqlc.types.Enum):
