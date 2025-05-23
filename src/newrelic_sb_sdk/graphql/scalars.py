@@ -10,6 +10,7 @@ __all__ = [
     "AgentApplicationSettingsRawJsConfiguration",
     "AiDecisionsRuleExpression",
     "AttributeMap",
+    "ChangeTrackingRawCustomAttributesMap",
     "CollaborationRawContextMetadata",
     "DashboardWidgetRawConfiguration",
     "DistributedTracingSpanAttributes",
@@ -64,6 +65,10 @@ class AttributeMap(sgqlc.types.Scalar):
 
 
 Boolean = sgqlc.types.Boolean
+
+
+class ChangeTrackingRawCustomAttributesMap(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
 
 
 class CollaborationRawContextMetadata(sgqlc.types.Scalar):
