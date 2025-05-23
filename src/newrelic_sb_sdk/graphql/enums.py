@@ -92,6 +92,7 @@ __all__ = [
     "ApiAccessKeyType",
     "ApiAccessUserKeyErrorType",
     "BrowserAgentInstallType",
+    "ChangeTrackingCategoryType",
     "ChangeTrackingDeploymentType",
     "ChangeTrackingValidationFlag",
     "ChartFormatType",
@@ -145,15 +146,30 @@ __all__ = [
     "EntityGoldenGoldenMetricsErrorType",
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
+    "EntityManagementAiToolParameterType",
+    "EntityManagementAssignmentType",
+    "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
+    "EntityManagementConnectionType",
+    "EntityManagementDirection",
     "EntityManagementEncodingName",
+    "EntityManagementEncodingType",
     "EntityManagementEntityScope",
+    "EntityManagementExecutionStatus",
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
+    "EntityManagementInstallationStatus",
     "EntityManagementIssueType",
+    "EntityManagementJiraIssueType",
+    "EntityManagementKeyType",
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
+    "EntityManagementMessageType",
+    "EntityManagementPriority",
+    "EntityManagementSigningAlgorithm",
+    "EntityManagementStatusCode",
+    "EntityManagementSyncConfigurationMode",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
     "EntityManagementTextSplitterType",
@@ -186,6 +202,7 @@ __all__ = [
     "IncidentIntelligenceEnvironmentSupportedEnvironmentKind",
     "InstallationInstallStateType",
     "InstallationRecipeStatusType",
+    "KnowledgePublishStatus",
     "KnowledgeSearchSources",
     "LogConfigurationsCreateDataPartitionRuleErrorType",
     "LogConfigurationsDataPartitionRuleMatchingOperator",
@@ -1101,6 +1118,40 @@ class BrowserAgentInstallType(sgqlc.types.Enum):
     __choices__ = ("LITE", "PRO", "PRO_SPA")
 
 
+class ChangeTrackingCategoryType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "BUSINESS_EVENT__CONVENTION",
+        "BUSINESS_EVENT__MARKETING_CAMPAIGN",
+        "BUSINESS_EVENT__OTHER",
+        "CUSTOMER_DEFINED__CUSTOM",
+        "DEPLOYMENT_LIFECYCLE__ARTIFACT_COPY",
+        "DEPLOYMENT_LIFECYCLE__ARTIFACT_DELETION",
+        "DEPLOYMENT_LIFECYCLE__ARTIFACT_DEPLOYMENT",
+        "DEPLOYMENT_LIFECYCLE__ARTIFACT_MOVE",
+        "DEPLOYMENT_LIFECYCLE__BUILD_DELETION",
+        "DEPLOYMENT_LIFECYCLE__BUILD_PROMOTION",
+        "DEPLOYMENT_LIFECYCLE__BUILD_UPLOAD",
+        "DEPLOYMENT_LIFECYCLE__IMAGE_DELETION",
+        "DEPLOYMENT_LIFECYCLE__IMAGE_PROMOTION",
+        "DEPLOYMENT_LIFECYCLE__IMAGE_PUSH",
+        "DEPLOYMENT_LIFECYCLE__RELEASE_BUNDLE_CREATION",
+        "DEPLOYMENT_LIFECYCLE__RELEASE_BUNDLE_DELETION",
+        "DEPLOYMENT_LIFECYCLE__RELEASE_BUNDLE_SIGN",
+        "DEPLOYMENT__BASIC",
+        "DEPLOYMENT__BLUE_GREEN",
+        "DEPLOYMENT__CANARY",
+        "DEPLOYMENT__OTHER",
+        "DEPLOYMENT__ROLLING",
+        "DEPLOYMENT__SHADOW",
+        "FEATURE_FLAG__BASIC",
+        "OPERATIONAL__CRASH",
+        "OPERATIONAL__OTHER",
+        "OPERATIONAL__SCHEDULED_MAINTENANCE_PERIOD",
+        "OPERATIONAL__SERVER_REBOOT",
+    )
+
+
 class ChangeTrackingDeploymentType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BASIC", "BLUE_GREEN", "CANARY", "OTHER", "ROLLING", "SHADOW")
@@ -1108,7 +1159,11 @@ class ChangeTrackingDeploymentType(sgqlc.types.Enum):
 
 class ChangeTrackingValidationFlag(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("FAIL_ON_FIELD_LENGTH", "FAIL_ON_REST_API_FAILURES")
+    __choices__ = (
+        "ALLOW_CUSTOM_CATEGORY_OR_TYPE",
+        "FAIL_ON_FIELD_LENGTH",
+        "FAIL_ON_REST_API_FAILURES",
+    )
 
 
 class ChartFormatType(sgqlc.types.Enum):
@@ -1660,9 +1715,34 @@ class EntityInfrastructureIntegrationType(sgqlc.types.Enum):
     )
 
 
+class EntityManagementAiToolParameterType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BOOLEAN", "INTEGER", "LIST", "OBJECT", "STRING")
+
+
+class EntityManagementAssignmentType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NEW_RELIC_TEAM_ID", "NEW_RELIC_USER_ID")
+
+
+class EntityManagementCategory(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CHAT", "INCIDENT", "ISSUE", "VULNERABILITY")
+
+
 class EntityManagementCategoryScopeType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "GLOBAL")
+
+
+class EntityManagementConnectionType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("JIRA", "SERVICE_NOW")
+
+
+class EntityManagementDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ONEWAY", "TWOWAY")
 
 
 class EntityManagementEncodingName(sgqlc.types.Enum):
@@ -1670,9 +1750,19 @@ class EntityManagementEncodingName(sgqlc.types.Enum):
     __choices__ = ("CL100_K_BASE", "GPT_3_5_TURBO", "O200_K_BASE")
 
 
+class EntityManagementEncodingType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BASE64", "UTF8")
+
+
 class EntityManagementEntityScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class EntityManagementExecutionStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("FAILED", "PARTIAL_SUCCESS", "SUCCESS")
 
 
 class EntityManagementExternalOwnerType(sgqlc.types.Enum):
@@ -1690,9 +1780,24 @@ class EntityManagementHostingPlatform(sgqlc.types.Enum):
     __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB", "OTHER")
 
 
+class EntityManagementInstallationStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INSTALLED", "UNINSTALLATION_IN_PROGRESS", "UNINSTALLED")
+
+
 class EntityManagementIssueType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ERROR", "PERFORMANCE")
+
+
+class EntityManagementJiraIssueType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BUG", "STORY", "TASK")
+
+
+class EntityManagementKeyType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INGEST", "USER")
 
 
 class EntityManagementLicenseName(sgqlc.types.Enum):
@@ -1728,6 +1833,31 @@ class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __choices__ = ("HOST", "KUBERNETESCLUSTER")
 
 
+class EntityManagementMessageType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("JSON", "TEXT", "YAML")
+
+
+class EntityManagementPriority(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("HIGH", "HIGHEST", "LOW", "LOWEST", "MEDIUM")
+
+
+class EntityManagementSigningAlgorithm(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("RSA256",)
+
+
+class EntityManagementStatusCode(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("MISSING_DATA_SOURCE", "SYSTEM_ERROR")
+
+
+class EntityManagementSyncConfigurationMode(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ALL", "MESSAGES", "WORKITEM")
+
+
 class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CONTAINS", "ENDS_WITH", "STARTS_WITH")
@@ -1735,7 +1865,7 @@ class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
 
 class EntityManagementTeamExternalIntegrationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("GITHUB_TEAM", "IAM_GROUP")
+    __choices__ = ("GITHUB_TEAM", "IAM_GROUP", "SERVICENOW_TEAM")
 
 
 class EntityManagementTextSplitterType(sgqlc.types.Enum):
@@ -1999,9 +2129,14 @@ class InstallationRecipeStatusType(sgqlc.types.Enum):
     )
 
 
+class KnowledgePublishStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ARCHIVED", "DRAFT", "ONLINE", "PENDING")
+
+
 class KnowledgeSearchSources(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ARTICLES", "DOCS", "FORUM")
+    __choices__ = ("ALL", "ARTICLES", "DOCS", "FORUM")
 
 
 class LogConfigurationsCreateDataPartitionRuleErrorType(sgqlc.types.Enum):
