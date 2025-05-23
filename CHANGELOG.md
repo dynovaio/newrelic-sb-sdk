@@ -2,6 +2,76 @@
 
 ## [Unreleased]
 
+* Add new enums: `ChangeTrackingCategoryType`,
+  `EntityManagementAiToolParameterType`, `EntityManagementAssignmentType`,
+  `EntityManagementCategory`, `EntityManagementConnectionType`,
+  `EntityManagementDirection`, `EntityManagementEncodingType`,
+  `EntityManagementExecutionStatus`, `EntityManagementInstallationStatus`,
+  `EntityManagementJiraIssueType`, `EntityManagementKeyType`,
+  `EntityManagementMessageType`, `EntityManagementPriority`,
+  `EntityManagementSigningAlgorithm`, `EntityManagementStatusCode`,
+  `EntityManagementSyncConfigurationMode`, `KnowledgePublishStatus`.
+* Add new input types: `ChangeTrackingCategoryAndTypeInput`,
+  `ChangeTrackingCategoryFieldsInput`, `ChangeTrackingCategoryRelatedInput`,
+  `ChangeTrackingChangeTrackingSearchFilter`,
+  `ChangeTrackingCreateEventInput`, `ChangeTrackingDeploymentFieldsInput`,
+  `ChangeTrackingEntitySearchInput`, `ChangeTrackingFeatureFlagFieldsInput`,
+  `CloudAwsMetadataGovIntegrationInput`,
+  `CloudAwsMsElasticacheGovIntegrationInput`,
+  `CloudAwsTagsGlobalGovIntegrationInput`,
+  `CloudConfluentKafkaConnectorResourceIntegrationInput`,
+  `CloudConfluentKafkaKsqlResourceIntegrationInput`,
+  `CloudSecurityHubIntegrationInput`,
+  `EntityManagementAiAgentEntityCreateInput`,
+  `EntityManagementAiAgentEntityUpdateInput`,
+  `EntityManagementAiToolEntityCreateInput`,
+  `EntityManagementAiToolEntityUpdateInput`,
+  `EntityManagementAiToolParameterCreateInput`,
+  `EntityManagementAiToolParameterUpdateInput`,
+  `EntityManagementLlmConfigCreateInput`,
+  `EntityManagementLlmConfigUpdateInput`.
+* Add new object types: `AgentReleasesOperatingSystem`,
+  `AgentReleasesOsVersion`, `ChangeTrackingActorStitchedFields`,
+  `ChangeTrackingChangeTrackingEvent`,
+  `ChangeTrackingChangeTrackingSearchResult`,
+  `ChangeTrackingCreateEventResponse`, `ChangeTrackingDeploymentEvent`,
+  `ChangeTrackingFeatureFlagEvent`, `ChangeTrackingGenericEvent`,
+  `CloudAwsMetadataGovIntegration`, `CloudAwsMsElasticacheGovIntegration`,
+  `CloudAwsTagsGlobalGovIntegration`,
+  `CloudConfluentKafkaConnectorResourceIntegration`,
+  `CloudConfluentKafkaKsqlResourceIntegration`,
+  `CloudSecurityHubIntegration`, `EntityManagementAiAgentEntity`,
+  `EntityManagementAiAgentEntityCreateResult`,
+  `EntityManagementAiAgentEntityUpdateResult`,
+  `EntityManagementAiToolEntity`,
+  `EntityManagementAiToolEntityCreateResult`,
+  `EntityManagementAiToolEntityUpdateResult`,
+  `EntityManagementAiToolParameter`, `EntityManagementConnectionReference`,
+  `EntityManagementConnectionSettings`, `EntityManagementCount`,
+  `EntityManagementExecutionIssue`, `EntityManagementGithubAppTokenCredential`,
+  `EntityManagementGithubConnection`, `EntityManagementGithubCredentials`,
+  `EntityManagementJiraBasicAuthCredential`, `EntityManagementJiraConnection`,
+  `EntityManagementJiraCredentials`, `EntityManagementJiraOAuthCredential`,
+  `EntityManagementJiraSyncConfiguration`, `EntityManagementLlmConfig`,
+  `EntityManagementNewRelicBasicAuthCredential`,
+  `EntityManagementNewRelicConnection`, `EntityManagementNotebookEntity`,
+  `EntityManagementRuleExecutionStatus`, `EntityManagementSecretReference`,
+  `EntityManagementTemplateField`, `EntityManagementWorkItem`,
+  `EntityManagementWorkItemAssignment`, `EntityManagementWorkItemAttribute`,
+  `EntityManagementWorkItemMessage`, `KnowledgeTag`,
+  `KnowledgeTagsResponse`.
+* Add new scalar: `ChangeTrackingRawCustomAttributesMap`.
+* Add new fields and arguments to existing types, including support for change
+  tracking, AI agent/tool management, and knowledge tags.
+* Add new mutations: `change_tracking_create_event`,
+  `entity_management_create_ai_agent`, `entity_management_create_ai_tool`,
+  `entity_management_update_ai_agent`, `entity_management_update_ai_tool`.
+* Add new fields to existing objects, such as `supported_operating_systems` to
+  `AgentReleasesAgentRelease`, `change_tracking` to `Actor`, and
+  `tags`/`publish_status` to knowledge search results.
+* Remove the `ai_issues_mark_as_investigating` mutation from
+  `RootMutationType`.
+
 ## [0.34.0] - 2025-04-28
 
 * Add `EntityManagementFleetDeploymentPhase`, `EntityManagementRiskSeverity`,
