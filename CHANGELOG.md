@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.35.0] - 2025-05-23
+
 * Add new enums: `ChangeTrackingCategoryType`,
   `EntityManagementAiToolParameterType`, `EntityManagementAssignmentType`,
   `EntityManagementCategory`, `EntityManagementConnectionType`,
