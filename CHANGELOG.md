@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.36.0] - 2025-06-07
+
 * Add new scalar: `ChangeTrackingRawCustomAttributesMap`.
 * Add new enums: `ChangeTrackingCategoryType`,
   `EntityManagementAiToolParameterType`, `EntityManagementAssignmentType`,
