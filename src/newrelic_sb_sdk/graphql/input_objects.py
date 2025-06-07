@@ -373,6 +373,8 @@ __all__ = [
     "DashboardBillboardWidgetThresholdInput",
     "DashboardInput",
     "DashboardLineWidgetConfigurationInput",
+    "DashboardLiveUrlAuthCreationInput",
+    "DashboardLiveUrlAuthFactorInput",
     "DashboardLiveUrlCreationPoliciesFilterInput",
     "DashboardLiveUrlOptionsInput",
     "DashboardLiveUrlsFilterInput",
@@ -789,6 +791,7 @@ from newrelic_sb_sdk.graphql.enums import (
     ChangeTrackingValidationFlag,
     CloudMetricCollectionMode,
     DashboardAlertSeverity,
+    DashboardLiveUrlAuthType,
     DashboardLiveUrlType,
     DashboardPermissions,
     DashboardVariableReplacementStrategy,
@@ -10272,6 +10275,25 @@ class DashboardLineWidgetConfigurationInput(sgqlc.types.Input):
     nrql_queries = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("DashboardWidgetNrqlQueryInput")),
         graphql_name="nrqlQueries",
+    )
+
+
+class DashboardLiveUrlAuthCreationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("factors",)
+    factors = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null("DashboardLiveUrlAuthFactorInput"))
+        ),
+        graphql_name="factors",
+    )
+
+
+class DashboardLiveUrlAuthFactorInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("type",)
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(DashboardLiveUrlAuthType), graphql_name="type"
     )
 
 

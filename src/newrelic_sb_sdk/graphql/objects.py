@@ -317,6 +317,9 @@ __all__ = [
     "DashboardEntityResult",
     "DashboardLineWidgetConfiguration",
     "DashboardLiveUrl",
+    "DashboardLiveUrlAuth",
+    "DashboardLiveUrlAuthFactor",
+    "DashboardLiveUrlAuthPasswordDetails",
     "DashboardLiveUrlCreationPoliciesResult",
     "DashboardLiveUrlCreationPolicy",
     "DashboardLiveUrlError",
@@ -429,6 +432,10 @@ __all__ = [
     "EntityManagementAiToolParameter",
     "EntityManagementBlob",
     "EntityManagementBlobSignature",
+    "EntityManagementBudgetAccount",
+    "EntityManagementBudgetAlertPolicy",
+    "EntityManagementBudgetLimit",
+    "EntityManagementBudgetSegment",
     "EntityManagementCategoryScope",
     "EntityManagementCharacterTextSplitterOptions",
     "EntityManagementCollectionElementsResult",
@@ -452,6 +459,7 @@ __all__ = [
     "EntityManagementFleetControlProperties",
     "EntityManagementFleetDeployment",
     "EntityManagementGenericEntityUpdateResult",
+    "EntityManagementGitHubSyncOptions",
     "EntityManagementGitRepositoryEntityCreateResult",
     "EntityManagementGitRepositoryEntityUpdateResult",
     "EntityManagementGithubAppTokenCredential",
@@ -1078,6 +1086,7 @@ __all__ = [
     "EntityManagementAgentTypeDefinitionEntity",
     "EntityManagementAiAgentEntity",
     "EntityManagementAiToolEntity",
+    "EntityManagementBudgetEntity",
     "EntityManagementCollectionEntity",
     "EntityManagementConfluenceIntegration",
     "EntityManagementConfluenceRagSettingsEntity",
@@ -1277,6 +1286,7 @@ from newrelic_sb_sdk.graphql.enums import (
     DashboardDeleteErrorType,
     DashboardDeleteResultStatus,
     DashboardEntityPermissions,
+    DashboardLiveUrlAuthType,
     DashboardLiveUrlErrorType,
     DashboardLiveUrlType,
     DashboardPermissions,
@@ -1320,6 +1330,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementCategory,
     EntityManagementCategoryScopeType,
     EntityManagementConnectionType,
+    EntityManagementConsumptionMetric,
     EntityManagementDirection,
     EntityManagementEncodingName,
     EntityManagementEncodingType,
@@ -1506,6 +1517,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     CollaborationAssistantConfigInput,
     CustomRoleContainerInput,
     DashboardInput,
+    DashboardLiveUrlAuthCreationInput,
     DashboardLiveUrlCreationPoliciesFilterInput,
     DashboardLiveUrlOptionsInput,
     DashboardLiveUrlsFilterInput,
@@ -10652,6 +10664,7 @@ class DashboardLiveUrl(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "accounts",
+        "auth",
         "created_at",
         "created_by",
         "expires_on",
@@ -10663,6 +10676,8 @@ class DashboardLiveUrl(sgqlc.types.Type):
     accounts = sgqlc.types.Field(
         sgqlc.types.list_of(AccountReference), graphql_name="accounts"
     )
+
+    auth = sgqlc.types.Field("DashboardLiveUrlAuth", graphql_name="auth")
 
     created_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="createdAt")
 
@@ -10677,6 +10692,35 @@ class DashboardLiveUrl(sgqlc.types.Type):
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
     uuid = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="uuid")
+
+
+class DashboardLiveUrlAuth(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("factors",)
+    factors = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(sgqlc.types.non_null("DashboardLiveUrlAuthFactor"))
+        ),
+        graphql_name="factors",
+    )
+
+
+class DashboardLiveUrlAuthFactor(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("password", "type")
+    password = sgqlc.types.Field(
+        "DashboardLiveUrlAuthPasswordDetails", graphql_name="password"
+    )
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(DashboardLiveUrlAuthType), graphql_name="type"
+    )
+
+
+class DashboardLiveUrlAuthPasswordDetails(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("value",)
+    value = sgqlc.types.Field(SecureValue, graphql_name="value")
 
 
 class DashboardLiveUrlCreationPoliciesResult(sgqlc.types.Type):
@@ -12519,6 +12563,36 @@ class EntityManagementBlobSignature(sgqlc.types.Type):
     )
 
 
+class EntityManagementBudgetAccount(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="id")
+
+
+class EntityManagementBudgetAlertPolicy(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class EntityManagementBudgetLimit(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("consumption_metric", "value")
+    consumption_metric = sgqlc.types.Field(
+        EntityManagementConsumptionMetric, graphql_name="consumptionMetric"
+    )
+
+    value = sgqlc.types.Field(Int, graphql_name="value")
+
+
+class EntityManagementBudgetSegment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("accounts",)
+    accounts = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityManagementBudgetAccount), graphql_name="accounts"
+    )
+
+
 class EntityManagementCategoryScope(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("id", "type")
@@ -12821,6 +12895,14 @@ class EntityManagementGenericEntityUpdateResult(sgqlc.types.Type):
     entity = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementEntity), graphql_name="entity"
     )
+
+
+class EntityManagementGitHubSyncOptions(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("sync_repositories", "sync_teams")
+    sync_repositories = sgqlc.types.Field(Boolean, graphql_name="syncRepositories")
+
+    sync_teams = sgqlc.types.Field(Boolean, graphql_name="syncTeams")
 
 
 class EntityManagementGitRepositoryEntityCreateResult(sgqlc.types.Type):
@@ -17620,6 +17702,7 @@ class NrqlDropRulesDropRule(sgqlc.types.Type):
         "creator",
         "description",
         "id",
+        "name",
         "nrql",
         "source",
     )
@@ -17642,6 +17725,8 @@ class NrqlDropRulesDropRule(sgqlc.types.Type):
     description = sgqlc.types.Field(String, graphql_name="description")
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
 
     nrql = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="nrql")
 
@@ -21537,6 +21622,14 @@ class RootMutationType(sgqlc.types.Type):
         graphql_name="dashboardCreateLiveUrl",
         args=sgqlc.types.ArgDict(
             (
+                (
+                    "auth",
+                    sgqlc.types.Arg(
+                        DashboardLiveUrlAuthCreationInput,
+                        graphql_name="auth",
+                        default=None,
+                    ),
+                ),
                 (
                     "guid",
                     sgqlc.types.Arg(
@@ -31545,6 +31638,30 @@ class EntityManagementAiToolEntity(sgqlc.types.Type, EntityManagementEntity):
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
+class EntityManagementBudgetEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "budget_alert_policies",
+        "budget_limits",
+        "budget_segment",
+        "organization_budget",
+    )
+    budget_alert_policies = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityManagementBudgetAlertPolicy),
+        graphql_name="budgetAlertPolicies",
+    )
+
+    budget_limits = sgqlc.types.Field(
+        sgqlc.types.list_of(EntityManagementBudgetLimit), graphql_name="budgetLimits"
+    )
+
+    budget_segment = sgqlc.types.Field(
+        EntityManagementBudgetSegment, graphql_name="budgetSegment"
+    )
+
+    organization_budget = sgqlc.types.Field(Boolean, graphql_name="organizationBudget")
+
+
 class EntityManagementCollectionEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
     __field_names__ = ()
@@ -31692,12 +31809,17 @@ class EntityManagementGitHubIntegrationEntity(sgqlc.types.Type, EntityManagement
     __schema__ = nerdgraph
     __field_names__ = (
         "count",
+        "git_hub_sync_options",
         "installation_id",
         "installation_status",
         "last_sync_completed_at",
         "next_sync_at",
     )
     count = sgqlc.types.Field(EntityManagementCount, graphql_name="count")
+
+    git_hub_sync_options = sgqlc.types.Field(
+        EntityManagementGitHubSyncOptions, graphql_name="gitHubSyncOptions"
+    )
 
     installation_id = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="installationId"
