@@ -16,6 +16,7 @@
 !.shellcheckrc
 !.tox.ini
 !.travis.yml
+.github/copilot-instructions.md
 notebooks/**/*.py
 notebooks/**/*.csv
 notebooks/**/*.txt
