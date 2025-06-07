@@ -106,6 +106,7 @@ __all__ = [
     "DashboardDeleteErrorType",
     "DashboardDeleteResultStatus",
     "DashboardEntityPermissions",
+    "DashboardLiveUrlAuthType",
     "DashboardLiveUrlErrorType",
     "DashboardLiveUrlType",
     "DashboardPermissions",
@@ -151,6 +152,7 @@ __all__ = [
     "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
     "EntityManagementConnectionType",
+    "EntityManagementConsumptionMetric",
     "EntityManagementDirection",
     "EntityManagementEncodingName",
     "EntityManagementEncodingType",
@@ -566,6 +568,7 @@ class AiNotificationsChannelType(sgqlc.types.Enum):
         "SLACK_COLLABORATION",
         "SLACK_LEGACY",
         "WEBHOOK",
+        "WORKFLOW_AUTOMATION",
     )
 
 
@@ -618,6 +621,7 @@ class AiNotificationsDestinationType(sgqlc.types.Enum):
         "SLACK_COLLABORATION",
         "SLACK_LEGACY",
         "WEBHOOK",
+        "WORKFLOW_AUTOMATION",
     )
 
 
@@ -1238,6 +1242,11 @@ class DashboardEntityPermissions(sgqlc.types.Enum):
     __choices__ = ("PRIVATE", "PUBLIC_READ_ONLY", "PUBLIC_READ_WRITE")
 
 
+class DashboardLiveUrlAuthType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("PASSWORD",)
+
+
 class DashboardLiveUrlErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("OPERATION_FAILURE", "UNAUTHORIZED", "UNSUPPORTED", "URL_NOT_FOUND")
@@ -1740,6 +1749,11 @@ class EntityManagementConnectionType(sgqlc.types.Enum):
     __choices__ = ("JIRA", "SERVICE_NOW")
 
 
+class EntityManagementConsumptionMetric(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ADVANCED_CCU", "CCU", "CORE_CCU")
+
+
 class EntityManagementDirection(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ONEWAY", "TWOWAY")
@@ -2003,10 +2017,14 @@ class ErrorsInboxEventSource(sgqlc.types.Enum):
     __choices__ = (
         "AWS_LAMBDA_INVOCATION_ERROR",
         "ERROR_TRACE",
+        "EXCESSIVE_DATABASE_QUERY",
         "JAVA_SCRIPT_ERROR",
         "MOBILE_CRASH",
         "MOBILE_HANDLED_EXCEPTION",
         "MOBILE_REQUEST_ERROR",
+        "N_PLUS_ONE_DATABASE_QUERY",
+        "SEQUENTIAL_DATABASE_QUERY",
+        "SLOW_SQL_TRACE",
         "SPAN",
         "TRANSACTION_ERROR",
     )

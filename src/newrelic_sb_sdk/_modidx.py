@@ -438,6 +438,10 @@ d = {
                 "GraphQL/enums.html#dashboardentitypermissions",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.DashboardLiveUrlAuthType": (
+                "GraphQL/enums.html#dashboardliveurlauthtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.DashboardLiveUrlErrorType": (
                 "GraphQL/enums.html#dashboardliveurlerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -616,6 +620,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementConnectionType": (
                 "GraphQL/enums.html#entitymanagementconnectiontype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementConsumptionMetric": (
+                "GraphQL/enums.html#entitymanagementconsumptionmetric",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementDirection": (
@@ -2812,6 +2820,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.DashboardLineWidgetConfigurationInput": (
                 "GraphQL/input objects.html#dashboardlinewidgetconfigurationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.DashboardLiveUrlAuthCreationInput": (
+                "GraphQL/input objects.html#dashboardliveurlauthcreationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.DashboardLiveUrlAuthFactorInput": (
+                "GraphQL/input objects.html#dashboardliveurlauthfactorinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.DashboardLiveUrlCreationPoliciesFilterInput": (
@@ -6216,6 +6232,18 @@ d = {
                 "GraphQL/objects.html#dashboardliveurl",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.DashboardLiveUrlAuth": (
+                "GraphQL/objects.html#dashboardliveurlauth",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DashboardLiveUrlAuthFactor": (
+                "GraphQL/objects.html#dashboardliveurlauthfactor",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DashboardLiveUrlAuthPasswordDetails": (
+                "GraphQL/objects.html#dashboardliveurlauthpassworddetails",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.DashboardLiveUrlCreationPoliciesResult": (
                 "GraphQL/objects.html#dashboardliveurlcreationpoliciesresult",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6712,6 +6740,26 @@ d = {
                 "GraphQL/objects.html#entitymanagementblobsignature",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetAccount": (
+                "GraphQL/objects.html#entitymanagementbudgetaccount",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetAlertPolicy": (
+                "GraphQL/objects.html#entitymanagementbudgetalertpolicy",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetEntity": (
+                "GraphQL/objects.html#entitymanagementbudgetentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetLimit": (
+                "GraphQL/objects.html#entitymanagementbudgetlimit",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetSegment": (
+                "GraphQL/objects.html#entitymanagementbudgetsegment",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCategoryScope": (
                 "GraphQL/objects.html#entitymanagementcategoryscope",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6838,6 +6886,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubIntegrationEntity": (
                 "GraphQL/objects.html#entitymanagementgithubintegrationentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubSyncOptions": (
+                "GraphQL/objects.html#entitymanagementgithubsyncoptions",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGitRepositoryEntity": (
