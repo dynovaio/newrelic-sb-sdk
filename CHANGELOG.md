@@ -2,6 +2,99 @@
 
 ## [Unreleased]
 
+* Add new scalar: `ChangeTrackingRawCustomAttributesMap`.
+* Add new enums: `ChangeTrackingCategoryType`,
+  `EntityManagementAiToolParameterType`, `EntityManagementAssignmentType`,
+  `EntityManagementCategory`, `EntityManagementConnectionType`,
+  `EntityManagementDirection`, `EntityManagementEncodingType`,
+  `EntityManagementExecutionStatus`, `EntityManagementInstallationStatus`,
+  `EntityManagementJiraIssueType`, `EntityManagementKeyType`,
+  `EntityManagementMessageType`, `EntityManagementPriority`,
+  `EntityManagementSigningAlgorithm`, `EntityManagementStatusCode`,
+  `EntityManagementSyncConfigurationMode`, `KnowledgePublishStatus`.
+* Add new interface types: `ChangeTrackingEvent`.
+* Add new input types: `ChangeTrackingCategoryAndTypeInput`,
+  `ChangeTrackingCategoryFieldsInput`, `ChangeTrackingCategoryRelatedInput`,
+  `ChangeTrackingChangeTrackingSearchFilter`, `ChangeTrackingCreateEventInput`,
+  `ChangeTrackingDeploymentFieldsInput`, `ChangeTrackingEntitySearchInput`,
+  `ChangeTrackingFeatureFlagFieldsInput`,
+  `CloudAwsMetadataGovIntegrationInput`,
+  `CloudAwsMsElasticacheGovIntegrationInput`,
+  `CloudAwsTagsGlobalGovIntegrationInput`,
+  `CloudConfluentKafkaConnectorResourceIntegrationInput`,
+  `CloudConfluentKafkaKsqlResourceIntegrationInput`,
+  `CloudSecurityHubIntegrationInput`,
+  `EntityManagementAiAgentEntityCreateInput`,
+  `EntityManagementAiAgentEntityUpdateInput`,
+  `EntityManagementAiToolEntityCreateInput`,
+  `EntityManagementAiToolEntityUpdateInput`,
+  `EntityManagementAiToolParameterCreateInput`,
+  `EntityManagementAiToolParameterUpdateInput`,
+  `EntityManagementLlmConfigCreateInput`,
+  `EntityManagementLlmConfigUpdateInput`.
+* Add new object types: `AgentReleasesOperatingSystem`,
+  `AgentReleasesOsVersion`, `ChangeTrackingActorStitchedFields`,
+  `ChangeTrackingChangeTrackingEvent`,
+  `ChangeTrackingChangeTrackingSearchResult`,
+  `ChangeTrackingCreateEventResponse`, `ChangeTrackingDeploymentEvent`,
+  `ChangeTrackingFeatureFlagEvent`, `ChangeTrackingGenericEvent`,
+  `CloudAwsMetadataGovIntegration`, `CloudAwsMsElasticacheGovIntegration`,
+  `CloudAwsTagsGlobalGovIntegration`,
+  `CloudConfluentKafkaConnectorResourceIntegration`,
+  `CloudConfluentKafkaKsqlResourceIntegration`, `CloudSecurityHubIntegration`,
+  `EntityManagementAiAgentEntity`, `EntityManagementAiAgentEntityCreateResult`,
+  `EntityManagementAiAgentEntityUpdateResult`, `EntityManagementAiToolEntity`,
+  `EntityManagementAiToolEntityCreateResult`,
+  `EntityManagementAiToolEntityUpdateResult`,
+  `EntityManagementAiToolParameter`, `EntityManagementConnectionReference`,
+  `EntityManagementConnectionSettings`, `EntityManagementCount`,
+  `EntityManagementExecutionIssue`, `EntityManagementGithubAppTokenCredential`,
+  `EntityManagementGithubConnection`, `EntityManagementGithubCredentials`,
+  `EntityManagementJiraBasicAuthCredential`, `EntityManagementJiraConnection`,
+  `EntityManagementJiraCredentials`, `EntityManagementJiraOAuthCredential`,
+  `EntityManagementJiraSyncConfiguration`, `EntityManagementLlmConfig`,
+  `EntityManagementNewRelicBasicAuthCredential`,
+  `EntityManagementNewRelicConnection`, `EntityManagementNotebookEntity`,
+  `EntityManagementRuleExecutionStatus`, `EntityManagementSecretReference`,
+  `EntityManagementTemplateField`, `EntityManagementWorkItem`,
+  `EntityManagementWorkItemAssignment`, `EntityManagementWorkItemAttribute`,
+  `EntityManagementWorkItemMessage`, `KnowledgeTag`, `KnowledgeTagsResponse`.
+* Add `ALLOW_CUSTOM_CATEGORY_OR_TYPE` value to `ChangeTrackingValidationFlag`
+  enum type.
+* Add `SERVICENOW_TEAM` value to `EntityManagementTeamExternalIntegrationType`
+  enum type.
+* Add `ALL` value to `KnowledgeSearchSources` enum type.
+* Add `disable_health_status_reporting` field to
+  `AlertsNrqlConditionTermsInput` input type.
+* Add `disable_health_status_reporting` field to
+  `AlertsNrqlDynamicConditionTermsInput` input type.
+* Add `security_hub` field to `CloudAwsDisableIntegrationsInput` input type.
+* Add `aws_meta_data_gov`, `aws_ms_elasticache_gov` and `aws_tags_global_gov`
+  fields to `CloudAwsGovcloudDisableIntegrationsInput` input type.
+* Add `aws_metadata_gov`, `aws_ms_elasticache_gov` and `aws_tags_global_gov`
+  fields to `CloudAwsGovcloudIntegrationsInput` input type.
+* Add `security_hub` field to `CloudAwsIntegrationsInput` input type.
+* Add `confluent_kafka_connector_resource` and `confluent_kafka_ksql_resource`
+  fields to `CloudConfluentDisableIntegrationsInput` input type.
+* Add `confluent_kafka_connector_resource` and `confluent_kafka_ksql_resource`
+  fields to `CloudConfluentIntegrationsInput` input type.
+* Add `disable_health_status_reporting` field to `AlertsNrqlTerms` interface
+  type.
+* Add `change_tracking` field to `Actor` object type.
+* Add `supported_operating_systems` field to `AgentReleasesAgentRelease` object
+  type.
+* Add `count` and `installation_status` fields to
+  `EntityManagementGitHubIntegrationEntity` object type.
+* Add `last_execution_status` field to `EntityManagementScorecardRuleEntity`
+  object type.
+* Add `tags` field to `KnowledgeDocsStitchedFields` object type.
+* Add `publish_status` and `tags` fields to `KnowledgeSearchResult` object type.
+* Remove `ai_issues_mark_as_investigating` field from `RootMutationType` object
+  type.
+* Add `change_tracking_create_event`, `entity_management_create_ai_agent`,
+  `entity_management_create_ai_tool`, `entity_management_update_ai_agent`, and
+  `entity_management_update_ai_tool` fields to `RootMutationType` object type.
+
 ## [0.35.0] - 2025-05-23
 
 * Add new enums: `ChangeTrackingCategoryType`,
