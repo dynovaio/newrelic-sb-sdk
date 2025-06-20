@@ -49,10 +49,13 @@ __all__ = [
     "AiTopologyCollectorResultType",
     "AiTopologyCollectorVertexClass",
     "AiTopologyVertexClass",
+    "AiWorkflowsBatchCreateMigratedWorkflowsErrorType",
+    "AiWorkflowsBatchDeleteMigratedWorkflowsErrorType",
     "AiWorkflowsCreateErrorType",
     "AiWorkflowsDeleteErrorType",
     "AiWorkflowsDestinationType",
     "AiWorkflowsEnrichmentType",
+    "AiWorkflowsFetchWorkflowsByIssuesFilterErrorType",
     "AiWorkflowsFilterType",
     "AiWorkflowsMutingRulesHandling",
     "AiWorkflowsNotificationTrigger",
@@ -213,6 +216,10 @@ __all__ = [
     "LogConfigurationsLiveArchiveRetentionPolicyType",
     "LogConfigurationsObfuscationMethod",
     "LogConfigurationsParsingRuleMutationErrorType",
+    "MachineLearningEncodingName",
+    "MachineLearningFilterByKeys",
+    "MachineLearningOperator",
+    "MachineLearningTextSplitterType",
     "MetricNormalizationCustomerRuleAction",
     "MetricNormalizationRuleAction",
     "MetricNormalizationRuleErrorType",
@@ -767,6 +774,31 @@ class AiTopologyVertexClass(sgqlc.types.Enum):
     )
 
 
+class AiWorkflowsBatchCreateMigratedWorkflowsErrorType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "CHANNEL_NOT_FOUND",
+        "DUPLICATE",
+        "FAILED_CREATING_ISSUES_FILTER",
+        "INVALID_PARAMETER",
+        "LIMIT_REACHED",
+        "UNAUTHORIZED_API_KEY",
+        "UNSUPPORTED_CHANNEL_TYPE",
+        "UNSUPPORTED_NOTIFICATION_TRIGGER",
+        "VALIDATION_ERROR",
+    )
+
+
+class AiWorkflowsBatchDeleteMigratedWorkflowsErrorType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "FAILED_DELETING_ISSUES_FILTER",
+        "INVALID_PARAMETER",
+        "UNAUTHORIZED_API_KEY",
+        "VALIDATION_ERROR",
+    )
+
+
 class AiWorkflowsCreateErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
@@ -800,12 +832,18 @@ class AiWorkflowsDestinationType(sgqlc.types.Enum):
         "SLACK",
         "SLACK_LEGACY",
         "WEBHOOK",
+        "WORKFLOW_AUTOMATION",
     )
 
 
 class AiWorkflowsEnrichmentType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("NRQL",)
+
+
+class AiWorkflowsFetchWorkflowsByIssuesFilterErrorType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("UNAUTHORIZED_API_KEY", "VALIDATION_ERROR")
 
 
 class AiWorkflowsFilterType(sgqlc.types.Enum):
@@ -2194,6 +2232,30 @@ class LogConfigurationsObfuscationMethod(sgqlc.types.Enum):
 class LogConfigurationsParsingRuleMutationErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("INVALID_GROK", "INVALID_ID", "INVALID_NRQL", "NOT_FOUND")
+
+
+class MachineLearningEncodingName(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CL_100_K_BASE", "GPT_3_5_TURBO", "O_200_K_BASE")
+
+
+class MachineLearningFilterByKeys(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("KNOWLEDGE_CATEGORY",)
+
+
+class MachineLearningOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EQUAL",)
+
+
+class MachineLearningTextSplitterType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "CHARACTER_TEXT_SPLITTER",
+        "MARKDOWN_TEXT_SPLITTER",
+        "TOKEN_TEXT_SPLITTER",
+    )
 
 
 class MetricNormalizationCustomerRuleAction(sgqlc.types.Enum):

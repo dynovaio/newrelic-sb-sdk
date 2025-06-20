@@ -15,6 +15,7 @@ __all__ = [
     "AgentApplicationSettingsIgnoredStatusCodeRuleInput",
     "AgentApplicationSettingsJfrInput",
     "AgentApplicationSettingsMaskInputOptionsInput",
+    "AgentApplicationSettingsMobileSessionReplayInput",
     "AgentApplicationSettingsMobileSettingsInput",
     "AgentApplicationSettingsNetworkAliasesInput",
     "AgentApplicationSettingsNetworkSettingsInput",
@@ -514,6 +515,11 @@ __all__ = [
     "LogConfigurationsUpdateObfuscationActionInput",
     "LogConfigurationsUpdateObfuscationExpressionInput",
     "LogConfigurationsUpdateObfuscationRuleInput",
+    "MachineLearningAddDocumentIndexConfiguration",
+    "MachineLearningCharacterTextSplitterOptionsInput",
+    "MachineLearningFilterBy",
+    "MachineLearningMarkdownTextSplitterOptionsInput",
+    "MachineLearningTokenTextSplitterOptionsInput",
     "MetricNormalizationCreateRuleInput",
     "MetricNormalizationEditRuleInput",
     "MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter",
@@ -832,6 +838,10 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsDataPartitionRuleMatchingOperator,
     LogConfigurationsDataPartitionRuleRetentionPolicyType,
     LogConfigurationsObfuscationMethod,
+    MachineLearningEncodingName,
+    MachineLearningFilterByKeys,
+    MachineLearningOperator,
+    MachineLearningTextSplitterType,
     MetricNormalizationCustomerRuleAction,
     MultiTenantAuthorizationGrantScopeEnum,
     MultiTenantAuthorizationGrantSortEnum,
@@ -888,6 +898,7 @@ from newrelic_sb_sdk.graphql.enums import (
 )
 from newrelic_sb_sdk.graphql.scalars import (
     ID,
+    AgentApplicationSettingsCustomJsConfiguration,
     AgentApplicationSettingsErrorCollectorHttpStatus,
     Boolean,
     ChangeTrackingRawCustomAttributesMap,
@@ -1167,12 +1178,60 @@ class AgentApplicationSettingsMaskInputOptionsInput(sgqlc.types.Input):
     week = sgqlc.types.Field(Boolean, graphql_name="week")
 
 
+class AgentApplicationSettingsMobileSessionReplayInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "custom_masking_rule",
+        "enabled",
+        "error_sampling_rate",
+        "mask_all_images",
+        "mask_all_user_touches",
+        "mask_application_text",
+        "mask_user_input_text",
+        "mode",
+        "sampling_rate",
+    )
+    custom_masking_rule = sgqlc.types.Field(
+        AgentApplicationSettingsCustomJsConfiguration, graphql_name="customMaskingRule"
+    )
+
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+    error_sampling_rate = sgqlc.types.Field(Float, graphql_name="errorSamplingRate")
+
+    mask_all_images = sgqlc.types.Field(Boolean, graphql_name="maskAllImages")
+
+    mask_all_user_touches = sgqlc.types.Field(
+        Boolean, graphql_name="maskAllUserTouches"
+    )
+
+    mask_application_text = sgqlc.types.Field(
+        Boolean, graphql_name="maskApplicationText"
+    )
+
+    mask_user_input_text = sgqlc.types.Field(Boolean, graphql_name="maskUserInputText")
+
+    mode = sgqlc.types.Field(Boolean, graphql_name="mode")
+
+    sampling_rate = sgqlc.types.Field(Float, graphql_name="samplingRate")
+
+
 class AgentApplicationSettingsMobileSettingsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("application_exit_info", "network_settings", "use_crash_reports")
+    __field_names__ = (
+        "application_exit_info",
+        "mobile_session_replay",
+        "network_settings",
+        "use_crash_reports",
+    )
     application_exit_info = sgqlc.types.Field(
         AgentApplicationSettingsApplicationExitInfoInput,
         graphql_name="applicationExitInfo",
+    )
+
+    mobile_session_replay = sgqlc.types.Field(
+        AgentApplicationSettingsMobileSessionReplayInput,
+        graphql_name="mobileSessionReplay",
     )
 
     network_settings = sgqlc.types.Field(
@@ -12800,6 +12859,89 @@ class LogConfigurationsUpdateObfuscationRuleInput(sgqlc.types.Input):
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+
+class MachineLearningAddDocumentIndexConfiguration(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "character_text_splitter_options",
+        "chunk_overlap",
+        "chunk_size",
+        "markdown_text_splitter_options",
+        "text_splitter_type",
+        "token_text_splitter_options",
+    )
+    character_text_splitter_options = sgqlc.types.Field(
+        "MachineLearningCharacterTextSplitterOptionsInput",
+        graphql_name="characterTextSplitterOptions",
+    )
+
+    chunk_overlap = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="chunkOverlap"
+    )
+
+    chunk_size = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="chunkSize")
+
+    markdown_text_splitter_options = sgqlc.types.Field(
+        "MachineLearningMarkdownTextSplitterOptionsInput",
+        graphql_name="markdownTextSplitterOptions",
+    )
+
+    text_splitter_type = sgqlc.types.Field(
+        MachineLearningTextSplitterType, graphql_name="textSplitterType"
+    )
+
+    token_text_splitter_options = sgqlc.types.Field(
+        "MachineLearningTokenTextSplitterOptionsInput",
+        graphql_name="tokenTextSplitterOptions",
+    )
+
+
+class MachineLearningCharacterTextSplitterOptionsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("is_separator_regex", "separator")
+    is_separator_regex = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="isSeparatorRegex"
+    )
+
+    separator = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="separator"
+    )
+
+
+class MachineLearningFilterBy(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "operator", "value")
+    key = sgqlc.types.Field(
+        sgqlc.types.non_null(MachineLearningFilterByKeys), graphql_name="key"
+    )
+
+    operator = sgqlc.types.Field(
+        sgqlc.types.non_null(MachineLearningOperator), graphql_name="operator"
+    )
+
+    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
+
+
+class MachineLearningMarkdownTextSplitterOptionsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("headers_to_split_on", "return_each_line")
+    headers_to_split_on = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)),
+        graphql_name="headersToSplitOn",
+    )
+
+    return_each_line = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="returnEachLine"
+    )
+
+
+class MachineLearningTokenTextSplitterOptionsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("encoding_name",)
+    encoding_name = sgqlc.types.Field(
+        sgqlc.types.non_null(MachineLearningEncodingName), graphql_name="encodingName"
+    )
 
 
 class MetricNormalizationCreateRuleInput(sgqlc.types.Input):
