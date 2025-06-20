@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.37.0] - 2025-06-20
+
 * Add new enums: `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
   `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
   `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`,
