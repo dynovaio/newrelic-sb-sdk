@@ -73,6 +73,7 @@ __all__ = [
     "AgentApplicationSettingsMobileBase",
     "AgentApplicationSettingsMobileNetworkSettings",
     "AgentApplicationSettingsMobileProperties",
+    "AgentApplicationSettingsMobileSessionReplay",
     "AgentApplicationSettingsNetworkAlias",
     "AgentApplicationSettingsSessionReplay",
     "AgentApplicationSettingsSessionTrace",
@@ -608,6 +609,22 @@ __all__ = [
     "LogConfigurationsUpdateDataPartitionRuleResponse",
     "LogConfigurationsUpdateParsingRuleResponse",
     "LogConfigurationsUpsertPipelineConfigurationResponse",
+    "MachineLearningAccountStitchedFields",
+    "MachineLearningActorStitchedFields",
+    "MachineLearningExperiment",
+    "MachineLearningExperimentConnection",
+    "MachineLearningFileDataSource",
+    "MachineLearningFileDataSourceConnection",
+    "MachineLearningModel",
+    "MachineLearningModelConnection",
+    "MachineLearningProject",
+    "MachineLearningProjectConnection",
+    "MachineLearningRagQueryDataResponse",
+    "MachineLearningStreamDataSource",
+    "MachineLearningStreamDataSourceConnection",
+    "MachineLearningTag",
+    "MachineLearningTagConnection",
+    "MachineLearningTransactionResponse",
     "MetricNormalizationAccountStitchedFields",
     "MetricNormalizationRule",
     "MetricNormalizationRuleMetricGroupingIssue",
@@ -912,8 +929,11 @@ __all__ = [
     "AiIssuesAnomalyIncident",
     "AiIssuesNewRelicIncident",
     "AiIssuesRestIncident",
+    "AiWorkflowsBatchCreateMigratedWorkflowsResponseError",
+    "AiWorkflowsBatchDeleteMigratedWorkflowsResponseError",
     "AiWorkflowsCreateResponseError",
     "AiWorkflowsDeleteResponseError",
+    "AiWorkflowsFetchWorkflowsByIssuesFilterResponseError",
     "AiWorkflowsTestResponseError",
     "AiWorkflowsUpdateResponseError",
     "AlertsCampfireNotificationChannel",
@@ -1233,10 +1253,13 @@ from newrelic_sb_sdk.graphql.enums import (
     AiNotificationsVariableType,
     AiTopologyCollectorResultType,
     AiTopologyVertexClass,
+    AiWorkflowsBatchCreateMigratedWorkflowsErrorType,
+    AiWorkflowsBatchDeleteMigratedWorkflowsErrorType,
     AiWorkflowsCreateErrorType,
     AiWorkflowsDeleteErrorType,
     AiWorkflowsDestinationType,
     AiWorkflowsEnrichmentType,
+    AiWorkflowsFetchWorkflowsByIssuesFilterErrorType,
     AiWorkflowsFilterType,
     AiWorkflowsMutingRulesHandling,
     AiWorkflowsNotificationTrigger,
@@ -1591,6 +1614,8 @@ from newrelic_sb_sdk.graphql.input_objects import (
     LogConfigurationsUpdateDataPartitionRuleInput,
     LogConfigurationsUpdateObfuscationExpressionInput,
     LogConfigurationsUpdateObfuscationRuleInput,
+    MachineLearningAddDocumentIndexConfiguration,
+    MachineLearningFilterBy,
     MetricNormalizationCreateRuleInput,
     MetricNormalizationEditRuleInput,
     MultiTenantAuthorizationGrantFilterInputExpression,
@@ -1690,6 +1715,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
 )
 from newrelic_sb_sdk.graphql.scalars import (
     ID,
+    AgentApplicationSettingsCustomJsConfiguration,
     AgentApplicationSettingsErrorCollectorHttpStatus,
     AgentApplicationSettingsRawJsConfiguration,
     AiDecisionsRuleExpression,
@@ -2817,6 +2843,7 @@ class Account(sgqlc.types.Type):
         "incident_intelligence_environment",
         "installation",
         "log_configurations",
+        "machine_learning",
         "metric_normalization",
         "name",
         "nerd_storage",
@@ -2883,6 +2910,10 @@ class Account(sgqlc.types.Type):
 
     log_configurations = sgqlc.types.Field(
         "LogConfigurationsAccountStitchedFields", graphql_name="logConfigurations"
+    )
+
+    machine_learning = sgqlc.types.Field(
+        "MachineLearningAccountStitchedFields", graphql_name="machineLearning"
     )
 
     metric_normalization = sgqlc.types.Field(
@@ -3071,6 +3102,7 @@ class Actor(sgqlc.types.Type):
         "entity_search",
         "errors_inbox",
         "incident_intelligence_environment",
+        "machine_learning",
         "mobile_push_notification",
         "nerd_storage",
         "nerd_storage_vault",
@@ -3237,6 +3269,10 @@ class Actor(sgqlc.types.Type):
     incident_intelligence_environment = sgqlc.types.Field(
         "IncidentIntelligenceEnvironmentActorStitchedFields",
         graphql_name="incidentIntelligenceEnvironment",
+    )
+
+    machine_learning = sgqlc.types.Field(
+        "MachineLearningActorStitchedFields", graphql_name="machineLearning"
     )
 
     mobile_push_notification = sgqlc.types.Field(
@@ -3795,10 +3831,20 @@ class AgentApplicationSettingsMetrics(sgqlc.types.Type):
 
 class AgentApplicationSettingsMobileBase(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("application_exit_info", "network_settings", "use_crash_reports")
+    __field_names__ = (
+        "application_exit_info",
+        "mobile_session_replay",
+        "network_settings",
+        "use_crash_reports",
+    )
     application_exit_info = sgqlc.types.Field(
         sgqlc.types.non_null(AgentApplicationSettingsApplicationExitInfo),
         graphql_name="applicationExitInfo",
+    )
+
+    mobile_session_replay = sgqlc.types.Field(
+        "AgentApplicationSettingsMobileSessionReplay",
+        graphql_name="mobileSessionReplay",
     )
 
     network_settings = sgqlc.types.Field(
@@ -3848,6 +3894,52 @@ class AgentApplicationSettingsMobileProperties(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("application_token",)
     application_token = sgqlc.types.Field(SecureValue, graphql_name="applicationToken")
+
+
+class AgentApplicationSettingsMobileSessionReplay(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "custom_masking_rule",
+        "enabled",
+        "error_sampling_rate",
+        "mask_all_images",
+        "mask_all_user_touches",
+        "mask_application_text",
+        "mask_user_input_text",
+        "mode",
+        "sampling_rate",
+    )
+    custom_masking_rule = sgqlc.types.Field(
+        AgentApplicationSettingsCustomJsConfiguration, graphql_name="customMaskingRule"
+    )
+
+    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
+
+    error_sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="errorSamplingRate"
+    )
+
+    mask_all_images = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="maskAllImages"
+    )
+
+    mask_all_user_touches = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="maskAllUserTouches"
+    )
+
+    mask_application_text = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="maskApplicationText"
+    )
+
+    mask_user_input_text = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="maskUserInputText"
+    )
+
+    mode = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="mode")
+
+    sampling_rate = sgqlc.types.Field(
+        sgqlc.types.non_null(Float), graphql_name="samplingRate"
+    )
 
 
 class AgentApplicationSettingsNetworkAlias(sgqlc.types.Type):
@@ -15476,6 +15568,641 @@ class LogConfigurationsUpsertPipelineConfigurationResponse(sgqlc.types.Type):
     )
 
 
+class MachineLearningAccountStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "file_data_sources_by_ids",
+        "file_data_sources_by_project_id",
+        "projects",
+        "projects_by_ids",
+        "stream_data_sources_by_ids",
+        "stream_data_sources_by_project_id",
+    )
+    file_data_sources_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("MachineLearningFileDataSource"),
+        graphql_name="fileDataSourcesByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    file_data_sources_by_project_id = sgqlc.types.Field(
+        "MachineLearningFileDataSourceConnection",
+        graphql_name="fileDataSourcesByProjectId",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "project_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="projectId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    projects = sgqlc.types.Field(
+        "MachineLearningProjectConnection",
+        graphql_name="projects",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    projects_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("MachineLearningProject"),
+        graphql_name="projectsByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    stream_data_sources_by_ids = sgqlc.types.Field(
+        sgqlc.types.list_of("MachineLearningStreamDataSource"),
+        graphql_name="streamDataSourcesByIds",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "ids",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(sgqlc.types.list_of(ID)),
+                        graphql_name="ids",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `ids` (`[ID]!`)
+    """
+
+    stream_data_sources_by_project_id = sgqlc.types.Field(
+        "MachineLearningStreamDataSourceConnection",
+        graphql_name="streamDataSourcesByProjectId",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+                (
+                    "project_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="projectId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `first` (`Int`) (default: `10`)
+    * `last` (`Int`)
+    * `next_cursor` (`String`)
+    * `prev_cursor` (`String`)
+    * `project_id` (`ID!`)
+    """
+
+
+class MachineLearningActorStitchedFields(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("rag_query_data",)
+    rag_query_data = sgqlc.types.Field(
+        sgqlc.types.list_of("MachineLearningRagQueryDataResponse"),
+        graphql_name="ragQueryData",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "filter_by",
+                    sgqlc.types.Arg(
+                        sgqlc.types.list_of(MachineLearningFilterBy),
+                        graphql_name="filterBy",
+                        default=None,
+                    ),
+                ),
+                (
+                    "prompt",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="prompt",
+                        default=None,
+                    ),
+                ),
+                ("tool_id", sgqlc.types.Arg(ID, graphql_name="toolId", default=None)),
+                ("top_k", sgqlc.types.Arg(Int, graphql_name="topK", default=5)),
+            )
+        ),
+    )
+    """Arguments:
+
+    * `filter_by` (`[MachineLearningFilterBy]`)
+    * `prompt` (`String!`)
+    * `tool_id` (`ID`)
+    * `top_k` (`Int`) (default: `5`)
+    """
+
+
+class MachineLearningExperiment(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class MachineLearningExperimentConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningExperiment), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningFileDataSource(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "blob_id",
+        "created_at",
+        "creator_id",
+        "deactivated",
+        "description",
+        "experiments",
+        "file_name",
+        "id",
+        "models",
+        "modified_at",
+        "name",
+        "organization_id",
+        "project",
+        "project_id",
+        "source_url",
+        "tags",
+        "version",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    blob_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="blobId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    deactivated = sgqlc.types.Field(Boolean, graphql_name="deactivated")
+
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
+
+    experiments = sgqlc.types.Field(
+        MachineLearningExperimentConnection,
+        graphql_name="experiments",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    file_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="fileName")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    models = sgqlc.types.Field(
+        "MachineLearningModelConnection",
+        graphql_name="models",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    project = sgqlc.types.Field(
+        "MachineLearningProject",
+        graphql_name="project",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    project_id = sgqlc.types.Field(ID, graphql_name="projectId")
+
+    source_url = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="sourceUrl"
+    )
+
+    tags = sgqlc.types.Field(
+        "MachineLearningTagConnection",
+        graphql_name="tags",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    version = sgqlc.types.Field(sgqlc.types.non_null(SemVer), graphql_name="version")
+
+
+class MachineLearningFileDataSourceConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningFileDataSource), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningModel(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class MachineLearningModelConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningModel), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningProject(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "created_at",
+        "creator_id",
+        "description",
+        "id",
+        "modified_at",
+        "name",
+        "organization_id",
+        "status",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+
+class MachineLearningProjectConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningProject), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningRagQueryDataResponse(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("blob_id", "chunk", "score", "tool_id")
+    blob_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="blobId")
+
+    chunk = sgqlc.types.Field(String, graphql_name="chunk")
+
+    score = sgqlc.types.Field(sgqlc.types.non_null(Float), graphql_name="score")
+
+    tool_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="toolId")
+
+
+class MachineLearningStreamDataSource(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "account_id",
+        "created_at",
+        "creator_id",
+        "description",
+        "filter",
+        "id",
+        "last_workflow_id",
+        "modified_at",
+        "name",
+        "organization_id",
+        "project",
+        "sampling_rate",
+        "status",
+        "tags",
+        "topic",
+        "version",
+    )
+    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    created_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="createdAt"
+    )
+
+    creator_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="creatorId")
+
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
+
+    filter = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="filter")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    last_workflow_id = sgqlc.types.Field(ID, graphql_name="lastWorkflowId")
+
+    modified_at = sgqlc.types.Field(
+        sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    organization_id = sgqlc.types.Field(ID, graphql_name="organizationId")
+
+    project = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="project",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    sampling_rate = sgqlc.types.Field(Float, graphql_name="samplingRate")
+
+    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+    tags = sgqlc.types.Field(
+        "MachineLearningTagConnection",
+        graphql_name="tags",
+        args=sgqlc.types.ArgDict(
+            (
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=10)),
+                ("last", sgqlc.types.Arg(Int, graphql_name="last", default=None)),
+                (
+                    "next_cursor",
+                    sgqlc.types.Arg(String, graphql_name="nextCursor", default=None),
+                ),
+                (
+                    "prev_cursor",
+                    sgqlc.types.Arg(String, graphql_name="prevCursor", default=None),
+                ),
+            )
+        ),
+    )
+
+    topic = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="topic")
+
+    version = sgqlc.types.Field(sgqlc.types.non_null(SemVer), graphql_name="version")
+
+
+class MachineLearningStreamDataSourceConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningStreamDataSource), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningTag(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class MachineLearningTagConnection(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "entities",
+        "has_next_page",
+        "has_previous_page",
+        "next_cursor",
+        "prev_cursor",
+        "total_count",
+    )
+    entities = sgqlc.types.Field(
+        sgqlc.types.list_of(MachineLearningTag), graphql_name="entities"
+    )
+
+    has_next_page = sgqlc.types.Field(Boolean, graphql_name="hasNextPage")
+
+    has_previous_page = sgqlc.types.Field(Boolean, graphql_name="hasPreviousPage")
+
+    next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
+
+    prev_cursor = sgqlc.types.Field(String, graphql_name="prevCursor")
+
+    total_count = sgqlc.types.Field(Int, graphql_name="totalCount")
+
+
+class MachineLearningTransactionResponse(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("transaction_id",)
+    transaction_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="transactionId"
+    )
+
+
 class MetricNormalizationAccountStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("metric_normalization_rule", "metric_normalization_rules")
@@ -18723,6 +19450,23 @@ class RootMutationType(sgqlc.types.Type):
         "log_configurations_update_obfuscation_rule",
         "log_configurations_update_parsing_rule",
         "log_configurations_upsert_pipeline_configuration",
+        "machine_learning_add_document_index",
+        "machine_learning_add_file_data_source",
+        "machine_learning_add_stream_data_source",
+        "machine_learning_create_file_data_source",
+        "machine_learning_create_project",
+        "machine_learning_create_stream_data_source",
+        "machine_learning_delete_file_data_source",
+        "machine_learning_delete_project",
+        "machine_learning_delete_stream_data_source",
+        "machine_learning_halt_stream_data_source",
+        "machine_learning_remove_document_index",
+        "machine_learning_remove_file_data_source",
+        "machine_learning_remove_stream_data_source",
+        "machine_learning_start_stream_data_source",
+        "machine_learning_update_file_data_source",
+        "machine_learning_update_project",
+        "machine_learning_update_stream_data_source",
         "metric_normalization_create_rule",
         "metric_normalization_disable_rule",
         "metric_normalization_edit_rule",
@@ -23938,6 +24682,448 @@ class RootMutationType(sgqlc.types.Type):
         ),
     )
 
+    machine_learning_add_document_index = sgqlc.types.Field(
+        MachineLearningTransactionResponse,
+        graphql_name="machineLearningAddDocumentIndex",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "configuration",
+                    sgqlc.types.Arg(
+                        MachineLearningAddDocumentIndexConfiguration,
+                        graphql_name="configuration",
+                        default=None,
+                    ),
+                ),
+                (
+                    "document_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="documentId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "rag_setting_id",
+                    sgqlc.types.Arg(ID, graphql_name="ragSettingId", default=None),
+                ),
+                (
+                    "tool_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="toolId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_add_file_data_source = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningAddFileDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "file_data_source_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="fileDataSourceId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_add_stream_data_source = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningAddStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "stream_data_source_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="streamDataSourceId",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_create_file_data_source = sgqlc.types.Field(
+        MachineLearningFileDataSource,
+        graphql_name="machineLearningCreateFileDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "blob_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="blobId", default=None
+                    ),
+                ),
+                (
+                    "description",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="description",
+                        default=None,
+                    ),
+                ),
+                (
+                    "file_name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="fileName",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_create_project = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningCreateProject",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "description",
+                    sgqlc.types.Arg(String, graphql_name="description", default=None),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_create_stream_data_source = sgqlc.types.Field(
+        MachineLearningStreamDataSource,
+        graphql_name="machineLearningCreateStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "account_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Int),
+                        graphql_name="accountId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "description",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="description",
+                        default=None,
+                    ),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "sampling_rate",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Float),
+                        graphql_name="samplingRate",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_delete_file_data_source = sgqlc.types.Field(
+        MachineLearningFileDataSource,
+        graphql_name="machineLearningDeleteFileDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_delete_project = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningDeleteProject",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_delete_stream_data_source = sgqlc.types.Field(
+        MachineLearningStreamDataSource,
+        graphql_name="machineLearningDeleteStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_halt_stream_data_source = sgqlc.types.Field(
+        MachineLearningStreamDataSource,
+        graphql_name="machineLearningHaltStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_remove_document_index = sgqlc.types.Field(
+        MachineLearningTransactionResponse,
+        graphql_name="machineLearningRemoveDocumentIndex",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "document_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="documentId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "tool_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="toolId", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_remove_file_data_source = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningRemoveFileDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "file_data_source_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="fileDataSourceId",
+                        default=None,
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_remove_stream_data_source = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningRemoveStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "stream_data_source_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID),
+                        graphql_name="streamDataSourceId",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_start_stream_data_source = sgqlc.types.Field(
+        MachineLearningStreamDataSource,
+        graphql_name="machineLearningStartStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_update_file_data_source = sgqlc.types.Field(
+        MachineLearningFileDataSource,
+        graphql_name="machineLearningUpdateFileDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                ("blob_id", sgqlc.types.Arg(ID, graphql_name="blobId", default=None)),
+                (
+                    "description",
+                    sgqlc.types.Arg(String, graphql_name="description", default=None),
+                ),
+                (
+                    "file_name",
+                    sgqlc.types.Arg(String, graphql_name="fileName", default=None),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                ("name", sgqlc.types.Arg(String, graphql_name="name", default=None)),
+                (
+                    "project_id",
+                    sgqlc.types.Arg(ID, graphql_name="projectId", default=None),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_update_project = sgqlc.types.Field(
+        MachineLearningProject,
+        graphql_name="machineLearningUpdateProject",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "description",
+                    sgqlc.types.Arg(String, graphql_name="description", default=None),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                ("name", sgqlc.types.Arg(String, graphql_name="name", default=None)),
+                (
+                    "status",
+                    sgqlc.types.Arg(String, graphql_name="status", default=None),
+                ),
+            )
+        ),
+    )
+
+    machine_learning_update_stream_data_source = sgqlc.types.Field(
+        MachineLearningStreamDataSource,
+        graphql_name="machineLearningUpdateStreamDataSource",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "description",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="description",
+                        default=None,
+                    ),
+                ),
+                (
+                    "filter",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String),
+                        graphql_name="filter",
+                        default=None,
+                    ),
+                ),
+                (
+                    "id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="id", default=None
+                    ),
+                ),
+                (
+                    "name",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(String), graphql_name="name", default=None
+                    ),
+                ),
+                (
+                    "sampling_rate",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(Float),
+                        graphql_name="samplingRate",
+                        default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
     metric_normalization_create_rule = sgqlc.types.Field(
         MetricNormalizationRuleMutationResponse,
         graphql_name="metricNormalizationCreateRule",
@@ -29096,6 +30282,28 @@ class AiIssuesRestIncident(sgqlc.types.Type, AiIssuesIIncident):
     )
 
 
+class AiWorkflowsBatchCreateMigratedWorkflowsResponseError(
+    sgqlc.types.Type, AiWorkflowsResponseError
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("type",)
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(AiWorkflowsBatchCreateMigratedWorkflowsErrorType),
+        graphql_name="type",
+    )
+
+
+class AiWorkflowsBatchDeleteMigratedWorkflowsResponseError(
+    sgqlc.types.Type, AiWorkflowsResponseError
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("type",)
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(AiWorkflowsBatchDeleteMigratedWorkflowsErrorType),
+        graphql_name="type",
+    )
+
+
 class AiWorkflowsCreateResponseError(sgqlc.types.Type, AiWorkflowsResponseError):
     __schema__ = nerdgraph
     __field_names__ = ("type",)
@@ -29109,6 +30317,17 @@ class AiWorkflowsDeleteResponseError(sgqlc.types.Type, AiWorkflowsResponseError)
     __field_names__ = ("type",)
     type = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsDeleteErrorType), graphql_name="type"
+    )
+
+
+class AiWorkflowsFetchWorkflowsByIssuesFilterResponseError(
+    sgqlc.types.Type, AiWorkflowsResponseError
+):
+    __schema__ = nerdgraph
+    __field_names__ = ("type",)
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(AiWorkflowsFetchWorkflowsByIssuesFilterErrorType),
+        graphql_name="type",
     )
 
 

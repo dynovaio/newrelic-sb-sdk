@@ -6,6 +6,7 @@ __all__ = [
     "ID",
     "Int",
     "String",
+    "AgentApplicationSettingsCustomJsConfiguration",
     "AgentApplicationSettingsErrorCollectorHttpStatus",
     "AgentApplicationSettingsRawJsConfiguration",
     "AiDecisionsRuleExpression",
@@ -46,6 +47,10 @@ import sgqlc.types.datetime
 from . import nerdgraph
 
 __docformat__ = "markdown"
+
+
+class AgentApplicationSettingsCustomJsConfiguration(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
 
 
 class AgentApplicationSettingsErrorCollectorHttpStatus(sgqlc.types.Scalar):

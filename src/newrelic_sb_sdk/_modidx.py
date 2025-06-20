@@ -210,6 +210,14 @@ d = {
                 "GraphQL/enums.html#aitopologyvertexclass",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AiWorkflowsBatchCreateMigratedWorkflowsErrorType": (
+                "GraphQL/enums.html#aiworkflowsbatchcreatemigratedworkflowserrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiWorkflowsBatchDeleteMigratedWorkflowsErrorType": (
+                "GraphQL/enums.html#aiworkflowsbatchdeletemigratedworkflowserrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AiWorkflowsCreateErrorType": (
                 "GraphQL/enums.html#aiworkflowscreateerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -224,6 +232,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.AiWorkflowsEnrichmentType": (
                 "GraphQL/enums.html#aiworkflowsenrichmenttype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiWorkflowsFetchWorkflowsByIssuesFilterErrorType": (
+                "GraphQL/enums.html#aiworkflowsfetchworkflowsbyissuesfiltererrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.AiWorkflowsFilterType": (
@@ -866,6 +878,22 @@ d = {
                 "GraphQL/enums.html#logconfigurationsparsingrulemutationerrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.MachineLearningEncodingName": (
+                "GraphQL/enums.html#machinelearningencodingname",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MachineLearningFilterByKeys": (
+                "GraphQL/enums.html#machinelearningfilterbykeys",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MachineLearningOperator": (
+                "GraphQL/enums.html#machinelearningoperator",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.MachineLearningTextSplitterType": (
+                "GraphQL/enums.html#machinelearningtextsplittertype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.MetricNormalizationCustomerRuleAction": (
                 "GraphQL/enums.html#metricnormalizationcustomerruleaction",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1333,6 +1361,11 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsMaskInputOptionsInput": (
                 "GraphQL/input "
                 "objects.html#agentapplicationsettingsmaskinputoptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsMobileSessionReplayInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingsmobilesessionreplayinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsMobileSettingsInput": (
@@ -3455,6 +3488,30 @@ d = {
                 "objects.html#logconfigurationsupdateobfuscationruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.MachineLearningAddDocumentIndexConfiguration": (
+                "GraphQL/input "
+                "objects.html#machinelearningadddocumentindexconfiguration",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MachineLearningCharacterTextSplitterOptionsInput": (
+                "GraphQL/input "
+                "objects.html#machinelearningcharactertextsplitteroptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MachineLearningFilterBy": (
+                "GraphQL/input objects.html#machinelearningfilterby",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MachineLearningMarkdownTextSplitterOptionsInput": (
+                "GraphQL/input "
+                "objects.html#machinelearningmarkdowntextsplitteroptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.MachineLearningTokenTextSplitterOptionsInput": (
+                "GraphQL/input "
+                "objects.html#machinelearningtokentextsplitteroptionsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.MetricNormalizationCreateRuleInput": (
                 "GraphQL/input objects.html#metricnormalizationcreateruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -4508,6 +4565,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsmobileproperties",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsMobileSessionReplay": (
+                "GraphQL/objects.html#agentapplicationsettingsmobilesessionreplay",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsNetworkAlias": (
                 "GraphQL/objects.html#agentapplicationsettingsnetworkalias",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4904,6 +4965,14 @@ d = {
                 "GraphQL/objects.html#aiworkflowsaccountstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AiWorkflowsBatchCreateMigratedWorkflowsResponseError": (
+                "GraphQL/objects.html#aiworkflowsbatchcreatemigratedworkflowsresponseerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiWorkflowsBatchDeleteMigratedWorkflowsResponseError": (
+                "GraphQL/objects.html#aiworkflowsbatchdeletemigratedworkflowsresponseerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AiWorkflowsConfiguration": (
                 "GraphQL/objects.html#aiworkflowsconfiguration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -4930,6 +4999,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiWorkflowsEnrichment": (
                 "GraphQL/objects.html#aiworkflowsenrichment",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiWorkflowsFetchWorkflowsByIssuesFilterResponseError": (
+                "GraphQL/objects.html#aiworkflowsfetchworkflowsbyissuesfilterresponseerror",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiWorkflowsFilter": (
@@ -7672,6 +7745,70 @@ d = {
                 "GraphQL/objects.html#logconfigurationsupsertpipelineconfigurationresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningAccountStitchedFields": (
+                "GraphQL/objects.html#machinelearningaccountstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningActorStitchedFields": (
+                "GraphQL/objects.html#machinelearningactorstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningExperiment": (
+                "GraphQL/objects.html#machinelearningexperiment",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningExperimentConnection": (
+                "GraphQL/objects.html#machinelearningexperimentconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningFileDataSource": (
+                "GraphQL/objects.html#machinelearningfiledatasource",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningFileDataSourceConnection": (
+                "GraphQL/objects.html#machinelearningfiledatasourceconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningModel": (
+                "GraphQL/objects.html#machinelearningmodel",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningModelConnection": (
+                "GraphQL/objects.html#machinelearningmodelconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningProject": (
+                "GraphQL/objects.html#machinelearningproject",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningProjectConnection": (
+                "GraphQL/objects.html#machinelearningprojectconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningRagQueryDataResponse": (
+                "GraphQL/objects.html#machinelearningragquerydataresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningStreamDataSource": (
+                "GraphQL/objects.html#machinelearningstreamdatasource",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningStreamDataSourceConnection": (
+                "GraphQL/objects.html#machinelearningstreamdatasourceconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningTag": (
+                "GraphQL/objects.html#machinelearningtag",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningTagConnection": (
+                "GraphQL/objects.html#machinelearningtagconnection",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.MachineLearningTransactionResponse": (
+                "GraphQL/objects.html#machinelearningtransactionresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.MetricNormalizationAccountStitchedFields": (
                 "GraphQL/objects.html#metricnormalizationaccountstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -9102,6 +9239,10 @@ d = {
             ),
         },
         "newrelic_sb_sdk.graphql.scalars": {
+            "newrelic_sb_sdk.graphql.scalars.AgentApplicationSettingsCustomJsConfiguration": (
+                "GraphQL/scalars.html#agentapplicationsettingscustomjsconfiguration",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
             "newrelic_sb_sdk.graphql.scalars.AgentApplicationSettingsErrorCollectorHttpStatus": (
                 "GraphQL/scalars.html#agentapplicationsettingserrorcollectorhttpstatus",
                 "newrelic_sb_sdk/graphql/scalars.py",
