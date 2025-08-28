@@ -1,7 +1,7 @@
 all
 
 rule 'MD004', :style => :sublist
-rule 'MD007', :indent => 4
+rule 'MD007', :indent => 2
 rule 'MD029', :style => :ordered
 rule 'MD026', :punctuation => '.,;:'
 
