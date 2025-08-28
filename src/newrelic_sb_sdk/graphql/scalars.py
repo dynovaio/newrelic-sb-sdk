@@ -15,6 +15,7 @@ __all__ = [
     "CollaborationRawContextMetadata",
     "DashboardWidgetRawConfiguration",
     "DistributedTracingSpanAttributes",
+    "Duration",
     "EntityAlertViolationInt",
     "EntityGuid",
     "EntitySearchQuery",
@@ -91,6 +92,10 @@ DateTime = sgqlc.types.datetime.DateTime
 
 
 class DistributedTracingSpanAttributes(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
+
+
+class Duration(sgqlc.types.Scalar):
     __schema__ = nerdgraph
 
 
