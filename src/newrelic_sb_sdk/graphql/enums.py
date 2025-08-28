@@ -3,6 +3,8 @@ __all__ = [
     "AgentApplicationSegmentsListType",
     "AgentApplicationSettingsBrowserLoader",
     "AgentApplicationSettingsBrowserLoaderInput",
+    "AgentApplicationSettingsMobileSessionReplayMode",
+    "AgentApplicationSettingsMobileSessionReplayModeInput",
     "AgentApplicationSettingsNetworkFilterMode",
     "AgentApplicationSettingsRecordSqlEnum",
     "AgentApplicationSettingsSessionTraceMode",
@@ -65,6 +67,7 @@ __all__ = [
     "AiWorkflowsTestResponseStatus",
     "AiWorkflowsUpdateErrorType",
     "AlertsActionOnMutingRuleWindowEnded",
+    "AlertsAsNrqlSourceProduct",
     "AlertsDayOfWeek",
     "AlertsFillOption",
     "AlertsIncidentPreference",
@@ -94,6 +97,7 @@ __all__ = [
     "ApiAccessIngestKeyType",
     "ApiAccessKeyType",
     "ApiAccessUserKeyErrorType",
+    "AuthorizationManagementGranteeTypeEnum",
     "BrowserAgentInstallType",
     "ChangeTrackingCategoryType",
     "ChangeTrackingDeploymentType",
@@ -154,7 +158,8 @@ __all__ = [
     "EntityManagementAssignmentType",
     "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
-    "EntityManagementConnectionType",
+    "EntityManagementCommunicationMode",
+    "EntityManagementCommunicationStatus",
     "EntityManagementConsumptionMetric",
     "EntityManagementDirection",
     "EntityManagementEncodingName",
@@ -164,6 +169,7 @@ __all__ = [
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
+    "EntityManagementIncidentStatus",
     "EntityManagementInstallationStatus",
     "EntityManagementIssueType",
     "EntityManagementJiraIssueType",
@@ -171,7 +177,9 @@ __all__ = [
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
     "EntityManagementMessageType",
+    "EntityManagementOverlapPolicy",
     "EntityManagementPriority",
+    "EntityManagementRegion",
     "EntityManagementSigningAlgorithm",
     "EntityManagementStatusCode",
     "EntityManagementSyncConfigurationMode",
@@ -208,6 +216,7 @@ __all__ = [
     "InstallationInstallStateType",
     "InstallationRecipeStatusType",
     "KnowledgePublishStatus",
+    "KnowledgeSearchSortOption",
     "KnowledgeSearchSources",
     "LogConfigurationsCreateDataPartitionRuleErrorType",
     "LogConfigurationsDataPartitionRuleMatchingOperator",
@@ -225,6 +234,7 @@ __all__ = [
     "MetricNormalizationRuleErrorType",
     "MultiTenantAuthorizationGrantScopeEnum",
     "MultiTenantAuthorizationGrantSortEnum",
+    "MultiTenantAuthorizationGranteeTypeEnum",
     "MultiTenantAuthorizationPermissionCategoryEnum",
     "MultiTenantAuthorizationRoleScopeEnum",
     "MultiTenantAuthorizationRoleSortEnum",
@@ -271,6 +281,7 @@ __all__ = [
     "OrganizationAccountStatus",
     "OrganizationAuthenticationTypeEnum",
     "OrganizationBillingStructure",
+    "OrganizationMembersOrganizationMemberType",
     "OrganizationOrganizationCreateJobResultStatusEnum",
     "OrganizationOrganizationCreateJobStatusEnum",
     "OrganizationProvisioningTypeEnum",
@@ -284,8 +295,13 @@ __all__ = [
     "PixieRecordPixieTosAcceptanceErrorType",
     "ReferenceEntityCreateRepositoryErrorType",
     "RegionScope",
+    "SecretsManagementScopeType",
+    "SecretsManagementSortDirection",
+    "SecretsManagementSortKey",
     "ServiceLevelEventsQuerySelectFunction",
     "ServiceLevelObjectiveRollingTimeWindowUnit",
+    "SessionsClientType",
+    "SessionsPrincipalType",
     "SortBy",
     "StreamingExportPayloadCompression",
     "StreamingExportStatus",
@@ -352,6 +368,16 @@ class AgentApplicationSettingsBrowserLoaderInput(sgqlc.types.Enum):
     __choices__ = ("LITE", "NONE", "PRO", "SPA")
 
 
+class AgentApplicationSettingsMobileSessionReplayMode(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CUSTOM", "DEFAULT")
+
+
+class AgentApplicationSettingsMobileSessionReplayModeInput(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CUSTOM", "DEFAULT")
+
+
 class AgentApplicationSettingsNetworkFilterMode(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("DISABLED", "HIDE", "SHOW")
@@ -408,6 +434,8 @@ class AgentReleasesFilter(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
         "ANDROID",
+        "AWS_FIREHOSE_LOG_FORWARDER",
+        "AWS_LAMBDA_LOG_FORWARDER",
         "BROWSER",
         "DOTNET",
         "ELIXIR",
@@ -425,6 +453,9 @@ class AgentReleasesFilter(sgqlc.types.Enum):
         "PYTHON",
         "RUBY",
         "SDK",
+        "STREAMING_FOR_BROWSER",
+        "STREAMING_FOR_MOBILE",
+        "STREAMING_FOR_OTHERS",
     )
 
 
@@ -664,6 +695,7 @@ class AiNotificationsProduct(sgqlc.types.Enum):
         "ALERTS",
         "APM",
         "CHANGE_TRACKING",
+        "COMMERCE",
         "CSSP",
         "DISCUSSIONS",
         "ERROR_TRACKING",
@@ -935,6 +967,19 @@ class AlertsActionOnMutingRuleWindowEnded(sgqlc.types.Enum):
     __choices__ = ("CLOSE_ISSUES_ON_INACTIVE", "DO_NOTHING")
 
 
+class AlertsAsNrqlSourceProduct(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "APM",
+        "BROWSER",
+        "INFRASTRUCTURE",
+        "MOBILE",
+        "NRQL",
+        "SERVERS",
+        "SYNTHETICS",
+    )
+
+
 class AlertsDayOfWeek(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
@@ -1153,6 +1198,11 @@ class ApiAccessKeyType(sgqlc.types.Enum):
 class ApiAccessUserKeyErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("FORBIDDEN", "INVALID", "NOT_FOUND")
+
+
+class AuthorizationManagementGranteeTypeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
 
 
 class BrowserAgentInstallType(sgqlc.types.Enum):
@@ -1782,9 +1832,14 @@ class EntityManagementCategoryScopeType(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT", "GLOBAL")
 
 
-class EntityManagementConnectionType(sgqlc.types.Enum):
+class EntityManagementCommunicationMode(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("JIRA", "SERVICE_NOW")
+    __choices__ = ("ACCOUNT_STATUS", "GLOBAL_STATUS")
+
+
+class EntityManagementCommunicationStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("IDENTIFIED", "INVESTIGATING", "MONITORING", "RESOLVED")
 
 
 class EntityManagementConsumptionMetric(sgqlc.types.Enum):
@@ -1824,12 +1879,17 @@ class EntityManagementExternalOwnerType(sgqlc.types.Enum):
 
 class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("COMPLETED", "CREATED", "FAILED", "IN_PROGRESS")
+    __choices__ = ("COMPLETED", "CREATED", "FAILED", "INTERNAL_FAILURE", "IN_PROGRESS")
 
 
 class EntityManagementHostingPlatform(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB", "OTHER")
+
+
+class EntityManagementIncidentStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CLOSED", "ONGOING")
 
 
 class EntityManagementInstallationStatus(sgqlc.types.Enum):
@@ -1890,9 +1950,19 @@ class EntityManagementMessageType(sgqlc.types.Enum):
     __choices__ = ("JSON", "TEXT", "YAML")
 
 
+class EntityManagementOverlapPolicy(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CANCEL", "SKIP")
+
+
 class EntityManagementPriority(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HIGH", "HIGHEST", "LOW", "LOWEST", "MEDIUM")
+
+
+class EntityManagementRegion(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EU", "STAGING", "US")
 
 
 class EntityManagementSigningAlgorithm(sgqlc.types.Enum):
@@ -1951,6 +2021,7 @@ class EntityRelationshipEdgeType(sgqlc.types.Enum):
         "OPERATES_IN",
         "OWNS",
         "PRODUCES",
+        "SECURES",
         "SERVES",
         "TRIGGERS",
     )
@@ -2057,14 +2128,17 @@ class ErrorsInboxEventSource(sgqlc.types.Enum):
         "ERROR_TRACE",
         "EXCESSIVE_DATABASE_QUERY",
         "JAVA_SCRIPT_ERROR",
+        "LARGE_HTTP_PAYLOAD_REQUEST",
         "MOBILE_CRASH",
         "MOBILE_HANDLED_EXCEPTION",
         "MOBILE_REQUEST_ERROR",
         "N_PLUS_ONE_DATABASE_QUERY",
         "SEQUENTIAL_DATABASE_QUERY",
+        "SLOW_HTTP_REQUEST",
         "SLOW_SQL_TRACE",
         "SPAN",
         "TRANSACTION_ERROR",
+        "VIDEO_ERROR_ACTION",
     )
 
 
@@ -2190,6 +2264,11 @@ class KnowledgePublishStatus(sgqlc.types.Enum):
     __choices__ = ("ARCHIVED", "DRAFT", "ONLINE", "PENDING")
 
 
+class KnowledgeSearchSortOption(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("MOST_RECENT", "MOST_RELEVANT")
+
+
 class KnowledgeSearchSources(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ALL", "ARTICLES", "DOCS", "FORUM")
@@ -2286,6 +2365,11 @@ class MultiTenantAuthorizationGrantScopeEnum(sgqlc.types.Enum):
 class MultiTenantAuthorizationGrantSortEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ID",)
+
+
+class MultiTenantAuthorizationGranteeTypeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
 
 
 class MultiTenantAuthorizationPermissionCategoryEnum(sgqlc.types.Enum):
@@ -2552,6 +2636,11 @@ class OrganizationBillingStructure(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT_HIERARCHY", "CUSTOMER_CONTRACT", "UNSTRUCTURED")
 
 
+class OrganizationMembersOrganizationMemberType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
+
+
 class OrganizationOrganizationCreateJobResultStatusEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CREATED", "FAILED", "RUNNING", "SUCCEEDED")
@@ -2648,6 +2737,21 @@ class RegionScope(sgqlc.types.Enum):
     __choices__ = ("GLOBAL", "IN_REGION")
 
 
+class SecretsManagementScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class SecretsManagementSortDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASC", "DESC")
+
+
+class SecretsManagementSortKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CREATED_AT",)
+
+
 class ServiceLevelEventsQuerySelectFunction(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("COUNT", "GET_CDF_COUNT", "GET_FIELD", "SUM")
@@ -2656,6 +2760,16 @@ class ServiceLevelEventsQuerySelectFunction(sgqlc.types.Enum):
 class ServiceLevelObjectiveRollingTimeWindowUnit(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("DAY",)
+
+
+class SessionsClientType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INTEGRATION", "NEW_RELIC_APP", "WEB")
+
+
+class SessionsPrincipalType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("USER",)
 
 
 class SortBy(sgqlc.types.Enum):
@@ -2863,7 +2977,7 @@ class UserManagementTypeEnum(sgqlc.types.Enum):
 
 class WhatsNewContentType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ANNOUNCEMENT",)
+    __choices__ = ("ANNOUNCEMENT", "EOL_ANNOUNCEMENT")
 
 
 class WorkloadGroupRemainingEntitiesRuleBy(sgqlc.types.Enum):
