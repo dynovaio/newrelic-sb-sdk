@@ -63,6 +63,7 @@ __all__ = [
     "AgentApplicationSettingsBrowserConfig",
     "AgentApplicationSettingsBrowserDistributedTracing",
     "AgentApplicationSettingsBrowserMonitoring",
+    "AgentApplicationSettingsBrowserPerformance",
     "AgentApplicationSettingsBrowserPrivacy",
     "AgentApplicationSettingsBrowserProperties",
     "AgentApplicationSettingsErrorCollector",
@@ -451,6 +452,7 @@ __all__ = [
     "EntityManagementCollectionElementsResult",
     "EntityManagementCollectionEntityCreateResult",
     "EntityManagementCollectionEntityUpdateResult",
+    "EntityManagementCollectionsContainingEntityResult",
     "EntityManagementCommunicationLog",
     "EntityManagementConfig",
     "EntityManagementConfiguration",
@@ -486,6 +488,7 @@ __all__ = [
     "EntityManagementMetadata",
     "EntityManagementNewRelicBasicAuthCredential",
     "EntityManagementNrqlRuleEngine",
+    "EntityManagementParentInfo",
     "EntityManagementPerformanceInboxSettingEntityCreateResult",
     "EntityManagementPerformanceInboxSettingEntityUpdateResult",
     "EntityManagementPipelineCloudRuleEntityCreateResult",
@@ -590,8 +593,6 @@ __all__ = [
     "InstallationRecipeEvent",
     "InstallationRecipeEventResult",
     "InstallationStatusError",
-    "JavaFlightRecorderFlamegraph",
-    "JavaFlightRecorderStackFrame",
     "KeyTransactionApplication",
     "KeyTransactionCreateResult",
     "KeyTransactionDeleteResult",
@@ -1146,6 +1147,7 @@ __all__ = [
     "EntityManagementAgentEntity",
     "EntityManagementAgentTypeDefinitionEntity",
     "EntityManagementAiAgentEntity",
+    "EntityManagementAiCapableEntity",
     "EntityManagementAiToolEntity",
     "EntityManagementBudgetEntity",
     "EntityManagementCollectionEntity",
@@ -1184,6 +1186,7 @@ __all__ = [
     "EntityManagementUserActor",
     "EntityManagementUserEntity",
     "EntityManagementWorkItem",
+    "EntityManagementWorkItemLink",
     "EntityManagementWorkItemMessage",
     "EntityManagementWorkflowDefinition",
     "EntityManagementWorkflowSchedule",
@@ -3785,6 +3788,7 @@ class AgentApplicationSettingsBrowserBase(sgqlc.types.Type):
     __field_names__ = (
         "browser_config",
         "browser_monitoring",
+        "browser_performance",
         "session_replay",
         "session_trace",
     )
@@ -3796,6 +3800,11 @@ class AgentApplicationSettingsBrowserBase(sgqlc.types.Type):
     browser_monitoring = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsBrowserMonitoring"),
         graphql_name="browserMonitoring",
+    )
+
+    browser_performance = sgqlc.types.Field(
+        sgqlc.types.non_null("AgentApplicationSettingsBrowserPerformance"),
+        graphql_name="browserPerformance",
     )
 
     session_replay = sgqlc.types.Field(
@@ -3872,6 +3881,22 @@ class AgentApplicationSettingsBrowserMonitoring(sgqlc.types.Type):
     privacy = sgqlc.types.Field(
         sgqlc.types.non_null("AgentApplicationSettingsBrowserPrivacy"),
         graphql_name="privacy",
+    )
+
+
+class AgentApplicationSettingsBrowserPerformance(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("capture_detail", "capture_marks", "capture_measures")
+    capture_detail = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="captureDetail"
+    )
+
+    capture_marks = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="captureMarks"
+    )
+
+    capture_measures = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="captureMeasures"
     )
 
 
@@ -12971,7 +12996,12 @@ class EntityGoldenTagsDomainTypeScopedResponse(sgqlc.types.Type):
 
 class EntityManagementActorStitchedFields(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("collection_elements", "entity", "entity_search")
+    __field_names__ = (
+        "collection_elements",
+        "collections_containing_entity",
+        "entity",
+        "entity_search",
+    )
     collection_elements = sgqlc.types.Field(
         "EntityManagementCollectionElementsResult",
         graphql_name="collectionElements",
@@ -12987,6 +13017,21 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
                         sgqlc.types.non_null(EntityManagementCollectionElementsFilter),
                         graphql_name="filter",
                         default=None,
+                    ),
+                ),
+            )
+        ),
+    )
+
+    collections_containing_entity = sgqlc.types.Field(
+        sgqlc.types.list_of("EntityManagementCollectionsContainingEntityResult"),
+        graphql_name="collectionsContainingEntity",
+        args=sgqlc.types.ArgDict(
+            (
+                (
+                    "entity_id",
+                    sgqlc.types.Arg(
+                        sgqlc.types.non_null(ID), graphql_name="entityId", default=None
                     ),
                 ),
             )
@@ -13253,6 +13298,19 @@ class EntityManagementCollectionEntityUpdateResult(sgqlc.types.Type):
     __field_names__ = ("entity",)
     entity = sgqlc.types.Field(
         sgqlc.types.non_null("EntityManagementCollectionEntity"), graphql_name="entity"
+    )
+
+
+class EntityManagementCollectionsContainingEntityResult(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("collection", "parent_info")
+    collection = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementCollectionEntity"),
+        graphql_name="collection",
+    )
+
+    parent_info = sgqlc.types.Field(
+        "EntityManagementParentInfo", graphql_name="parentInfo"
     )
 
 
@@ -13683,8 +13741,10 @@ class EntityManagementJiraOAuthCredential(sgqlc.types.Type):
 
 class EntityManagementLlmConfig(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("cache_seed", "temperature")
+    __field_names__ = ("cache_seed", "model", "temperature")
     cache_seed = sgqlc.types.Field(String, graphql_name="cacheSeed")
+
+    model = sgqlc.types.Field(String, graphql_name="model")
 
     temperature = sgqlc.types.Field(Float, graphql_name="temperature")
 
@@ -13747,6 +13807,18 @@ class EntityManagementNrqlRuleEngine(sgqlc.types.Type):
     )
 
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
+
+
+class EntityManagementParentInfo(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("parent_entity", "parent_field")
+    parent_entity = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementEntity), graphql_name="parentEntity"
+    )
+
+    parent_field = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="parentField"
+    )
 
 
 class EntityManagementPerformanceInboxSettingEntityCreateResult(sgqlc.types.Type):
@@ -15443,27 +15515,6 @@ class InstallationStatusError(sgqlc.types.Type):
     message = sgqlc.types.Field(String, graphql_name="message")
 
     optimized_message = sgqlc.types.Field(String, graphql_name="optimizedMessage")
-
-
-class JavaFlightRecorderFlamegraph(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("all_frames",)
-    all_frames = sgqlc.types.Field(
-        sgqlc.types.non_null(sgqlc.types.list_of("JavaFlightRecorderStackFrame")),
-        graphql_name="allFrames",
-    )
-
-
-class JavaFlightRecorderStackFrame(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("count", "id", "name", "parent_id")
-    count = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="count")
-
-    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
-
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
-
-    parent_id = sgqlc.types.Field(ID, graphql_name="parentId")
 
 
 class KeyTransactionApplication(sgqlc.types.Type):
@@ -19096,6 +19147,7 @@ class NrqlDropRulesDropRule(sgqlc.types.Type):
         "id",
         "name",
         "nrql",
+        "pipeline_cloud_rule_entity_id",
         "source",
     )
     account = sgqlc.types.Field(AccountReference, graphql_name="account")
@@ -19121,6 +19173,10 @@ class NrqlDropRulesDropRule(sgqlc.types.Type):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     nrql = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="nrql")
+
+    pipeline_cloud_rule_entity_id = sgqlc.types.Field(
+        String, graphql_name="pipelineCloudRuleEntityId"
+    )
 
     source = sgqlc.types.Field(String, graphql_name="source")
 
@@ -32049,7 +32105,6 @@ class ApmApplicationEntity(
         "application_instances",
         "application_instances_v2",
         "exception",
-        "flamegraph",
         "language",
         "metric_grouping_issues",
         "metric_normalization_rule",
@@ -32108,29 +32163,6 @@ class ApmApplicationEntity(
                         sgqlc.types.non_null(String),
                         graphql_name="occurrenceId",
                         default=None,
-                    ),
-                ),
-            )
-        ),
-    )
-
-    flamegraph = sgqlc.types.Field(
-        JavaFlightRecorderFlamegraph,
-        graphql_name="flamegraph",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "host_name",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(String),
-                        graphql_name="hostName",
-                        default=None,
-                    ),
-                ),
-                (
-                    "time_window",
-                    sgqlc.types.Arg(
-                        TimeWindowInput, graphql_name="timeWindow", default=None
                     ),
                 ),
             )
@@ -34007,7 +34039,11 @@ class CloudLambdaIntegration(sgqlc.types.Type, CloudIntegration):
 
 class CloudOciMetadataAndTagsIntegration(sgqlc.types.Type, CloudIntegration):
     __schema__ = nerdgraph
-    __field_names__ = ("metrics_polling_interval",)
+    __field_names__ = ("metric_stacks", "metrics_polling_interval")
+    metric_stacks = sgqlc.types.Field(
+        sgqlc.types.list_of(String), graphql_name="metricStacks"
+    )
+
     metrics_polling_interval = sgqlc.types.Field(
         Int, graphql_name="metricsPollingInterval"
     )
@@ -34379,14 +34415,29 @@ class EntityManagementAiAgentEntity(sgqlc.types.Type, EntityManagementEntity):
 
     llm_config = sgqlc.types.Field(EntityManagementLlmConfig, graphql_name="llmConfig")
 
-    prompt = sgqlc.types.Field(
-        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
-        graphql_name="prompt",
-    )
+    prompt = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="prompt")
 
     tools = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementAiAgentToolConfig)),
         graphql_name="tools",
+    )
+
+
+class EntityManagementAiCapableEntity(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("category", "language", "last_seen", "tool_type", "tool_version")
+    category = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="category")
+
+    language = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="language")
+
+    last_seen = sgqlc.types.Field(
+        sgqlc.types.non_null(DateTime), graphql_name="lastSeen"
+    )
+
+    tool_type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="toolType")
+
+    tool_version = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="toolVersion"
     )
 
 
@@ -35238,6 +35289,7 @@ class EntityManagementWorkItem(sgqlc.types.Type, EntityManagementEntity):
         "due_date",
         "external_id",
         "labels",
+        "links",
         "messages",
         "priority",
         "status",
@@ -35266,6 +35318,8 @@ class EntityManagementWorkItem(sgqlc.types.Type, EntityManagementEntity):
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="labels"
     )
 
+    links = sgqlc.types.Field(EntityManagementCollectionEntity, graphql_name="links")
+
     messages = sgqlc.types.Field(
         EntityManagementCollectionEntity, graphql_name="messages"
     )
@@ -35275,6 +35329,18 @@ class EntityManagementWorkItem(sgqlc.types.Type, EntityManagementEntity):
     )
 
     status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
+
+
+class EntityManagementWorkItemLink(sgqlc.types.Type, EntityManagementEntity):
+    __schema__ = nerdgraph
+    __field_names__ = ("external_id", "source_sync_configuration_id", "url")
+    external_id = sgqlc.types.Field(String, graphql_name="externalId")
+
+    source_sync_configuration_id = sgqlc.types.Field(
+        ID, graphql_name="sourceSyncConfigurationId"
+    )
+
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
 class EntityManagementWorkItemMessage(sgqlc.types.Type, EntityManagementEntity):

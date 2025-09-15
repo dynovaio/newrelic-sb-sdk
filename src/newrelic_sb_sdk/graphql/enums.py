@@ -98,6 +98,7 @@ __all__ = [
     "ApiAccessKeyType",
     "ApiAccessUserKeyErrorType",
     "AuthorizationManagementGranteeTypeEnum",
+    "AuthorizationManagementIamParentScopeTypeEnum",
     "BrowserAgentInstallType",
     "ChangeTrackingCategoryType",
     "ChangeTrackingDeploymentType",
@@ -1205,6 +1206,11 @@ class AuthorizationManagementGranteeTypeEnum(sgqlc.types.Enum):
     __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
 
 
+class AuthorizationManagementIamParentScopeTypeEnum(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
 class BrowserAgentInstallType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("LITE", "PRO", "PRO_SPA")
@@ -2062,7 +2068,14 @@ class EntitySearchQueryBuilderDomain(sgqlc.types.Enum):
 
 class EntitySearchQueryBuilderType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("APPLICATION", "DASHBOARD", "HOST", "MONITOR", "WORKLOAD")
+    __choices__ = (
+        "APPLICATION",
+        "DASHBOARD",
+        "HOST",
+        "MONITOR",
+        "SERVICE_LEVEL",
+        "WORKLOAD",
+    )
 
 
 class EntitySearchSortCriteria(sgqlc.types.Enum):

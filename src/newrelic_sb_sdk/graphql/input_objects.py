@@ -10,6 +10,7 @@ __all__ = [
     "AgentApplicationSettingsBrowserConfigInput",
     "AgentApplicationSettingsBrowserDistributedTracingInput",
     "AgentApplicationSettingsBrowserMonitoringInput",
+    "AgentApplicationSettingsBrowserPerformanceInput",
     "AgentApplicationSettingsBrowserPrivacyInput",
     "AgentApplicationSettingsErrorCollectorInput",
     "AgentApplicationSettingsIgnoredStatusCodeRuleInput",
@@ -195,6 +196,7 @@ __all__ = [
     "AuthorizationManagementGrantAccess",
     "AuthorizationManagementGrantee",
     "AuthorizationManagementGroupAccessGrant",
+    "AuthorizationManagementIamParent",
     "AuthorizationManagementOrganizationAccessGrant",
     "AuthorizationManagementRevokeAccess",
     "ChangeTrackingCategoryAndTypeInput",
@@ -821,6 +823,7 @@ from newrelic_sb_sdk.graphql.enums import (
     ApiAccessIngestKeyType,
     ApiAccessKeyType,
     AuthorizationManagementGranteeTypeEnum,
+    AuthorizationManagementIamParentScopeTypeEnum,
     ChangeTrackingDeploymentType,
     ChangeTrackingValidationFlag,
     CloudMetricCollectionMode,
@@ -1098,6 +1101,16 @@ class AgentApplicationSettingsBrowserMonitoringInput(sgqlc.types.Input):
     privacy = sgqlc.types.Field(
         "AgentApplicationSettingsBrowserPrivacyInput", graphql_name="privacy"
     )
+
+
+class AgentApplicationSettingsBrowserPerformanceInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("capture_detail", "capture_marks", "capture_measures")
+    capture_detail = sgqlc.types.Field(Boolean, graphql_name="captureDetail")
+
+    capture_marks = sgqlc.types.Field(Boolean, graphql_name="captureMarks")
+
+    capture_measures = sgqlc.types.Field(Boolean, graphql_name="captureMeasures")
 
 
 class AgentApplicationSettingsBrowserPrivacyInput(sgqlc.types.Input):
@@ -1459,6 +1472,7 @@ class AgentApplicationSettingsUpdateInput(sgqlc.types.Input):
         "apm_config",
         "browser_config",
         "browser_monitoring",
+        "browser_performance",
         "capture_memcache_keys",
         "error_collector",
         "jfr",
@@ -1483,6 +1497,11 @@ class AgentApplicationSettingsUpdateInput(sgqlc.types.Input):
 
     browser_monitoring = sgqlc.types.Field(
         AgentApplicationSettingsBrowserMonitoringInput, graphql_name="browserMonitoring"
+    )
+
+    browser_performance = sgqlc.types.Field(
+        AgentApplicationSettingsBrowserPerformanceInput,
+        graphql_name="browserPerformance",
     )
 
     capture_memcache_keys = sgqlc.types.Field(
@@ -4715,9 +4734,13 @@ class AuthorizationManagementEntity(sgqlc.types.Input):
 
 class AuthorizationManagementEntityAccessGrants(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("entity", "role_id")
+    __field_names__ = ("entity", "iam_parent", "role_id")
     entity = sgqlc.types.Field(
         sgqlc.types.non_null(AuthorizationManagementEntity), graphql_name="entity"
+    )
+
+    iam_parent = sgqlc.types.Field(
+        "AuthorizationManagementIamParent", graphql_name="iamParent"
     )
 
     role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
@@ -4785,6 +4808,17 @@ class AuthorizationManagementGroupAccessGrant(sgqlc.types.Input):
     group_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="groupId")
 
     role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
+
+
+class AuthorizationManagementIamParent(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "scope")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null(AuthorizationManagementIamParentScopeTypeEnum),
+        graphql_name="scope",
+    )
 
 
 class AuthorizationManagementOrganizationAccessGrant(sgqlc.types.Input):
@@ -11014,10 +11048,7 @@ class EntityManagementAiAgentEntityCreateInput(sgqlc.types.Input):
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
-    prompt = sgqlc.types.Field(
-        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
-        graphql_name="prompt",
-    )
+    prompt = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="prompt")
 
     scope = sgqlc.types.Field(
         sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
@@ -11063,9 +11094,7 @@ class EntityManagementAiAgentEntityUpdateInput(sgqlc.types.Input):
 
     name = sgqlc.types.Field(String, graphql_name="name")
 
-    prompt = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="prompt"
-    )
+    prompt = sgqlc.types.Field(String, graphql_name="prompt")
 
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
@@ -11781,16 +11810,20 @@ class EntityManagementInboxIssueCategoryEntityUpdateInput(sgqlc.types.Input):
 
 class EntityManagementLlmConfigCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("cache_seed", "temperature")
+    __field_names__ = ("cache_seed", "model", "temperature")
     cache_seed = sgqlc.types.Field(String, graphql_name="cacheSeed")
+
+    model = sgqlc.types.Field(String, graphql_name="model")
 
     temperature = sgqlc.types.Field(Float, graphql_name="temperature")
 
 
 class EntityManagementLlmConfigUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("cache_seed", "temperature")
+    __field_names__ = ("cache_seed", "model", "temperature")
     cache_seed = sgqlc.types.Field(String, graphql_name="cacheSeed")
+
+    model = sgqlc.types.Field(String, graphql_name="model")
 
     temperature = sgqlc.types.Field(Float, graphql_name="temperature")
 

@@ -406,6 +406,10 @@ d = {
                 "GraphQL/enums.html#authorizationmanagementgranteetypeenum",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AuthorizationManagementIamParentScopeTypeEnum": (
+                "GraphQL/enums.html#authorizationmanagementiamparentscopetypeenum",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.BrowserAgentInstallType": (
                 "GraphQL/enums.html#browseragentinstalltype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -1403,6 +1407,11 @@ d = {
                 "objects.html#agentapplicationsettingsbrowsermonitoringinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsBrowserPerformanceInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingsbrowserperformanceinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsBrowserPrivacyInput": (
                 "GraphQL/input "
                 "objects.html#agentapplicationsettingsbrowserprivacyinput",
@@ -2184,6 +2193,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementGroupAccessGrant": (
                 "GraphQL/input objects.html#authorizationmanagementgroupaccessgrant",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementIamParent": (
+                "GraphQL/input objects.html#authorizationmanagementiamparent",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AuthorizationManagementOrganizationAccessGrant": (
@@ -4692,6 +4705,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsbrowsermonitoring",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsBrowserPerformance": (
+                "GraphQL/objects.html#agentapplicationsettingsbrowserperformance",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsBrowserPrivacy": (
                 "GraphQL/objects.html#agentapplicationsettingsbrowserprivacy",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7012,6 +7029,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementaiagenttoolconfig",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAiCapableEntity": (
+                "GraphQL/objects.html#entitymanagementaicapableentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementAiToolEntity": (
                 "GraphQL/objects.html#entitymanagementaitoolentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7082,6 +7103,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionEntityUpdateResult": (
                 "GraphQL/objects.html#entitymanagementcollectionentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionsContainingEntityResult": (
+                "GraphQL/objects.html#entitymanagementcollectionscontainingentityresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCommunicationLog": (
@@ -7298,6 +7323,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlRuleEngine": (
                 "GraphQL/objects.html#entitymanagementnrqlruleengine",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementParentInfo": (
+                "GraphQL/objects.html#entitymanagementparentinfo",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntity": (
@@ -7522,6 +7551,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemAttribute": (
                 "GraphQL/objects.html#entitymanagementworkitemattribute",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemLink": (
+                "GraphQL/objects.html#entitymanagementworkitemlink",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemMessage": (
@@ -7898,14 +7931,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.InstallationStatusError": (
                 "GraphQL/objects.html#installationstatuserror",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.JavaFlightRecorderFlamegraph": (
-                "GraphQL/objects.html#javaflightrecorderflamegraph",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.JavaFlightRecorderStackFrame": (
-                "GraphQL/objects.html#javaflightrecorderstackframe",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.KeyTransactionApplication": (
