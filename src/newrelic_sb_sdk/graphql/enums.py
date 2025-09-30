@@ -171,6 +171,7 @@ __all__ = [
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
     "EntityManagementIncidentStatus",
+    "EntityManagementInstallationSource",
     "EntityManagementInstallationStatus",
     "EntityManagementIssueType",
     "EntityManagementJiraIssueType",
@@ -183,10 +184,13 @@ __all__ = [
     "EntityManagementRegion",
     "EntityManagementSigningAlgorithm",
     "EntityManagementStatusCode",
+    "EntityManagementStatusPageAnnouncementCategory",
+    "EntityManagementStatusPageAnnouncementState",
     "EntityManagementSyncConfigurationMode",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
     "EntityManagementTextSplitterType",
+    "EntityManagementThresholdScope",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -206,6 +210,9 @@ __all__ = [
     "ErrorsInboxResourceType",
     "ErrorsInboxUpdateErrorGroupStateErrorType",
     "EventsToMetricsErrorReason",
+    "FleetControlEntityScope",
+    "FleetControlFleetDeploymentPhase",
+    "FleetControlManagedEntityType",
     "HistoricalDataExportStatus",
     "IncidentIntelligenceEnvironmentConsentAccountsResult",
     "IncidentIntelligenceEnvironmentCreateEnvironmentResult",
@@ -1830,7 +1837,7 @@ class EntityManagementAssignmentType(sgqlc.types.Enum):
 
 class EntityManagementCategory(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("CHAT", "INCIDENT", "ISSUE", "VULNERABILITY")
+    __choices__ = ("CHAT", "INCIDENT", "ISSUE", "PERFORMANCE", "VULNERABILITY")
 
 
 class EntityManagementCategoryScopeType(sgqlc.types.Enum):
@@ -1896,6 +1903,11 @@ class EntityManagementHostingPlatform(sgqlc.types.Enum):
 class EntityManagementIncidentStatus(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CLOSED", "ONGOING")
+
+
+class EntityManagementInstallationSource(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("GITHUB_CLOUD", "GITHUB_ENTERPRISE")
 
 
 class EntityManagementInstallationStatus(sgqlc.types.Enum):
@@ -1981,6 +1993,16 @@ class EntityManagementStatusCode(sgqlc.types.Enum):
     __choices__ = ("MISSING_DATA_SOURCE", "SYSTEM_ERROR")
 
 
+class EntityManagementStatusPageAnnouncementCategory(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("END_OF_LIFE",)
+
+
+class EntityManagementStatusPageAnnouncementState(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CANCELED", "DRAFT", "PUBLISHED", "SCHEDULED")
+
+
 class EntityManagementSyncConfigurationMode(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ALL", "MESSAGES", "WORKITEM")
@@ -2003,6 +2025,11 @@ class EntityManagementTextSplitterType(sgqlc.types.Enum):
         "MARKDOWN_TEXT_SPLITTER",
         "TOKEN_TEXT_SPLITTER",
     )
+
+
+class EntityManagementThresholdScope(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "DEFAULT", "ENTITY")
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
@@ -2173,6 +2200,21 @@ class ErrorsInboxUpdateErrorGroupStateErrorType(sgqlc.types.Enum):
 class EventsToMetricsErrorReason(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("GENERAL", "INVALID_INPUT", "USER_NOT_AUTHORIZED")
+
+
+class FleetControlEntityScope(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class FleetControlFleetDeploymentPhase(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("COMPLETED", "CREATED", "FAILED", "IN_PROGRESS")
+
+
+class FleetControlManagedEntityType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("HOST", "KUBERNETESCLUSTER")
 
 
 class HistoricalDataExportStatus(sgqlc.types.Enum):

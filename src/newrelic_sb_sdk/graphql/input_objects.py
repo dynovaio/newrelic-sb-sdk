@@ -357,6 +357,16 @@ __all__ = [
     "CloudKinesisIntegrationInput",
     "CloudLambdaIntegrationInput",
     "CloudLinkCloudAccountsInput",
+    "CloudOciDisableIntegrationsInput",
+    "CloudOciInstrumentedPayloadInput",
+    "CloudOciIntegrationsInput",
+    "CloudOciLinkAccountInput",
+    "CloudOciLogGroupInstrumentationStatus",
+    "CloudOciLogGroupInstrumentedPayloadInput",
+    "CloudOciLogsIntegrationInput",
+    "CloudOciMetadataAndTagsIntegrationInput",
+    "CloudOciNamespaceInstrumentationStatus",
+    "CloudOciUpdateAccountInput",
     "CloudRdsIntegrationInput",
     "CloudRedshiftIntegrationInput",
     "CloudRenameAccountsInput",
@@ -510,6 +520,17 @@ __all__ = [
     "EventsToMetricsCreateRuleInput",
     "EventsToMetricsDeleteRuleInput",
     "EventsToMetricsUpdateRuleInput",
+    "FleetControlConfigurationVersionListInput",
+    "FleetControlFleetDeploymentCreateInput",
+    "FleetControlFleetDeploymentPolicyInput",
+    "FleetControlFleetDeploymentUpdateInput",
+    "FleetControlFleetEntityCreateInput",
+    "FleetControlFleetMemberRingInput",
+    "FleetControlFleetMembersFilterInput",
+    "FleetControlRingDeploymentPolicyInput",
+    "FleetControlScopedReferenceInput",
+    "FleetControlTagInput",
+    "FleetControlUpdateFleetEntityInput",
     "InstallationInstallStatusInput",
     "InstallationRecipeStatus",
     "InstallationStatusErrorInput",
@@ -853,6 +874,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
     EntityManagementTextSplitterType,
+    EntityManagementThresholdScope,
     EntityRelationshipEdgeDirection,
     EntityRelationshipEdgeType,
     EntitySearchQueryBuilderDomain,
@@ -864,6 +886,8 @@ from newrelic_sb_sdk.graphql.enums import (
     ErrorsInboxErrorGroupState,
     ErrorsInboxEventSource,
     ErrorsInboxResourceType,
+    FleetControlEntityScope,
+    FleetControlManagedEntityType,
     InstallationInstallStateType,
     InstallationRecipeStatusType,
     LogConfigurationsDataPartitionRuleMatchingOperator,
@@ -8384,6 +8408,7 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
         "confluent",
         "fossa",
         "gcp",
+        "oci",
     )
     aws = sgqlc.types.Field(CloudAwsDisableIntegrationsInput, graphql_name="aws")
 
@@ -8406,6 +8431,8 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
     )
 
     gcp = sgqlc.types.Field("CloudGcpDisableIntegrationsInput", graphql_name="gcp")
+
+    oci = sgqlc.types.Field("CloudOciDisableIntegrationsInput", graphql_name="oci")
 
 
 class CloudDynamodbIntegrationInput(sgqlc.types.Input):
@@ -9795,6 +9822,7 @@ class CloudIntegrationsInput(sgqlc.types.Input):
         "confluent",
         "fossa",
         "gcp",
+        "oci",
     )
     aws = sgqlc.types.Field(CloudAwsIntegrationsInput, graphql_name="aws")
 
@@ -9813,6 +9841,8 @@ class CloudIntegrationsInput(sgqlc.types.Input):
     fossa = sgqlc.types.Field(CloudFossaIntegrationsInput, graphql_name="fossa")
 
     gcp = sgqlc.types.Field(CloudGcpIntegrationsInput, graphql_name="gcp")
+
+    oci = sgqlc.types.Field("CloudOciIntegrationsInput", graphql_name="oci")
 
 
 class CloudIotIntegrationInput(sgqlc.types.Input):
@@ -9946,6 +9976,7 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
         "confluent",
         "fossa",
         "gcp",
+        "oci",
     )
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsLinkAccountInput)),
@@ -9981,6 +10012,226 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null(CloudGcpLinkAccountInput)),
         graphql_name="gcp",
     )
+
+    oci = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("CloudOciLinkAccountInput")),
+        graphql_name="oci",
+    )
+
+
+class CloudOciDisableIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("oci_logs", "oci_metadata_and_tags")
+    oci_logs = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudDisableAccountIntegrationInput), graphql_name="ociLogs"
+    )
+
+    oci_metadata_and_tags = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudDisableAccountIntegrationInput),
+        graphql_name="ociMetadataAndTags",
+    )
+
+
+class CloudOciInstrumentedPayloadInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("changed", "id", "namespace_instrumentation_statuses")
+    changed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="changed")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    namespace_instrumentation_statuses = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null("CloudOciNamespaceInstrumentationStatus")
+            )
+        ),
+        graphql_name="namespaceInstrumentationStatuses",
+    )
+
+
+class CloudOciIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("oci_logs", "oci_metadata_and_tags")
+    oci_logs = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudOciLogsIntegrationInput"), graphql_name="ociLogs"
+    )
+
+    oci_metadata_and_tags = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudOciMetadataAndTagsIntegrationInput"),
+        graphql_name="ociMetadataAndTags",
+    )
+
+
+class CloudOciLinkAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "compartment_ocid",
+        "ingest_vault_ocid",
+        "instrumentation_type",
+        "name",
+        "oci_client_id",
+        "oci_client_secret",
+        "oci_domain_url",
+        "oci_home_region",
+        "oci_svc_user_name",
+        "tenant_id",
+        "user_vault_ocid",
+    )
+    compartment_ocid = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="compartmentOcid"
+    )
+
+    ingest_vault_ocid = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="ingestVaultOcid"
+    )
+
+    instrumentation_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="instrumentationType"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    oci_client_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="ociClientId"
+    )
+
+    oci_client_secret = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="ociClientSecret"
+    )
+
+    oci_domain_url = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="ociDomainUrl"
+    )
+
+    oci_home_region = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="ociHomeRegion"
+    )
+
+    oci_svc_user_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="ociSvcUserName"
+    )
+
+    tenant_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="tenantId")
+
+    user_vault_ocid = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="userVaultOcid"
+    )
+
+
+class CloudOciLogGroupInstrumentationStatus(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("changed", "id", "instrumented", "log_group")
+    changed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="changed")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    instrumented = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="instrumented"
+    )
+
+    log_group = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="logGroup")
+
+
+class CloudOciLogGroupInstrumentedPayloadInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("changed", "id", "log_group_instrumentation_statuses")
+    changed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="changed")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    log_group_instrumentation_statuses = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null(CloudOciLogGroupInstrumentationStatus)
+            )
+        ),
+        graphql_name="logGroupInstrumentationStatuses",
+    )
+
+
+class CloudOciLogsIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("linked_account_id",)
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+
+class CloudOciMetadataAndTagsIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("linked_account_id",)
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+
+class CloudOciNamespaceInstrumentationStatus(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("changed", "instrumented", "namespace")
+    changed = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="changed")
+
+    instrumented = sgqlc.types.Field(
+        sgqlc.types.non_null(Boolean), graphql_name="instrumented"
+    )
+
+    namespace = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="namespace"
+    )
+
+
+class CloudOciUpdateAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "compartment_ocid",
+        "disabled",
+        "ingest_vault_ocid",
+        "instrumentation_type",
+        "linked_account_id",
+        "logging_stack_ocid",
+        "metric_stack_ocid",
+        "name",
+        "oci_client_id",
+        "oci_client_secret",
+        "oci_domain_url",
+        "oci_home_region",
+        "oci_region",
+        "oci_svc_user_name",
+        "tenant_id",
+        "user_vault_ocid",
+    )
+    compartment_ocid = sgqlc.types.Field(String, graphql_name="compartmentOcid")
+
+    disabled = sgqlc.types.Field(Boolean, graphql_name="disabled")
+
+    ingest_vault_ocid = sgqlc.types.Field(String, graphql_name="ingestVaultOcid")
+
+    instrumentation_type = sgqlc.types.Field(String, graphql_name="instrumentationType")
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    logging_stack_ocid = sgqlc.types.Field(String, graphql_name="loggingStackOcid")
+
+    metric_stack_ocid = sgqlc.types.Field(String, graphql_name="metricStackOcid")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    oci_client_id = sgqlc.types.Field(String, graphql_name="ociClientId")
+
+    oci_client_secret = sgqlc.types.Field(SecureValue, graphql_name="ociClientSecret")
+
+    oci_domain_url = sgqlc.types.Field(String, graphql_name="ociDomainUrl")
+
+    oci_home_region = sgqlc.types.Field(String, graphql_name="ociHomeRegion")
+
+    oci_region = sgqlc.types.Field(String, graphql_name="ociRegion")
+
+    oci_svc_user_name = sgqlc.types.Field(String, graphql_name="ociSvcUserName")
+
+    tenant_id = sgqlc.types.Field(String, graphql_name="tenantId")
+
+    user_vault_ocid = sgqlc.types.Field(String, graphql_name="userVaultOcid")
 
 
 class CloudRdsIntegrationInput(sgqlc.types.Input):
@@ -10271,7 +10522,15 @@ class CloudUnlinkAccountsInput(sgqlc.types.Input):
 
 class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("aws", "aws_govcloud", "azure", "confluent", "fossa", "gcp")
+    __field_names__ = (
+        "aws",
+        "aws_govcloud",
+        "azure",
+        "confluent",
+        "fossa",
+        "gcp",
+        "oci",
+    )
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsUpdateAccountInput)),
         graphql_name="aws",
@@ -10300,6 +10559,11 @@ class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     gcp = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudGcpUpdateAccountInput)),
         graphql_name="gcp",
+    )
+
+    oci = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudOciUpdateAccountInput)),
+        graphql_name="oci",
     )
 
 
@@ -11886,7 +12150,7 @@ class EntityManagementNrqlRuleEngineUpdateInput(sgqlc.types.Input):
 
 class EntityManagementPerformanceInboxSettingEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("config", "name", "scope", "tags")
+    __field_names__ = ("config", "name", "scope", "tags", "threshold_scope")
     config = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementConfigCreateInput)),
         graphql_name="config",
@@ -11904,10 +12168,15 @@ class EntityManagementPerformanceInboxSettingEntityCreateInput(sgqlc.types.Input
         graphql_name="tags",
     )
 
+    threshold_scope = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementThresholdScope),
+        graphql_name="thresholdScope",
+    )
+
 
 class EntityManagementPerformanceInboxSettingEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("config", "name", "tags")
+    __field_names__ = ("config", "name", "tags", "threshold_scope")
     config = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementConfigUpdateInput)),
         graphql_name="config",
@@ -11918,6 +12187,10 @@ class EntityManagementPerformanceInboxSettingEntityUpdateInput(sgqlc.types.Input
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
+    )
+
+    threshold_scope = sgqlc.types.Field(
+        EntityManagementThresholdScope, graphql_name="thresholdScope"
     )
 
 
@@ -12048,7 +12321,7 @@ class EntityManagementScheduleCreateInput(sgqlc.types.Input):
 
     period = sgqlc.types.Field(Int, graphql_name="period")
 
-    schedule_at = sgqlc.types.Field(String, graphql_name="scheduleAt")
+    schedule_at = sgqlc.types.Field(DateTime, graphql_name="scheduleAt")
 
 
 class EntityManagementScheduleUpdateInput(sgqlc.types.Input):
@@ -12060,7 +12333,7 @@ class EntityManagementScheduleUpdateInput(sgqlc.types.Input):
 
     period = sgqlc.types.Field(Int, graphql_name="period")
 
-    schedule_at = sgqlc.types.Field(String, graphql_name="scheduleAt")
+    schedule_at = sgqlc.types.Field(DateTime, graphql_name="scheduleAt")
 
 
 class EntityManagementScopedReferenceInput(sgqlc.types.Input):
@@ -12612,6 +12885,159 @@ class EventsToMetricsUpdateRuleInput(sgqlc.types.Input):
     enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
 
     rule_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="ruleId")
+
+
+class FleetControlConfigurationVersionListInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class FleetControlFleetDeploymentCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "configuration_version_list",
+        "description",
+        "fleet_id",
+        "name",
+        "scope",
+        "tags",
+    )
+    configuration_version_list = sgqlc.types.Field(
+        sgqlc.types.list_of(FleetControlConfigurationVersionListInput),
+        graphql_name="configurationVersionList",
+    )
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    fleet_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="fleetId")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("FleetControlScopedReferenceInput"), graphql_name="scope"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("FleetControlTagInput")),
+        graphql_name="tags",
+    )
+
+
+class FleetControlFleetDeploymentPolicyInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("ring_deployment_policy",)
+    ring_deployment_policy = sgqlc.types.Field(
+        "FleetControlRingDeploymentPolicyInput", graphql_name="ringDeploymentPolicy"
+    )
+
+
+class FleetControlFleetDeploymentUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("configuration_version_list", "description", "name", "tags")
+    configuration_version_list = sgqlc.types.Field(
+        sgqlc.types.list_of(FleetControlConfigurationVersionListInput),
+        graphql_name="configurationVersionList",
+    )
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("FleetControlTagInput")),
+        graphql_name="tags",
+    )
+
+
+class FleetControlFleetEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "description",
+        "managed_entity_type",
+        "name",
+        "product",
+        "scope",
+        "tags",
+    )
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    managed_entity_type = sgqlc.types.Field(
+        sgqlc.types.non_null(FleetControlManagedEntityType),
+        graphql_name="managedEntityType",
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    product = sgqlc.types.Field(String, graphql_name="product")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("FleetControlScopedReferenceInput"), graphql_name="scope"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of("FleetControlTagInput"), graphql_name="tags"
+    )
+
+
+class FleetControlFleetMemberRingInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("entity_ids", "ring")
+    entity_ids = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="entityIds"
+    )
+
+    ring = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="ring")
+
+
+class FleetControlFleetMembersFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("fleet_id", "ring")
+    fleet_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="fleetId")
+
+    ring = sgqlc.types.Field(String, graphql_name="ring")
+
+
+class FleetControlRingDeploymentPolicyInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("rings_to_deploy",)
+    rings_to_deploy = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="ringsToDeploy"
+    )
+
+
+class FleetControlScopedReferenceInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(FleetControlEntityScope), graphql_name="type"
+    )
+
+
+class FleetControlTagInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "values")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    values = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="values",
+    )
+
+
+class FleetControlUpdateFleetEntityInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "name", "tags")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(FleetControlTagInput)),
+        graphql_name="tags",
+    )
 
 
 class InstallationInstallStatusInput(sgqlc.types.Input):

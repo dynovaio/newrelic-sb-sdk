@@ -698,6 +698,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementincidentstatus",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementInstallationSource": (
+                "GraphQL/enums.html#entitymanagementinstallationsource",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementInstallationStatus": (
                 "GraphQL/enums.html#entitymanagementinstallationstatus",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -746,6 +750,14 @@ d = {
                 "GraphQL/enums.html#entitymanagementstatuscode",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementStatusPageAnnouncementCategory": (
+                "GraphQL/enums.html#entitymanagementstatuspageannouncementcategory",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementStatusPageAnnouncementState": (
+                "GraphQL/enums.html#entitymanagementstatuspageannouncementstate",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementSyncConfigurationMode": (
                 "GraphQL/enums.html#entitymanagementsyncconfigurationmode",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -760,6 +772,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementTextSplitterType": (
                 "GraphQL/enums.html#entitymanagementtextsplittertype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementThresholdScope": (
+                "GraphQL/enums.html#entitymanagementthresholdscope",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityRelationshipEdgeDirection": (
@@ -836,6 +852,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EventsToMetricsErrorReason": (
                 "GraphQL/enums.html#eventstometricserrorreason",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.FleetControlEntityScope": (
+                "GraphQL/enums.html#fleetcontrolentityscope",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.FleetControlFleetDeploymentPhase": (
+                "GraphQL/enums.html#fleetcontrolfleetdeploymentphase",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.FleetControlManagedEntityType": (
+                "GraphQL/enums.html#fleetcontrolmanagedentitytype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.HistoricalDataExportStatus": (
@@ -2856,6 +2884,47 @@ d = {
                 "GraphQL/input objects.html#cloudlinkcloudaccountsinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciDisableIntegrationsInput": (
+                "GraphQL/input objects.html#cloudocidisableintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciInstrumentedPayloadInput": (
+                "GraphQL/input objects.html#cloudociinstrumentedpayloadinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciIntegrationsInput": (
+                "GraphQL/input objects.html#cloudociintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciLinkAccountInput": (
+                "GraphQL/input objects.html#cloudocilinkaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciLogGroupInstrumentationStatus": (
+                "GraphQL/input objects.html#cloudociloggroupinstrumentationstatus",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciLogGroupInstrumentedPayloadInput": (
+                "GraphQL/input "
+                "objects.html#cloudociloggroupinstrumentedpayloadinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciLogsIntegrationInput": (
+                "GraphQL/input objects.html#cloudocilogsintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciMetadataAndTagsIntegrationInput": (
+                "GraphQL/input objects.html#cloudocimetadataandtagsintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciNamespaceInstrumentationStatus": (
+                "GraphQL/input objects.html#cloudocinamespaceinstrumentationstatus",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudOciUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudociupdateaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudRdsIntegrationInput": (
                 "GraphQL/input objects.html#cloudrdsintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3522,6 +3591,51 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.EventsToMetricsUpdateRuleInput": (
                 "GraphQL/input objects.html#eventstometricsupdateruleinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlConfigurationVersionListInput": (
+                "GraphQL/input "
+                "objects.html#fleetcontrolconfigurationversionlistinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetDeploymentCreateInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetdeploymentcreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetDeploymentPolicyInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetdeploymentpolicyinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetDeploymentUpdateInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetdeploymentupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetEntityCreateInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetMemberRingInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetmemberringinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetMembersFilterInput": (
+                "GraphQL/input objects.html#fleetcontrolfleetmembersfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlRingDeploymentPolicyInput": (
+                "GraphQL/input objects.html#fleetcontrolringdeploymentpolicyinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlScopedReferenceInput": (
+                "GraphQL/input objects.html#fleetcontrolscopedreferenceinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlTagInput": (
+                "GraphQL/input objects.html#fleetcontroltaginput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlUpdateFleetEntityInput": (
+                "GraphQL/input objects.html#fleetcontrolupdatefleetentityinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.InstallationInstallStatusInput": (
@@ -6265,12 +6379,44 @@ d = {
                 "GraphQL/objects.html#cloudlinkedaccount",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudLogGroupInstrumentationStatus": (
+                "GraphQL/objects.html#cloudloggroupinstrumentationstatus",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudMigrateAwsGovCloudToAssumeRolePayload": (
                 "GraphQL/objects.html#cloudmigrateawsgovcloudtoassumerolepayload",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudNamespaceInstrumentationStatus": (
+                "GraphQL/objects.html#cloudnamespaceinstrumentationstatus",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciCompartmentInstrumentationDetails": (
+                "GraphQL/objects.html#cloudocicompartmentinstrumentationdetails",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciInstrumentedPayloadUrlPayload": (
+                "GraphQL/objects.html#cloudociinstrumentedpayloadurlpayload",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciLogGroupInstrumentationDetails": (
+                "GraphQL/objects.html#cloudociloggroupinstrumentationdetails",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciLogGroupInstrumentedPayloadUrlPayload": (
+                "GraphQL/objects.html#cloudociloggroupinstrumentedpayloadurlpayload",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciLogsIntegration": (
+                "GraphQL/objects.html#cloudocilogsintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudOciMetadataAndTagsIntegration": (
                 "GraphQL/objects.html#cloudocimetadataandtagsintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudOciTenancyDetails": (
+                "GraphQL/objects.html#cloudocitenancydetails",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudProvider": (
@@ -7321,6 +7467,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementnotebookentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementNotificationAttachmentEntity": (
+                "GraphQL/objects.html#entitymanagementnotificationattachmententity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlRuleEngine": (
                 "GraphQL/objects.html#entitymanagementnrqlruleengine",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7463,6 +7613,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSlackSyncConfiguration": (
                 "GraphQL/objects.html#entitymanagementslacksyncconfiguration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementStatusPageAnnouncementEntity": (
+                "GraphQL/objects.html#entitymanagementstatuspageannouncemententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementStatusPageIncidentEntity": (
@@ -7787,6 +7941,94 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.ExternalEntityOutline": (
                 "GraphQL/objects.html#externalentityoutline",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlActor": (
+                "GraphQL/objects.html#fleetcontrolactor",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlActorStitchedFields": (
+                "GraphQL/objects.html#fleetcontrolactorstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlCollectionEntity": (
+                "GraphQL/objects.html#fleetcontrolcollectionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlConfigurationVersionList": (
+                "GraphQL/objects.html#fleetcontrolconfigurationversionlist",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlCreateFleetResult": (
+                "GraphQL/objects.html#fleetcontrolcreatefleetresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlDeleteFleetResult": (
+                "GraphQL/objects.html#fleetcontroldeletefleetresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlDeployFleetResult": (
+                "GraphQL/objects.html#fleetcontroldeployfleetresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlDeployResult": (
+                "GraphQL/objects.html#fleetcontroldeployresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetDeploymentCreateResult": (
+                "GraphQL/objects.html#fleetcontrolfleetdeploymentcreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetDeploymentDeleteResult": (
+                "GraphQL/objects.html#fleetcontrolfleetdeploymentdeleteresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetDeploymentResult": (
+                "GraphQL/objects.html#fleetcontrolfleetdeploymentresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetDeploymentUpdateResult": (
+                "GraphQL/objects.html#fleetcontrolfleetdeploymentupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetEntityResult": (
+                "GraphQL/objects.html#fleetcontrolfleetentityresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetMemberEntityResult": (
+                "GraphQL/objects.html#fleetcontrolfleetmemberentityresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetMemberRing": (
+                "GraphQL/objects.html#fleetcontrolfleetmemberring",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetMembersItemsResult": (
+                "GraphQL/objects.html#fleetcontrolfleetmembersitemsresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlFleetMembersResult": (
+                "GraphQL/objects.html#fleetcontrolfleetmembersresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlMetadata": (
+                "GraphQL/objects.html#fleetcontrolmetadata",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlRingsDeploymentTracker": (
+                "GraphQL/objects.html#fleetcontrolringsdeploymenttracker",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlScopedReference": (
+                "GraphQL/objects.html#fleetcontrolscopedreference",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlTag": (
+                "GraphQL/objects.html#fleetcontroltag",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlUpdateFleetResult": (
+                "GraphQL/objects.html#fleetcontrolupdatefleetresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.GenericEntity": (
