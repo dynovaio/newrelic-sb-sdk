@@ -2,6 +2,189 @@
 
 ## [Unreleased]
 
+* Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
+
+* Add new enums:
+  `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`,
+  `MachineLearningEncodingName`, `MachineLearningFilterByKeys`,
+  `MachineLearningOperator`, `MachineLearningTextSplitterType`.
+
+* Add new input objects:
+  `AgentApplicationSettingsMobileSessionReplayInput`,
+  `MachineLearningAddDocumentIndexConfiguration`,
+  `MachineLearningCharacterTextSplitterOptionsInput`,
+  `MachineLearningFilterBy`,
+  `MachineLearningMarkdownTextSplitterOptionsInput`,
+  `MachineLearningTokenTextSplitterOptionsInput`.
+
+* Add new objects:
+  `AgentApplicationSettingsMobileSessionReplay`,
+  `AiWorkflowsBatchCreateMigratedWorkflowsResponseError`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsResponseError`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterResponseError`,
+  `MachineLearningAccountStitchedFields`,
+  `MachineLearningActorStitchedFields`,
+  `MachineLearningExperiment`, `MachineLearningExperimentConnection`,
+  `MachineLearningFileDataSource`, `MachineLearningFileDataSourceConnection`,
+  `MachineLearningModel`, `MachineLearningModelConnection`,
+  `MachineLearningProject`, `MachineLearningProjectConnection`,
+  `MachineLearningRagQueryDataResponse`,
+  `MachineLearningStreamDataSource`, `MachineLearningStreamDataSourceConnection`,
+  `MachineLearningTag`, `MachineLearningTagConnection`,
+  `MachineLearningTransactionResponse`.
+
+* Update existing enums:
+  * Add `WORKFLOW_AUTOMATION` value to `AiWorkflowsDestinationType`.
+
+* Add fields to existing types:
+  * `Account`: add `machine_learning` field (`MachineLearningAccountStitchedFields`).
+  * `Actor`: add `machine_learning` field (`MachineLearningActorStitchedFields`).
+  * `AgentApplicationSettingsMobileBase`:
+    * Add `mobile_session_replay` field (`AgentApplicationSettingsMobileSessionReplay`).
+    * Update `__field_names__` to include `mobile_session_replay`.
+  * `AgentApplicationSettingsMobileSettingsInput`:
+    * Add `mobile_session_replay` field (`AgentApplicationSettingsMobileSessionReplayInput`).
+    * Update `__field_names__` to include `mobile_session_replay`.
+
+* Add multiple Machine Learning mutations to `RootMutationType`:
+  `machine_learning_add_document_index`,
+  `machine_learning_add_file_data_source`,
+  `machine_learning_add_stream_data_source`,
+  `machine_learning_create_file_data_source`,
+  `machine_learning_create_project`,
+  `machine_learning_create_stream_data_source`,
+  `machine_learning_delete_file_data_source`,
+  `machine_learning_delete_project`,
+  `machine_learning_delete_stream_data_source`,
+  `machine_learning_halt_stream_data_source`,
+  `machine_learning_remove_document_index`,
+  `machine_learning_remove_file_data_source`,
+  `machine_learning_remove_stream_data_source`,
+  `machine_learning_start_stream_data_source`,
+  `machine_learning_update_file_data_source`,
+  `machine_learning_update_project`,
+  `machine_learning_update_stream_data_source`.
+
+* Add Collaboration mutations to `RootMutationType`:
+  `collaboration_create_context`, `collaboration_create_email`,
+  `collaboration_create_external_service_connection`, `collaboration_create_mention`,
+  `collaboration_create_thread`, `collaboration_deactivate_code_mark`,
+  `collaboration_deactivate_comment`, `collaboration_deactivate_context`,
+  `collaboration_deactivate_external_service_connection`,
+  `collaboration_deactivate_file`, `collaboration_deactivate_mention`,
+  `collaboration_deactivate_thread`, `collaboration_feedback_on_bot_response`,
+  `collaboration_get_upload_url`, `collaboration_register_email`,
+  `collaboration_send_message`,
+  `collaboration_set_external_service_connection_channel`,
+  `collaboration_socket_subscribe`, `collaboration_subscribe_to_thread`,
+  `collaboration_unsubscribe_from_thread`, `collaboration_update_comment`,
+  `collaboration_update_context_add_comment`,
+  `collaboration_update_context_add_thread`,
+  `collaboration_update_subscription_read_info`,
+  `collaboration_update_thread_add_comment`,
+  `collaboration_update_thread_status`.
+
+* Add Dashboard mutations to `RootMutationType`:
+  `dashboard_add_widgets_to_page`, `dashboard_create`, `dashboard_create_live_url`,
+  `dashboard_create_snapshot_url`, `dashboard_delete`, `dashboard_revoke_live_url`,
+  `dashboard_undelete`, `dashboard_update`, `dashboard_update_live_url`,
+  `dashboard_update_live_url_creation_policies`, `dashboard_update_page`,
+  `dashboard_update_widgets_in_page`, `dashboard_widget_revoke_live_url`.
+
+* Add Data Management mutations to `RootMutationType`:
+  `data_management_copy_retentions`, `data_management_create_account_limit`,
+  `data_management_create_event_retention_rule`,
+  `data_management_create_retention_rules`,
+  `data_management_delete_event_retention_rule`,
+  `data_management_update_feature_settings`.
+
+* Add Edge (trace) mutations to `RootMutationType`:
+  `edge_create_trace_filter_rules`, `edge_delete_trace_filter_rules`,
+  `edge_create_trace_observer`, `edge_delete_trace_observers`,
+  `edge_update_trace_observers`.
+
+* Add Entity mutations to `RootMutationType`:
+  `entity_delete`, `entity_golden_metrics_override`, `entity_golden_metrics_reset`,
+  `entity_golden_tags_override`, `entity_golden_tags_reset`.
+
+* Add Entity Management mutations to `RootMutationType`:
+  * Collections & membership: `entity_management_create_collection`,
+    `entity_management_add_collection_members`,
+    `entity_management_remove_collection_members`,
+    `entity_management_update_collection`, `entity_management_delete`.
+  * AI entities: `entity_management_create_ai_agent`, `entity_management_update_ai_agent`,
+    `entity_management_create_ai_tool`, `entity_management_update_ai_tool`.
+  * Confluence: `entity_management_create_confluence_integration`,
+    `entity_management_update_confluence_integration`,
+    `entity_management_create_confluence_rag_settings`,
+    `entity_management_update_confluence_rag_settings`.
+  * Git repositories: `entity_management_create_git_repository`,
+    `entity_management_update_git_repository`.
+  * Inbox: `entity_management_create_inbox_issue_category`,
+    `entity_management_update_inbox_issue_category`,
+    `entity_management_create_performance_inbox_setting`,
+    `entity_management_update_performance_inbox_setting`.
+  * Pipelines: `entity_management_create_pipeline_cloud_rule`.
+  * RAG tools: `entity_management_create_rag_tool`,
+    `entity_management_update_rag_tool`.
+  * Scorecards: `entity_management_create_scorecard`,
+    `entity_management_update_scorecard`,
+    `entity_management_create_scorecard_rule`,
+    `entity_management_update_scorecard_rule`.
+  * Teams & org settings: `entity_management_create_team`,
+    `entity_management_update_team`,
+    `entity_management_update_teams_organization_settings`.
+  * Relationships: `entity_management_create_relationship`,
+    `entity_management_delete_relationship`.
+  * Generic update: `entity_management_update`.
+
+* Add Entity Relationship (user-defined) mutations to `RootMutationType`:
+  `entity_relationship_user_defined_create_or_replace`,
+  `entity_relationship_user_defined_delete`.
+
+* Add Errors Inbox mutations to `RootMutationType`:
+  `errors_inbox_assign_error_group`, `errors_inbox_delete_error_group_resource`,
+  `errors_inbox_update_error_group_state`.
+
+* Add Events to Metrics mutations to `RootMutationType`:
+  `events_to_metrics_create_rule`, `events_to_metrics_delete_rule`,
+  `events_to_metrics_update_rule`.
+
+* Add Historical Data Export mutations to `RootMutationType`:
+  `historical_data_export_cancel_export`,
+  `historical_data_export_create_export`.
+
+* Add Incident Intelligence Environment mutations to `RootMutationType`:
+  `incident_intelligence_environment_consent_accounts`,
+  `incident_intelligence_environment_consent_authorized_accounts`,
+  `incident_intelligence_environment_delete_environment`,
+  `incident_intelligence_environment_dissent_accounts`.
+
+* Add Installation mutations to `RootMutationType`:
+  `installation_create_install_status`, `installation_create_recipe_event`,
+  `installation_delete_install`.
+
+* Add Key Transactions mutations to `RootMutationType`:
+  `key_transaction_create`, `key_transaction_delete`, `key_transaction_update`.
+
+* Add Log Configurations mutations to `RootMutationType`:
+  `log_configurations_create_data_partition_rule`,
+  `log_configurations_create_obfuscation_expression`,
+  `log_configurations_create_obfuscation_rule`,
+  `log_configurations_create_parsing_rule`,
+  `log_configurations_delete_data_partition_rule`,
+  `log_configurations_delete_obfuscation_expression`,
+  `log_configurations_delete_obfuscation_rule`,
+  `log_configurations_delete_parsing_rule`,
+  `log_configurations_update_data_partition_rule`,
+  `log_configurations_update_live_archive_configuration`,
+  `log_configurations_update_obfuscation_expression`,
+  `log_configurations_update_obfuscation_rule`,
+  `log_configurations_update_parsing_rule`,
+  `log_configurations_upsert_pipeline_configuration`.
+
 ## [0.39.0] - 2025-09-15
 
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
