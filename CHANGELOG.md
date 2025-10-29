@@ -2,6 +2,76 @@
 
 ## [Unreleased]
 
+## [0.41.0] - 2025-10-29
+
+* Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
+
+* Add new enums:
+  * `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`
+  * `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`
+  * `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`
+  * `MachineLearningEncodingName`
+  * `MachineLearningFilterByKeys`
+  * `MachineLearningOperator`
+  * `MachineLearningTextSplitterType`
+
+* Add new input objects:
+  * `AgentApplicationSettingsMobileSessionReplayInput`
+  * `MachineLearningAddDocumentIndexConfiguration`
+  * `MachineLearningCharacterTextSplitterOptionsInput`
+  * `MachineLearningFilterBy`
+  * `MachineLearningMarkdownTextSplitterOptionsInput`
+  * `MachineLearningTokenTextSplitterOptionsInput`
+
+* Add new objects:
+  * `AgentApplicationSettingsMobileSessionReplay`
+  * `AiWorkflowsBatchCreateMigratedWorkflowsResponseError`
+  * `AiWorkflowsBatchDeleteMigratedWorkflowsResponseError`
+  * `AiWorkflowsFetchWorkflowsByIssuesFilterResponseError`
+  * `MachineLearningAccountStitchedFields`
+  * `MachineLearningActorStitchedFields`
+  * `MachineLearningExperiment`
+  * `MachineLearningExperimentConnection`
+  * `MachineLearningFileDataSource`
+  * `MachineLearningFileDataSourceConnection`
+  * `MachineLearningModel`
+  * `MachineLearningModelConnection`
+  * `MachineLearningProject`
+  * `MachineLearningProjectConnection`
+  * `MachineLearningRagQueryDataResponse`
+  * `MachineLearningStreamDataSource`
+  * `MachineLearningStreamDataSourceConnection`
+  * `MachineLearningTag`
+  * `MachineLearningTagConnection`
+  * `MachineLearningTransactionResponse`
+
+* Update existing enums:
+  * Add `WORKFLOW_AUTOMATION` value to `AiWorkflowsDestinationType`
+
+* Add fields to existing types:
+  * `AgentApplicationSettingsMobileBase`: add `mobile_session_replay` field
+  * `Account`: add `machine_learning` field (`MachineLearningAccountStitchedFields`)
+  * `Actor`: add `machine_learning` field (`MachineLearningActorStitchedFields`)
+
+* Add multiple Machine Learning mutations to `RootMutationType`:
+  * `machine_learning_add_document_index`
+  * `machine_learning_add_file_data_source`
+  * `machine_learning_add_stream_data_source`
+  * `machine_learning_create_file_data_source`
+  * `machine_learning_create_project`
+  * `machine_learning_create_stream_data_source`
+  * `machine_learning_delete_file_data_source`
+  * `machine_learning_delete_project`
+  * `machine_learning_delete_stream_data_source`
+  * `machine_learning_halt_stream_data_source`
+  * `machine_learning_remove_document_index`
+  * `machine_learning_remove_file_data_source`
+  * `machine_learning_remove_stream_data_source`
+  * `machine_learning_start_stream_data_source`
+  * `machine_learning_update_file_data_source`
+  * `machine_learning_update_project`
+  * `machine_learning_update_stream_data_source`
+
 ## [0.40.0] - 2025-09-30
 
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
