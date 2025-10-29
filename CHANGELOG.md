@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.41.0] - 2025-10-29
+
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
 
 * Add new enums:
