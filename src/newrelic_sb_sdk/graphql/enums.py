@@ -157,6 +157,8 @@ __all__ = [
     "EntityInfrastructureIntegrationType",
     "EntityManagementAiToolParameterType",
     "EntityManagementAssignmentType",
+    "EntityManagementBackgroundProcessingType",
+    "EntityManagementBudgetType",
     "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
     "EntityManagementCommunicationMode",
@@ -179,8 +181,10 @@ __all__ = [
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
     "EntityManagementMessageType",
+    "EntityManagementNrqlMacroClause",
     "EntityManagementOverlapPolicy",
     "EntityManagementPriority",
+    "EntityManagementProcessStatus",
     "EntityManagementRegion",
     "EntityManagementSigningAlgorithm",
     "EntityManagementStatusCode",
@@ -233,6 +237,7 @@ __all__ = [
     "LogConfigurationsLiveArchiveRetentionPolicyType",
     "LogConfigurationsObfuscationMethod",
     "LogConfigurationsParsingRuleMutationErrorType",
+    "LogConfigurationsParsingRuleSource",
     "MachineLearningEncodingName",
     "MachineLearningFilterByKeys",
     "MachineLearningOperator",
@@ -1008,7 +1013,7 @@ class AlertsFillOption(sgqlc.types.Enum):
 
 class AlertsIncidentPreference(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("PER_CONDITION", "PER_CONDITION_AND_TARGET", "PER_POLICY")
+    __choices__ = ("CUSTOM", "PER_CONDITION", "PER_CONDITION_AND_TARGET", "PER_POLICY")
 
 
 class AlertsMutingRuleConditionGroupOperator(sgqlc.types.Enum):
@@ -1210,7 +1215,13 @@ class ApiAccessUserKeyErrorType(sgqlc.types.Enum):
 
 class AuthorizationManagementGranteeTypeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
+    __choices__ = (
+        "GROUP",
+        "ORGANIZATION",
+        "SYSTEM_IDENTITY",
+        "SYSTEM_IDENTITY_GROUP",
+        "USER",
+    )
 
 
 class AuthorizationManagementIamParentScopeTypeEnum(sgqlc.types.Enum):
@@ -1835,6 +1846,23 @@ class EntityManagementAssignmentType(sgqlc.types.Enum):
     __choices__ = ("NEW_RELIC_TEAM_ID", "NEW_RELIC_USER_ID")
 
 
+class EntityManagementBackgroundProcessingType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "DATA_MUTATION",
+        "EXPORT",
+        "IMPORT",
+        "INDEX",
+        "MATERIALIZED_VIEW",
+        "SCHEDULED_QUERY_RESULT",
+    )
+
+
+class EntityManagementBudgetType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("COMPUTE", "INGEST")
+
+
 class EntityManagementCategory(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CHAT", "INCIDENT", "ISSUE", "PERFORMANCE", "VULNERABILITY")
@@ -1857,7 +1885,7 @@ class EntityManagementCommunicationStatus(sgqlc.types.Enum):
 
 class EntityManagementConsumptionMetric(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ADVANCED_CCU", "CCU", "CORE_CCU")
+    __choices__ = ("ADVANCED_CCU", "CCU", "CORE_CCU", "GIGABYTES_INGESTED")
 
 
 class EntityManagementDirection(sgqlc.types.Enum):
@@ -1968,6 +1996,11 @@ class EntityManagementMessageType(sgqlc.types.Enum):
     __choices__ = ("JSON", "TEXT", "YAML")
 
 
+class EntityManagementNrqlMacroClause(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ATTRIBUTE_LIKE", "FACET", "IN", "LIKE", "SELECT", "WHERE", "WITH")
+
+
 class EntityManagementOverlapPolicy(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CANCEL", "SKIP")
@@ -1976,6 +2009,11 @@ class EntityManagementOverlapPolicy(sgqlc.types.Enum):
 class EntityManagementPriority(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HIGH", "HIGHEST", "LOW", "LOWEST", "MEDIUM")
+
+
+class EntityManagementProcessStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("COMPLETED", "FAILED", "RUNNING", "SCHEDULED")
 
 
 class EntityManagementRegion(sgqlc.types.Enum):
@@ -2366,6 +2404,11 @@ class LogConfigurationsObfuscationMethod(sgqlc.types.Enum):
 class LogConfigurationsParsingRuleMutationErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("INVALID_GROK", "INVALID_ID", "INVALID_NRQL", "NOT_FOUND")
+
+
+class LogConfigurationsParsingRuleSource(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NO_CODE", "WRITE_YOUR_OWN")
 
 
 class MachineLearningEncodingName(sgqlc.types.Enum):

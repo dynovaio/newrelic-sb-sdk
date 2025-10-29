@@ -8,6 +8,7 @@ __all__ = [
     "AgentApplicationSettingsApplicationExitInfoInput",
     "AgentApplicationSettingsBrowserAjaxInput",
     "AgentApplicationSettingsBrowserConfigInput",
+    "AgentApplicationSettingsBrowserConsentModeInput",
     "AgentApplicationSettingsBrowserDistributedTracingInput",
     "AgentApplicationSettingsBrowserMonitoringInput",
     "AgentApplicationSettingsBrowserPerformanceInput",
@@ -893,6 +894,7 @@ from newrelic_sb_sdk.graphql.enums import (
     LogConfigurationsDataPartitionRuleMatchingOperator,
     LogConfigurationsDataPartitionRuleRetentionPolicyType,
     LogConfigurationsObfuscationMethod,
+    LogConfigurationsParsingRuleSource,
     MachineLearningEncodingName,
     MachineLearningFilterByKeys,
     MachineLearningOperator,
@@ -1065,6 +1067,12 @@ class AgentApplicationSettingsBrowserConfigInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("apdex_target",)
     apdex_target = sgqlc.types.Field(Float, graphql_name="apdexTarget")
+
+
+class AgentApplicationSettingsBrowserConsentModeInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("enabled",)
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
 
 class AgentApplicationSettingsBrowserDistributedTracingInput(sgqlc.types.Input):
@@ -1495,6 +1503,7 @@ class AgentApplicationSettingsUpdateInput(sgqlc.types.Input):
         "alias",
         "apm_config",
         "browser_config",
+        "browser_consent_mode",
         "browser_monitoring",
         "browser_performance",
         "capture_memcache_keys",
@@ -1517,6 +1526,11 @@ class AgentApplicationSettingsUpdateInput(sgqlc.types.Input):
 
     browser_config = sgqlc.types.Field(
         AgentApplicationSettingsBrowserConfigInput, graphql_name="browserConfig"
+    )
+
+    browser_consent_mode = sgqlc.types.Field(
+        AgentApplicationSettingsBrowserConsentModeInput,
+        graphql_name="browserConsentMode",
     )
 
     browser_monitoring = sgqlc.types.Field(
@@ -3870,6 +3884,7 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "signal_seasonality",
+        "target_entity",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -3901,6 +3916,8 @@ class AlertsNrqlConditionBaselineInput(sgqlc.types.Input):
     signal_seasonality = sgqlc.types.Field(
         AlertsNrqlSignalSeasonality, graphql_name="signalSeasonality"
     )
+
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -3953,6 +3970,7 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "target_entity",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -3975,6 +3993,8 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field("AlertsNrqlConditionSignalInput", graphql_name="signal")
+
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
 
     terms = sgqlc.types.Field(
         sgqlc.types.non_null(
@@ -4060,6 +4080,7 @@ class AlertsNrqlConditionStaticInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "target_entity",
         "terms",
         "title_template",
         "value_function",
@@ -4083,6 +4104,8 @@ class AlertsNrqlConditionStaticInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field(AlertsNrqlConditionSignalInput, graphql_name="signal")
+
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("AlertsNrqlConditionTermsInput")),
@@ -4155,6 +4178,7 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
         "runbook_url",
         "signal",
         "signal_seasonality",
+        "target_entity",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -4184,6 +4208,8 @@ class AlertsNrqlConditionUpdateBaselineInput(sgqlc.types.Input):
         AlertsNrqlSignalSeasonality, graphql_name="signalSeasonality"
     )
 
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
+
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(
             sgqlc.types.non_null("AlertsNrqlDynamicConditionTermsInput")
@@ -4212,6 +4238,7 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "target_entity",
         "terms",
         "title_template",
         "violation_time_limit",
@@ -4232,6 +4259,8 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field(AlertsNrqlConditionSignalInput, graphql_name="signal")
+
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -4271,6 +4300,7 @@ class AlertsNrqlConditionUpdateStaticInput(sgqlc.types.Input):
         "nrql",
         "runbook_url",
         "signal",
+        "target_entity",
         "terms",
         "title_template",
         "value_function",
@@ -4292,6 +4322,8 @@ class AlertsNrqlConditionUpdateStaticInput(sgqlc.types.Input):
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
     signal = sgqlc.types.Field(AlertsNrqlConditionSignalInput, graphql_name="signal")
+
+    target_entity = sgqlc.types.Field(EntityGuid, graphql_name="targetEntity")
 
     terms = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(AlertsNrqlConditionTermsInput)),
@@ -12196,8 +12228,10 @@ class EntityManagementPerformanceInboxSettingEntityUpdateInput(sgqlc.types.Input
 
 class EntityManagementPipelineCloudRuleEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "nrql", "scope", "tags")
+    __field_names__ = ("description", "enabled", "name", "nrql", "scope", "tags")
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
@@ -12216,8 +12250,10 @@ class EntityManagementPipelineCloudRuleEntityCreateInput(sgqlc.types.Input):
 
 class EntityManagementPipelineCloudRuleEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "nrql", "tags")
+    __field_names__ = ("description", "enabled", "name", "nrql", "tags")
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
     name = sgqlc.types.Field(String, graphql_name="name")
 
@@ -13335,7 +13371,15 @@ class LogConfigurationsDataPartitionRuleMatchingCriteriaInput(sgqlc.types.Input)
 
 class LogConfigurationsParsingRuleConfiguration(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("attribute", "description", "enabled", "grok", "lucene", "nrql")
+    __field_names__ = (
+        "attribute",
+        "description",
+        "enabled",
+        "grok",
+        "lucene",
+        "nrql",
+        "source",
+    )
     attribute = sgqlc.types.Field(String, graphql_name="attribute")
 
     description = sgqlc.types.Field(
@@ -13349,6 +13393,10 @@ class LogConfigurationsParsingRuleConfiguration(sgqlc.types.Input):
     lucene = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="lucene")
 
     nrql = sgqlc.types.Field(sgqlc.types.non_null(Nrql), graphql_name="nrql")
+
+    source = sgqlc.types.Field(
+        LogConfigurationsParsingRuleSource, graphql_name="source"
+    )
 
 
 class LogConfigurationsPipelineConfigurationInput(sgqlc.types.Input):

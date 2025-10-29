@@ -642,6 +642,14 @@ d = {
                 "GraphQL/enums.html#entitymanagementassignmenttype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementBackgroundProcessingType": (
+                "GraphQL/enums.html#entitymanagementbackgroundprocessingtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementBudgetType": (
+                "GraphQL/enums.html#entitymanagementbudgettype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementCategory": (
                 "GraphQL/enums.html#entitymanagementcategory",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -730,12 +738,20 @@ d = {
                 "GraphQL/enums.html#entitymanagementmessagetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementNrqlMacroClause": (
+                "GraphQL/enums.html#entitymanagementnrqlmacroclause",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementOverlapPolicy": (
                 "GraphQL/enums.html#entitymanagementoverlappolicy",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementPriority": (
                 "GraphQL/enums.html#entitymanagementpriority",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementProcessStatus": (
+                "GraphQL/enums.html#entitymanagementprocessstatus",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementRegion": (
@@ -944,6 +960,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.LogConfigurationsParsingRuleMutationErrorType": (
                 "GraphQL/enums.html#logconfigurationsparsingrulemutationerrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.LogConfigurationsParsingRuleSource": (
+                "GraphQL/enums.html#logconfigurationsparsingrulesource",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.MachineLearningEncodingName": (
@@ -1423,6 +1443,11 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsBrowserConfigInput": (
                 "GraphQL/input "
                 "objects.html#agentapplicationsettingsbrowserconfiginput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsBrowserConsentModeInput": (
+                "GraphQL/input "
+                "objects.html#agentapplicationsettingsbrowserconsentmodeinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AgentApplicationSettingsBrowserDistributedTracingInput": (
@@ -4811,6 +4836,10 @@ d = {
                 "GraphQL/objects.html#agentapplicationsettingsbrowserconfig",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsBrowserConsentMode": (
+                "GraphQL/objects.html#agentapplicationsettingsbrowserconsentmode",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AgentApplicationSettingsBrowserDistributedTracing": (
                 "GraphQL/objects.html#agentapplicationsettingsbrowserdistributedtracing",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7199,6 +7228,14 @@ d = {
                 "GraphQL/objects.html#entitymanagementattribute",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundProcessingQuery": (
+                "GraphQL/objects.html#entitymanagementbackgroundprocessingquery",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundProcessingRuleEntity": (
+                "GraphQL/objects.html#entitymanagementbackgroundprocessingruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementBlob": (
                 "GraphQL/objects.html#entitymanagementblob",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7375,6 +7412,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementgithubintegrationentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubRetentionOptions": (
+                "GraphQL/objects.html#entitymanagementgithubretentionoptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubSyncOptions": (
                 "GraphQL/objects.html#entitymanagementgithubsyncoptions",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7401,6 +7442,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGithubCredentials": (
                 "GraphQL/objects.html#entitymanagementgithubcredentials",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementImpactQuery": (
+                "GraphQL/objects.html#entitymanagementimpactquery",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementInboxIssueCategoryEntity": (
@@ -7471,6 +7516,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementnotificationattachmententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlMacroEntity": (
+                "GraphQL/objects.html#entitymanagementnrqlmacroentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlRuleEngine": (
                 "GraphQL/objects.html#entitymanagementnrqlruleengine",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7501,6 +7550,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntityUpdateResult": (
                 "GraphQL/objects.html#entitymanagementpipelinecloudruleentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementProcessState": (
+                "GraphQL/objects.html#entitymanagementprocessstate",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRagDocumentEntity": (
@@ -7725,6 +7778,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkflowSchedule": (
                 "GraphQL/objects.html#entitymanagementworkflowschedule",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementZoomAccountOAuthCredential": (
+                "GraphQL/objects.html#entitymanagementzoomaccountoauthcredential",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementZoomConnectionEntity": (
+                "GraphQL/objects.html#entitymanagementzoomconnectionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementZoomCredentials": (
+                "GraphQL/objects.html#entitymanagementzoomcredentials",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementZoomUserOAuthCredential": (
+                "GraphQL/objects.html#entitymanagementzoomuseroauthcredential",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityOutline": (
