@@ -192,6 +192,7 @@ __all__ = [
     "ApiAccessUpdateUserKeyInput",
     "ApmApplicationEntitySettings",
     "AuthorizationManagementAccountAccessGrant",
+    "AuthorizationManagementAccountAccessGrantUpdate",
     "AuthorizationManagementEntity",
     "AuthorizationManagementEntityAccessGrants",
     "AuthorizationManagementGrantAccess",
@@ -200,6 +201,7 @@ __all__ = [
     "AuthorizationManagementIamParent",
     "AuthorizationManagementOrganizationAccessGrant",
     "AuthorizationManagementRevokeAccess",
+    "AuthorizationManagementUpdateAccess",
     "ChangeTrackingCategoryAndTypeInput",
     "ChangeTrackingCategoryFieldsInput",
     "ChangeTrackingCategoryRelatedInput",
@@ -255,6 +257,7 @@ __all__ = [
     "CloudAzureApimanagementIntegrationInput",
     "CloudAzureAppgatewayIntegrationInput",
     "CloudAzureAppserviceIntegrationInput",
+    "CloudAzureAutoDiscoveryIntegrationInput",
     "CloudAzureContainersIntegrationInput",
     "CloudAzureCosmosdbIntegrationInput",
     "CloudAzureCostmanagementIntegrationInput",
@@ -415,6 +418,11 @@ __all__ = [
     "DashboardWidgetLayoutInput",
     "DashboardWidgetNrqlQueryInput",
     "DashboardWidgetVisualizationInput",
+    "DataAccessPolicyAssignedFilter",
+    "DataAccessPolicyFilterInput",
+    "DataAccessPolicyIdFilter",
+    "DataAccessPolicyNameFilter",
+    "DataAccessPolicySortInput",
     "DataManagementAccountFeatureSettingInput",
     "DataManagementAccountLimitInput",
     "DataManagementFeatureSettingLookup",
@@ -437,6 +445,8 @@ __all__ = [
     "EntityGoldenTagInput",
     "EntityManagementAiAgentEntityCreateInput",
     "EntityManagementAiAgentEntityUpdateInput",
+    "EntityManagementAiAgentMcpServerConfigCreateInput",
+    "EntityManagementAiAgentMcpServerConfigUpdateInput",
     "EntityManagementAiAgentToolConfigCreateInput",
     "EntityManagementAiAgentToolConfigUpdateInput",
     "EntityManagementAiToolEntityCreateInput",
@@ -472,6 +482,10 @@ __all__ = [
     "EntityManagementLlmConfigUpdateInput",
     "EntityManagementMarkdownTextSplitterOptionsCreateInput",
     "EntityManagementMarkdownTextSplitterOptionsUpdateInput",
+    "EntityManagementMcpServerAuthCreateInput",
+    "EntityManagementMcpServerAuthUpdateInput",
+    "EntityManagementMcpServerEntityCreateInput",
+    "EntityManagementMcpServerEntityUpdateInput",
     "EntityManagementNrqlRuleEngineCreateInput",
     "EntityManagementNrqlRuleEngineUpdateInput",
     "EntityManagementPerformanceInboxSettingEntityCreateInput",
@@ -491,6 +505,8 @@ __all__ = [
     "EntityManagementScorecardEntityUpdateInput",
     "EntityManagementScorecardRuleEntityCreateInput",
     "EntityManagementScorecardRuleEntityUpdateInput",
+    "EntityManagementSecretReferenceCreateInput",
+    "EntityManagementSecretReferenceUpdateInput",
     "EntityManagementSyncGroupRuleConditionUpdateInput",
     "EntityManagementSyncGroupRuleUpdateInput",
     "EntityManagementSyncGroupsSettingsUpdateInput",
@@ -555,6 +571,7 @@ __all__ = [
     "MetricNormalizationCreateRuleInput",
     "MetricNormalizationEditRuleInput",
     "MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter",
+    "MultiTenantAuthorizationGrantDataAccessPolicyIdInputFilter",
     "MultiTenantAuthorizationGrantFilterInputExpression",
     "MultiTenantAuthorizationGrantGroupIdInputFilter",
     "MultiTenantAuthorizationGrantIdInputFilter",
@@ -636,6 +653,7 @@ __all__ = [
     "OrganizationCustomerContractFilterInput",
     "OrganizationCustomerOrganizationFilterInput",
     "OrganizationIdInput",
+    "OrganizationLimitingDataAccessPolicyIdInput",
     "OrganizationMembersOrganizationMemberAuthenticationDomainIdFilter",
     "OrganizationMembersOrganizationMemberFilter",
     "OrganizationMembersOrganizationMemberOrganizationIdFilter",
@@ -855,6 +873,9 @@ from newrelic_sb_sdk.graphql.enums import (
     DashboardPermissions,
     DashboardVariableReplacementStrategy,
     DashboardVariableType,
+    DataAccessPolicyAssignedStatus,
+    DataAccessPolicySortKey,
+    DataAccessPolicySortOrder,
     DataSourceGapsGapTypeIdentifier,
     EdgeComplianceTypeCode,
     EdgeDataSourceGroupUpdateType,
@@ -865,6 +886,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityAlertSeverity,
     EntityInfrastructureIntegrationType,
     EntityManagementAiToolParameterType,
+    EntityManagementAiToolType,
     EntityManagementCategoryScopeType,
     EntityManagementEncodingName,
     EntityManagementEntityScope,
@@ -872,6 +894,8 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementHostingPlatform,
     EntityManagementIssueType,
     EntityManagementLicenseName,
+    EntityManagementMcpAuthType,
+    EntityManagementMcpTransport,
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
     EntityManagementTextSplitterType,
@@ -4774,10 +4798,18 @@ class ApmApplicationEntitySettings(sgqlc.types.Input):
 
 class AuthorizationManagementAccountAccessGrant(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("account_id", "role_id")
+    __field_names__ = ("account_id", "data_access_policy_id", "role_id")
     account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
 
+    data_access_policy_id = sgqlc.types.Field(ID, graphql_name="dataAccessPolicyId")
+
     role_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="roleId")
+
+
+class AuthorizationManagementAccountAccessGrantUpdate(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("data_access_policy_id",)
+    data_access_policy_id = sgqlc.types.Field(ID, graphql_name="dataAccessPolicyId")
 
 
 class AuthorizationManagementEntity(sgqlc.types.Input):
@@ -4923,6 +4955,20 @@ class AuthorizationManagementRevokeAccess(sgqlc.types.Input):
             sgqlc.types.non_null(AuthorizationManagementOrganizationAccessGrant)
         ),
         graphql_name="organizationAccessGrants",
+    )
+
+
+class AuthorizationManagementUpdateAccess(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("account_access_grant", "ids")
+    account_access_grant = sgqlc.types.Field(
+        sgqlc.types.non_null(AuthorizationManagementAccountAccessGrantUpdate),
+        graphql_name="accountAccessGrant",
+    )
+
+    ids = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(ID))),
+        graphql_name="ids",
     )
 
 
@@ -6945,6 +6991,26 @@ class CloudAzureAppserviceIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudAzureAutoDiscoveryIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudAzureContainersIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -7049,6 +7115,7 @@ class CloudAzureDisableIntegrationsInput(sgqlc.types.Input):
         "azure_apimanagement",
         "azure_appgateway",
         "azure_appservice",
+        "azure_auto_discovery",
         "azure_containers",
         "azure_cosmosdb",
         "azure_costmanagement",
@@ -7092,6 +7159,11 @@ class CloudAzureDisableIntegrationsInput(sgqlc.types.Input):
     azure_appservice = sgqlc.types.Field(
         sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
         graphql_name="azureAppservice",
+    )
+
+    azure_auto_discovery = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="azureAutoDiscovery",
     )
 
     azure_containers = sgqlc.types.Field(
@@ -7371,6 +7443,7 @@ class CloudAzureIntegrationsInput(sgqlc.types.Input):
         "azure_apimanagement",
         "azure_appgateway",
         "azure_appservice",
+        "azure_auto_discovery",
         "azure_containers",
         "azure_cosmosdb",
         "azure_costmanagement",
@@ -7414,6 +7487,11 @@ class CloudAzureIntegrationsInput(sgqlc.types.Input):
     azure_appservice = sgqlc.types.Field(
         sgqlc.types.list_of(CloudAzureAppserviceIntegrationInput),
         graphql_name="azureAppservice",
+    )
+
+    azure_auto_discovery = sgqlc.types.Field(
+        sgqlc.types.list_of(CloudAzureAutoDiscoveryIntegrationInput),
+        graphql_name="azureAutoDiscovery",
     )
 
     azure_containers = sgqlc.types.Field(
@@ -10105,7 +10183,6 @@ class CloudOciLinkAccountInput(sgqlc.types.Input):
         "oci_client_secret",
         "oci_domain_url",
         "oci_home_region",
-        "oci_svc_user_name",
         "tenant_id",
         "user_vault_ocid",
     )
@@ -10137,10 +10214,6 @@ class CloudOciLinkAccountInput(sgqlc.types.Input):
 
     oci_home_region = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="ociHomeRegion"
-    )
-
-    oci_svc_user_name = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="ociSvcUserName"
     )
 
     tenant_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="tenantId")
@@ -10227,7 +10300,6 @@ class CloudOciUpdateAccountInput(sgqlc.types.Input):
         "oci_domain_url",
         "oci_home_region",
         "oci_region",
-        "oci_svc_user_name",
         "tenant_id",
         "user_vault_ocid",
     )
@@ -10258,8 +10330,6 @@ class CloudOciUpdateAccountInput(sgqlc.types.Input):
     oci_home_region = sgqlc.types.Field(String, graphql_name="ociHomeRegion")
 
     oci_region = sgqlc.types.Field(String, graphql_name="ociRegion")
-
-    oci_svc_user_name = sgqlc.types.Field(String, graphql_name="ociSvcUserName")
 
     tenant_id = sgqlc.types.Field(String, graphql_name="tenantId")
 
@@ -11083,6 +11153,58 @@ class DashboardWidgetVisualizationInput(sgqlc.types.Input):
     id = sgqlc.types.Field(String, graphql_name="id")
 
 
+class DataAccessPolicyAssignedFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(
+        sgqlc.types.non_null(DataAccessPolicyAssignedStatus), graphql_name="eq"
+    )
+
+
+class DataAccessPolicyFilterInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("assigned", "id", "name", "organization_id")
+    assigned = sgqlc.types.Field(
+        DataAccessPolicyAssignedFilter, graphql_name="assigned"
+    )
+
+    id = sgqlc.types.Field("DataAccessPolicyIdFilter", graphql_name="id")
+
+    name = sgqlc.types.Field("DataAccessPolicyNameFilter", graphql_name="name")
+
+    organization_id = sgqlc.types.Field(
+        sgqlc.types.non_null("DataAccessPolicyIdFilter"), graphql_name="organizationId"
+    )
+
+
+class DataAccessPolicyIdFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(sgqlc.types.list_of(String), graphql_name="in")
+
+
+class DataAccessPolicyNameFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("contains", "eq")
+    contains = sgqlc.types.Field(String, graphql_name="contains")
+
+    eq = sgqlc.types.Field(String, graphql_name="eq")
+
+
+class DataAccessPolicySortInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("direction", "key")
+    direction = sgqlc.types.Field(
+        sgqlc.types.non_null(DataAccessPolicySortOrder), graphql_name="direction"
+    )
+
+    key = sgqlc.types.Field(
+        sgqlc.types.non_null(DataAccessPolicySortKey), graphql_name="key"
+    )
+
+
 class DataManagementAccountFeatureSettingInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("enabled", "feature_setting", "locked")
@@ -11322,10 +11444,12 @@ class EntityManagementAiAgentEntityCreateInput(sgqlc.types.Input):
         "category",
         "description",
         "llm_config",
+        "mcp_servers",
         "name",
         "prompt",
         "scope",
         "tags",
+        "test",
         "tools",
     )
     agents_id = sgqlc.types.Field(
@@ -11342,6 +11466,13 @@ class EntityManagementAiAgentEntityCreateInput(sgqlc.types.Input):
         "EntityManagementLlmConfigCreateInput", graphql_name="llmConfig"
     )
 
+    mcp_servers = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null("EntityManagementAiAgentMcpServerConfigCreateInput")
+        ),
+        graphql_name="mcpServers",
+    )
+
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     prompt = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="prompt")
@@ -11355,6 +11486,8 @@ class EntityManagementAiAgentEntityCreateInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
     )
+
+    test = sgqlc.types.Field(Boolean, graphql_name="test")
 
     tools = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -11371,9 +11504,11 @@ class EntityManagementAiAgentEntityUpdateInput(sgqlc.types.Input):
         "category",
         "description",
         "llm_config",
+        "mcp_servers",
         "name",
         "prompt",
         "tags",
+        "test",
         "tools",
     )
     agents_id = sgqlc.types.Field(
@@ -11388,6 +11523,13 @@ class EntityManagementAiAgentEntityUpdateInput(sgqlc.types.Input):
         "EntityManagementLlmConfigUpdateInput", graphql_name="llmConfig"
     )
 
+    mcp_servers = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null("EntityManagementAiAgentMcpServerConfigUpdateInput")
+        ),
+        graphql_name="mcpServers",
+    )
+
     name = sgqlc.types.Field(String, graphql_name="name")
 
     prompt = sgqlc.types.Field(String, graphql_name="prompt")
@@ -11397,12 +11539,42 @@ class EntityManagementAiAgentEntityUpdateInput(sgqlc.types.Input):
         graphql_name="tags",
     )
 
+    test = sgqlc.types.Field(Boolean, graphql_name="test")
+
     tools = sgqlc.types.Field(
         sgqlc.types.list_of(
             sgqlc.types.non_null("EntityManagementAiAgentToolConfigUpdateInput")
         ),
         graphql_name="tools",
     )
+
+
+class EntityManagementAiAgentMcpServerConfigCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("exclude_tools", "include_tools", "server_id")
+    exclude_tools = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="excludeTools"
+    )
+
+    include_tools = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="includeTools"
+    )
+
+    server_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="serverId")
+
+
+class EntityManagementAiAgentMcpServerConfigUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("exclude_tools", "include_tools", "server_id")
+    exclude_tools = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="excludeTools"
+    )
+
+    include_tools = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="includeTools"
+    )
+
+    server_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="serverId")
 
 
 class EntityManagementAiAgentToolConfigCreateInput(sgqlc.types.Input):
@@ -11435,7 +11607,16 @@ class EntityManagementAiAgentToolConfigUpdateInput(sgqlc.types.Input):
 
 class EntityManagementAiToolEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "parameters", "scope", "tags", "url")
+    __field_names__ = (
+        "description",
+        "name",
+        "parameters",
+        "scope",
+        "tags",
+        "test",
+        "tool_type",
+        "url",
+    )
     description = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="description"
     )
@@ -11459,12 +11640,24 @@ class EntityManagementAiToolEntityCreateInput(sgqlc.types.Input):
         graphql_name="tags",
     )
 
+    test = sgqlc.types.Field(Boolean, graphql_name="test")
+
+    tool_type = sgqlc.types.Field(EntityManagementAiToolType, graphql_name="toolType")
+
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
 class EntityManagementAiToolEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "parameters", "tags", "url")
+    __field_names__ = (
+        "description",
+        "name",
+        "parameters",
+        "tags",
+        "test",
+        "tool_type",
+        "url",
+    )
     description = sgqlc.types.Field(String, graphql_name="description")
 
     name = sgqlc.types.Field(String, graphql_name="name")
@@ -11480,6 +11673,10 @@ class EntityManagementAiToolEntityUpdateInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
     )
+
+    test = sgqlc.types.Field(Boolean, graphql_name="test")
+
+    tool_type = sgqlc.types.Field(EntityManagementAiToolType, graphql_name="toolType")
 
     url = sgqlc.types.Field(String, graphql_name="url")
 
@@ -12150,6 +12347,116 @@ class EntityManagementMarkdownTextSplitterOptionsUpdateInput(sgqlc.types.Input):
     )
 
 
+class EntityManagementMcpServerAuthCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("bearer_token", "header_key", "header_value", "type")
+    bearer_token = sgqlc.types.Field(
+        "EntityManagementSecretReferenceCreateInput", graphql_name="bearerToken"
+    )
+
+    header_key = sgqlc.types.Field(String, graphql_name="headerKey")
+
+    header_value = sgqlc.types.Field(
+        "EntityManagementSecretReferenceCreateInput", graphql_name="headerValue"
+    )
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementMcpAuthType), graphql_name="type"
+    )
+
+
+class EntityManagementMcpServerAuthUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("bearer_token", "header_key", "header_value", "type")
+    bearer_token = sgqlc.types.Field(
+        "EntityManagementSecretReferenceUpdateInput", graphql_name="bearerToken"
+    )
+
+    header_key = sgqlc.types.Field(String, graphql_name="headerKey")
+
+    header_value = sgqlc.types.Field(
+        "EntityManagementSecretReferenceUpdateInput", graphql_name="headerValue"
+    )
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementMcpAuthType), graphql_name="type"
+    )
+
+
+class EntityManagementMcpServerEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "auth",
+        "description",
+        "endpoint",
+        "name",
+        "protocol_version",
+        "scope",
+        "tags",
+        "transport",
+    )
+    auth = sgqlc.types.Field(
+        EntityManagementMcpServerAuthCreateInput, graphql_name="auth"
+    )
+
+    description = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="description"
+    )
+
+    endpoint = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="endpoint")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    protocol_version = sgqlc.types.Field(String, graphql_name="protocolVersion")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+    transport = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementMcpTransport), graphql_name="transport"
+    )
+
+
+class EntityManagementMcpServerEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "auth",
+        "description",
+        "endpoint",
+        "name",
+        "protocol_version",
+        "tags",
+        "transport",
+    )
+    auth = sgqlc.types.Field(
+        EntityManagementMcpServerAuthUpdateInput, graphql_name="auth"
+    )
+
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    endpoint = sgqlc.types.Field(String, graphql_name="endpoint")
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    protocol_version = sgqlc.types.Field(String, graphql_name="protocolVersion")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+    transport = sgqlc.types.Field(
+        EntityManagementMcpTransport, graphql_name="transport"
+    )
+
+
 class EntityManagementNrqlRuleEngineCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("accounts", "join_accounts", "query")
@@ -12476,6 +12783,22 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
     )
+
+
+class EntityManagementSecretReferenceCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key_name", "namespace")
+    key_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="keyName")
+
+    namespace = sgqlc.types.Field(String, graphql_name="namespace")
+
+
+class EntityManagementSecretReferenceUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key_name", "namespace")
+    key_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="keyName")
+
+    namespace = sgqlc.types.Field(String, graphql_name="namespace")
 
 
 class EntityManagementSyncGroupRuleConditionUpdateInput(sgqlc.types.Input):
@@ -13676,10 +13999,19 @@ class MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter(sgqlc.types
     )
 
 
+class MultiTenantAuthorizationGrantDataAccessPolicyIdInputFilter(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq", "in_")
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+    in_ = sgqlc.types.Field(sgqlc.types.list_of(ID), graphql_name="in")
+
+
 class MultiTenantAuthorizationGrantFilterInputExpression(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "authentication_domain_id",
+        "data_access_policy_id",
         "grantee",
         "group_id",
         "id",
@@ -13692,6 +14024,11 @@ class MultiTenantAuthorizationGrantFilterInputExpression(sgqlc.types.Input):
     authentication_domain_id = sgqlc.types.Field(
         MultiTenantAuthorizationGrantAuthenticationDomainIdInputFilter,
         graphql_name="authenticationDomainId",
+    )
+
+    data_access_policy_id = sgqlc.types.Field(
+        MultiTenantAuthorizationGrantDataAccessPolicyIdInputFilter,
+        graphql_name="dataAccessPolicyId",
     )
 
     grantee = sgqlc.types.Field(
@@ -14436,9 +14773,14 @@ class OrganizationAccountOrganizationIdFilterInput(sgqlc.types.Input):
 
 class OrganizationAccountShareFilterInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("account_id", "target_id")
+    __field_names__ = ("account_id", "limiting_data_access_policy_id", "target_id")
     account_id = sgqlc.types.Field(
         sgqlc.types.non_null(OrganizationAccountIdInput), graphql_name="accountId"
+    )
+
+    limiting_data_access_policy_id = sgqlc.types.Field(
+        "OrganizationLimitingDataAccessPolicyIdInput",
+        graphql_name="limitingDataAccessPolicyId",
     )
 
     target_id = sgqlc.types.Field("OrganizationTargetIdInput", graphql_name="targetId")
@@ -14521,11 +14863,16 @@ class OrganizationCreateSharedAccountInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "account_id",
+        "limiting_data_access_policy_id",
         "limiting_role_id",
         "name",
         "target_organization_id",
     )
     account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+
+    limiting_data_access_policy_id = sgqlc.types.Field(
+        ID, graphql_name="limitingDataAccessPolicyId"
+    )
 
     limiting_role_id = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="limitingRoleId"
@@ -14580,6 +14927,12 @@ class OrganizationCustomerOrganizationFilterInput(sgqlc.types.Input):
 
 
 class OrganizationIdInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("eq",)
+    eq = sgqlc.types.Field(ID, graphql_name="eq")
+
+
+class OrganizationLimitingDataAccessPolicyIdInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("eq",)
     eq = sgqlc.types.Field(ID, graphql_name="eq")
@@ -14835,8 +15188,12 @@ class OrganizationUpdateInput(sgqlc.types.Input):
 
 class OrganizationUpdateSharedAccountInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("id", "limiting_role_id")
+    __field_names__ = ("id", "limiting_data_access_policy_id", "limiting_role_id")
     id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    limiting_data_access_policy_id = sgqlc.types.Field(
+        ID, graphql_name="limitingDataAccessPolicyId"
+    )
 
     limiting_role_id = sgqlc.types.Field(
         sgqlc.types.non_null(Int), graphql_name="limitingRoleId"

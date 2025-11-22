@@ -14,6 +14,7 @@ __all__ = [
     "ChangeTrackingRawCustomAttributesMap",
     "CollaborationRawContextMetadata",
     "DashboardWidgetRawConfiguration",
+    "DataAccessPolicyRawDocument",
     "DistributedTracingSpanAttributes",
     "Duration",
     "EntityAlertViolationInt",
@@ -82,6 +83,10 @@ class CollaborationRawContextMetadata(sgqlc.types.Scalar):
 
 
 class DashboardWidgetRawConfiguration(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
+
+
+class DataAccessPolicyRawDocument(sgqlc.types.Scalar):
     __schema__ = nerdgraph
 
 
