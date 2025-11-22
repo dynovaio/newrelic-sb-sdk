@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.42.0] - 2025-11-22
+
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
 * Add new enums: `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
   `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
