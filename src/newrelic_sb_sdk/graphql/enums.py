@@ -124,6 +124,10 @@ __all__ = [
     "DashboardUpdateWidgetsInPageErrorType",
     "DashboardVariableReplacementStrategy",
     "DashboardVariableType",
+    "DataAccessPolicyAssignedStatus",
+    "DataAccessPolicySortKey",
+    "DataAccessPolicySortOrder",
+    "DataAccessPolicyStatus",
     "DataDictionaryTextFormat",
     "DataManagementCategory",
     "DataManagementType",
@@ -156,6 +160,8 @@ __all__ = [
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
     "EntityManagementAiToolParameterType",
+    "EntityManagementAiToolType",
+    "EntityManagementArrayOperator",
     "EntityManagementAssignmentType",
     "EntityManagementBackgroundProcessingType",
     "EntityManagementBudgetType",
@@ -164,10 +170,15 @@ __all__ = [
     "EntityManagementCommunicationMode",
     "EntityManagementCommunicationStatus",
     "EntityManagementConsumptionMetric",
+    "EntityManagementDateOperator",
     "EntityManagementDirection",
     "EntityManagementEncodingName",
     "EntityManagementEncodingType",
     "EntityManagementEntityScope",
+    "EntityManagementEvaluationParameter",
+    "EntityManagementEventBridgeEventSourceType",
+    "EntityManagementEventBridgeTargetType",
+    "EntityManagementEventBridgeWorkflowDefinitionScopeType",
     "EntityManagementExecutionStatus",
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
@@ -180,16 +191,22 @@ __all__ = [
     "EntityManagementKeyType",
     "EntityManagementLicenseName",
     "EntityManagementManagedEntityType",
+    "EntityManagementManagedEvaluationType",
+    "EntityManagementMcpAuthType",
+    "EntityManagementMcpTransport",
     "EntityManagementMessageType",
     "EntityManagementNrqlMacroClause",
+    "EntityManagementNumericOperator",
     "EntityManagementOverlapPolicy",
     "EntityManagementPriority",
     "EntityManagementProcessStatus",
+    "EntityManagementProvider",
     "EntityManagementRegion",
     "EntityManagementSigningAlgorithm",
     "EntityManagementStatusCode",
     "EntityManagementStatusPageAnnouncementCategory",
     "EntityManagementStatusPageAnnouncementState",
+    "EntityManagementStringOperator",
     "EntityManagementSyncConfigurationMode",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
@@ -1409,6 +1426,26 @@ class DashboardVariableType(sgqlc.types.Enum):
     __choices__ = ("ENUM", "NRQL", "STRING")
 
 
+class DataAccessPolicyAssignedStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASSIGNED", "UNASSIGNED")
+
+
+class DataAccessPolicySortKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NAME", "VERSION")
+
+
+class DataAccessPolicySortOrder(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASC", "DESC")
+
+
+class DataAccessPolicyStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EMPTY", "VALID")
+
+
 class DataDictionaryTextFormat(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("HTML", "MARKDOWN", "PLAIN")
@@ -1841,6 +1878,16 @@ class EntityManagementAiToolParameterType(sgqlc.types.Enum):
     __choices__ = ("BOOLEAN", "INTEGER", "LIST", "OBJECT", "STRING")
 
 
+class EntityManagementAiToolType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("KNOWLEDGE_BASE", "NERDGRAPH", "WORKFLOW")
+
+
+class EntityManagementArrayOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("IS_EMPTY", "IS_NOT_EMPTY")
+
+
 class EntityManagementAssignmentType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("NEW_RELIC_TEAM_ID", "NEW_RELIC_USER_ID")
@@ -1888,6 +1935,11 @@ class EntityManagementConsumptionMetric(sgqlc.types.Enum):
     __choices__ = ("ADVANCED_CCU", "CCU", "CORE_CCU", "GIGABYTES_INGESTED")
 
 
+class EntityManagementDateOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("AFTER", "BEFORE", "IN_RANGE")
+
+
 class EntityManagementDirection(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ONEWAY", "TWOWAY")
@@ -1906,6 +1958,34 @@ class EntityManagementEncodingType(sgqlc.types.Enum):
 class EntityManagementEntityScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class EntityManagementEvaluationParameter(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "ACTUAL_OUTPUT",
+        "CONTEXT",
+        "EXPECTED_OUTPUT",
+        "EXPECTED_TOOLS",
+        "INPUT",
+        "RETRIEVAL_CONTEXT",
+        "TOOLS_CALLED",
+    )
+
+
+class EntityManagementEventBridgeEventSourceType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ENTITY",)
+
+
+class EntityManagementEventBridgeTargetType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("WORKFLOW",)
+
+
+class EntityManagementEventBridgeWorkflowDefinitionScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ENTITY")
 
 
 class EntityManagementExecutionStatus(sgqlc.types.Enum):
@@ -1991,6 +2071,21 @@ class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __choices__ = ("HOST", "KUBERNETESCLUSTER")
 
 
+class EntityManagementManagedEvaluationType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("JAILBREAK", "PROMPT_INJECTION")
+
+
+class EntityManagementMcpAuthType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BEARER_TOKEN", "GENERIC_HEADER", "NONE")
+
+
+class EntityManagementMcpTransport(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("HTTP", "SSE")
+
+
 class EntityManagementMessageType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("JSON", "TEXT", "YAML")
@@ -1999,6 +2094,11 @@ class EntityManagementMessageType(sgqlc.types.Enum):
 class EntityManagementNrqlMacroClause(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ATTRIBUTE_LIKE", "FACET", "IN", "LIKE", "SELECT", "WHERE", "WITH")
+
+
+class EntityManagementNumericOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EQ", "GE", "GT", "LE", "LT")
 
 
 class EntityManagementOverlapPolicy(sgqlc.types.Enum):
@@ -2014,6 +2114,11 @@ class EntityManagementPriority(sgqlc.types.Enum):
 class EntityManagementProcessStatus(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("COMPLETED", "FAILED", "RUNNING", "SCHEDULED")
+
+
+class EntityManagementProvider(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EXTERNAL", "INTERNAL")
 
 
 class EntityManagementRegion(sgqlc.types.Enum):
@@ -2039,6 +2144,11 @@ class EntityManagementStatusPageAnnouncementCategory(sgqlc.types.Enum):
 class EntityManagementStatusPageAnnouncementState(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CANCELED", "DRAFT", "PUBLISHED", "SCHEDULED")
+
+
+class EntityManagementStringOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CONTAINS", "EXACTLY", "PREFIX")
 
 
 class EntityManagementSyncConfigurationMode(sgqlc.types.Enum):
@@ -2078,6 +2188,7 @@ class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
 class EntityRelationshipEdgeType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
+        "AFFECTS",
         "BUILT_FROM",
         "BYPASS_CALLS",
         "CALLS",
@@ -2408,7 +2519,7 @@ class LogConfigurationsParsingRuleMutationErrorType(sgqlc.types.Enum):
 
 class LogConfigurationsParsingRuleSource(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("NO_CODE", "WRITE_YOUR_OWN")
+    __choices__ = ("NO_CODE", "NO_CODE_WRITE_YOUR_OWN", "WRITE_YOUR_OWN")
 
 
 class MachineLearningEncodingName(sgqlc.types.Enum):
@@ -2467,7 +2578,13 @@ class MultiTenantAuthorizationGrantSortEnum(sgqlc.types.Enum):
 
 class MultiTenantAuthorizationGranteeTypeEnum(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("GROUP", "SYSTEM_IDENTITY", "SYSTEM_IDENTITY_GROUP", "USER")
+    __choices__ = (
+        "GROUP",
+        "ORGANIZATION",
+        "SYSTEM_IDENTITY",
+        "SYSTEM_IDENTITY_GROUP",
+        "USER",
+    )
 
 
 class MultiTenantAuthorizationPermissionCategoryEnum(sgqlc.types.Enum):
