@@ -1,26 +1,24 @@
-version: "3.8"
-
 services:
-    jupyter:
-        build:
-            context: .
-            dockerfile: ./Dockerfile
-        image: registry.gitlab.com/softbutterfly/open-source/newrelic-sb-sdk:dev
-        restart: unless-stopped
-        env_file:
-            - .env
-        volumes:
-            - ./:/app
-            - jupyter-venv:/app/.venv
-        networks:
-            - jupyter-network
-        ports:
-            - 9999:9999
+  jupyter:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: registry.gitlab.com/softbutterfly/open-source/newrelic-sb-sdk:dev
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./:/app
+      - jupyter-venv:/app/.venv
+    networks:
+      - jupyter-network
+    ports:
+      - 9999:9999
 
 volumes:
-    jupyter-venv:
-        driver: local
+  jupyter-venv:
+    driver: local
 
 networks:
-    jupyter-network:
-        driver: bridge
+  jupyter-network:
+    driver: bridge

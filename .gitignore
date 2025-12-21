@@ -8,8 +8,7 @@
 !.gitignore
 !.gitlab-ci.yml
 !.isort.cfg
-!.mdlrc
-!.mdlrc.rb
+!.markdownlint.yml
 !.pre-commit-config.yaml
 !.pylintrc*
 !.python-version
