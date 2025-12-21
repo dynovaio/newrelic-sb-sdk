@@ -182,4 +182,3 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ty]
-type-checker = "mypy"
