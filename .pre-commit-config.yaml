@@ -5,7 +5,7 @@ repos:
         name: jupyter-nb-clear-output
         files: \.ipynb$
         language: system
-        entry: poetry run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        entry: uv run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
       - id: remove-comments-from-nbdev-lib
         name: remove-comments-from-nbdev-lib
         files: \.py$
@@ -50,5 +50,5 @@ repos:
         name: ty
         entry: uv run ty check
         language: system
-        files: \.py$
+        files: \.(py|ipynb)$
         exclude: ^.*\b(graphql)\b.*$
