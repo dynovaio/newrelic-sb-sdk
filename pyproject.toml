@@ -10,7 +10,7 @@ maintainers = [
   { name = "zodiacfireworks", email = "martin.vuelta@gmail.com" }
 ]
 readme = { file = "README.md", content-type = "text/markdown" }
-license = "MIT License"
+license = "Apache-2.0"
 license-files = ["LICENSE.txt"]
 keywords = [
   "Softbutterfly",
@@ -140,3 +140,25 @@ sequence = [
   { cmd = "env GIT_EDITOR=: git flow release finish -m 'Release'"},
 ]
 args = [{name = "version", positional = true}]
+
+[tool.black]
+target_version = ['py314']
+include = '\.pyi?$'
+exclude = '''
+/(\.git/
+  |\.eggs
+  |\.hg
+  |__pycache__
+  |\.cache
+  |\.ipynb_checkpoints
+  |\.mypy_cache
+  |\.pytest_cache
+  |\.tox
+  |\.venv
+  |_build
+  |buck-out
+  |build
+  |dist
+  |legacy
+)/
+'''
