@@ -7,8 +7,8 @@ BASEPYTHON="${CI_JOB_NAME##*:}"
 
 echo "SoftButterfly CI: Publish coverage report to Codacy for environment ${BASEPYTHON}"
 
-# Send coverage report only on master branch and job is run for python 3.11
-if [ "$CI_COMMIT_BRANCH" = "master" ] && [ "$BASEPYTHON" = "py311" ]; then
+# Send coverage report only on master branch and job is run for python 3.14
+if [ "$CI_COMMIT_BRANCH" = "master" ] && [ "$BASEPYTHON" = "py314" ]; then
     echo "* Publish coverage report to Codacy is enabled"
 
     echo "* Downloading codacy report uploader."
