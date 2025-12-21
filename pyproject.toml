@@ -61,10 +61,8 @@ dev = [
     "importnb>=2023.11.1",
     "jupyter-book>=2.1.0",
     "jupyterlab>=4.5.1",
-    "mypy>=1.19.1",
     "nbdev>=2.4.7",
     "nbmake>=1.5.5",
-    "nbqa[toolchain]>=1.9.1",
     "poethepoet>=0.38.0",
     "pre-commit>=4.5.1",
     "pygments-sb-nrql>=0.7.0",
@@ -74,7 +72,7 @@ dev = [
     "ruff>=0.14.10",
     "tbump>=6.11.0",
     "tox>=4.32.0",
-    "types-requests>=2.32.4.20250913",
+    "ty>=0.0.5",
 ]
 
 [build-system]
@@ -182,3 +180,6 @@ quote-style = "double"
 indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
+
+[tool.ty]
+type-checker = "mypy"
