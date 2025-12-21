@@ -2,6 +2,87 @@
 
 ## [Unreleased]
 
+* Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
+
+* Add new enums:
+  `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`,
+  `MachineLearningEncodingName`, `MachineLearningFilterByKeys`,
+  `MachineLearningOperator`, `MachineLearningTextSplitterType`.
+
+* Add new input objects:
+  `AgentApplicationSettingsMobileSessionReplayInput`,
+  `MachineLearningAddDocumentIndexConfiguration`,
+  `MachineLearningCharacterTextSplitterOptionsInput`,
+  `MachineLearningFilterBy`,
+  `MachineLearningMarkdownTextSplitterOptionsInput`,
+  `MachineLearningTokenTextSplitterOptionsInput`.
+
+* Add new objects:
+  `AgentApplicationSettingsMobileSessionReplay`,
+  `AiWorkflowsBatchCreateMigratedWorkflowsResponseError`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsResponseError`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterResponseError`,
+  `MachineLearningAccountStitchedFields`,
+  `MachineLearningActorStitchedFields`,
+  `MachineLearningExperiment`, `MachineLearningExperimentConnection`,
+  `MachineLearningFileDataSource`, `MachineLearningFileDataSourceConnection`,
+  `MachineLearningModel`, `MachineLearningModelConnection`,
+  `MachineLearningProject`, `MachineLearningProjectConnection`,
+  `MachineLearningRagQueryDataResponse`,
+  `MachineLearningStreamDataSource`, `MachineLearningStreamDataSourceConnection`,
+  `MachineLearningTag`, `MachineLearningTagConnection`,
+  `MachineLearningTransactionResponse`,
+  `MetricNormalizationAccountStitchedFields`, `MetricNormalizationRule`,
+  `MetricNormalizationRuleMetricGroupingIssue`,
+  `MetricNormalizationRuleMutationError`,
+  `MetricNormalizationRuleMutationResponse`,
+  `MobileAppSummaryData`.
+
+* Update existing types:
+  * `RootMutationType`:
+    * Remove: `collaboration_deactivate_code_mark`,
+      `collaboration_deactivate_comment`,
+      `collaboration_deactivate_context`,
+      `collaboration_deactivate_external_service_connection`,
+      `entity_golden_tags_override`, `entity_golden_tags_reset`,
+      `entity_management_add_collection_members`,
+      `entity_management_create_ai_agent`, `entity_management_create_ai_tool`,
+      `entity_management_create_collection`,
+      `log_configurations_update_obfuscation_expression`,
+      `log_configurations_update_obfuscation_rule`,
+      `log_configurations_update_parsing_rule`,
+      `log_configurations_upsert_pipeline_configuration`.
+    * Update `collaboration_create_thread`:
+      * Add arguments: `account_id`, `body`, `destination_id`, `email_addresses`,
+        `reference_url`, `shared_to_type`, `slack_channel_id`.
+      * Remove arguments: `context_id`, `context_metadata`,
+        `external_application_type`, `visibility`.
+
+* Add Collaboration mutations to `RootMutationType`:
+  `collaboration_set_external_service_connection_channel`,
+  `collaboration_socket_subscribe`, `collaboration_subscribe_to_thread`,
+  `collaboration_unsubscribe_from_thread`, `collaboration_update_comment`,
+  `collaboration_update_context_add_comment`,
+  `collaboration_update_context_add_thread`.
+
+* Add Entity Management mutations to `RootMutationType`:
+  `entity_management_create_team`, `entity_management_delete`,
+  `entity_management_delete_relationship`,
+  `entity_management_remove_collection_members`, `entity_management_update`,
+  `entity_management_update_ai_agent`, `entity_management_update_ai_tool`,
+  `entity_management_update_collection`.
+
+* Add Machine Learning mutations to `RootMutationType`:
+  `machine_learning_update_file_data_source`,
+  `machine_learning_update_project`,
+  `machine_learning_update_stream_data_source`.
+
+* Add Metric Normalization mutations to `RootMutationType`:
+  `metric_normalization_create_rule`, `metric_normalization_disable_rule`,
+  `metric_normalization_edit_rule`.
+
 ## [0.42.0] - 2025-11-22
 
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
