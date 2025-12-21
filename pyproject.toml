@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "newrelic-sb-sdk"
-version = "0.42.0"
+version = "0.43.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   "SoftButterfly Development Team <dev@softbutterfly.io>",
@@ -44,47 +44,17 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.42.0.zip"
+"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.43.0.zip"
 "Bug Tracker" = "https://github.com/dynovaio/newrelic-sb-sdk/issues"
 
 [tool.poetry.dependencies]
-python = ">=3.9.0,<4.0.0"
+python = ">=3.10.0,<4.0.0"
 python-dotenv = "<2.0.0"
 requests = "<3.0.0"
 sgqlc = "<17.0.0"
 
-[tool.poetry.group.dev.dependencies]
-autopep8 = "^2.3.2"
-bandit = "^1.8.2"
-black = "^25.1.0"
-coverage = "^7.6.11"
-deepdiff = {extras = ["optimize"], version = "^8.2.0"}
-flake8 = "^7.1.1"
-flake8-black = "^0.3.6"
-importnb = "^2023.11.1"
-isort = "^6.0.0"
-jupyter-book = "^1.0.3"
-jupyterlab = "^4.3.5"
-mypy = "^1.15.0"
-nbdev = "^2.3.34"
-nbmake = "^1.5.5"
-nbqa = {extras = ["toolchain"], version = "^1.9.1"}
-poethepoet = "^0.32.2"
-pre-commit = "^4.1.0"
-pycodestyle = "^2.12.1"
-pydocstyle = "^6.3.0"
-pygments-sb-nrql = "^0.2.0"
-pylint = "^3.3.4"
-pytest = "^8.3.4"
-pytest-cov = "^6.0.0"
-pytest-vcr = "^1.0.2"
-ruff = "^0.9.5"
-tbump = "^6.11.0"
-tox = "^4.24.1"
-types-requests = "^2.32.0.20241016"
-
 [tool.black]
-target_version = ['py311']
+target_version = ['py314']
 include = '\.pyi?$'
 exclude = '''
 /(\.git/
@@ -168,3 +138,35 @@ addopts = [
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "autopep8 (>=2.3.2,<3.0.0)",
+    "bandit (>=1.9.2,<2.0.0)",
+    "black (>=25.12.0,<26.0.0)",
+    "coverage (>=7.13.0,<8.0.0)",
+    "deepdiff[optimize] (>=8.6.1,<9.0.0)",
+    "flake8 (>=7.3.0,<8.0.0)",
+    "flake8-black (>=0.4.0,<0.5.0)",
+    "importnb (>=2023.11.1,<2024.0.0)",
+    "isort (>=7.0.0,<8.0.0)",
+    "jupyter-book (>=2.1.0,<3.0.0)",
+    "jupyterlab (>=4.5.1,<5.0.0)",
+    "mypy (>=1.19.1,<2.0.0)",
+    "nbdev (>=2.4.7,<3.0.0)",
+    "nbmake (>=1.5.5,<2.0.0)",
+    "nbqa[toolchain] (>=1.9.1,<2.0.0)",
+    "poethepoet (>=0.38.0,<0.39.0)",
+    "pre-commit (>=4.5.1,<5.0.0)",
+    "pycodestyle (>=2.14.0,<3.0.0)",
+    "pydocstyle (>=6.3.0,<7.0.0)",
+    "pygments-sb-nrql (>=0.7.0,<0.8.0)",
+    "pylint (>=4.0.4,<5.0.0)",
+    "pytest (>=9.0.2,<10.0.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "pytest-vcr (>=1.0.2,<2.0.0)",
+    "ruff (>=0.14.10,<0.15.0)",
+    "tbump (>=6.11.0,<7.0.0)",
+    "tox (>=4.32.0,<5.0.0)",
+    "types-requests (>=2.32.4.20250913,<3.0.0.0)"
+]
