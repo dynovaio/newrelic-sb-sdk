@@ -14,7 +14,7 @@ __all__ = [
 import logging
 import time
 import warnings
-from typing import List, Union
+from typing import Union
 
 from sgqlc.operation import Operation
 from sgqlc.types import Arg, Variable, non_null
@@ -97,7 +97,7 @@ def get_all_historical_data_exports(
     *,
     client: NewRelicGqlClient,
     account: Account,
-) -> List[HistoricalDataExportCustomerExportResponse]:
+) -> list[HistoricalDataExportCustomerExportResponse]:
     operation = Operation(
         nerdgraph.query_type,
         variables={
@@ -277,7 +277,7 @@ def _perform_historical_data_export(
     client: NewRelicGqlClient,
     account: Account,
     nrql_query: Nrql,
-    max_retry: Union[int, None] = None,
+    max_retry: int | None = None,
     max_retries: int = 5,
     retry_delay: int = 30,
 ) -> HistoricalDataExportCustomerExportResponse:
@@ -396,6 +396,11 @@ def _perform_historical_data_export(
 
             time.sleep(retry_delay)
 
+    raise NewRelicError(
+        f"{account.id} - {account.name} - Failed to perform historical data export: "
+        "Max retries exceeded."
+    )
+
 
 def perform_historical_data_export(
     *,
@@ -404,7 +409,6 @@ def perform_historical_data_export(
     nrql_query: Nrql,
     base_file_name: str,
 ):
-
     export = _perform_historical_data_export(
         client=client, account=account, nrql_query=nrql_query
     )

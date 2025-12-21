@@ -14,7 +14,7 @@ import warnings
 from collections import namedtuple
 from queue import Queue
 from threading import Thread
-from typing import List, Union
+from typing import Union
 
 import requests
 
@@ -31,7 +31,7 @@ DownloadFileArgs = namedtuple(
 
 
 class Downloader(Thread):
-    job: Union[int, None] = None
+    job: int | None = None
 
     def __init__(self, *, queue: Queue, order: int):
         Thread.__init__(self)
@@ -90,7 +90,7 @@ def download_file(
 
 def download_files(
     *,
-    urls: List[str],
+    urls: list[str],
     base_file_name: str,
     file_extension: str,
 ) -> None:

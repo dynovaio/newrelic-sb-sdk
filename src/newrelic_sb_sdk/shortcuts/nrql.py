@@ -5,7 +5,7 @@ import logging
 import time
 import warnings
 from textwrap import dedent
-from typing import List, Union
+from typing import Union
 
 from sgqlc.operation import Operation
 from sgqlc.types import ID, Arg, Int, Variable, list_of, non_null
@@ -138,10 +138,10 @@ def perform_nrql_query(
     account: Account,
     nrql_query: Nrql,
     timeout: int = 60,
-    max_retry: Union[int, None] = None,
+    max_retry: int | None = None,
     max_retries: int = 5,
     retry_delay: int = 5,
-) -> List[NrdbResult]:
+) -> list[NrdbResult]:
     # pylint: disable=redefined-outer-name
 
     if max_retry is not None:

@@ -12,7 +12,8 @@ import logging
 import os
 import pathlib
 import warnings
-from typing import Any, Callable, Dict, Union
+from collections.abc import Callable
+from typing import Any, Union
 
 import dotenv
 from requests import Response, Session
@@ -29,8 +30,8 @@ logger = logging.getLogger("newrelic_sb_sdk")
 
 def _get_variable_from_env(
     variable_name: str,
-    env_file_name: Union[str, None] = None,
-    caster: Union[Callable, None] = None,
+    env_file_name: str | None = None,
+    caster: Callable | None = None,
 ) -> Any:
     """Recover environment variable from environment or .env file."""
 
@@ -63,7 +64,7 @@ def _get_variable_from_env(
     return variable
 
 
-def get_new_relic_account_id_from_env(env_file_name: Union[str, None] = None) -> int:
+def get_new_relic_account_id_from_env(env_file_name: str | None = None) -> int:
     """Recovery new relic account id from environmentn variables."""
 
     return _get_variable_from_env(
@@ -73,7 +74,7 @@ def get_new_relic_account_id_from_env(env_file_name: Union[str, None] = None) ->
     )
 
 
-def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
+def get_new_relic_user_key_from_env(env_file_name: str | None = None) -> str:
     """Recovery new relic credentials from environmentn variables."""
 
     return _get_variable_from_env(
@@ -114,9 +115,9 @@ class NewRelicGqlClient(Session):
 
     def execute(
         self,
-        query: Union[str, Operation],
+        query: str | Operation,
         *,
-        variables: Union[Dict[str, Any], None] = None,
+        variables: dict[str, Any] | None = None,
         **kwargs,
     ) -> Response:
         if isinstance(query, Operation):
@@ -135,9 +136,7 @@ class NewRelicGqlClient(Session):
         return self.post(self._url, data=data, **kwargs)
 
     @staticmethod
-    def build_query(
-        template: str, *, params: Union[Dict[str, Any], None] = None
-    ) -> str:
+    def build_query(template: str, *, params: dict[str, Any] | None = None) -> str:
         return build_query(template, params=params)
 
     @property
