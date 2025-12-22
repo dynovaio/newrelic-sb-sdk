@@ -1,0 +1,10 @@
+version: 1
+site:
+  template: book-theme
+  options:
+    logo_url: /
+    favicon: ./_static/images/favicon.png
+    logo: ./_static/images/navbar.png
+    logo_dark: ./_static/images/navbar-dark.png
+    analytics_google: UA-XXXXXXXXX-X
+    folders: true

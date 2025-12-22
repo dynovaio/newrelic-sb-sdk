@@ -1,0 +1,62 @@
+version: 1
+extends:
+  - ./_site/site.yml
+site:
+  options:
+    style: ./_static/css/custom.css
+  parts:
+    footer: ./_site/footer.md
+project:
+  title: New Relic SB SDK
+  description: Documentación del SDK de New Relic para Python
+  thumbnail: _static/images/thumbnail.png
+  keywords:
+    - New Relic
+    - Dynova
+    - Python
+    - SDK
+    - API
+  copyright: "2025"
+  exclude:
+    - _build
+    - "*.db"
+    - .*
+    - "**.ipynb_checkpoints"
+  abbreviations:
+    MyST: Markedly Structured Text
+    CLI: Command-Line Interface
+    TOC: Table of Contents
+  toc:
+    - file: README.md
+    - file: notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb
+    - title: Client
+      file: notebooks/Client/Index.ipynb
+      children:
+        - file: notebooks/Client/Client.ipynb
+    - title: GraphQL
+      file: notebooks/GraphQL/Index.ipynb
+      children:
+        - file: notebooks/GraphQL/GraphQL.ipynb
+        - file: notebooks/GraphQL/Scalars.ipynb
+        - file: notebooks/GraphQL/Enums.ipynb
+        - file: notebooks/GraphQL/Input Objects.ipynb
+        - file: notebooks/GraphQL/Objects.ipynb
+    - title: Shortcuts
+      file: notebooks/Shortcuts/Index.ipynb
+      children:
+        - file: notebooks/Shortcuts/Accounts.ipynb
+        - file: notebooks/Shortcuts/Credentials.ipynb
+        - file: notebooks/Shortcuts/Dashboards.ipynb
+        - file: notebooks/Shortcuts/Historical Data Export.ipynb
+        - file: notebooks/Shortcuts/Nrql.ipynb
+    - title: Utils
+      file: notebooks/Utils/Index.ipynb
+      children:
+        - file: notebooks/Utils/Download.ipynb
+        - file: notebooks/Utils/Exceptions.ipynb
+        - file: notebooks/Utils/Query.ipynb
+        - file: notebooks/Utils/Response.ipynb
+        - file: notebooks/Utils/Text.ipynb
+    - file: CHANGELOG.md
+    - file: CONTRIBUTING.md
+    - file: CODE_OF_CONDUCT.md
