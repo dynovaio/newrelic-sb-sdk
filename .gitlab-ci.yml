@@ -8,11 +8,11 @@ stages:
   - release
 
 before_script:
-  - ./devops/python/setup_poetry.sh
+  - ./devops/python/setup_uv.sh
 
 cache:
   paths:
-    - .cache/pypoetry
+    - .cache/uv
 
 # ---------------------------------------------------------------------------- #
 # Test                                                                         #
