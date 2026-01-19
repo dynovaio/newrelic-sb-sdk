@@ -166,8 +166,24 @@ d = {
                 "GraphQL/enums.html#ainotificationsdestinationtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AiNotificationsEmailVerificationStatus": (
+                "GraphQL/enums.html#ainotificationsemailverificationstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiNotificationsEntityScopeType": (
+                "GraphQL/enums.html#ainotificationsentityscopetype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiNotificationsEntityScopeTypeInput": (
+                "GraphQL/enums.html#ainotificationsentityscopetypeinput",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AiNotificationsErrorType": (
                 "GraphQL/enums.html#ainotificationserrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiNotificationsExtendedScopeService": (
+                "GraphQL/enums.html#ainotificationsextendedscopeservice",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.AiNotificationsProduct": (
@@ -192,6 +208,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.AiNotificationsUiComponentValidation": (
                 "GraphQL/enums.html#ainotificationsuicomponentvalidation",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AiNotificationsUnverifiedEmailsFields": (
+                "GraphQL/enums.html#ainotificationsunverifiedemailsfields",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.AiNotificationsVariableCategory": (
@@ -284,6 +304,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.AlertsAsNrqlSourceProduct": (
                 "GraphQL/enums.html#alertsasnrqlsourceproduct",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AlertsCompoundConditionFacetMatchingBehavior": (
+                "GraphQL/enums.html#alertscompoundconditionfacetmatchingbehavior",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AlertsCompoundConditionSortDirection": (
+                "GraphQL/enums.html#alertscompoundconditionsortdirection",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.AlertsCompoundConditionSortKey": (
+                "GraphQL/enums.html#alertscompoundconditionsortkey",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.AlertsDayOfWeek": (
@@ -432,6 +464,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.ChartImageType": (
                 "GraphQL/enums.html#chartimagetype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.CloudCostIntelligenceIntegrationFilterOperator": (
+                "GraphQL/enums.html#cloudcostintelligenceintegrationfilteroperator",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.CloudMetricCollectionMode": (
@@ -694,6 +730,22 @@ d = {
                 "GraphQL/enums.html#entitymanagementconsumptionmetric",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCorrelationAttributeConditionOperator": (
+                "GraphQL/enums.html#entitymanagementcorrelationattributeconditionoperator",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCorrelationMatchingAlgorithm": (
+                "GraphQL/enums.html#entitymanagementcorrelationmatchingalgorithm",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCorrelationOverrideAction": (
+                "GraphQL/enums.html#entitymanagementcorrelationoverrideaction",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCorrelationSubjectType": (
+                "GraphQL/enums.html#entitymanagementcorrelationsubjecttype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementDateOperator": (
                 "GraphQL/enums.html#entitymanagementdateoperator",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -746,8 +798,16 @@ d = {
                 "GraphQL/enums.html#entitymanagementhostingplatform",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementIncidentSource": (
+                "GraphQL/enums.html#entitymanagementincidentsource",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementIncidentStatus": (
                 "GraphQL/enums.html#entitymanagementincidentstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementIncidentTimelineSource": (
+                "GraphQL/enums.html#entitymanagementincidenttimelinesource",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementInstallationSource": (
@@ -794,12 +854,16 @@ d = {
                 "GraphQL/enums.html#entitymanagementmessagetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
-            "newrelic_sb_sdk.graphql.enums.EntityManagementNrqlMacroClause": (
-                "GraphQL/enums.html#entitymanagementnrqlmacroclause",
+            "newrelic_sb_sdk.graphql.enums.EntityManagementMetricPrefixType": (
+                "GraphQL/enums.html#entitymanagementmetricprefixtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementNumericOperator": (
                 "GraphQL/enums.html#entitymanagementnumericoperator",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementOperatingSystemType": (
+                "GraphQL/enums.html#entitymanagementoperatingsystemtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementOverlapPolicy": (
@@ -846,6 +910,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementsyncconfigurationmode",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementSyncDirection": (
+                "GraphQL/enums.html#entitymanagementsyncdirection",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementSyncGroupRuleConditionType": (
                 "GraphQL/enums.html#entitymanagementsyncgroupruleconditiontype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -860,6 +928,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementThresholdScope": (
                 "GraphQL/enums.html#entitymanagementthresholdscope",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementWorkItemCategory": (
+                "GraphQL/enums.html#entitymanagementworkitemcategory",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementWorkItemPriority": (
+                "GraphQL/enums.html#entitymanagementworkitempriority",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityRelationshipEdgeDirection": (
@@ -948,6 +1024,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.FleetControlManagedEntityType": (
                 "GraphQL/enums.html#fleetcontrolmanagedentitytype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.FleetControlOperatingSystemType": (
+                "GraphQL/enums.html#fleetcontroloperatingsystemtype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.HistoricalDataExportStatus": (
@@ -1412,6 +1492,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.SystemIdentityIdentitySortFieldKey": (
                 "GraphQL/enums.html#systemidentityidentitysortfieldkey",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.SystemIdentityIdentityType": (
+                "GraphQL/enums.html#systemidentityidentitytype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.SystemIdentitySortOrder": (
@@ -1942,6 +2026,10 @@ d = {
                 "GraphQL/input objects.html#ainotificationsdynamicvariable",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsEntityScopeInput": (
+                "GraphQL/input objects.html#ainotificationsentityscopeinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsExampleValue": (
                 "GraphQL/input objects.html#ainotificationsexamplevalue",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -1972,6 +2060,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsTokenAuthInput": (
                 "GraphQL/input objects.html#ainotificationstokenauthinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsUnverifiedEmailsFilters": (
+                "GraphQL/input objects.html#ainotificationsunverifiedemailsfilters",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AiNotificationsUnverifiedEmailsSorter": (
+                "GraphQL/input objects.html#ainotificationsunverifiedemailssorter",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AiNotificationsVariableFilter": (
@@ -2056,6 +2152,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.AlertsAsNrqlConditionsSearchCriteriaInput": (
                 "GraphQL/input objects.html#alertsasnrqlconditionssearchcriteriainput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AlertsCompoundConditionFilterInput": (
+                "GraphQL/input objects.html#alertscompoundconditionfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AlertsCompoundConditionIdInput": (
+                "GraphQL/input objects.html#alertscompoundconditionidinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AlertsCompoundConditionSortInput": (
+                "GraphQL/input objects.html#alertscompoundconditionsortinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.AlertsEmailNotificationChannelCreateInput": (
@@ -2740,6 +2848,22 @@ d = {
                 "GraphQL/input objects.html#cloudconfluentupdateaccountinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCostIntelligenceAwsIntegration": (
+                "GraphQL/input objects.html#cloudcostintelligenceawsintegration",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCostIntelligenceAzureIntegration": (
+                "GraphQL/input objects.html#cloudcostintelligenceazureintegration",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCostIntelligenceGcpIntegration": (
+                "GraphQL/input objects.html#cloudcostintelligencegcpintegration",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudCostIntelligenceIntegrationFilter": (
+                "GraphQL/input objects.html#cloudcostintelligenceintegrationfilter",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudDisableAccountIntegrationInput": (
                 "GraphQL/input objects.html#clouddisableaccountintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3230,6 +3354,14 @@ d = {
                 "GraphQL/input objects.html#datamanagementlimitlookupinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.DataManagementOrganizationLimitInput": (
+                "GraphQL/input objects.html#datamanagementorganizationlimitinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.DataManagementOrganizationLimitLookupInput": (
+                "GraphQL/input objects.html#datamanagementorganizationlimitlookupinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.DataManagementRuleInput": (
                 "GraphQL/input objects.html#datamanagementruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3449,6 +3581,26 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementInboxIssueCategoryEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementinboxissuecategoryentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementIncidentLinkEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementincidentlinkentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementIncidentLinkEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementincidentlinkentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementIncidentTimelineEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementincidenttimelineentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementIncidentTimelineEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementincidenttimelineentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementLlmConfigCreateInput": (
@@ -3730,6 +3882,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.FleetControlFleetMembersFilterInput": (
                 "GraphQL/input objects.html#fleetcontrolfleetmembersfilterinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlOperatingSystemCreateInput": (
+                "GraphQL/input objects.html#fleetcontroloperatingsystemcreateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.FleetControlRingDeploymentPolicyInput": (
@@ -5263,6 +5419,10 @@ d = {
                 "GraphQL/objects.html#ainotificationsdestinationsresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsEntityScope": (
+                "GraphQL/objects.html#ainotificationsentityscope",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsError": (
                 "GraphQL/objects.html#ainotificationserror",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -5277,6 +5437,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsOAuthUrlResponse": (
                 "GraphQL/objects.html#ainotificationsoauthurlresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsOrganizationStitchedFields": (
+                "GraphQL/objects.html#ainotificationsorganizationstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsProperty": (
@@ -5321,6 +5485,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsUiComponent": (
                 "GraphQL/objects.html#ainotificationsuicomponent",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsUnverifiedEmail": (
+                "GraphQL/objects.html#ainotificationsunverifiedemail",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiNotificationsUnverifiedEmailsResponse": (
+                "GraphQL/objects.html#ainotificationsunverifiedemailsresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiNotificationsVariable": (
@@ -5489,6 +5661,18 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AlertsCampfireNotificationChannelConfig": (
                 "GraphQL/objects.html#alertscampfirenotificationchannelconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AlertsCompoundComponentCondition": (
+                "GraphQL/objects.html#alertscompoundcomponentcondition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AlertsCompoundCondition": (
+                "GraphQL/objects.html#alertscompoundcondition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AlertsCompoundConditionsResultSet": (
+                "GraphQL/objects.html#alertscompoundconditionsresultset",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AlertsConditionDeleteResponse": (
@@ -6023,6 +6207,10 @@ d = {
                 "GraphQL/objects.html#cloudawsdocdbintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudAwsEuSovereignProvider": (
+                "GraphQL/objects.html#cloudawseusovereignprovider",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsFsxIntegration": (
                 "GraphQL/objects.html#cloudawsfsxintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6047,6 +6235,10 @@ d = {
                 "GraphQL/objects.html#cloudawsmediapackagevodintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudAwsMetadataEuSovereignIntegration": (
+                "GraphQL/objects.html#cloudawsmetadataeusovereignintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsMetadataGovIntegration": (
                 "GraphQL/objects.html#cloudawsmetadatagovintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -6057,6 +6249,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsMqIntegration": (
                 "GraphQL/objects.html#cloudawsmqintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudAwsMsElasticacheEuSovereignIntegration": (
+                "GraphQL/objects.html#cloudawsmselasticacheeusovereignintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsMsElasticacheGovIntegration": (
@@ -6089,6 +6285,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsStatesIntegration": (
                 "GraphQL/objects.html#cloudawsstatesintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudAwsTagsGlobalEuSovereignIntegration": (
+                "GraphQL/objects.html#cloudawstagsglobaleusovereignintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudAwsTagsGlobalGovIntegration": (
@@ -6285,6 +6485,34 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.CloudConfluentKafkaResourceIntegration": (
                 "GraphQL/objects.html#cloudconfluentkafkaresourceintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceAwsConfig": (
+                "GraphQL/objects.html#cloudcostintelligenceawsconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceAzureConfig": (
+                "GraphQL/objects.html#cloudcostintelligenceazureconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceGcpConfig": (
+                "GraphQL/objects.html#cloudcostintelligencegcpconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceIntegrationResponse": (
+                "GraphQL/objects.html#cloudcostintelligenceintegrationresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceIssueDetail": (
+                "GraphQL/objects.html#cloudcostintelligenceissuedetail",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceMetadata": (
+                "GraphQL/objects.html#cloudcostintelligencemetadata",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.CloudCostIntelligenceScopeResponse": (
+                "GraphQL/objects.html#cloudcostintelligencescoperesponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.CloudDashboardTemplate": (
@@ -6991,8 +7219,20 @@ d = {
                 "GraphQL/objects.html#datamanagementfeaturesetting",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.DataManagementLimit": (
+                "GraphQL/objects.html#datamanagementlimit",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataManagementLimitOverride": (
+                "GraphQL/objects.html#datamanagementlimitoverride",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.DataManagementNamespaceLevelRetention": (
                 "GraphQL/objects.html#datamanagementnamespacelevelretention",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.DataManagementOrganizationStitchedFields": (
+                "GraphQL/objects.html#datamanagementorganizationstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.DataManagementRenderedRetention": (
@@ -7347,6 +7587,18 @@ d = {
                 "GraphQL/objects.html#entitymanagementattribute",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAwsAssumeRoleConfig": (
+                "GraphQL/objects.html#entitymanagementawsassumeroleconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAwsConnectionEntity": (
+                "GraphQL/objects.html#entitymanagementawsconnectionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAwsCredentials": (
+                "GraphQL/objects.html#entitymanagementawscredentials",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundProcessingQuery": (
                 "GraphQL/objects.html#entitymanagementbackgroundprocessingquery",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7389,6 +7641,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetSegment": (
                 "GraphQL/objects.html#entitymanagementbudgetsegment",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBudgetUser": (
+                "GraphQL/objects.html#entitymanagementbudgetuser",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCategoryScope": (
@@ -7473,6 +7729,62 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementConnectionSettings": (
                 "GraphQL/objects.html#entitymanagementconnectionsettings",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationAttribute": (
+                "GraphQL/objects.html#entitymanagementcorrelationattribute",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationAttributeCondition": (
+                "GraphQL/objects.html#entitymanagementcorrelationattributecondition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationContext": (
+                "GraphQL/objects.html#entitymanagementcorrelationcontext",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationInternalSourceConfigEntity": (
+                "GraphQL/objects.html#entitymanagementcorrelationinternalsourceconfigentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationLinkEntity": (
+                "GraphQL/objects.html#entitymanagementcorrelationlinkentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationLinkingConfig": (
+                "GraphQL/objects.html#entitymanagementcorrelationlinkingconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationLinkingCriteria": (
+                "GraphQL/objects.html#entitymanagementcorrelationlinkingcriteria",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationLinkingRuleEntity": (
+                "GraphQL/objects.html#entitymanagementcorrelationlinkingruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationOverrideInfo": (
+                "GraphQL/objects.html#entitymanagementcorrelationoverrideinfo",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationProbabilisticMatchingConfig": (
+                "GraphQL/objects.html#entitymanagementcorrelationprobabilisticmatchingconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationSubject": (
+                "GraphQL/objects.html#entitymanagementcorrelationsubject",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationSubjectLifecycleConfig": (
+                "GraphQL/objects.html#entitymanagementcorrelationsubjectlifecycleconfig",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationSubjectReference": (
+                "GraphQL/objects.html#entitymanagementcorrelationsubjectreference",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCorrelationWindowConfig": (
+                "GraphQL/objects.html#entitymanagementcorrelationwindowconfig",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCount": (
@@ -7583,6 +7895,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementfleetringentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementFlowEntity": (
+                "GraphQL/objects.html#entitymanagementflowentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGenericEntity": (
                 "GraphQL/objects.html#entitymanagementgenericentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7601,6 +7917,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubSyncOptions": (
                 "GraphQL/objects.html#entitymanagementgithubsyncoptions",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementGitHubTeam": (
+                "GraphQL/objects.html#entitymanagementgithubteam",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementGitRepositoryEntity": (
@@ -7643,8 +7963,40 @@ d = {
                 "GraphQL/objects.html#entitymanagementinboxissuecategoryentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentEntity": (
+                "GraphQL/objects.html#entitymanagementincidententity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentLinkEntity": (
+                "GraphQL/objects.html#entitymanagementincidentlinkentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentLinkEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementincidentlinkentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentLinkEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementincidentlinkentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentMessageEntity": (
+                "GraphQL/objects.html#entitymanagementincidentmessageentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentProfileEntity": (
                 "GraphQL/objects.html#entitymanagementincidentprofileentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentTimelineEntity": (
+                "GraphQL/objects.html#entitymanagementincidenttimelineentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentTimelineEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementincidenttimelineentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentTimelineEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementincidenttimelineentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementInfrastructureManager": (
@@ -7669,6 +8021,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementJiraSyncConfiguration": (
                 "GraphQL/objects.html#entitymanagementjirasyncconfiguration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementJiraSyncConfigurationV2Entity": (
+                "GraphQL/objects.html#entitymanagementjirasyncconfigurationv2entity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementJuniperMistBasicAuthCredential": (
+                "GraphQL/objects.html#entitymanagementjunipermistbasicauthcredential",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementJuniperMistConnectionEntity": (
+                "GraphQL/objects.html#entitymanagementjunipermistconnectionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementJuniperMistCredential": (
+                "GraphQL/objects.html#entitymanagementjunipermistcredential",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementLlmConfig": (
@@ -7743,6 +8111,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementnumericcondition",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementOperatingSystem": (
+                "GraphQL/objects.html#entitymanagementoperatingsystem",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementOperationEntity": (
                 "GraphQL/objects.html#entitymanagementoperationentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7797,6 +8169,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRagToolEntityUpdateResult": (
                 "GraphQL/objects.html#entitymanagementragtoolentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementReactNativeSourcemapEntity": (
+                "GraphQL/objects.html#entitymanagementreactnativesourcemapentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementReference": (
+                "GraphQL/objects.html#entitymanagementreference",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRelationship": (
@@ -7867,6 +8247,14 @@ d = {
                 "GraphQL/objects.html#entitymanagementsecretreference",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSegmentTermsEntity": (
+                "GraphQL/objects.html#entitymanagementsegmenttermsentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementServerlessJobDefinitionEntity": (
+                "GraphQL/objects.html#entitymanagementserverlessjobdefinitionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementServiceNowApiKeyCredential": (
                 "GraphQL/objects.html#entitymanagementservicenowapikeycredential",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7923,6 +8311,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementsyncgroupssettings",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementSynchronizedGitHubTeams": (
+                "GraphQL/objects.html#entitymanagementsynchronizedgithubteams",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementSystemActor": (
                 "GraphQL/objects.html#entitymanagementsystemactor",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7967,6 +8359,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementtemplatefield",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementTemplateFieldType": (
+                "GraphQL/objects.html#entitymanagementtemplatefieldtype",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTokenTextSplitterOptions": (
                 "GraphQL/objects.html#entitymanagementtokentextsplitteroptions",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7981,6 +8377,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementUserMetadata": (
                 "GraphQL/objects.html#entitymanagementusermetadata",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementUsers": (
+                "GraphQL/objects.html#entitymanagementusers",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItem": (
@@ -7999,8 +8399,32 @@ d = {
                 "GraphQL/objects.html#entitymanagementworkitemlink",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemLinkV2": (
+                "GraphQL/objects.html#entitymanagementworkitemlinkv2",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemLinkV2Entity": (
+                "GraphQL/objects.html#entitymanagementworkitemlinkv2entity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemMessage": (
                 "GraphQL/objects.html#entitymanagementworkitemmessage",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemMessageV2": (
+                "GraphQL/objects.html#entitymanagementworkitemmessagev2",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemMessageV2Entity": (
+                "GraphQL/objects.html#entitymanagementworkitemmessagev2entity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemV2": (
+                "GraphQL/objects.html#entitymanagementworkitemv2",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementWorkItemV2Entity": (
+                "GraphQL/objects.html#entitymanagementworkitemv2entity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementWorkflowDefinition": (
@@ -8319,6 +8743,10 @@ d = {
                 "GraphQL/objects.html#fleetcontrolmetadata",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.FleetControlOperatingSystem": (
+                "GraphQL/objects.html#fleetcontroloperatingsystem",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.FleetControlRingsDeploymentTracker": (
                 "GraphQL/objects.html#fleetcontrolringsdeploymenttracker",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -8477,6 +8905,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.InstallationStatusError": (
                 "GraphQL/objects.html#installationstatuserror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.JavaFlightRecorderFlamegraph": (
+                "GraphQL/objects.html#javaflightrecorderflamegraph",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.JavaFlightRecorderStackFrame": (
+                "GraphQL/objects.html#javaflightrecorderstackframe",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.KeyTransactionApplication": (
@@ -9617,6 +10053,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.StackTraceBrowserStackTraceFrame": (
                 "GraphQL/objects.html#stacktracebrowserstacktraceframe",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.StackTraceFileBasedStackTraceFrame": (
+                "GraphQL/objects.html#stacktracefilebasedstacktraceframe",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.StackTraceMobileCrash": (

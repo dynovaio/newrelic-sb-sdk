@@ -2,7 +2,7 @@ __all__ = [
     "logger",
     "get_new_relic_account_id_from_env",
     "get_new_relic_user_key_from_env",
-    "NewRelicGqlClient",
+    "NewRelicClient",
     "NewRelicRestClient",
 ]
 
@@ -13,7 +13,7 @@ import os
 import pathlib
 import warnings
 from collections.abc import Callable
-from typing import Any, Union
+from typing import Any
 
 import dotenv
 from requests import Response, Session
@@ -83,7 +83,7 @@ def get_new_relic_user_key_from_env(env_file_name: str | None = None) -> str:
     )
 
 
-class NewRelicGqlClient(Session):
+class NewRelicClient(Session):
     """Client for New Relic GraphQL API."""
 
     _url: str = "https://api.newrelic.com/graphql"
@@ -162,7 +162,7 @@ class NewRelicRestClient(Session):
         )
 
         warnings.warn(
-            "NewRelicRestClient is deprecated. Use NewRelicGqlClient instead."
+            "NewRelicRestClient is deprecated. Use NewRelicClient instead."
             " NewRelicRestClient will be removed in future versions.",
             DeprecationWarning,
             stacklevel=2,

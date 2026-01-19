@@ -396,11 +396,6 @@ def _perform_historical_data_export(
 
             time.sleep(retry_delay)
 
-    raise NewRelicError(
-        f"{account.id} - {account.name} - Failed to perform historical data export: "
-        "Max retries exceeded."
-    )
-
 
 def perform_historical_data_export(
     *,
