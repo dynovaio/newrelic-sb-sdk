@@ -122,10 +122,22 @@ sequence = [
 ]
 ignore_fail = true
 
+[tool.poe.tasks."package:pre-release"]
+sequence = [
+  { cmd = "echo '🔄 Actualizando Schema y Paquete...'", echo = true },
+  { ref = "schema:upgrade" },
+  { ref = "package:upgrade" },
+  { cmd = "echo '🤖 Analizando cambios con Gemini...'", echo = true },
+  { cmd = "cat .diff.txt | gemini-cli run --system-prompt prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'", echo = true },
+  { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'", echo = true },
+]
+args = [{name = "version", positional = true}]
+
 [tool.poe.tasks."package:release"]
 sequence = [
   { cmd = "git flow release start ${version}"},
-  { cmd = "poetry run tbump --no-push --no-tag --non-interactive ${version}" },
+  { cmd = "uv run tbump --no-push --no-tag --non-interactive ${version}" },
   { cmd = "env GIT_EDITOR=: git flow release finish -m 'Release'"},
 ]
 args = [{name = "version", positional = true}]
