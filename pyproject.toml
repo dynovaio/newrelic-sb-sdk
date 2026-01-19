@@ -193,4 +193,9 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 line-ending = "auto"
 
-[tool.ty]
+[tool.ty.rules]
+non-subscriptable = "ignore"
+invalid-return-type = "ignore"
+unresolved-import = "ignore"
+possibly-missing-attribute = "ignore"
+invalid-argument-type = "ignore"

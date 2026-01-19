@@ -94,7 +94,7 @@ See the [CHANGELOG.md](./CHANGELOG.md) for a history of changes.
 
 ## 👥 Contributors
 
-See the list of contributors [here][repository:contributors].
+See our [list of contributors][repository:contributors].
 
 ## 📄 License
 
