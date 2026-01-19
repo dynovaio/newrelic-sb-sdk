@@ -106,7 +106,7 @@ This project is licensed under the Apache License 2.0. See the
 [repository:playground]: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk-playground
 [repository:pipeline]: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/badges/master/pipeline.svg
 [repository:commits]: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/commits/master
-[repository:contributors]: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/graphs/contributors
+[repository:contributors]: https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/graphs/master
 
 [pypi:badge:python]: https://img.shields.io/pypi/pyversions/newrelic-sb-sdk
 [pypi:badge:version]: https://img.shields.io/pypi/v/newrelic-sb-sdk
