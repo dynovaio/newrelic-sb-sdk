@@ -124,13 +124,13 @@ ignore_fail = true
 
 [tool.poe.tasks."package:pre-release"]
 sequence = [
-  { cmd = "echo '🔄 Actualizando Schema y Paquete...'", echo = true },
+  { cmd = "echo '🔄 Actualizando Schema y Paquete...'" },
   { ref = "schema:upgrade" },
   { ref = "package:upgrade" },
-  { cmd = "echo '🤖 Analizando cambios con Gemini...'", echo = true },
-  { cmd = "cat .diff.txt | gemini-cli run --system-prompt prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
-  { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'", echo = true },
-  { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'", echo = true },
+  { cmd = "echo '🤖 Analizando cambios con Gemini...'" },
+  { cmd = "cat .diff.txt | gemini run --system-prompt prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'" },
+  { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'" },
 ]
 args = [{name = "version", positional = true}]
 
