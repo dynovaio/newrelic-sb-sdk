@@ -5,5 +5,8 @@ BASE_DIR="$( cd "$( dirname "$0" )" > /dev/null 2>&1 && pwd )"
 
 echo "SoftButterfly CI: Install dependencies"
 
-echo "* Poetry install dependencies"
-/opt/poetry/bin/poetry install
+echo "* UV install python"
+uv python install "$(cat .python-version)"
+
+echo "* UV install dependencies"
+uv sync
