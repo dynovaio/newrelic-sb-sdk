@@ -101,7 +101,7 @@ class NewRelicClient(Session):
             }
         )
 
-        logger.debug("NewRelicGqlClient initialized with headers: %r", self.headers)
+        logger.debug("NewRelicClient initialized with headers: %r", self.headers)
 
         self._setup_schema()
 
@@ -130,8 +130,8 @@ class NewRelicClient(Session):
             },
         )
 
-        logger.debug("NewRelicGqlClient executing with query: %r", query)
-        logger.debug("NewRelicGqlClient executing with variables: %r", variables)
+        logger.debug("NewRelicClient executing with query: %r", query)
+        logger.debug("NewRelicClient executing with variables: %r", variables)
 
         return self.post(self._url, data=data, **kwargs)
 

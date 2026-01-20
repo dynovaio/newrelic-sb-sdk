@@ -16,7 +16,7 @@ from newrelic_sb_sdk.graphql.objects import (
     NrdbResult,
 )
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql.scalars import Nrql
 from ..utils.exceptions import NewRelicError
 from ..utils.response import raise_response_errors
@@ -30,7 +30,7 @@ def nrql(query: str) -> Nrql:
 
 def _perform_nrql_query(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     nrql_query: Nrql,
     timeout: int = 60,
@@ -85,7 +85,7 @@ def _perform_nrql_query(
 
 def _check_nrql_query_progress(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     query_id: ID,
 ) -> CrossAccountNrdbResultContainer:
@@ -134,7 +134,7 @@ def _check_nrql_query_progress(
 
 def perform_nrql_query(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     nrql_query: Nrql,
     timeout: int = 60,

@@ -24,7 +24,7 @@ from newrelic_sb_sdk.graphql.objects import (
     HistoricalDataExportCustomerExportResponse,
 )
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql import nerdgraph
 from ..graphql.enums import HistoricalDataExportStatus
 from ..graphql.scalars import ID, Int, Nrql, String
@@ -44,7 +44,7 @@ MAX_ALLOWED_CONCURRENT_EXPORTS: int = 2
 
 def create_historical_data_export(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     nrql_query: Nrql,
 ) -> HistoricalDataExportCustomerExportResponse:
@@ -95,7 +95,7 @@ def create_historical_data_export(
 
 def get_all_historical_data_exports(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
 ) -> list[HistoricalDataExportCustomerExportResponse]:
     operation = Operation(
@@ -143,7 +143,7 @@ def get_all_historical_data_exports(
 
 def get_historical_data_export(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     export_id: ID,
 ) -> HistoricalDataExportCustomerExportResponse:
@@ -196,7 +196,7 @@ def get_historical_data_export(
 
 def cancel_historical_data_export(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     export_id: str,
 ) -> HistoricalDataExportCustomerExportResponse:
@@ -247,7 +247,7 @@ def cancel_historical_data_export(
 
 
 def can_execute_historical_data_export(
-    *, client: NewRelicGqlClient, account: Account
+    *, client: NewRelicClient, account: Account
 ) -> bool:
     historical_data_exports = get_all_historical_data_exports(
         client=client, account=account
@@ -274,7 +274,7 @@ def can_execute_historical_data_export(
 
 def _perform_historical_data_export(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     nrql_query: Nrql,
     max_retry: int | None = None,
@@ -399,7 +399,7 @@ def _perform_historical_data_export(
 
 def perform_historical_data_export(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     account: Account,
     nrql_query: Nrql,
     base_file_name: str,

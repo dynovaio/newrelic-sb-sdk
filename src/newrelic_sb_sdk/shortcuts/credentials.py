@@ -5,12 +5,12 @@ from typing import Union
 
 from sgqlc.operation import Operation
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql.objects import Account, User
 from ..utils.response import raise_response_errors
 
 
-def validate(*, client: NewRelicGqlClient, account: Account | None = None) -> User:
+def validate(*, client: NewRelicClient, account: Account | None = None) -> User:
     operation = Operation(
         client.schema.query_type,
     )

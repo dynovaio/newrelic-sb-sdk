@@ -17,7 +17,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntitySearchQueryBuilderTag,
 )
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql.objects import DashboardEntity, DashboardEntityOutline
 from ..graphql.scalars import EntityGuid, String
 from ..utils.response import raise_response_errors
@@ -40,7 +40,7 @@ def _patch_datetime(datetimestr):
 
 def get_all_dashboards(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     options: EntitySearchOptions | None = None,
 ) -> list[DashboardEntityOutline]:
     operation = Operation(
@@ -135,7 +135,7 @@ def get_all_dashboards(
 
 def get_dashboard(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     guid: EntityGuid,
 ) -> DashboardEntity:
     operation = Operation(
