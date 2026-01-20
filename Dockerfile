@@ -6,12 +6,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV PYTHONUNBUFFERED 1
 ENV PROCESSES 1
 
-ENV POETRY_HOME /opt/poetry
-ENV POETRY_VIRTUALENVS_IN_PROJECT true
-
-ENV VENV_PATH /app/.venv
-ENV PATH $POETRY_HOME/bin:$VENV_PATH/bin:$PATH
-
 RUN apt-get -yq update \
     && apt-get -yq install \
     apt-transport-https \

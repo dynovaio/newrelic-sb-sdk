@@ -51,8 +51,8 @@ cmd = "uv lock"
 
 [[after_push]]
 name = "Build package"
-cmd = "poetry build"
+cmd = "uv build"
 
 [[after_push]]
 name = "Publish to PyPI"
-cmd = "poetry publish"
+cmd = "uv publish"
