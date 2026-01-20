@@ -55,6 +55,7 @@ docs:bulild:py314:
   image: python:3.14
   variables:
     NODE_VERSION: 24.11.1
+    BASE_URL: /open-source/newrelic-sb-sdk
   script:
     - ./devops/python/setup_dependencies.sh
     - ./devops/python/setup_docs_dependencies.sh
