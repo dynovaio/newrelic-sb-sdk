@@ -53,8 +53,11 @@ package:bulild:py314:
 docs:bulild:py314:
   stage: bulild
   image: python:3.14
+  variables:
+    NODE_VERSION: 24.11.1
   script:
     - ./devops/python/setup_dependencies.sh
+    - ./devops/python/setup_docs_dependencies.sh
     - ./devops/python/build_docs_with_jupyterbook.sh
   artifacts:
     paths:
@@ -111,4 +114,5 @@ pages:
   dependencies:
     - docs:bulild:py314
   only:
+    - develop
     - master
