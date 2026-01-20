@@ -64,7 +64,6 @@ docs:bulild:py314:
   dependencies:
     - package:test:py314
   only:
-    - develop
     - master
 
 # ---------------------------------------------------------------------------- #
@@ -113,5 +112,4 @@ pages:
   dependencies:
     - docs:bulild:py314
   only:
-    - develop
     - master
