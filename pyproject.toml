@@ -128,7 +128,7 @@ sequence = [
   { ref = "schema:upgrade" },
   { ref = "package:upgrade" },
   { cmd = "echo '🤖 Analizando cambios con Gemini...'" },
-  { cmd = "cat .diff.txt | gemini run --system-prompt prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { cmd = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
   { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'" },
   { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'" },
 ]
