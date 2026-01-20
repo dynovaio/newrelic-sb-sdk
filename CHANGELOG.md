@@ -59,6 +59,10 @@
   `machine_learning_update_project`,
   `machine_learning_update_stream_data_source`.
 
+### 📝 Documentation
+
+* Migrate documentation to Jupyter Book v2.
+
 ## [0.43.0] - 2025-12-21
 
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
