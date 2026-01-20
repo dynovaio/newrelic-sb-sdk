@@ -1,6 +1,6 @@
 [project]
 name = "newrelic-sb-sdk"
-version = "0.43.0"
+version = "0.44.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   { name = "Dynova Development Team", email = "dev@dynova.io" },
@@ -51,8 +51,8 @@ Homepage = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
 Documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Issues = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
-Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.43.0/newrelic-sb-sdk-v0.43.0.zip"
-Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.43.0/CHANGELOG.md"
+Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.44.0/newrelic-sb-sdk-v0.44.0.zip"
+Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.44.0/CHANGELOG.md"
 
 [dependency-groups]
 dev = [

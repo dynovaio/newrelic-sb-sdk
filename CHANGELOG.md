@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.44.0] - 2026-01-20
+
 ### 💥 Breaking Changes
 
 * Rename `NewRelicGqlClient` to `NewRelicClient`.

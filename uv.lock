@@ -1368,7 +1368,7 @@ wheels = [
 
 [[package]]
 name = "newrelic-sb-sdk"
-version = "0.43.0"
+version = "0.44.0"
 source = { editable = "." }
 dependencies = [
     { name = "python-dotenv" },
