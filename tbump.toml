@@ -45,6 +45,10 @@ cmd = "echo $(echo \"{new_version}\" | sed -r 's/([0-9]+)\\.([0-9]+)\\.([0-9]+)/
 name = "Update changelog"
 cmd = "sed -z \"s/## \\[Unreleased\\]/## [Unreleased]\\n\\n## [{new_version}] - $(date '+%Y-%m-%d')/g\" -i CHANGELOG.md"
 
+[[before_commit]]
+name = "Update uv.lock"
+cmd = "uv lock"
+
 [[after_push]]
 name = "Build package"
 cmd = "poetry build"
