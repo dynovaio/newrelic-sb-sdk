@@ -53,9 +53,6 @@ package:bulild:py314:
 docs:bulild:py314:
   stage: bulild
   image: python:3.14
-  variables:
-    JB_NODE_VERSION: 24.11.1
-    JB_NODE_OPTIONS: --dns-result-order=ipv4first
   script:
     - ./devops/python/setup_dependencies.sh
     - ./devops/python/setup_docs_dependencies.sh
