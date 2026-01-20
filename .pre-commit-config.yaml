@@ -5,7 +5,7 @@ repos:
         name: jupyter-nb-clear-output
         files: \.ipynb$
         language: system
-        entry: poetry run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
+        entry: uv run jupyter nbconvert --ClearOutputPreprocessor.enabled=True --inplace
       - id: remove-comments-from-nbdev-lib
         name: remove-comments-from-nbdev-lib
         files: \.py$
@@ -18,12 +18,12 @@ repos:
       - id: shellcheck
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.43.0
+    rev: v0.47.0
     hooks:
       - id: markdownlint
         args:
           - --config
-          - .markdownlint.yaml
+          - .markdownlint.yml
         exclude: ^.*\b(notebooks-to-refactor)\b.*$
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -32,50 +32,14 @@ repos:
       - id: trailing-whitespace
       - id: end-of-file-fixer
 
-  - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.9.1
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.13
     hooks:
-      - id: nbqa-pyupgrade
-      - id: nbqa-isort
-      - id: nbqa-black
-      - id: nbqa-flake8
-      - id: nbqa-pydocstyle
-      - id: nbqa
-        entry: poetry run nbqa mypy --ignore-missing-imports
-        name: nbqa-mypy
-        alias: nbqa-mypy
-        exclude: ^.*\b(GraphQL)\b.*$
-        additional_dependencies: [mypy==1.19.1, types-requests==2.32.4.20250913]
-      - id: nbqa
-        entry: poetry run nbqa bandit
-        name: nbqa-bandit
-        alias: nbqa-bandit
-        additional_dependencies: [bandit==1.9.2]
-      - id: nbqa-pylint
+      - id: ruff-check
         args:
-          [
-            --disable=import-error,
-            --disable=pointless-statement,
-            --disable=invalid-name,
-            --disable=expression-not-assigned,
-            --disable=too-many-lines,
-          ]
-        exclude: ^.*\b(notebooks-to-refactor)\b.*$
-
-  - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
-    hooks:
-      - id: seed-isort-config
-
-  - repo: https://github.com/pre-commit/mirrors-isort
-    rev: v5.10.1
-    hooks:
-      - id: isort
-
-  - repo: https://github.com/ambv/black
-    rev: 25.12.0
-    hooks:
-      - id: black
+          - --fix
+          - --output-format=full
+      - id: ruff-format
 
   - repo: local
     hooks:
@@ -84,37 +48,9 @@ repos:
         files: \.py$
         language: system
         entry: sed -i -r 's/ " "/ /g'
-
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
-
-  - repo: https://github.com/pycqa/pydocstyle
-    rev: 6.3.0
-    hooks:
-      - id: pydocstyle
-
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.19.1
-    hooks:
-      - id: mypy
-        files: \.py$
-        exclude: ^.*\b(graphql)\b.*$
-        additional_dependencies: [types-requests==2.32.4.20250913]
-
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.9.2
-    hooks:
-      - id: bandit
-        args: [-c, .bandit, -r, src]
-
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint
-        entry: poetry run pylint
+      - id: ty
+        name: ty
+        entry: uv run ty check
         language: system
-        types: [python]
-        exclude: ^.*\b(migrations|_modidx.py)\b.*$
-        args: [--rcfile, .pylintrc, --ignore, migrations]
+        files: \.(py|ipynb)$
+        exclude: ^.*\b(graphql)\b.*$

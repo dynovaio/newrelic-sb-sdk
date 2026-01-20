@@ -6,4 +6,4 @@ BASE_DIR="$( cd "$( dirname "$0" )" > /dev/null 2>&1 && pwd )"
 echo "SoftButterfly CI: Setting up Pypi credentials"
 
 echo "* Setting up credentials"
-poetry config pypi-token.pypi "$PYPI_TOKEN"
+# echo "$PYPI_TOKEN" | uv auth login pypi.org --username __token__ --password -

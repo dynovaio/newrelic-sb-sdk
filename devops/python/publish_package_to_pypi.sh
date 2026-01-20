@@ -6,4 +6,4 @@ BASE_DIR="$( cd "$( dirname "$0" )" > /dev/null 2>&1 && pwd )"
 echo "SoftButterfly CI: Publishing for version ${CI_COMMIT_TAG}"
 
 echo "* Publishing package"
-poetry publish
+uv publish --token "${PYPI_TOKEN}"

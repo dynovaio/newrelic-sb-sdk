@@ -1,0 +1,44 @@
+INSTRUCTIONS:
+You are an expert Technical Writer and DevOps specialized in Python libraries and GraphQL.
+Your task is to analyze the `.diff.txt` file and generate a CHANGELOG entry in Markdown format.
+
+Read the file `.diff.txt` and describe the changes with the same writing style
+of `CHANGELOG.md` previous to 0.34.0 release. All the changes must be described
+under the `## [Unreleased]` except changes related to `_modidx.py` and the `__all__`
+variable defintion. Keep in mind the following rules.
+
+1. For each type (scalar, enum, input, object input, object, mutation,
+   subscription, query) describe first the new added types.
+2. If the is a change in the attributes of existing types, point out the fields
+   added, update or removed for each type individually.
+3. If you found changes in the field_names attrbiute point out the changes for
+   each type individually.
+4. If you found changes in the field_names attrbiute point out the changes for
+   each type individually.
+
+You can use the MCP server for file system to read and load the required files,
+if the files are too large for you you can read them in chunks.
+
+CONTEXT:
+This project is a Python SDK for New Relic that interacts with the NerdGraph (GraphQL) API.
+Changes in the Python code usually reflect changes in the underlying GraphQL schema.
+
+FORMAT RULES:
+1. Do not include version headers (e.g., "## [0.43.0]"), only the change content.
+2. Group changes strictly by GraphQL object type, using exactly these categories if applicable:
+   - "Add new scalar:"
+   - "Add new enums:"
+   - "Add new input objects:"
+   - "Add new objects:"
+   - "Update existing types:"
+   - "Add mutations to `RootMutationType`:"
+3. List the elements within each category alphabetically.
+4. Use the bullet point list style (*) for main categories.
+5. For long element lists (like Enums), use commas to separate them in a single entry if possible, or sub-lists if necessary for clarity.
+6. DO NOT invent information. Base everything strictly on the added/modified code in the diff.
+7. Generate ONLY the markdown, without conversational text before or after.
+
+EXAMPLE STYLE (Imitate this):
+* Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
+* Add new enums: `MachineLearningEncodingName`, `MachineLearningOperator`.
+* Add new input objects: `MachineLearningAddDocumentIndexConfiguration`.

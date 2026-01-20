@@ -1,11 +1,11 @@
 __all__ = ["get_all_accounts", "get_account"]
 
 
-from typing import List, Union
+from typing import Union
 
 from sgqlc.operation import Operation
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql.input_objects import TimeWindowInput
 from ..graphql.objects import Account
 from ..utils.response import raise_response_errors
@@ -13,10 +13,10 @@ from ..utils.response import raise_response_errors
 
 def get_all_accounts(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     include_event_types: bool = False,
-    time_window: Union[TimeWindowInput, None] = None,
-) -> List[Account]:
+    time_window: TimeWindowInput | None = None,
+) -> list[Account]:
     operation = Operation(client.schema.query_type)
 
     operation.actor.accounts.id()
@@ -38,7 +38,7 @@ def get_all_accounts(
     return data
 
 
-def get_account(*, client: NewRelicGqlClient, account_id: int) -> Account:
+def get_account(*, client: NewRelicClient, account_id: int) -> Account:
     operation = Operation(client.schema.query_type)
 
     account = operation.actor.account(id=account_id)

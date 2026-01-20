@@ -1,0 +1,145 @@
+/*
+ * This file adds custom CSS to improve the footer layout. It is not required
+ * for use of landing-pages
+ */
+html,
+body {
+    width: 100%;
+    overflow-x: clip;
+    /* scroll-padding: -60px !important;*/
+}
+
+body {
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Make main take up all available space between header and footer */
+main {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    min-height: calc(100vh - 96px);
+}
+
+.myst-home-link-logo {
+    background: transparent !important;
+}
+
+.article.content {
+    /* Override 100vh from myst-theme:styles/typography.css so content div
+    * doesn't push the footer offscreen.
+    */
+    min-height: 0vh;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
+.myst-primary-sidebar-footer {
+    padding-bottom: 40px ! important;
+}
+
+.myst-outline {
+    height: calc(100vh - 146px) ! important;
+}
+
+.footer {
+    z-index: 40;
+    height: 36px;
+    flex-shrink: 0;
+    background: #ffffff !important;
+    color: var(--tw-prose-headings);
+    padding: 0 3.5rem;
+    text-align: center;
+    margin: 0;
+    box-shadow: none;
+
+    &:hover {
+        background: linear-gradient(135deg, rgba(88, 252, 154, 1) 0%, rgba(0, 71, 255, 1) 30%, rgba(113, 47, 255, 1) 50%, rgba(255, 255, 255, 1) 65%, rgba(113, 47, 255, 1) 75%, rgba(88, 252, 154, 1) 100%) !important;
+        cursor: pointer;
+        color: #ffffff !important;
+        text-shadow: 1px 1px 2px #000000;
+
+        & a {
+            color: #ffffff !important;
+        }
+    }
+
+    & div {
+        margin: 0;
+    }
+
+    & h1 {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    & p {
+        margin: 0.25rem 0;
+    }
+
+    & a {
+        color: var(--tw-prose-headings);
+        text-decoration: none;
+    }
+}
+
+.dark .footer {
+    background: rgb(28 25 23/var(--tw-bg-opacity)) !important;
+
+    &:hover {
+        background: linear-gradient(135deg, rgba(88, 252, 154, 1) 0%, rgba(0, 71, 255, 1) 30%, rgba(113, 47, 255, 1) 50%, rgba(255, 255, 255, 1) 65%, rgba(113, 47, 255, 1) 75%, rgba(88, 252, 154, 1) 100%) !important;
+        color: #ffffff !important;
+    }
+}
+
+.sb-image-header-wrapper {
+    position: relative;
+    margin: 0 auto !important;
+
+    & img {
+        display: block;
+        margin: 0 auto !important;
+    }
+}
+
+.sb-image-header-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 5%, rgba(255, 255, 255, 0) 95%, rgba(255, 255, 255, 1) 100%);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 1;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.sb-image-header-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(28, 25, 23, 1) 0%, rgba(28, 25, 23, 0) 1%, rgba(28, 25, 23, 0) 99%, rgba(28, 25, 23, 1) 100%);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition-property: opacity;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.dark .sb-image-header-wrapper::before {
+    opacity: 0;
+}
+
+.dark .sb-image-header-wrapper::after {
+    opacity: 1;
+}

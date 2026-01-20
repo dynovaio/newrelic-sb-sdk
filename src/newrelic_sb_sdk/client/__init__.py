@@ -2,7 +2,7 @@ __all__ = [
     "logger",
     "get_new_relic_account_id_from_env",
     "get_new_relic_user_key_from_env",
-    "NewRelicGqlClient",
+    "NewRelicClient",
     "NewRelicRestClient",
 ]
 
@@ -12,7 +12,8 @@ import logging
 import os
 import pathlib
 import warnings
-from typing import Any, Callable, Dict, Union
+from collections.abc import Callable
+from typing import Any
 
 import dotenv
 from requests import Response, Session
@@ -29,8 +30,8 @@ logger = logging.getLogger("newrelic_sb_sdk")
 
 def _get_variable_from_env(
     variable_name: str,
-    env_file_name: Union[str, None] = None,
-    caster: Union[Callable, None] = None,
+    env_file_name: str | None = None,
+    caster: Callable | None = None,
 ) -> Any:
     """Recover environment variable from environment or .env file."""
 
@@ -63,7 +64,7 @@ def _get_variable_from_env(
     return variable
 
 
-def get_new_relic_account_id_from_env(env_file_name: Union[str, None] = None) -> int:
+def get_new_relic_account_id_from_env(env_file_name: str | None = None) -> int:
     """Recovery new relic account id from environmentn variables."""
 
     return _get_variable_from_env(
@@ -73,7 +74,7 @@ def get_new_relic_account_id_from_env(env_file_name: Union[str, None] = None) ->
     )
 
 
-def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> str:
+def get_new_relic_user_key_from_env(env_file_name: str | None = None) -> str:
     """Recovery new relic credentials from environmentn variables."""
 
     return _get_variable_from_env(
@@ -82,7 +83,7 @@ def get_new_relic_user_key_from_env(env_file_name: Union[str, None] = None) -> s
     )
 
 
-class NewRelicGqlClient(Session):
+class NewRelicClient(Session):
     """Client for New Relic GraphQL API."""
 
     _url: str = "https://api.newrelic.com/graphql"
@@ -100,7 +101,7 @@ class NewRelicGqlClient(Session):
             }
         )
 
-        logger.debug("NewRelicGqlClient initialized with headers: %r", self.headers)
+        logger.debug("NewRelicClient initialized with headers: %r", self.headers)
 
         self._setup_schema()
 
@@ -114,9 +115,9 @@ class NewRelicGqlClient(Session):
 
     def execute(
         self,
-        query: Union[str, Operation],
+        query: str | Operation,
         *,
-        variables: Union[Dict[str, Any], None] = None,
+        variables: dict[str, Any] | None = None,
         **kwargs,
     ) -> Response:
         if isinstance(query, Operation):
@@ -129,15 +130,13 @@ class NewRelicGqlClient(Session):
             },
         )
 
-        logger.debug("NewRelicGqlClient executing with query: %r", query)
-        logger.debug("NewRelicGqlClient executing with variables: %r", variables)
+        logger.debug("NewRelicClient executing with query: %r", query)
+        logger.debug("NewRelicClient executing with variables: %r", variables)
 
         return self.post(self._url, data=data, **kwargs)
 
     @staticmethod
-    def build_query(
-        template: str, *, params: Union[Dict[str, Any], None] = None
-    ) -> str:
+    def build_query(template: str, *, params: dict[str, Any] | None = None) -> str:
         return build_query(template, params=params)
 
     @property
@@ -163,7 +162,7 @@ class NewRelicRestClient(Session):
         )
 
         warnings.warn(
-            "NewRelicRestClient is deprecated. Use NewRelicGqlClient instead."
+            "NewRelicRestClient is deprecated. Use NewRelicClient instead."
             " NewRelicRestClient will be removed in future versions.",
             DeprecationWarning,
             stacklevel=2,

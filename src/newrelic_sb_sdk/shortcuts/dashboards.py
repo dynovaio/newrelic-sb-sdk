@@ -2,7 +2,7 @@ __all__ = ["get_all_dashboards", "get_dashboard"]
 
 
 import re
-from typing import List, Union
+from typing import Union
 
 from sgqlc.operation import Operation
 from sgqlc.types import Arg, Variable, non_null
@@ -17,7 +17,7 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntitySearchQueryBuilderTag,
 )
 
-from ..client import NewRelicGqlClient
+from ..client import NewRelicClient
 from ..graphql.objects import DashboardEntity, DashboardEntityOutline
 from ..graphql.scalars import EntityGuid, String
 from ..utils.response import raise_response_errors
@@ -40,9 +40,9 @@ def _patch_datetime(datetimestr):
 
 def get_all_dashboards(
     *,
-    client: NewRelicGqlClient,
-    options: Union[EntitySearchOptions, None] = None,
-) -> List[DashboardEntityOutline]:
+    client: NewRelicClient,
+    options: EntitySearchOptions | None = None,
+) -> list[DashboardEntityOutline]:
     operation = Operation(
         client.schema.query_type,
         variables={
@@ -135,10 +135,9 @@ def get_all_dashboards(
 
 def get_dashboard(
     *,
-    client: NewRelicGqlClient,
+    client: NewRelicClient,
     guid: EntityGuid,
 ) -> DashboardEntity:
-
     operation = Operation(
         client.schema.query_type,
         variables={

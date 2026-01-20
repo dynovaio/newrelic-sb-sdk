@@ -1,4 +1,5 @@
 .*
+_*
 !.bandit
 !.coveragerc
 !.dockerignore
@@ -8,14 +9,15 @@
 !.gitignore
 !.gitlab-ci.yml
 !.isort.cfg
-!.mdlrc
-!.mdlrc.rb
+!.markdownlint.yml
 !.pre-commit-config.yaml
 !.pylintrc*
 !.python-version
 !.shellcheckrc
 !.tox.ini
 !.travis.yml
+!_static
+!_site
 .github/copilot-instructions.md
 notebooks/**/*.py
 notebooks/**/*.csv

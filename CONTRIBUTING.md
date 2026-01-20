@@ -1,58 +1,57 @@
 # How to contribute to this project
 
 > If you are interested in contributing to the development and maintenance of
-> this package, it is recommended that you use [poetry](https://poetry.eustace.io)
-> for dependency management and [pyenv](https://github.com/pyenv/pyenv) for
-> python version management.
+> this package, it is recommended that you use [uv](https://github.com/astral-sh/uv)
+> for dependency and python version management.
 
-## Environment
+## 🌍 Environment
 
 Clone the project
 
 ```bash
-git clone https://github.com/dynovaio/newrelic-sb-sdk.git
+git clone https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk.git
 cd newrelic-sb-sdk
 ```
 
-Install the rquited python versions
+Install the required python versions
 
 ```bash
-pyenv install $(cat .python-version)
+uv python install $(cat .python-version)
 ```
 
 Install the dependencies
 
 ```bash
-poetry env use $(head -n 1 .python-version)
-poetry install
+uv sync --all-groups
 ```
 
-## Testing and coverage
+## 🧪 Testing and coverage
 
-You can run the tests with poetry
+You can run the tests with uv
 
 ```bash
-poetry run pytest \
+uv run pytest \
     --cov newrelic_sb_sdk \
     --cov-report xml:cobertura.xml \
     --cov-report term  \
     --junitxml report.xml
-poetry run coverage report
+
+uv run coverage report
 ```
 
 In case you want to run the tests in all versions you can use [`tox`](https://tox.readthedocs.io/en/latest/)
 
-## Do you want to send a PR?
+## 🚀 Do you want to send a PR?
 
 Before making your first commit and submitting your pull request, run
 
 ```bash
-poetry run pre-commit install
+uv run pre-commit install
 ```
 
 Then do your commits on a regular basis.
 
-## Code of Conduct
+## 🤝 Code of Conduct
 
 > Please note that this project is published with a Code of Conduct for
 > collaborators. By participating in this project, you agree to abide by its

@@ -6,4 +6,4 @@ BASE_DIR="$( cd "$( dirname "$0" )" > /dev/null 2>&1 && pwd )"
 echo "SoftButterfly CI: Packaging for version ${CI_COMMIT_TAG}"
 
 echo "* Building package"
-poetry build
+uv build

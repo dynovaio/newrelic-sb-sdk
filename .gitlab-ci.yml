@@ -8,11 +8,11 @@ stages:
   - release
 
 before_script:
-  - ./devops/python/setup_poetry.sh
+  - ./devops/python/setup_uv.sh
 
 cache:
   paths:
-    - .cache/pypoetry
+    - .cache/uv
 
 # ---------------------------------------------------------------------------- #
 # Test                                                                         #
@@ -55,6 +55,7 @@ docs:bulild:py314:
   image: python:3.14
   script:
     - ./devops/python/setup_dependencies.sh
+    - ./devops/python/setup_docs_dependencies.sh
     - ./devops/python/build_docs_with_jupyterbook.sh
   artifacts:
     paths:

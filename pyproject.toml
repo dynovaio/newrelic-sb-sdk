@@ -1,33 +1,37 @@
-[tool.poetry]
+[project]
 name = "newrelic-sb-sdk"
-version = "0.43.0"
+version = "0.44.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
-  "SoftButterfly Development Team <dev@softbutterfly.io>",
-  "zodiacfireworks <martin.vuelta@gmail.com>"
+  { name = "Dynova Development Team", email = "dev@dynova.io" },
+  { name = "zodiacfireworks", email = "martin.vuelta@gmail.com" }
 ]
-license = "MIT License"
-readme = "README.md"
-homepage = "https://github.com/dynovaio/newrelic-sb-sdk"
-repository = "https://github.com/dynovaio/newrelic-sb-sdk"
-documentation = "https://dynovaio.github.io/newrelic-sb-sdk"
+maintainers = [
+  { name = "zodiacfireworks", email = "martin.vuelta@gmail.com" }
+]
+readme = { file = "README.md", content-type = "text/markdown" }
+license = "Apache-2.0"
+license-files = ["LICENSE.txt"]
 keywords = [
   "Softbutterfly",
   "New Relic",
   "SDK",
+  "Nerdgraph",
+  "NRQL",
+  "API",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Intended Audience :: System Administrators",
   "Intended Audience :: Information Technology",
-  "License :: OSI Approved :: MIT License",
+  "License :: OSI Approved :: Apache Software License",
   "Natural Language :: English",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Software Development",
   "Topic :: Software Development :: Libraries",
   "Topic :: Software Development :: Libraries :: Python Modules",
@@ -35,59 +39,68 @@ classifiers = [
   "Topic :: System :: Monitoring",
   "Topic :: System :: Networking :: Monitoring",
 ]
-packages = [
-    { include = "newrelic_sb_sdk", from = "src" },
+requires-python = ">=3.10.0,<4.0.0"
+dependencies = [
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "requests (>=2.32.5,<3.0.0)",
+    "sgqlc (>=17.1,<18.0.0)",
 ]
-include = [
+
+[project.urls]
+Homepage = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
+Repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
+Documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
+Issues = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
+Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.44.0/newrelic-sb-sdk-v0.44.0.zip"
+Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.44.0/CHANGELOG.md"
+
+[dependency-groups]
+dev = [
+    "coverage>=7.13.0",
+    "deepdiff[optimize]>=8.6.1",
+    "importnb>=2023.11.1",
+    "jupyter-book>=2.1.0",
+    "jupyterlab>=4.5.1",
+    "nbdev>=2.4.7",
+    "nbmake>=1.5.5",
+    "poethepoet>=0.38.0",
+    "pre-commit>=4.5.1",
+    "pygments-sb-nrql>=0.7.0",
+    "pytest>=9.0.2",
+    "pytest-cov>=7.0.0",
+    "pytest-vcr>=1.0.2",
+    "ruff>=0.14.10",
+    "tbump>=6.11.0",
+    "tox>=4.32.0",
+    "ty>=0.0.5",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "newrelic_sb_sdk"
+module-root = "src"
+source-include = [
   "LICENSE.txt",
+  "README.md",
   "CHANGELOG.md",
 ]
 
-[tool.poetry.urls]
-"Download" = "https://github.com/dynovaio/newrelic-sb-sdk/archive/refs/tags/v0.43.0.zip"
-"Bug Tracker" = "https://github.com/dynovaio/newrelic-sb-sdk/issues"
-
-[tool.poetry.dependencies]
-python = ">=3.10.0,<4.0.0"
-python-dotenv = "<2.0.0"
-requests = "<3.0.0"
-sgqlc = "<17.0.0"
-
-[tool.black]
-target_version = ['py314']
-include = '\.pyi?$'
-exclude = '''
-/(\.git/
-  |\.eggs
-  |\.hg
-  |__pycache__
-  |\.cache
-  |\.ipynb_checkpoints
-  |\.mypy_cache
-  |\.pytest_cache
-  |\.tox
-  |\.venv
-  |_build
-  |buck-out
-  |build
-  |dist
-  |legacy
-)/
-'''
-
 [tool.poe.tasks]
-"lint"            = "poetry run pre-commit run --all"
-"test"            = "poetry run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
-"schema:update"   = "poetry run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"lint"            = "uv run pre-commit run --all"
+"test"            = "uv run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
+"schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
 "schema:stage"    = "git add notebooks/GraphQL"
 "schema:commit"   = "git commit -m 'Update: generate GraphQL notebooks with new schema'"
-"package:update"  = "poetry run nbdev_export"
+"package:update"  = "uv run nbdev_export"
 "package:stage"   = "git add src"
 "package:commit"  = "git commit -m 'Update: refresh src module from notebooks'"
-"version:update"  = "poetry run tbump --no-push --no-tag"
-"freeze"          = "poetry export --without-hashes --format requirements.txt --output requirements.txt"
-"freeze:dev"      = "poetry export --without-hashes --format requirements.txt --output requirements.dev.txt --with=dev"
+"version:update"  = "uv run tbump --no-push --no-tag"
+"freeze"          = "uv export --format requirements.txt --no-group dev --no-hashes --no-annotate --no-header --output-file requirements.txt"
+"freeze:dev"      = "uv export --format requirements.txt --all-groups --no-hashes --no-annotate --no-header --output-file requirements.dev.txt"
 
 [tool.poe.tasks."schema:upgrade"]
 sequence = [
@@ -109,64 +122,80 @@ sequence = [
 ]
 ignore_fail = true
 
+[tool.poe.tasks."package:pre-release"]
+sequence = [
+  { cmd = "echo '🔄 Actualizando Schema y Paquete...'" },
+  { ref = "schema:upgrade" },
+  { ref = "package:upgrade" },
+  { cmd = "echo '🤖 Analizando cambios con Gemini...'" },
+  { cmd = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'" },
+  { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'" },
+]
+args = [{name = "version", positional = true}]
+
 [tool.poe.tasks."package:release"]
 sequence = [
   { cmd = "git flow release start ${version}"},
-  { cmd = "poetry run tbump --no-push --no-tag --non-interactive ${version}" },
+  { cmd = "uv run tbump --no-push --no-tag --non-interactive ${version}" },
   { cmd = "env GIT_EDITOR=: git flow release finish -m 'Release'"},
 ]
 args = [{name = "version", positional = true}]
 
-[tool.pytest.ini_options]
-testpaths = "tests"
-python_files = [
-  "**/test_*.py",
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "D",  # pydocstyle
+    "S",  # bandit
+    "UP", # pyupgrade
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
 ]
-filterwarnings = [
-  "ignore::DeprecationWarning",
-  "ignore::PendingDeprecationWarning"
-]
-addopts = [
-  "--cov=newrelic_sb_sdk",
-  "--cov-report=xml:cobertura.xml",
-  "--cov-report=term",
-  "--import-mode=importlib",
-  "--junitxml=report.xml",
-  "--nbmake",
+ignore = [
+    "E501", # line too long, handled by black
+    "E203", # space before :, handled by black
+    "E231", # missing whitespace after ','
+    "E722", # do not use bare 'except'
+    "F401", # imported but unused
+    "F811", # redefinition of unused
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public class
+    "D102", # Missing docstring in public method
+    "D103", # Missing docstring in public function
+    "D104", # Missing docstring in public package
+    "D105", # Missing docstring in magic method
+    "D106", # Missing docstring in public nested class
+    "D107", # Missing docstring in __init__
+    "D202", # No blank lines allowed after function docstring
+    "D203", # 1 blank line required before class docstring
+    "D213", # Multi-line docstring summary should start at the second line
+    "D407", # Missing dashed underline after section
+    "S101", # Use of assert detected (often used in tests)
 ]
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.ruff.lint.isort]
+known-first-party = ["newrelic_sb_sdk"]
+known-third-party = ["dotenv", "requests", "sgqlc"]
 
-[dependency-groups]
-dev = [
-    "autopep8 (>=2.3.2,<3.0.0)",
-    "bandit (>=1.9.2,<2.0.0)",
-    "black (>=25.12.0,<26.0.0)",
-    "coverage (>=7.13.0,<8.0.0)",
-    "deepdiff[optimize] (>=8.6.1,<9.0.0)",
-    "flake8 (>=7.3.0,<8.0.0)",
-    "flake8-black (>=0.4.0,<0.5.0)",
-    "importnb (>=2023.11.1,<2024.0.0)",
-    "isort (>=7.0.0,<8.0.0)",
-    "jupyter-book (>=2.1.0,<3.0.0)",
-    "jupyterlab (>=4.5.1,<5.0.0)",
-    "mypy (>=1.19.1,<2.0.0)",
-    "nbdev (>=2.4.7,<3.0.0)",
-    "nbmake (>=1.5.5,<2.0.0)",
-    "nbqa[toolchain] (>=1.9.1,<2.0.0)",
-    "poethepoet (>=0.38.0,<0.39.0)",
-    "pre-commit (>=4.5.1,<5.0.0)",
-    "pycodestyle (>=2.14.0,<3.0.0)",
-    "pydocstyle (>=6.3.0,<7.0.0)",
-    "pygments-sb-nrql (>=0.7.0,<0.8.0)",
-    "pylint (>=4.0.4,<5.0.0)",
-    "pytest (>=9.0.2,<10.0.0)",
-    "pytest-cov (>=7.0.0,<8.0.0)",
-    "pytest-vcr (>=1.0.2,<2.0.0)",
-    "ruff (>=0.14.10,<0.15.0)",
-    "tbump (>=6.11.0,<7.0.0)",
-    "tox (>=4.32.0,<5.0.0)",
-    "types-requests (>=2.32.4.20250913,<3.0.0.0)"
-]
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ty.rules]
+non-subscriptable = "ignore"
+invalid-return-type = "ignore"
+unresolved-import = "ignore"
+possibly-missing-attribute = "ignore"
+invalid-argument-type = "ignore"

@@ -38,13 +38,18 @@ __all__ = [
     "AiNotificationsDestinationFields",
     "AiNotificationsDestinationStatus",
     "AiNotificationsDestinationType",
+    "AiNotificationsEmailVerificationStatus",
+    "AiNotificationsEntityScopeType",
+    "AiNotificationsEntityScopeTypeInput",
     "AiNotificationsErrorType",
+    "AiNotificationsExtendedScopeService",
     "AiNotificationsProduct",
     "AiNotificationsResult",
     "AiNotificationsSortOrder",
     "AiNotificationsSuggestionFilterType",
     "AiNotificationsUiComponentType",
     "AiNotificationsUiComponentValidation",
+    "AiNotificationsUnverifiedEmailsFields",
     "AiNotificationsVariableCategory",
     "AiNotificationsVariableFields",
     "AiNotificationsVariableType",
@@ -68,6 +73,9 @@ __all__ = [
     "AiWorkflowsUpdateErrorType",
     "AlertsActionOnMutingRuleWindowEnded",
     "AlertsAsNrqlSourceProduct",
+    "AlertsCompoundConditionFacetMatchingBehavior",
+    "AlertsCompoundConditionSortDirection",
+    "AlertsCompoundConditionSortKey",
     "AlertsDayOfWeek",
     "AlertsFillOption",
     "AlertsIncidentPreference",
@@ -105,6 +113,7 @@ __all__ = [
     "ChangeTrackingValidationFlag",
     "ChartFormatType",
     "ChartImageType",
+    "CloudCostIntelligenceIntegrationFilterOperator",
     "CloudMetricCollectionMode",
     "CollaborationExternalApplicationType",
     "CollaborationStatus",
@@ -170,6 +179,10 @@ __all__ = [
     "EntityManagementCommunicationMode",
     "EntityManagementCommunicationStatus",
     "EntityManagementConsumptionMetric",
+    "EntityManagementCorrelationAttributeConditionOperator",
+    "EntityManagementCorrelationMatchingAlgorithm",
+    "EntityManagementCorrelationOverrideAction",
+    "EntityManagementCorrelationSubjectType",
     "EntityManagementDateOperator",
     "EntityManagementDirection",
     "EntityManagementEncodingName",
@@ -183,7 +196,9 @@ __all__ = [
     "EntityManagementExternalOwnerType",
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
+    "EntityManagementIncidentSource",
     "EntityManagementIncidentStatus",
+    "EntityManagementIncidentTimelineSource",
     "EntityManagementInstallationSource",
     "EntityManagementInstallationStatus",
     "EntityManagementIssueType",
@@ -195,8 +210,9 @@ __all__ = [
     "EntityManagementMcpAuthType",
     "EntityManagementMcpTransport",
     "EntityManagementMessageType",
-    "EntityManagementNrqlMacroClause",
+    "EntityManagementMetricPrefixType",
     "EntityManagementNumericOperator",
+    "EntityManagementOperatingSystemType",
     "EntityManagementOverlapPolicy",
     "EntityManagementPriority",
     "EntityManagementProcessStatus",
@@ -208,10 +224,13 @@ __all__ = [
     "EntityManagementStatusPageAnnouncementState",
     "EntityManagementStringOperator",
     "EntityManagementSyncConfigurationMode",
+    "EntityManagementSyncDirection",
     "EntityManagementSyncGroupRuleConditionType",
     "EntityManagementTeamExternalIntegrationType",
     "EntityManagementTextSplitterType",
     "EntityManagementThresholdScope",
+    "EntityManagementWorkItemCategory",
+    "EntityManagementWorkItemPriority",
     "EntityRelationshipEdgeDirection",
     "EntityRelationshipEdgeType",
     "EntityRelationshipType",
@@ -234,6 +253,7 @@ __all__ = [
     "FleetControlEntityScope",
     "FleetControlFleetDeploymentPhase",
     "FleetControlManagedEntityType",
+    "FleetControlOperatingSystemType",
     "HistoricalDataExportStatus",
     "IncidentIntelligenceEnvironmentConsentAccountsResult",
     "IncidentIntelligenceEnvironmentCreateEnvironmentResult",
@@ -350,6 +370,7 @@ __all__ = [
     "SyntheticsPrivateLocationMutationErrorType",
     "SyntheticsStepType",
     "SystemIdentityIdentitySortFieldKey",
+    "SystemIdentityIdentityType",
     "SystemIdentitySortOrder",
     "TaggingMutationErrorType",
     "UserManagementGroupSortKey",
@@ -648,6 +669,7 @@ class AiNotificationsDestinationFields(sgqlc.types.Enum):
         "DEFAULT",
         "LAST_SENT",
         "NAME",
+        "SCOPE",
         "STATUS",
         "TYPE",
         "UPDATED_AT",
@@ -693,6 +715,21 @@ class AiNotificationsDestinationType(sgqlc.types.Enum):
     )
 
 
+class AiNotificationsEmailVerificationStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EXPIRED", "LINK_SENT")
+
+
+class AiNotificationsEntityScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
+class AiNotificationsEntityScopeTypeInput(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
+
+
 class AiNotificationsErrorType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
@@ -719,6 +756,11 @@ class AiNotificationsErrorType(sgqlc.types.Enum):
     )
 
 
+class AiNotificationsExtendedScopeService(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("IM", "SRE")
+
+
 class AiNotificationsProduct(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
@@ -730,10 +772,12 @@ class AiNotificationsProduct(sgqlc.types.Enum):
         "DISCUSSIONS",
         "ERROR_TRACKING",
         "IINT",
+        "LOGGING_UI",
         "NTFC",
         "PD",
         "SECURITY",
         "SHARING",
+        "WORKFLOW_AUTOMATION",
     )
 
 
@@ -767,6 +811,11 @@ class AiNotificationsUiComponentType(sgqlc.types.Enum):
 class AiNotificationsUiComponentValidation(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("DATE", "DATETIME", "EMAIL", "JSON", "NONE", "NUMBER", "URL")
+
+
+class AiNotificationsUnverifiedEmailsFields(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EMAIL", "STATUS", "UPDATED_AT")
 
 
 class AiNotificationsVariableCategory(sgqlc.types.Enum):
@@ -1008,6 +1057,21 @@ class AlertsAsNrqlSourceProduct(sgqlc.types.Enum):
         "SERVERS",
         "SYNTHETICS",
     )
+
+
+class AlertsCompoundConditionFacetMatchingBehavior(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("FACETS_IGNORED", "FACETS_MATCH")
+
+
+class AlertsCompoundConditionSortDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ASCENDING", "DESCENDING")
+
+
+class AlertsCompoundConditionSortKey(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ENABLED", "ID", "NAME")
 
 
 class AlertsDayOfWeek(sgqlc.types.Enum):
@@ -1324,6 +1388,11 @@ class ChartImageType(sgqlc.types.Enum):
         "TABLE",
         "VERTICAL_BAR",
     )
+
+
+class CloudCostIntelligenceIntegrationFilterOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ()
 
 
 class CloudMetricCollectionMode(sgqlc.types.Enum):
@@ -1935,6 +2004,31 @@ class EntityManagementConsumptionMetric(sgqlc.types.Enum):
     __choices__ = ("ADVANCED_CCU", "CCU", "CORE_CCU", "GIGABYTES_INGESTED")
 
 
+class EntityManagementCorrelationAttributeConditionOperator(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CONTAINS", "EQUALS", "REGEX", "STARTS_WITH")
+
+
+class EntityManagementCorrelationMatchingAlgorithm(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "ATTRIBUTE_SIMILARITY",
+        "BERT_EMBEDDING",
+        "HISTORICAL_PATTERNS",
+        "IRCA",
+    )
+
+
+class EntityManagementCorrelationOverrideAction(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CONFIRMED", "UNLINKED")
+
+
+class EntityManagementCorrelationSubjectType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ENTITY", "EVENT")
+
+
 class EntityManagementDateOperator(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("AFTER", "BEFORE", "IN_RANGE")
@@ -2008,9 +2102,19 @@ class EntityManagementHostingPlatform(sgqlc.types.Enum):
     __choices__ = ("BITBUCKET", "DEVLAKE", "GITHUB", "GITLAB", "OTHER")
 
 
+class EntityManagementIncidentSource(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("MANUAL", "NEW_RELIC_AGENT", "NEW_RELIC_SLACK", "NEW_RELIC_UI")
+
+
 class EntityManagementIncidentStatus(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CLOSED", "ONGOING")
+
+
+class EntityManagementIncidentTimelineSource(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("MANUAL", "NEW_RELIC_AGENT", "NEW_RELIC_SLACK", "NEW_RELIC_UI")
 
 
 class EntityManagementInstallationSource(sgqlc.types.Enum):
@@ -2068,17 +2172,32 @@ class EntityManagementLicenseName(sgqlc.types.Enum):
 
 class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("HOST", "KUBERNETESCLUSTER")
+    __choices__ = ("APPLICATION", "HOST", "KUBERNETESCLUSTER")
 
 
 class EntityManagementManagedEvaluationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("JAILBREAK", "PROMPT_INJECTION")
+    __choices__ = (
+        "AGENT_PLAN_VALIDATION",
+        "AGENT_TOOL_VALIDATION",
+        "ANSWER_RELEVANCY",
+        "BIAS",
+        "CONTEXTUAL_PRECISION",
+        "CONTEXTUAL_RECALL",
+        "CONTEXTUAL_RELEVANCY",
+        "FAITHFULNESS",
+        "JAILBREAK",
+        "PII_LEAKAGE",
+        "PROMPT_INJECTION",
+        "ROLE_VIOLATION",
+        "TOPIC_CONTROL",
+        "TOXICITY",
+    )
 
 
 class EntityManagementMcpAuthType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("BEARER_TOKEN", "GENERIC_HEADER", "NONE")
+    __choices__ = ("BEARER_TOKEN", "GENERIC_HEADER", "NONE", "OAUTH")
 
 
 class EntityManagementMcpTransport(sgqlc.types.Enum):
@@ -2091,14 +2210,19 @@ class EntityManagementMessageType(sgqlc.types.Enum):
     __choices__ = ("JSON", "TEXT", "YAML")
 
 
-class EntityManagementNrqlMacroClause(sgqlc.types.Enum):
+class EntityManagementMetricPrefixType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ATTRIBUTE_LIKE", "FACET", "IN", "LIKE", "SELECT", "WHERE", "WITH")
+    __choices__ = ("EXTERNAL_TRANSACTION",)
 
 
 class EntityManagementNumericOperator(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("EQ", "GE", "GT", "LE", "LT")
+
+
+class EntityManagementOperatingSystemType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("LINUX", "WINDOWS")
 
 
 class EntityManagementOverlapPolicy(sgqlc.types.Enum):
@@ -2156,6 +2280,11 @@ class EntityManagementSyncConfigurationMode(sgqlc.types.Enum):
     __choices__ = ("ALL", "MESSAGES", "WORKITEM")
 
 
+class EntityManagementSyncDirection(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INBOUND", "OUTBOUND")
+
+
 class EntityManagementSyncGroupRuleConditionType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CONTAINS", "ENDS_WITH", "STARTS_WITH")
@@ -2178,6 +2307,16 @@ class EntityManagementTextSplitterType(sgqlc.types.Enum):
 class EntityManagementThresholdScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT", "DEFAULT", "ENTITY")
+
+
+class EntityManagementWorkItemCategory(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("INCIDENT", "ISSUE", "PERFORMANCE", "VULNERABILITY")
+
+
+class EntityManagementWorkItemPriority(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("HIGH", "HIGHEST", "LOW", "LOWEST", "MEDIUM")
 
 
 class EntityRelationshipEdgeDirection(sgqlc.types.Enum):
@@ -2363,7 +2502,12 @@ class FleetControlFleetDeploymentPhase(sgqlc.types.Enum):
 
 class FleetControlManagedEntityType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("HOST", "KUBERNETESCLUSTER")
+    __choices__ = ("APPLICATION", "HOST", "KUBERNETESCLUSTER")
+
+
+class FleetControlOperatingSystemType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("LINUX", "WINDOWS")
 
 
 class HistoricalDataExportStatus(sgqlc.types.Enum):
@@ -2475,7 +2619,7 @@ class KnowledgeSearchSortOption(sgqlc.types.Enum):
 
 class KnowledgeSearchSources(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ALL", "ARTICLES", "DOCS", "FORUM")
+    __choices__ = ("ALL", "ARTICLES", "BESTANSWERS", "DOCS", "FORUM")
 
 
 class LogConfigurationsCreateDataPartitionRuleErrorType(sgqlc.types.Enum):
@@ -3146,6 +3290,11 @@ class SyntheticsStepType(sgqlc.types.Enum):
 class SystemIdentityIdentitySortFieldKey(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CLIENT_ID", "ID", "NAME")
+
+
+class SystemIdentityIdentityType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("NR_OWNED", "STANDARD")
 
 
 class SystemIdentitySortOrder(sgqlc.types.Enum):

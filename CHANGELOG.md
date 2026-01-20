@@ -2,17 +2,78 @@
 
 ## [Unreleased]
 
+## [0.44.0] - 2026-01-20
+
+### 💥 Breaking Changes
+
+* Rename `NewRelicGqlClient` to `NewRelicClient`.
+
+### 🎉 New Features
+
+* Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
+* Add new enums: `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`,
+  `MachineLearningEncodingName`, `MachineLearningFilterByKeys`,
+  `MachineLearningOperator`, `MachineLearningTextSplitterType`.
+* Add new input objects: `AgentApplicationSettingsMobileSessionReplayInput`,
+  `MachineLearningAddDocumentIndexConfiguration`,
+  `MachineLearningCharacterTextSplitterOptionsInput`,
+  `MachineLearningFilterBy`,
+  `MachineLearningMarkdownTextSplitterOptionsInput`,
+  `MachineLearningTokenTextSplitterOptionsInput`.
+* Add new objects: `AgentApplicationSettingsMobileSessionReplay`,
+  `AiWorkflowsBatchCreateMigratedWorkflowsResponseError`,
+  `AiWorkflowsBatchDeleteMigratedWorkflowsResponseError`,
+  `AiWorkflowsFetchWorkflowsByIssuesFilterResponseError`,
+  `MachineLearningAccountStitchedFields`,
+  `MachineLearningActorStitchedFields`,
+  `MachineLearningExperiment`, `MachineLearningExperimentConnection`,
+  `MachineLearningFileDataSource`, `MachineLearningFileDataSourceConnection`,
+  `MachineLearningModel`, `MachineLearningModelConnection`,
+  `MachineLearningProject`, `MachineLearningProjectConnection`,
+  `MachineLearningRagQueryDataResponse`, `MachineLearningStreamDataSource`,
+  `MachineLearningStreamDataSourceConnection`, `MachineLearningTag`,
+  `MachineLearningTagConnection`, `MachineLearningTransactionResponse`.
+* Update existing types:
+  * `Account`: Added field `machine_learning`.
+  * `Actor`: Added field `machine_learning`.
+  * `AgentApplicationSettingsMobileBase`: Added field
+    `mobile_session_replay`.
+  * `AgentApplicationSettingsMobileSettingsInput`: Added field
+    `mobile_session_replay`.
+  * `AiWorkflowsDestinationType`: Added choice `WORKFLOW_AUTOMATION`.
+* Add mutations to `RootMutationType`: `machine_learning_add_document_index`,
+  `machine_learning_add_file_data_source`,
+  `machine_learning_add_stream_data_source`,
+  `machine_learning_create_file_data_source`,
+  `machine_learning_create_project`,
+  `machine_learning_create_stream_data_source`,
+  `machine_learning_delete_file_data_source`,
+  `machine_learning_delete_project`,
+  `machine_learning_delete_stream_data_source`,
+  `machine_learning_halt_stream_data_source`,
+  `machine_learning_remove_document_index`,
+  `machine_learning_remove_file_data_source`,
+  `machine_learning_remove_stream_data_source`,
+  `machine_learning_start_stream_data_source`,
+  `machine_learning_update_file_data_source`,
+  `machine_learning_update_project`,
+  `machine_learning_update_stream_data_source`.
+
+### 📝 Documentation
+
+* Migrate documentation to Jupyter Book v2.
+
 ## [0.43.0] - 2025-12-21
 
 * Add new scalar: `AgentApplicationSettingsCustomJsConfiguration`.
-
 * Add new enums:
   `AiWorkflowsBatchCreateMigratedWorkflowsErrorType`,
   `AiWorkflowsBatchDeleteMigratedWorkflowsErrorType`,
   `AiWorkflowsFetchWorkflowsByIssuesFilterErrorType`,
   `MachineLearningEncodingName`, `MachineLearningFilterByKeys`,
   `MachineLearningOperator`, `MachineLearningTextSplitterType`.
-
 * Add new input objects:
   `AgentApplicationSettingsMobileSessionReplayInput`,
   `MachineLearningAddDocumentIndexConfiguration`,
@@ -20,7 +81,6 @@
   `MachineLearningFilterBy`,
   `MachineLearningMarkdownTextSplitterOptionsInput`,
   `MachineLearningTokenTextSplitterOptionsInput`.
-
 * Add new objects:
   `AgentApplicationSettingsMobileSessionReplay`,
   `AiWorkflowsBatchCreateMigratedWorkflowsResponseError`,
@@ -41,7 +101,6 @@
   `MetricNormalizationRuleMutationError`,
   `MetricNormalizationRuleMutationResponse`,
   `MobileAppSummaryData`.
-
 * Update existing types:
   * `RootMutationType`:
     * Remove: `collaboration_deactivate_code_mark`,
@@ -61,26 +120,22 @@
         `reference_url`, `shared_to_type`, `slack_channel_id`.
       * Remove arguments: `context_id`, `context_metadata`,
         `external_application_type`, `visibility`.
-
 * Add Collaboration mutations to `RootMutationType`:
   `collaboration_set_external_service_connection_channel`,
   `collaboration_socket_subscribe`, `collaboration_subscribe_to_thread`,
   `collaboration_unsubscribe_from_thread`, `collaboration_update_comment`,
   `collaboration_update_context_add_comment`,
   `collaboration_update_context_add_thread`.
-
 * Add Entity Management mutations to `RootMutationType`:
   `entity_management_create_team`, `entity_management_delete`,
   `entity_management_delete_relationship`,
   `entity_management_remove_collection_members`, `entity_management_update`,
   `entity_management_update_ai_agent`, `entity_management_update_ai_tool`,
   `entity_management_update_collection`.
-
 * Add Machine Learning mutations to `RootMutationType`:
   `machine_learning_update_file_data_source`,
   `machine_learning_update_project`,
   `machine_learning_update_stream_data_source`.
-
 * Add Metric Normalization mutations to `RootMutationType`:
   `metric_normalization_create_rule`, `metric_normalization_disable_rule`,
   `metric_normalization_edit_rule`.
