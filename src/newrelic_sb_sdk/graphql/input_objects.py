@@ -172,6 +172,8 @@ __all__ = [
     "AlertsNrqlDynamicConditionTermsInput",
     "AlertsOpsGenieNotificationChannelCreateInput",
     "AlertsOpsGenieNotificationChannelUpdateInput",
+    "AlertsOutlierAlgorithmDbScanConfigurationInput",
+    "AlertsOutlierConfigurationInput",
     "AlertsPagerDutyNotificationChannelCreateInput",
     "AlertsPagerDutyNotificationChannelUpdateInput",
     "AlertsPoliciesSearchCriteriaInput",
@@ -231,6 +233,10 @@ __all__ = [
     "CloudAwsDirectconnectIntegrationInput",
     "CloudAwsDisableIntegrationsInput",
     "CloudAwsDocdbIntegrationInput",
+    "CloudAwsEuSovereignDisableIntegrationsInput",
+    "CloudAwsEuSovereignIntegrationsInput",
+    "CloudAwsEuSovereignLinkAccountInput",
+    "CloudAwsEuSovereignUpdateAccountInput",
     "CloudAwsFsxIntegrationInput",
     "CloudAwsGlueIntegrationInput",
     "CloudAwsGovCloudLinkAccountInput",
@@ -243,9 +249,11 @@ __all__ = [
     "CloudAwsLinkAccountInput",
     "CloudAwsMediaconvertIntegrationInput",
     "CloudAwsMediapackagevodIntegrationInput",
+    "CloudAwsMetadataEuSovereignIntegrationInput",
     "CloudAwsMetadataGovIntegrationInput",
     "CloudAwsMetadataIntegrationInput",
     "CloudAwsMqIntegrationInput",
+    "CloudAwsMsElasticacheEuSovereignIntegrationInput",
     "CloudAwsMsElasticacheGovIntegrationInput",
     "CloudAwsMsElasticacheIntegrationInput",
     "CloudAwsMskIntegrationInput",
@@ -253,6 +261,7 @@ __all__ = [
     "CloudAwsQldbIntegrationInput",
     "CloudAwsRoute53resolverIntegrationInput",
     "CloudAwsStatesIntegrationInput",
+    "CloudAwsTagsGlobalEuSovereignIntegrationInput",
     "CloudAwsTagsGlobalGovIntegrationInput",
     "CloudAwsTagsGlobalIntegrationInput",
     "CloudAwsTransitgatewayIntegrationInput",
@@ -465,8 +474,6 @@ __all__ = [
     "EntityManagementAiToolEntityUpdateInput",
     "EntityManagementAiToolParameterCreateInput",
     "EntityManagementAiToolParameterUpdateInput",
-    "EntityManagementAttributeCreateInput",
-    "EntityManagementAttributeUpdateInput",
     "EntityManagementCategoryScopeCreateInput",
     "EntityManagementCategoryScopeUpdateInput",
     "EntityManagementCharacterTextSplitterOptionsCreateInput",
@@ -475,8 +482,6 @@ __all__ = [
     "EntityManagementCollectionEntityCreateInput",
     "EntityManagementCollectionEntityUpdateInput",
     "EntityManagementCollectionIdFilterArgument",
-    "EntityManagementConfigCreateInput",
-    "EntityManagementConfigUpdateInput",
     "EntityManagementConfluenceIntegrationCreateInput",
     "EntityManagementConfluenceIntegrationUpdateInput",
     "EntityManagementConfluenceRagSettingsEntityCreateInput",
@@ -488,6 +493,8 @@ __all__ = [
     "EntityManagementGenericEntityUpdateInput",
     "EntityManagementGitRepositoryEntityCreateInput",
     "EntityManagementGitRepositoryEntityUpdateInput",
+    "EntityManagementImpactProfileEntityCreateInput",
+    "EntityManagementImpactProfileEntityUpdateInput",
     "EntityManagementInboxIssueCategoryEntityCreateInput",
     "EntityManagementInboxIssueCategoryEntityUpdateInput",
     "EntityManagementIncidentLinkEntityCreateInput",
@@ -504,10 +511,10 @@ __all__ = [
     "EntityManagementMcpServerEntityUpdateInput",
     "EntityManagementNrqlRuleEngineCreateInput",
     "EntityManagementNrqlRuleEngineUpdateInput",
-    "EntityManagementPerformanceInboxSettingEntityCreateInput",
-    "EntityManagementPerformanceInboxSettingEntityUpdateInput",
     "EntityManagementPipelineCloudRuleEntityCreateInput",
     "EntityManagementPipelineCloudRuleEntityUpdateInput",
+    "EntityManagementProgressLevelDefinitionCreateInput",
+    "EntityManagementProgressLevelDefinitionUpdateInput",
     "EntityManagementRagToolEntityCreateInput",
     "EntityManagementRagToolEntityUpdateInput",
     "EntityManagementRelationshipCreateInput",
@@ -533,6 +540,8 @@ __all__ = [
     "EntityManagementTeamExternalIntegrationUpdateInput",
     "EntityManagementTeamResourceCreateInput",
     "EntityManagementTeamResourceUpdateInput",
+    "EntityManagementTeamsHierarchyLevelEntityCreateInput",
+    "EntityManagementTeamsHierarchyLevelEntityUpdateInput",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateInput",
     "EntityManagementTokenTextSplitterOptionsCreateInput",
     "EntityManagementTokenTextSplitterOptionsUpdateInput",
@@ -553,6 +562,7 @@ __all__ = [
     "EventsToMetricsCreateRuleInput",
     "EventsToMetricsDeleteRuleInput",
     "EventsToMetricsUpdateRuleInput",
+    "FleetControlAgentInput",
     "FleetControlConfigurationVersionListInput",
     "FleetControlFleetDeploymentCreateInput",
     "FleetControlFleetDeploymentPolicyInput",
@@ -568,6 +578,11 @@ __all__ = [
     "InstallationInstallStatusInput",
     "InstallationRecipeStatus",
     "InstallationStatusErrorInput",
+    "IntegrationServicesCapabilitySettingsInput",
+    "IntegrationServicesCapabilitySettingsUpdateInput",
+    "IntegrationServicesInstallationInput",
+    "IntegrationServicesTagInput",
+    "IntegrationServicesUpdateInput",
     "LogConfigurationsCreateDataPartitionRuleInput",
     "LogConfigurationsCreateObfuscationActionInput",
     "LogConfigurationsCreateObfuscationExpressionInput",
@@ -797,6 +812,19 @@ __all__ = [
     "UsersUserSearchQuery",
     "UsersUserSearchScope",
     "WhatsNewContentSearchQuery",
+    "WorkflowAutomationCreateScheduleDefinitionInput",
+    "WorkflowAutomationCreateWorkflowDefinitionInput",
+    "WorkflowAutomationDeleteScheduleInput",
+    "WorkflowAutomationDeleteWorkflowDefinitionInput",
+    "WorkflowAutomationScopeInput",
+    "WorkflowAutomationSignalInput",
+    "WorkflowAutomationStartWorkflowRunDefinitionInput",
+    "WorkflowAutomationTag",
+    "WorkflowAutomationUpdateWorkflowDefinitionInput",
+    "WorkflowAutomationWorkflowDefinitionValidationInput",
+    "WorkflowAutomationWorkflowRunInput",
+    "WorkflowAutomationWorkflowRunOptions",
+    "WorkflowAutomationWorkflowRunScope",
     "WorkloadAutomaticStatusInput",
     "WorkloadCreateInput",
     "WorkloadDuplicateInput",
@@ -923,7 +951,6 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementSyncGroupRuleConditionType,
     EntityManagementTeamExternalIntegrationType,
     EntityManagementTextSplitterType,
-    EntityManagementThresholdScope,
     EntityRelationshipEdgeDirection,
     EntityRelationshipEdgeType,
     EntitySearchQueryBuilderDomain,
@@ -1004,6 +1031,9 @@ from newrelic_sb_sdk.graphql.enums import (
     UserManagementSortDirection,
     UserManagementTypeEnum,
     WhatsNewContentType,
+    WorkflowAutomationScopeType,
+    WorkflowAutomationWorkflowLogLevel,
+    WorkflowAutomationWorkflowRunScopeType,
     WorkloadGroupRemainingEntitiesRuleBy,
     WorkloadRollupStrategy,
     WorkloadRuleThresholdType,
@@ -1034,6 +1064,7 @@ from newrelic_sb_sdk.graphql.scalars import (
     SecureValue,
     SemVer,
     String,
+    WorkflowAutomationRawWorkflowInputValue,
 )
 
 from . import nerdgraph
@@ -4095,6 +4126,7 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
         "expiration",
         "name",
         "nrql",
+        "outlier_configuration",
         "runbook_url",
         "signal",
         "target_entity",
@@ -4115,6 +4147,10 @@ class AlertsNrqlConditionOutlierInput(sgqlc.types.Input):
 
     nrql = sgqlc.types.Field(
         sgqlc.types.non_null("AlertsNrqlConditionQueryInput"), graphql_name="nrql"
+    )
+
+    outlier_configuration = sgqlc.types.Field(
+        "AlertsOutlierConfigurationInput", graphql_name="outlierConfiguration"
     )
 
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
@@ -4363,6 +4399,7 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
         "expiration",
         "name",
         "nrql",
+        "outlier_configuration",
         "runbook_url",
         "signal",
         "target_entity",
@@ -4382,6 +4419,10 @@ class AlertsNrqlConditionUpdateOutlierInput(sgqlc.types.Input):
     name = sgqlc.types.Field(String, graphql_name="name")
 
     nrql = sgqlc.types.Field("AlertsNrqlConditionUpdateQueryInput", graphql_name="nrql")
+
+    outlier_configuration = sgqlc.types.Field(
+        "AlertsOutlierConfigurationInput", graphql_name="outlierConfiguration"
+    )
 
     runbook_url = sgqlc.types.Field(String, graphql_name="runbookUrl")
 
@@ -4594,6 +4635,26 @@ class AlertsOpsGenieNotificationChannelUpdateInput(sgqlc.types.Input):
 
     teams = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="teams"
+    )
+
+
+class AlertsOutlierAlgorithmDbScanConfigurationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("epsilon", "evaluation_group_facet", "minimum_points")
+    epsilon = sgqlc.types.Field(Float, graphql_name="epsilon")
+
+    evaluation_group_facet = sgqlc.types.Field(
+        String, graphql_name="evaluationGroupFacet"
+    )
+
+    minimum_points = sgqlc.types.Field(Int, graphql_name="minimumPoints")
+
+
+class AlertsOutlierConfigurationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("dbscan",)
+    dbscan = sgqlc.types.Field(
+        AlertsOutlierAlgorithmDbScanConfigurationInput, graphql_name="dbscan"
     )
 
 
@@ -5865,6 +5926,112 @@ class CloudAwsDocdbIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudAwsEuSovereignDisableIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "aws_metadata_eu_sovereign",
+        "aws_ms_elasticache_eu_sovereign",
+        "aws_tags_global_eu_sovereign",
+        "aws_xray",
+        "billing",
+        "cloudtrail",
+    )
+    aws_metadata_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="awsMetadataEuSovereign",
+    )
+
+    aws_ms_elasticache_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="awsMsElasticacheEuSovereign",
+    )
+
+    aws_tags_global_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="awsTagsGlobalEuSovereign",
+    )
+
+    aws_xray = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="awsXray",
+    )
+
+    billing = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="billing",
+    )
+
+    cloudtrail = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="cloudtrail",
+    )
+
+
+class CloudAwsEuSovereignIntegrationsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "aws_metadata_eu_sovereign",
+        "aws_ms_elasticache_eu_sovereign",
+        "aws_tags_global_eu_sovereign",
+        "aws_xray",
+        "billing",
+        "cloudtrail",
+    )
+    aws_metadata_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudAwsMetadataEuSovereignIntegrationInput"),
+        graphql_name="awsMetadataEuSovereign",
+    )
+
+    aws_ms_elasticache_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudAwsMsElasticacheEuSovereignIntegrationInput"),
+        graphql_name="awsMsElasticacheEuSovereign",
+    )
+
+    aws_tags_global_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudAwsTagsGlobalEuSovereignIntegrationInput"),
+        graphql_name="awsTagsGlobalEuSovereign",
+    )
+
+    aws_xray = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudAwsXrayIntegrationInput"), graphql_name="awsXray"
+    )
+
+    billing = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudBillingIntegrationInput"), graphql_name="billing"
+    )
+
+    cloudtrail = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudCloudtrailIntegrationInput"),
+        graphql_name="cloudtrail",
+    )
+
+
+class CloudAwsEuSovereignLinkAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("arn", "metric_collection_mode", "name")
+    arn = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="arn")
+
+    metric_collection_mode = sgqlc.types.Field(
+        CloudMetricCollectionMode, graphql_name="metricCollectionMode"
+    )
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class CloudAwsEuSovereignUpdateAccountInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("arn", "disabled", "linked_account_id", "name")
+    arn = sgqlc.types.Field(String, graphql_name="arn")
+
+    disabled = sgqlc.types.Field(Boolean, graphql_name="disabled")
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+
 class CloudAwsFsxIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -6635,6 +6802,26 @@ class CloudAwsMediapackagevodIntegrationInput(sgqlc.types.Input):
     )
 
 
+class CloudAwsMetadataEuSovereignIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
 class CloudAwsMetadataGovIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -6687,6 +6874,26 @@ class CloudAwsMqIntegrationInput(sgqlc.types.Input):
         sgqlc.types.list_of(String), graphql_name="awsRegions"
     )
 
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudAwsMsElasticacheEuSovereignIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
     inventory_polling_interval = sgqlc.types.Field(
         Int, graphql_name="inventoryPollingInterval"
     )
@@ -6852,6 +7059,26 @@ class CloudAwsStatesIntegrationInput(sgqlc.types.Input):
         sgqlc.types.list_of(String), graphql_name="awsRegions"
     )
 
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudAwsTagsGlobalEuSovereignIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
     inventory_polling_interval = sgqlc.types.Field(
         Int, graphql_name="inventoryPollingInterval"
     )
@@ -8723,6 +8950,7 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "aws",
+        "aws_eu_sovereign",
         "aws_govcloud",
         "azure",
         "cci_aws",
@@ -8732,6 +8960,10 @@ class CloudDisableIntegrationsInput(sgqlc.types.Input):
         "oci",
     )
     aws = sgqlc.types.Field(CloudAwsDisableIntegrationsInput, graphql_name="aws")
+
+    aws_eu_sovereign = sgqlc.types.Field(
+        CloudAwsEuSovereignDisableIntegrationsInput, graphql_name="awsEuSovereign"
+    )
 
     aws_govcloud = sgqlc.types.Field(
         CloudAwsGovcloudDisableIntegrationsInput, graphql_name="awsGovcloud"
@@ -10137,6 +10369,7 @@ class CloudIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "aws",
+        "aws_eu_sovereign",
         "aws_govcloud",
         "azure",
         "cci_aws",
@@ -10146,6 +10379,10 @@ class CloudIntegrationsInput(sgqlc.types.Input):
         "oci",
     )
     aws = sgqlc.types.Field(CloudAwsIntegrationsInput, graphql_name="aws")
+
+    aws_eu_sovereign = sgqlc.types.Field(
+        CloudAwsEuSovereignIntegrationsInput, graphql_name="awsEuSovereign"
+    )
 
     aws_govcloud = sgqlc.types.Field(
         CloudAwsGovcloudIntegrationsInput, graphql_name="awsGovcloud"
@@ -10291,6 +10528,7 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "aws",
+        "aws_eu_sovereign",
         "aws_govcloud",
         "azure",
         "cci_aws",
@@ -10302,6 +10540,11 @@ class CloudLinkCloudAccountsInput(sgqlc.types.Input):
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsLinkAccountInput)),
         graphql_name="aws",
+    )
+
+    aws_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsEuSovereignLinkAccountInput)),
+        graphql_name="awsEuSovereign",
     )
 
     aws_govcloud = sgqlc.types.Field(
@@ -10837,6 +11080,7 @@ class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "aws",
+        "aws_eu_sovereign",
         "aws_govcloud",
         "azure",
         "confluent",
@@ -10847,6 +11091,13 @@ class CloudUpdateCloudAccountsInput(sgqlc.types.Input):
     aws = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(CloudAwsUpdateAccountInput)),
         graphql_name="aws",
+    )
+
+    aws_eu_sovereign = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(CloudAwsEuSovereignUpdateAccountInput)
+        ),
+        graphql_name="awsEuSovereign",
     )
 
     aws_govcloud = sgqlc.types.Field(
@@ -11271,8 +11522,17 @@ class DashboardVariableNrqlQueryInput(sgqlc.types.Input):
 
 class DashboardVariableOptionsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("excluded", "ignore_time_range", "show_apply_action")
+    __field_names__ = (
+        "excluded",
+        "hidden_on_variables_bar",
+        "ignore_time_range",
+        "show_apply_action",
+    )
     excluded = sgqlc.types.Field(Boolean, graphql_name="excluded")
+
+    hidden_on_variables_bar = sgqlc.types.Field(
+        Boolean, graphql_name="hiddenOnVariablesBar"
+    )
 
     ignore_time_range = sgqlc.types.Field(Boolean, graphql_name="ignoreTimeRange")
 
@@ -11461,12 +11721,15 @@ class DataManagementLimitLookupInput(sgqlc.types.Input):
 class DataManagementOrganizationLimitInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "enforce_violations",
         "is_default_override",
         "limit",
         "override_reason",
         "override_value",
         "user_id",
     )
+    enforce_violations = sgqlc.types.Field(Boolean, graphql_name="enforceViolations")
+
     is_default_override = sgqlc.types.Field(Boolean, graphql_name="isDefaultOverride")
 
     limit = sgqlc.types.Field(
@@ -11964,22 +12227,6 @@ class EntityManagementAiToolParameterUpdateInput(sgqlc.types.Input):
     )
 
 
-class EntityManagementAttributeCreateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("key", "value")
-    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
-
-    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
-
-
-class EntityManagementAttributeUpdateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("key", "value")
-    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
-
-    value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
-
-
 class EntityManagementCategoryScopeCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id", "type")
@@ -12064,28 +12311,6 @@ class EntityManagementCollectionIdFilterArgument(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("eq",)
     eq = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="eq")
-
-
-class EntityManagementConfigCreateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("attributes", "name")
-    attributes = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementAttributeCreateInput)),
-        graphql_name="attributes",
-    )
-
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
-
-
-class EntityManagementConfigUpdateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("attributes", "name")
-    attributes = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementAttributeUpdateInput)),
-        graphql_name="attributes",
-    )
-
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
 
 class EntityManagementConfluenceIntegrationCreateInput(sgqlc.types.Input):
@@ -12474,6 +12699,33 @@ class EntityManagementGitRepositoryEntityUpdateInput(sgqlc.types.Input):
     url = sgqlc.types.Field(String, graphql_name="url")
 
 
+class EntityManagementImpactProfileEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "scope", "tags")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
+        graphql_name="scope",
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementImpactProfileEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "tags")
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
+        graphql_name="tags",
+    )
+
+
 class EntityManagementInboxIssueCategoryEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
@@ -12828,52 +13080,6 @@ class EntityManagementNrqlRuleEngineUpdateInput(sgqlc.types.Input):
     query = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="query")
 
 
-class EntityManagementPerformanceInboxSettingEntityCreateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("config", "name", "scope", "tags", "threshold_scope")
-    config = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementConfigCreateInput)),
-        graphql_name="config",
-    )
-
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
-
-    scope = sgqlc.types.Field(
-        sgqlc.types.non_null("EntityManagementScopedReferenceInput"),
-        graphql_name="scope",
-    )
-
-    tags = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
-        graphql_name="tags",
-    )
-
-    threshold_scope = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementThresholdScope),
-        graphql_name="thresholdScope",
-    )
-
-
-class EntityManagementPerformanceInboxSettingEntityUpdateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("config", "name", "tags", "threshold_scope")
-    config = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementConfigUpdateInput)),
-        graphql_name="config",
-    )
-
-    name = sgqlc.types.Field(String, graphql_name="name")
-
-    tags = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
-        graphql_name="tags",
-    )
-
-    threshold_scope = sgqlc.types.Field(
-        EntityManagementThresholdScope, graphql_name="thresholdScope"
-    )
-
-
 class EntityManagementPipelineCloudRuleEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("description", "enabled", "name", "nrql", "scope", "tags")
@@ -12911,6 +13117,30 @@ class EntityManagementPipelineCloudRuleEntityUpdateInput(sgqlc.types.Input):
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
         graphql_name="tags",
     )
+
+
+class EntityManagementProgressLevelDefinitionCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "hex_color_code", "id", "name")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    hex_color_code = sgqlc.types.Field(String, graphql_name="hexColorCode")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class EntityManagementProgressLevelDefinitionUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("description", "hex_color_code", "id", "name")
+    description = sgqlc.types.Field(String, graphql_name="description")
+
+    hex_color_code = sgqlc.types.Field(String, graphql_name="hexColorCode")
+
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
 
 class EntityManagementRagToolEntityCreateInput(sgqlc.types.Input):
@@ -12998,26 +13228,48 @@ class EntityManagementRepositoryLicenseUpdateInput(sgqlc.types.Input):
 
 class EntityManagementScheduleCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("cron_expression", "enabled", "period", "schedule_at")
-    cron_expression = sgqlc.types.Field(String, graphql_name="cronExpression")
-
+    __field_names__ = (
+        "enabled",
+        "first_run_at",
+        "period",
+        "rrule",
+        "schedule_at",
+        "timezone",
+    )
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+    first_run_at = sgqlc.types.Field(DateTime, graphql_name="firstRunAt")
 
     period = sgqlc.types.Field(Int, graphql_name="period")
 
+    rrule = sgqlc.types.Field(String, graphql_name="rrule")
+
     schedule_at = sgqlc.types.Field(DateTime, graphql_name="scheduleAt")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
 
 
 class EntityManagementScheduleUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("cron_expression", "enabled", "period", "schedule_at")
-    cron_expression = sgqlc.types.Field(String, graphql_name="cronExpression")
-
+    __field_names__ = (
+        "enabled",
+        "first_run_at",
+        "period",
+        "rrule",
+        "schedule_at",
+        "timezone",
+    )
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+    first_run_at = sgqlc.types.Field(DateTime, graphql_name="firstRunAt")
 
     period = sgqlc.types.Field(Int, graphql_name="period")
 
+    rrule = sgqlc.types.Field(String, graphql_name="rrule")
+
     schedule_at = sgqlc.types.Field(DateTime, graphql_name="scheduleAt")
+
+    timezone = sgqlc.types.Field(String, graphql_name="timezone")
 
 
 class EntityManagementScopedReferenceInput(sgqlc.types.Input):
@@ -13032,10 +13284,17 @@ class EntityManagementScopedReferenceInput(sgqlc.types.Input):
 
 class EntityManagementScorecardEntityCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "scope", "tags")
+    __field_names__ = ("description", "name", "progress_levels", "scope", "tags")
     description = sgqlc.types.Field(String, graphql_name="description")
 
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    progress_levels = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(EntityManagementProgressLevelDefinitionCreateInput)
+        ),
+        graphql_name="progressLevels",
+    )
 
     scope = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementScopedReferenceInput), graphql_name="scope"
@@ -13049,10 +13308,17 @@ class EntityManagementScorecardEntityCreateInput(sgqlc.types.Input):
 
 class EntityManagementScorecardEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "name", "tags")
+    __field_names__ = ("description", "name", "progress_levels", "tags")
     description = sgqlc.types.Field(String, graphql_name="description")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    progress_levels = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(EntityManagementProgressLevelDefinitionUpdateInput)
+        ),
+        graphql_name="progressLevels",
+    )
 
     tags = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null("EntityManagementTagInput")),
@@ -13065,8 +13331,10 @@ class EntityManagementScorecardRuleEntityCreateInput(sgqlc.types.Input):
     __field_names__ = (
         "description",
         "enabled",
+        "impact_weight",
         "name",
         "nrql_engine",
+        "progress_level",
         "schedule",
         "scope",
         "tags",
@@ -13075,12 +13343,16 @@ class EntityManagementScorecardRuleEntityCreateInput(sgqlc.types.Input):
 
     enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
 
+    impact_weight = sgqlc.types.Field(Int, graphql_name="impactWeight")
+
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     nrql_engine = sgqlc.types.Field(
         sgqlc.types.non_null(EntityManagementNrqlRuleEngineCreateInput),
         graphql_name="nrqlEngine",
     )
+
+    progress_level = sgqlc.types.Field(ID, graphql_name="progressLevel")
 
     schedule = sgqlc.types.Field(
         EntityManagementScheduleCreateInput, graphql_name="schedule"
@@ -13101,8 +13373,10 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
     __field_names__ = (
         "description",
         "enabled",
+        "impact_weight",
         "name",
         "nrql_engine",
+        "progress_level",
         "schedule",
         "tags",
     )
@@ -13110,11 +13384,15 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
 
     enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
+    impact_weight = sgqlc.types.Field(Int, graphql_name="impactWeight")
+
     name = sgqlc.types.Field(String, graphql_name="name")
 
     nrql_engine = sgqlc.types.Field(
         EntityManagementNrqlRuleEngineUpdateInput, graphql_name="nrqlEngine"
     )
+
+    progress_level = sgqlc.types.Field(ID, graphql_name="progressLevel")
 
     schedule = sgqlc.types.Field(
         EntityManagementScheduleUpdateInput, graphql_name="schedule"
@@ -13196,7 +13474,10 @@ class EntityManagementTeamEntityCreateInput(sgqlc.types.Input):
         "aliases",
         "description",
         "external_integration",
+        "hierarchy_level_id",
+        "managers",
         "name",
+        "parent_id",
         "resources",
         "scope",
         "tags",
@@ -13212,7 +13493,15 @@ class EntityManagementTeamEntityCreateInput(sgqlc.types.Input):
         graphql_name="externalIntegration",
     )
 
+    hierarchy_level_id = sgqlc.types.Field(ID, graphql_name="hierarchyLevelId")
+
+    managers = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="managers"
+    )
+
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    parent_id = sgqlc.types.Field(ID, graphql_name="parentId")
 
     resources = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -13237,7 +13526,10 @@ class EntityManagementTeamEntityUpdateInput(sgqlc.types.Input):
         "aliases",
         "description",
         "external_integration",
+        "hierarchy_level_id",
+        "managers",
         "name",
+        "parent_id",
         "resources",
         "tags",
     )
@@ -13252,7 +13544,15 @@ class EntityManagementTeamEntityUpdateInput(sgqlc.types.Input):
         graphql_name="externalIntegration",
     )
 
+    hierarchy_level_id = sgqlc.types.Field(ID, graphql_name="hierarchyLevelId")
+
+    managers = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="managers"
+    )
+
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    parent_id = sgqlc.types.Field(ID, graphql_name="parentId")
 
     resources = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -13307,11 +13607,48 @@ class EntityManagementTeamResourceUpdateInput(sgqlc.types.Input):
     type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
+class EntityManagementTeamsHierarchyLevelEntityCreateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "scope", "tags")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementScopedReferenceInput), graphql_name="scope"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTagInput)),
+        graphql_name="tags",
+    )
+
+
+class EntityManagementTeamsHierarchyLevelEntityUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "tags")
+    name = sgqlc.types.Field(String, graphql_name="name")
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTagInput)),
+        graphql_name="tags",
+    )
+
+
 class EntityManagementTeamsOrganizationSettingsEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("discovery", "name", "sync_groups", "tags")
+    __field_names__ = (
+        "discovery",
+        "hierarchy_level_order",
+        "name",
+        "sync_groups",
+        "tags",
+    )
     discovery = sgqlc.types.Field(
         EntityManagementDiscoverySettingsUpdateInput, graphql_name="discovery"
+    )
+
+    hierarchy_level_order = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
+        graphql_name="hierarchyLevelOrder",
     )
 
     name = sgqlc.types.Field(String, graphql_name="name")
@@ -13587,6 +13924,25 @@ class EventsToMetricsUpdateRuleInput(sgqlc.types.Input):
     rule_id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="ruleId")
 
 
+class FleetControlAgentInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("agent_type", "configuration_version_list", "version")
+    agent_type = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="agentType"
+    )
+
+    configuration_version_list = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null("FleetControlConfigurationVersionListInput")
+            )
+        ),
+        graphql_name="configurationVersionList",
+    )
+
+    version = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="version")
+
+
 class FleetControlConfigurationVersionListInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("id",)
@@ -13596,6 +13952,7 @@ class FleetControlConfigurationVersionListInput(sgqlc.types.Input):
 class FleetControlFleetDeploymentCreateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
+        "agents",
         "configuration_version_list",
         "description",
         "fleet_id",
@@ -13603,6 +13960,10 @@ class FleetControlFleetDeploymentCreateInput(sgqlc.types.Input):
         "scope",
         "tags",
     )
+    agents = sgqlc.types.Field(
+        sgqlc.types.list_of(FleetControlAgentInput), graphql_name="agents"
+    )
+
     configuration_version_list = sgqlc.types.Field(
         sgqlc.types.list_of(FleetControlConfigurationVersionListInput),
         graphql_name="configurationVersionList",
@@ -13634,7 +13995,17 @@ class FleetControlFleetDeploymentPolicyInput(sgqlc.types.Input):
 
 class FleetControlFleetDeploymentUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = ("configuration_version_list", "description", "name", "tags")
+    __field_names__ = (
+        "agents",
+        "configuration_version_list",
+        "description",
+        "name",
+        "tags",
+    )
+    agents = sgqlc.types.Field(
+        sgqlc.types.list_of(FleetControlAgentInput), graphql_name="agents"
+    )
+
     configuration_version_list = sgqlc.types.Field(
         sgqlc.types.list_of(FleetControlConfigurationVersionListInput),
         graphql_name="configurationVersionList",
@@ -13947,6 +14318,99 @@ class InstallationStatusErrorInput(sgqlc.types.Input):
     message = sgqlc.types.Field(String, graphql_name="message")
 
     optimized_message = sgqlc.types.Field(String, graphql_name="optimizedMessage")
+
+
+class IntegrationServicesCapabilitySettingsInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("capability",)
+    capability = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="capability"
+    )
+
+
+class IntegrationServicesCapabilitySettingsUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("capability",)
+    capability = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="capability"
+    )
+
+
+class IntegrationServicesInstallationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "capability_settings",
+        "client_id",
+        "client_secret",
+        "instance_name",
+        "signing_key",
+    )
+    capability_settings = sgqlc.types.Field(
+        sgqlc.types.non_null(
+            sgqlc.types.list_of(
+                sgqlc.types.non_null(IntegrationServicesCapabilitySettingsInput)
+            )
+        ),
+        graphql_name="capabilitySettings",
+    )
+
+    client_id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="clientId")
+
+    client_secret = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="clientSecret"
+    )
+
+    instance_name = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="instanceName"
+    )
+
+    signing_key = sgqlc.types.Field(
+        sgqlc.types.non_null(SecureValue), graphql_name="signingKey"
+    )
+
+
+class IntegrationServicesTagInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "values")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    values = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="values",
+    )
+
+
+class IntegrationServicesUpdateInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "capability_settings",
+        "enabled",
+        "instance_name",
+        "last_sync_at",
+        "service_now_connection_id",
+        "tags",
+    )
+    capability_settings = sgqlc.types.Field(
+        sgqlc.types.list_of(
+            sgqlc.types.non_null(IntegrationServicesCapabilitySettingsUpdateInput)
+        ),
+        graphql_name="capabilitySettings",
+    )
+
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
+
+    instance_name = sgqlc.types.Field(String, graphql_name="instanceName")
+
+    last_sync_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastSyncAt")
+
+    service_now_connection_id = sgqlc.types.Field(
+        String, graphql_name="serviceNowConnectionId"
+    )
+
+    tags = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(IntegrationServicesTagInput)),
+        graphql_name="tags",
+    )
 
 
 class LogConfigurationsCreateDataPartitionRuleInput(sgqlc.types.Input):
@@ -17092,6 +17556,119 @@ class WhatsNewContentSearchQuery(sgqlc.types.Input):
     content_type = sgqlc.types.Field(WhatsNewContentType, graphql_name="contentType")
 
     unread_only = sgqlc.types.Field(Boolean, graphql_name="unreadOnly")
+
+
+class WorkflowAutomationCreateScheduleDefinitionInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "scope_type", "version")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope_type = sgqlc.types.Field(
+        WorkflowAutomationScopeType, graphql_name="scopeType"
+    )
+
+    version = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="version")
+
+
+class WorkflowAutomationCreateWorkflowDefinitionInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("yaml",)
+    yaml = sgqlc.types.Field(sgqlc.types.non_null(SecureValue), graphql_name="yaml")
+
+
+class WorkflowAutomationDeleteScheduleInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id",)
+    id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+
+class WorkflowAutomationDeleteWorkflowDefinitionInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name",)
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+
+class WorkflowAutomationScopeInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(WorkflowAutomationScopeType, graphql_name="type")
+
+
+class WorkflowAutomationSignalInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "value")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    value = sgqlc.types.Field(
+        sgqlc.types.non_null(WorkflowAutomationRawWorkflowInputValue),
+        graphql_name="value",
+    )
+
+
+class WorkflowAutomationStartWorkflowRunDefinitionInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("name", "scope_type", "version")
+    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
+
+    scope_type = sgqlc.types.Field(
+        WorkflowAutomationScopeType, graphql_name="scopeType"
+    )
+
+    version = sgqlc.types.Field(Int, graphql_name="version")
+
+
+class WorkflowAutomationTag(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "values")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    values = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null(String))),
+        graphql_name="values",
+    )
+
+
+class WorkflowAutomationUpdateWorkflowDefinitionInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("yaml",)
+    yaml = sgqlc.types.Field(sgqlc.types.non_null(SecureValue), graphql_name="yaml")
+
+
+class WorkflowAutomationWorkflowDefinitionValidationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("yaml",)
+    yaml = sgqlc.types.Field(sgqlc.types.non_null(SecureValue), graphql_name="yaml")
+
+
+class WorkflowAutomationWorkflowRunInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("key", "value")
+    key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    value = sgqlc.types.Field(
+        sgqlc.types.non_null(WorkflowAutomationRawWorkflowInputValue),
+        graphql_name="value",
+    )
+
+
+class WorkflowAutomationWorkflowRunOptions(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("log_level",)
+    log_level = sgqlc.types.Field(
+        WorkflowAutomationWorkflowLogLevel, graphql_name="logLevel"
+    )
+
+
+class WorkflowAutomationWorkflowRunScope(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        WorkflowAutomationWorkflowRunScopeType, graphql_name="type"
+    )
 
 
 class WorkloadAutomaticStatusInput(sgqlc.types.Input):
