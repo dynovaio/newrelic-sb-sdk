@@ -2,6 +2,223 @@
 
 ## [Unreleased]
 
+* Add new scalar: `EntityManagementDynamicString`,
+  `WorkflowAutomationRawWorkflowInputValue`.
+* Add new enums: `AiWorkflowsSaveTeamWorkflowConfigurationErrorType`,
+  `EntityManagementCloudProvider`,
+  `EntityManagementFederatedLogSetupStatus`,
+  `EntityManagementLogPartitionStatus`,
+  `EntityManagementNrRegion`,
+  `EntityManagementRetentionUnit`,
+  `WorkflowAutomationActionDefinitionInputType`,
+  `WorkflowAutomationScheduleOverlapPolicy`,
+  `WorkflowAutomationScopeType`,
+  `WorkflowAutomationWorkflowLogLevel`,
+  `WorkflowAutomationWorkflowRunScopeType`,
+  `WorkflowAutomationWorkflowRunStatus`.
+* Add new input objects: `AlertsOutlierAlgorithmDbScanConfigurationInput`,
+  `AlertsOutlierConfigurationInput`,
+  `CloudAwsEuSovereignDisableIntegrationsInput`,
+  `CloudAwsEuSovereignIntegrationsInput`,
+  `CloudAwsEuSovereignLinkAccountInput`,
+  `CloudAwsEuSovereignUpdateAccountInput`,
+  `CloudAwsMetadataEuSovereignIntegrationInput`,
+  `CloudAwsMsElasticacheEuSovereignIntegrationInput`,
+  `CloudAwsTagsGlobalEuSovereignIntegrationInput`,
+  `EntityManagementImpactProfileEntityCreateInput`,
+  `EntityManagementImpactProfileEntityUpdateInput`,
+  `EntityManagementProgressLevelDefinitionCreateInput`,
+  `EntityManagementProgressLevelDefinitionUpdateInput`,
+  `EntityManagementTeamsHierarchyLevelEntityCreateInput`,
+  `EntityManagementTeamsHierarchyLevelEntityUpdateInput`,
+  `FleetControlAgentInput`,
+  `IntegrationServicesCapabilitySettingsInput`,
+  `IntegrationServicesCapabilitySettingsUpdateInput`,
+  `IntegrationServicesInstallationInput`,
+  `IntegrationServicesTagInput`,
+  `IntegrationServicesUpdateInput`,
+  `WorkflowAutomationCreateScheduleDefinitionInput`,
+  `WorkflowAutomationCreateWorkflowDefinitionInput`,
+  `WorkflowAutomationDeleteScheduleInput`,
+  `WorkflowAutomationDeleteWorkflowDefinitionInput`,
+  `WorkflowAutomationScopeInput`,
+  `WorkflowAutomationSignalInput`,
+  `WorkflowAutomationStartWorkflowRunDefinitionInput`,
+  `WorkflowAutomationTag`,
+  `WorkflowAutomationUpdateWorkflowDefinitionInput`,
+  `WorkflowAutomationWorkflowDefinitionValidationInput`,
+  `WorkflowAutomationWorkflowRunInput`,
+  `WorkflowAutomationWorkflowRunOptions`,
+  `WorkflowAutomationWorkflowRunScope`.
+* Add new objects: `AiWorkflowsSaveTeamWorkflowConfigurationError`,
+  `EntityManagementAgentToDeploy`,
+  `EntityManagementAiEvaluationConfigEntity`,
+  `EntityManagementApiSpecificationBlobEntity`,
+  `EntityManagementBackgroundProcessingSqlQuery`,
+  `EntityManagementBackgroundSqlProcessingRuleEntity`,
+  `EntityManagementCiscoMerakiBasicAuthCredential`,
+  `EntityManagementCiscoMerakiConnectionEntity`,
+  `EntityManagementCiscoMerakiCredential`,
+  `EntityManagementComputeLocationEntity`,
+  `EntityManagementFederatedLogPartitionEntity`,
+  `EntityManagementFederatedLogSetupEntity`,
+  `EntityManagementImpactProfileEntity`,
+  `EntityManagementImpactProfileEntityCreateResult`,
+  `EntityManagementImpactProfileEntityUpdateResult`,
+  `EntityManagementIncidentAttachmentEntity`,
+  `EntityManagementIncidentProfileAttachmentEntity`,
+  `EntityManagementMeterAttribute`,
+  `EntityManagementMeterTypeEntity`,
+  `EntityManagementNrAiAgentEntity`,
+  `EntityManagementProductLineEntity`,
+  `EntityManagementProgressLevelDefinition`,
+  `EntityManagementRetentionPolicy`,
+  `EntityManagementTeamsHierarchyLevelEntityCreateResult`,
+  `EntityManagementTeamsHierarchyLevelEntityUpdateResult`,
+  `IntegrationServicesCapabilitySettings`,
+  `IntegrationServicesInstallationResponse`,
+  `IntegrationServicesTag`,
+  `IntegrationServicesUpdateResponse`,
+  `WorkflowAutomationAccountStitchedFields`,
+  `WorkflowAutomationActionDefinition`,
+  `WorkflowAutomationActionDefinitionInput`,
+  `WorkflowAutomationActionDefinitionOutput`,
+  `WorkflowAutomationActionDefinitionTimeout`,
+  `WorkflowAutomationActionDefinitionsResponse`,
+  `WorkflowAutomationActorStitchedFields`,
+  `WorkflowAutomationAllowedStringValuesValidation`,
+  `WorkflowAutomationCreateScheduleResponse`,
+  `WorkflowAutomationCreateWorkflowDefinitionResponse`,
+  `WorkflowAutomationDeleteScheduleResponse`,
+  `WorkflowAutomationDeleteWorkflowDefinitionResponse`,
+  `WorkflowAutomationMaxIntegerValueValidation`,
+  `WorkflowAutomationMaxLengthValidation`,
+  `WorkflowAutomationMinIntegerValueValidation`,
+  `WorkflowAutomationOrganizationStitchedFields`,
+  `WorkflowAutomationRegexValidation`,
+  `WorkflowAutomationScheduleOutline`,
+  `WorkflowAutomationScheduleResponse`,
+  `WorkflowAutomationScheduleWorkflowInput`,
+  `WorkflowAutomationSchedulesResponse`,
+  `WorkflowAutomationSchedulesResult`,
+  `WorkflowAutomationScope`,
+  `WorkflowAutomationSignalWorkflowRunResponse`,
+  `WorkflowAutomationStartWorkflowRunResponse`,
+  `WorkflowAutomationStopWorkflowRunResponse`,
+  `WorkflowAutomationTagOutput`,
+  `WorkflowAutomationUpdateWorkflowDefinitionResponse`,
+  `WorkflowAutomationValidationType`,
+  `WorkflowAutomationWorkflowDefinition`,
+  `WorkflowAutomationWorkflowDefinitionOutline`,
+  `WorkflowAutomationWorkflowDefinitionValidationError`,
+  `WorkflowAutomationWorkflowDefinitionValidationResponse`,
+  `WorkflowAutomationWorkflowResponse`,
+  `WorkflowAutomationWorkflowRunInfoResponse`,
+  `WorkflowAutomationWorkflowsResponse`,
+  `WorkflowAutomationWorkflowsResult`.
+* Add mutations to `RootMutationType`:
+  `entity_management_create_impact_profile`,
+  `entity_management_create_teams_hierarchy_level`,
+  `entity_management_update_impact_profile`,
+  `entity_management_update_teams_hierarchy_level`,
+  `integration_services_service_now_installation`,
+  `integration_services_service_now_update`,
+  `secrets_management_create_shareable_secret`,
+  `workflow_automation_create_schedule`,
+  `workflow_automation_create_workflow_definition`,
+  `workflow_automation_delete_schedule`,
+  `workflow_automation_delete_workflow_definition`,
+  `workflow_automation_signal_workflow_run`,
+  `workflow_automation_start_workflow_run`,
+  `workflow_automation_stop_workflow_run`,
+  `workflow_automation_update_workflow_definition`.
+* Update existing types:
+  * `Account`: Added field `workflow_automation`.
+  * `Actor`: Added field `workflow_automation`.
+  * `AgentReleasesFilter`: Added fields `AGENT_CONTROL_CONTINUOUS_DELIVERY_CHART`, `AGENT_CONTROL_DEPLOYMENT_CHART`.
+  * `AlertsNrqlConditionOutlierInput`: Added field `outlier_configuration`.
+  * `AlertsNrqlConditionUpdateOutlierInput`: Added field `outlier_configuration`.
+  * `CloudDisableIntegrationsInput`: Added field `aws_eu_sovereign`.
+  * `CloudIntegrationsInput`: Added field `aws_eu_sovereign`.
+  * `CloudLinkCloudAccountsInput`: Added field `aws_eu_sovereign`.
+  * `CloudUpdateCloudAccountsInput`: Added field `aws_eu_sovereign`.
+  * `CollaborationActorStitchedFields`: Added argument `account_id` to
+    `search_threads_simple` field.
+  * `CollaborationComment`: Added fields `agent_id`, `creator_role`, `run_id`,
+    `step_id`.
+  * `DashboardVariableOptions`: Added field `hidden_on_variables_bar`.
+  * `DashboardVariableOptionsInput`: Added field `hidden_on_variables_bar`.
+  * `DataManagementLimitOverride`: Added field `enforce_violations`.
+  * `DataManagementOrganizationLimitInput`: Added field `enforce_violations`.
+  * `DistributedTracingSpan`: Added fields `subcomponent_entity_guid`,
+    `subcomponent_entity_name`.
+  * `DistributedTracingTrace`: Added field `session_id`.
+  * `DocumentationFields`: Added field `current_agent_releases`.
+  * `EntityManagementAgentConfigurationEntity`: Added field `configuration_type`.
+  * `EntityManagementAgentTypeDefinitionEntity`: Removed type.
+  * `EntityManagementAttributeCreateInput`: Removed type.
+  * `EntityManagementAttributeUpdateInput`: Removed type.
+  * `EntityManagementAwsAssumeRoleConfig`: Added field `external_id`.
+  * `EntityManagementBackgroundProcessingQuery`: Removed fields `accounts`,
+    `output_account`. Added fields `join_scopes`, `output_scope`, `scopes`.
+  * `EntityManagementConfigCreateInput`: Removed type.
+  * `EntityManagementConfigUpdateInput`: Removed type.
+  * `EntityManagementCorrelationInternalSourceConfigEntity`: Added field `alias`.
+  * `EntityManagementCustomerImpactQueryEntity`: Removed field `team_name`.
+    Added field `team_entity`.
+  * `EntityManagementFleetDeploymentEntity`: Removed field
+    `configuration_version_list`. Added field `agents`.
+  * `EntityManagementManagedEvaluationConfig`: Removed field `model`. Added
+    field `enabled`.
+  * `EntityManagementManagedEvaluationType`: Removed fields
+    `AGENT_PLAN_VALIDATION`, `AGENT_TOOL_VALIDATION`, `ANSWER_RELEVANCY`,
+    `CONTEXTUAL_PRECISION`, `CONTEXTUAL_RECALL`, `CONTEXTUAL_RELEVANCY`,
+    `FAITHFULNESS`, `ROLE_VIOLATION`.
+  * `EntityManagementMeterEntity`: Added fields `attributes`, `meter_type`.
+  * `EntityManagementPerformanceInboxSettingEntityCreateInput`: Removed type.
+  * `EntityManagementPerformanceInboxSettingEntityCreateResult`: Removed type.
+  * `EntityManagementPerformanceInboxSettingEntityUpdateInput`: Removed type.
+  * `EntityManagementPerformanceInboxSettingEntityUpdateResult`: Removed type.
+  * `EntityManagementSchedule`: Removed field `cron_expression`. Added fields
+    `first_run_at`, `rrule`, `timezone`.
+  * `EntityManagementScheduleCreateInput`: Removed field `cron_expression`.
+    Added fields `first_run_at`, `rrule`, `timezone`.
+  * `EntityManagementScheduleUpdateInput`: Removed field `cron_expression`.
+    Added fields `first_run_at`, `rrule`, `timezone`.
+  * `EntityManagementScorecardEntity`: Added field `progress_levels`.
+  * `EntityManagementScorecardEntityCreateInput`: Added field `progress_levels`.
+  * `EntityManagementScorecardEntityUpdateInput`: Added field `progress_levels`.
+  * `EntityManagementScorecardRuleEntity`: Added fields `impact_weight`,
+    `progress_level`.
+  * `EntityManagementScorecardRuleEntityCreateInput`: Added fields
+    `impact_weight`, `progress_level`.
+  * `EntityManagementScorecardRuleEntityUpdateInput`: Added fields
+    `impact_weight`, `progress_level`.
+  * `EntityManagementTeamEntity`: Added fields `hierarchy_level_id`,
+    `managers`, `parent_id`.
+  * `EntityManagementTeamEntityCreateInput`: Added fields `hierarchy_level_id`,
+    `managers`, `parent_id`.
+  * `EntityManagementTeamEntityUpdateInput`: Added fields `hierarchy_level_id`,
+    `managers`, `parent_id`.
+  * `EntityManagementTeamsOrganizationSettingsEntity`: Added field
+    `hierarchy_level_order`.
+  * `EntityManagementTeamsOrganizationSettingsEntityUpdateInput`: Added field
+    `hierarchy_level_order`.
+  * `FleetControlFleetDeploymentCreateInput`: Added field `agents`.
+  * `FleetControlFleetDeploymentUpdateInput`: Added field `agents`.
+  * `RootMutationType`: Removed fields
+    `entity_management_create_performance_inbox_setting`,
+    `entity_management_update_performance_inbox_setting`.
+  * `SecretsManagementCreateSecretResponse`: Added field `id`.
+  * `SecretsManagementDeleteSecretResponse`: Added field `id`.
+  * `SecretsManagementDeleteSecretVersionResponse`: Added field `id`.
+  * `SecretsManagementRecoverSecretResponse`: Added field `id`.
+  * `SecretsManagementRecoverSecretVersionResponse`: Added field `id`.
+  * `SecretsManagementSecretQueryResponse`: Added field `id`.
+  * `SecretsManagementSecretVersionsQueryResponse`: Added field `id`.
+  * `SecretsManagementSecretsCollectionItem`: Added field `id`.
+  * `SecretsManagementUpdateSecretResponse`: Added field `id`.
+
 ## [0.44.0] - 2026-01-20
 
 ### 💥 Breaking Changes
