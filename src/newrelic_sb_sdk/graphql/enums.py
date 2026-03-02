@@ -67,6 +67,7 @@ __all__ = [
     "AiWorkflowsMutingRulesHandling",
     "AiWorkflowsNotificationTrigger",
     "AiWorkflowsOperator",
+    "AiWorkflowsSaveTeamWorkflowConfigurationErrorType",
     "AiWorkflowsTestErrorType",
     "AiWorkflowsTestNotificationResponseStatus",
     "AiWorkflowsTestResponseStatus",
@@ -176,6 +177,7 @@ __all__ = [
     "EntityManagementBudgetType",
     "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
+    "EntityManagementCloudProvider",
     "EntityManagementCommunicationMode",
     "EntityManagementCommunicationStatus",
     "EntityManagementConsumptionMetric",
@@ -194,6 +196,7 @@ __all__ = [
     "EntityManagementEventBridgeWorkflowDefinitionScopeType",
     "EntityManagementExecutionStatus",
     "EntityManagementExternalOwnerType",
+    "EntityManagementFederatedLogSetupStatus",
     "EntityManagementFleetDeploymentPhase",
     "EntityManagementHostingPlatform",
     "EntityManagementIncidentSource",
@@ -205,12 +208,14 @@ __all__ = [
     "EntityManagementJiraIssueType",
     "EntityManagementKeyType",
     "EntityManagementLicenseName",
+    "EntityManagementLogPartitionStatus",
     "EntityManagementManagedEntityType",
     "EntityManagementManagedEvaluationType",
     "EntityManagementMcpAuthType",
     "EntityManagementMcpTransport",
     "EntityManagementMessageType",
     "EntityManagementMetricPrefixType",
+    "EntityManagementNrRegion",
     "EntityManagementNumericOperator",
     "EntityManagementOperatingSystemType",
     "EntityManagementOverlapPolicy",
@@ -218,6 +223,7 @@ __all__ = [
     "EntityManagementProcessStatus",
     "EntityManagementProvider",
     "EntityManagementRegion",
+    "EntityManagementRetentionUnit",
     "EntityManagementSigningAlgorithm",
     "EntityManagementStatusCode",
     "EntityManagementStatusPageAnnouncementCategory",
@@ -378,6 +384,12 @@ __all__ = [
     "UserManagementSortDirection",
     "UserManagementTypeEnum",
     "WhatsNewContentType",
+    "WorkflowAutomationActionDefinitionInputType",
+    "WorkflowAutomationScheduleOverlapPolicy",
+    "WorkflowAutomationScopeType",
+    "WorkflowAutomationWorkflowLogLevel",
+    "WorkflowAutomationWorkflowRunScopeType",
+    "WorkflowAutomationWorkflowRunStatus",
     "WorkloadGroupRemainingEntitiesRuleBy",
     "WorkloadResultingGroupType",
     "WorkloadRollupStrategy",
@@ -484,6 +496,8 @@ class AgentFeaturesFilter(sgqlc.types.Enum):
 class AgentReleasesFilter(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
+        "AGENT_CONTROL_CONTINUOUS_DELIVERY_CHART",
+        "AGENT_CONTROL_DEPLOYMENT_CHART",
         "ANDROID",
         "AWS_FIREHOSE_LOG_FORWARDER",
         "AWS_LAMBDA_LOG_FORWARDER",
@@ -1000,6 +1014,17 @@ class AiWorkflowsOperator(sgqlc.types.Enum):
         "LESS_OR_EQUAL",
         "LESS_THAN",
         "STARTS_WITH",
+    )
+
+
+class AiWorkflowsSaveTeamWorkflowConfigurationErrorType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = (
+        "CHANNEL_NOT_FOUND",
+        "INVALID_PARAMETER",
+        "TEAM_NOT_FOUND",
+        "UNAUTHORIZED_ACCOUNT",
+        "VALIDATION_ERROR",
     )
 
 
@@ -1989,6 +2014,11 @@ class EntityManagementCategoryScopeType(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT", "GLOBAL")
 
 
+class EntityManagementCloudProvider(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("AWS", "AZURE", "GCP", "OCI")
+
+
 class EntityManagementCommunicationMode(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ACCOUNT_STATUS", "GLOBAL_STATUS")
@@ -2092,6 +2122,11 @@ class EntityManagementExternalOwnerType(sgqlc.types.Enum):
     __choices__ = ("GROUP", "ORGANIZATION", "OTHER", "USER", "WORKSPACE")
 
 
+class EntityManagementFederatedLogSetupStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACTIVE", "CREATING", "ERROR", "INACTIVE")
+
+
 class EntityManagementFleetDeploymentPhase(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("COMPLETED", "CREATED", "FAILED", "INTERNAL_FAILURE", "IN_PROGRESS")
@@ -2170,6 +2205,11 @@ class EntityManagementLicenseName(sgqlc.types.Enum):
     )
 
 
+class EntityManagementLogPartitionStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACTIVE", "CREATING", "ERROR", "INACTIVE")
+
+
 class EntityManagementManagedEntityType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("APPLICATION", "HOST", "KUBERNETESCLUSTER")
@@ -2178,18 +2218,10 @@ class EntityManagementManagedEntityType(sgqlc.types.Enum):
 class EntityManagementManagedEvaluationType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = (
-        "AGENT_PLAN_VALIDATION",
-        "AGENT_TOOL_VALIDATION",
-        "ANSWER_RELEVANCY",
         "BIAS",
-        "CONTEXTUAL_PRECISION",
-        "CONTEXTUAL_RECALL",
-        "CONTEXTUAL_RELEVANCY",
-        "FAITHFULNESS",
         "JAILBREAK",
         "PII_LEAKAGE",
         "PROMPT_INJECTION",
-        "ROLE_VIOLATION",
         "TOPIC_CONTROL",
         "TOXICITY",
     )
@@ -2213,6 +2245,11 @@ class EntityManagementMessageType(sgqlc.types.Enum):
 class EntityManagementMetricPrefixType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("EXTERNAL_TRANSACTION",)
+
+
+class EntityManagementNrRegion(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("EU_PRODUCTION", "US_PRODUCTION", "US_STAGING")
 
 
 class EntityManagementNumericOperator(sgqlc.types.Enum):
@@ -2248,6 +2285,11 @@ class EntityManagementProvider(sgqlc.types.Enum):
 class EntityManagementRegion(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("EU", "STAGING", "US")
+
+
+class EntityManagementRetentionUnit(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DAYS", "MONTHS", "WEEKS")
 
 
 class EntityManagementSigningAlgorithm(sgqlc.types.Enum):
@@ -3342,6 +3384,36 @@ class UserManagementTypeEnum(sgqlc.types.Enum):
 class WhatsNewContentType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("ANNOUNCEMENT", "EOL_ANNOUNCEMENT")
+
+
+class WorkflowAutomationActionDefinitionInputType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BOOLEAN", "FLOAT", "INT", "LIST", "MAP", "OBJECT", "STRING", "TEXT")
+
+
+class WorkflowAutomationScheduleOverlapPolicy(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("CANCEL", "SKIP")
+
+
+class WorkflowAutomationScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT", "GLOBAL", "ORGANIZATION")
+
+
+class WorkflowAutomationWorkflowLogLevel(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("DEBUG", "INFO", "NONE", "TRACE")
+
+
+class WorkflowAutomationWorkflowRunScopeType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("ACCOUNT",)
+
+
+class WorkflowAutomationWorkflowRunStatus(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("COMPLETED", "FAILED", "RUNNING", "TIMED_OUT")
 
 
 class WorkloadGroupRemainingEntitiesRuleBy(sgqlc.types.Enum):

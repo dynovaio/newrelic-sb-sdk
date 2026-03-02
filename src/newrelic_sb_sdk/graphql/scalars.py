@@ -19,6 +19,7 @@ __all__ = [
     "Duration",
     "EntityAlertViolationInt",
     "EntityGuid",
+    "EntityManagementDynamicString",
     "EntitySearchQuery",
     "EpochMilliseconds",
     "EpochSeconds",
@@ -37,6 +38,7 @@ __all__ = [
     "Seconds",
     "SecureValue",
     "SemVer",
+    "WorkflowAutomationRawWorkflowInputValue",
 ]
 
 
@@ -109,6 +111,10 @@ class EntityAlertViolationInt(sgqlc.types.Scalar):
 
 
 class EntityGuid(sgqlc.types.Scalar):
+    __schema__ = nerdgraph
+
+
+class EntityManagementDynamicString(sgqlc.types.Scalar):
     __schema__ = nerdgraph
 
 
@@ -194,3 +200,7 @@ class SemVer(sgqlc.types.Scalar):
 
 
 String = sgqlc.types.String
+
+
+class WorkflowAutomationRawWorkflowInputValue(sgqlc.types.Scalar):
+    __schema__ = nerdgraph

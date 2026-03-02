@@ -282,6 +282,10 @@ d = {
                 "GraphQL/enums.html#aiworkflowsoperator",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.AiWorkflowsSaveTeamWorkflowConfigurationErrorType": (
+                "GraphQL/enums.html#aiworkflowssaveteamworkflowconfigurationerrortype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.AiWorkflowsTestErrorType": (
                 "GraphQL/enums.html#aiworkflowstesterrortype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -718,6 +722,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementcategoryscopetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementCloudProvider": (
+                "GraphQL/enums.html#entitymanagementcloudprovider",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementCommunicationMode": (
                 "GraphQL/enums.html#entitymanagementcommunicationmode",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -790,6 +798,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementexternalownertype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementFederatedLogSetupStatus": (
+                "GraphQL/enums.html#entitymanagementfederatedlogsetupstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementFleetDeploymentPhase": (
                 "GraphQL/enums.html#entitymanagementfleetdeploymentphase",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -834,6 +846,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementlicensename",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementLogPartitionStatus": (
+                "GraphQL/enums.html#entitymanagementlogpartitionstatus",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementManagedEntityType": (
                 "GraphQL/enums.html#entitymanagementmanagedentitytype",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -856,6 +872,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementMetricPrefixType": (
                 "GraphQL/enums.html#entitymanagementmetricprefixtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementNrRegion": (
+                "GraphQL/enums.html#entitymanagementnrregion",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementNumericOperator": (
@@ -884,6 +904,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementRegion": (
                 "GraphQL/enums.html#entitymanagementregion",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementRetentionUnit": (
+                "GraphQL/enums.html#entitymanagementretentionunit",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementSigningAlgorithm": (
@@ -1524,6 +1548,30 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.WhatsNewContentType": (
                 "GraphQL/enums.html#whatsnewcontenttype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationActionDefinitionInputType": (
+                "GraphQL/enums.html#workflowautomationactiondefinitioninputtype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationScheduleOverlapPolicy": (
+                "GraphQL/enums.html#workflowautomationscheduleoverlappolicy",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationScopeType": (
+                "GraphQL/enums.html#workflowautomationscopetype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationWorkflowLogLevel": (
+                "GraphQL/enums.html#workflowautomationworkflowloglevel",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationWorkflowRunScopeType": (
+                "GraphQL/enums.html#workflowautomationworkflowrunscopetype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.WorkflowAutomationWorkflowRunStatus": (
+                "GraphQL/enums.html#workflowautomationworkflowrunstatus",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.WorkloadGroupRemainingEntitiesRuleBy": (
@@ -2278,6 +2326,15 @@ d = {
                 "objects.html#alertsopsgenienotificationchannelupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.AlertsOutlierAlgorithmDbScanConfigurationInput": (
+                "GraphQL/input "
+                "objects.html#alertsoutlieralgorithmdbscanconfigurationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.AlertsOutlierConfigurationInput": (
+                "GraphQL/input objects.html#alertsoutlierconfigurationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.AlertsPagerDutyNotificationChannelCreateInput": (
                 "GraphQL/input "
                 "objects.html#alertspagerdutynotificationchannelcreateinput",
@@ -2524,6 +2581,23 @@ d = {
                 "GraphQL/input objects.html#cloudawsdocdbintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsEuSovereignDisableIntegrationsInput": (
+                "GraphQL/input "
+                "objects.html#cloudawseusovereigndisableintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsEuSovereignIntegrationsInput": (
+                "GraphQL/input objects.html#cloudawseusovereignintegrationsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsEuSovereignLinkAccountInput": (
+                "GraphQL/input objects.html#cloudawseusovereignlinkaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsEuSovereignUpdateAccountInput": (
+                "GraphQL/input objects.html#cloudawseusovereignupdateaccountinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsFsxIntegrationInput": (
                 "GraphQL/input objects.html#cloudawsfsxintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2572,6 +2646,11 @@ d = {
                 "GraphQL/input objects.html#cloudawsmediapackagevodintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsMetadataEuSovereignIntegrationInput": (
+                "GraphQL/input "
+                "objects.html#cloudawsmetadataeusovereignintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsMetadataGovIntegrationInput": (
                 "GraphQL/input objects.html#cloudawsmetadatagovintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -2582,6 +2661,11 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsMqIntegrationInput": (
                 "GraphQL/input objects.html#cloudawsmqintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsMsElasticacheEuSovereignIntegrationInput": (
+                "GraphQL/input "
+                "objects.html#cloudawsmselasticacheeusovereignintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsMsElasticacheGovIntegrationInput": (
@@ -2610,6 +2694,11 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsStatesIntegrationInput": (
                 "GraphQL/input objects.html#cloudawsstatesintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudAwsTagsGlobalEuSovereignIntegrationInput": (
+                "GraphQL/input "
+                "objects.html#cloudawstagsglobaleusovereignintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.CloudAwsTagsGlobalGovIntegrationInput": (
@@ -3470,14 +3559,6 @@ d = {
                 "GraphQL/input objects.html#entitymanagementaitoolparameterupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementAttributeCreateInput": (
-                "GraphQL/input objects.html#entitymanagementattributecreateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementAttributeUpdateInput": (
-                "GraphQL/input objects.html#entitymanagementattributeupdateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementCategoryScopeCreateInput": (
                 "GraphQL/input objects.html#entitymanagementcategoryscopecreateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3512,14 +3593,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementCollectionIdFilterArgument": (
                 "GraphQL/input objects.html#entitymanagementcollectionidfilterargument",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfigCreateInput": (
-                "GraphQL/input objects.html#entitymanagementconfigcreateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfigUpdateInput": (
-                "GraphQL/input objects.html#entitymanagementconfigupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementConfluenceIntegrationCreateInput": (
@@ -3571,6 +3644,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementGitRepositoryEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementgitrepositoryentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementImpactProfileEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementimpactprofileentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementImpactProfileEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementimpactprofileentityupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementInboxIssueCategoryEntityCreateInput": (
@@ -3645,16 +3728,6 @@ d = {
                 "GraphQL/input objects.html#entitymanagementnrqlruleengineupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementPerformanceInboxSettingEntityCreateInput": (
-                "GraphQL/input "
-                "objects.html#entitymanagementperformanceinboxsettingentitycreateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementPerformanceInboxSettingEntityUpdateInput": (
-                "GraphQL/input "
-                "objects.html#entitymanagementperformanceinboxsettingentityupdateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementPipelineCloudRuleEntityCreateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementpipelinecloudruleentitycreateinput",
@@ -3663,6 +3736,16 @@ d = {
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementPipelineCloudRuleEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementpipelinecloudruleentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementProgressLevelDefinitionCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementprogressleveldefinitioncreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementProgressLevelDefinitionUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementprogressleveldefinitionupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementRagToolEntityCreateInput": (
@@ -3773,6 +3856,16 @@ d = {
                 "GraphQL/input objects.html#entitymanagementteamresourceupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsHierarchyLevelEntityCreateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementteamshierarchylevelentitycreateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsHierarchyLevelEntityUpdateInput": (
+                "GraphQL/input "
+                "objects.html#entitymanagementteamshierarchylevelentityupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsOrganizationSettingsEntityUpdateInput": (
                 "GraphQL/input "
                 "objects.html#entitymanagementteamsorganizationsettingsentityupdateinput",
@@ -3856,6 +3949,10 @@ d = {
                 "GraphQL/input objects.html#eventstometricsupdateruleinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.FleetControlAgentInput": (
+                "GraphQL/input objects.html#fleetcontrolagentinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.FleetControlConfigurationVersionListInput": (
                 "GraphQL/input objects.html#fleetcontrolconfigurationversionlistinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -3914,6 +4011,27 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.InstallationStatusErrorInput": (
                 "GraphQL/input objects.html#installationstatuserrorinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.IntegrationServicesCapabilitySettingsInput": (
+                "GraphQL/input objects.html#integrationservicescapabilitysettingsinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.IntegrationServicesCapabilitySettingsUpdateInput": (
+                "GraphQL/input "
+                "objects.html#integrationservicescapabilitysettingsupdateinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.IntegrationServicesInstallationInput": (
+                "GraphQL/input objects.html#integrationservicesinstallationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.IntegrationServicesTagInput": (
+                "GraphQL/input objects.html#integrationservicestaginput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.IntegrationServicesUpdateInput": (
+                "GraphQL/input objects.html#integrationservicesupdateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.LogConfigurationsCreateDataPartitionRuleInput": (
@@ -4892,6 +5010,64 @@ d = {
                 "GraphQL/input objects.html#whatsnewcontentsearchquery",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationCreateScheduleDefinitionInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationcreatescheduledefinitioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationCreateWorkflowDefinitionInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationcreateworkflowdefinitioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationDeleteScheduleInput": (
+                "GraphQL/input objects.html#workflowautomationdeletescheduleinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationDeleteWorkflowDefinitionInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationdeleteworkflowdefinitioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationScopeInput": (
+                "GraphQL/input objects.html#workflowautomationscopeinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationSignalInput": (
+                "GraphQL/input objects.html#workflowautomationsignalinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationStartWorkflowRunDefinitionInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationstartworkflowrundefinitioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationTag": (
+                "GraphQL/input objects.html#workflowautomationtag",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationUpdateWorkflowDefinitionInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationupdateworkflowdefinitioninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationWorkflowDefinitionValidationInput": (
+                "GraphQL/input "
+                "objects.html#workflowautomationworkflowdefinitionvalidationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationWorkflowRunInput": (
+                "GraphQL/input objects.html#workflowautomationworkflowruninput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationWorkflowRunOptions": (
+                "GraphQL/input objects.html#workflowautomationworkflowrunoptions",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.input_objects.WorkflowAutomationWorkflowRunScope": (
+                "GraphQL/input objects.html#workflowautomationworkflowrunscope",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.WorkloadAutomaticStatusInput": (
                 "GraphQL/input objects.html#workloadautomaticstatusinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
@@ -5593,6 +5769,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.AiWorkflowsResponseError": (
                 "GraphQL/objects.html#aiworkflowsresponseerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.AiWorkflowsSaveTeamWorkflowConfigurationError": (
+                "GraphQL/objects.html#aiworkflowssaveteamworkflowconfigurationerror",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.AiWorkflowsTestNotificationResponse": (
@@ -7531,8 +7711,8 @@ d = {
                 "GraphQL/objects.html#entitymanagementagententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementAgentTypeDefinitionEntity": (
-                "GraphQL/objects.html#entitymanagementagenttypedefinitionentity",
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAgentToDeploy": (
+                "GraphQL/objects.html#entitymanagementagenttodeploy",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementAiAgentEntity": (
@@ -7559,6 +7739,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementaicapableentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementAiEvaluationConfigEntity": (
+                "GraphQL/objects.html#entitymanagementaievaluationconfigentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementAiToolEntity": (
                 "GraphQL/objects.html#entitymanagementaitoolentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7577,6 +7761,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementApiCatalogApiContract": (
                 "GraphQL/objects.html#entitymanagementapicatalogapicontract",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementApiSpecificationBlobEntity": (
+                "GraphQL/objects.html#entitymanagementapispecificationblobentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementArrayCondition": (
@@ -7605,6 +7793,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundProcessingRuleEntity": (
                 "GraphQL/objects.html#entitymanagementbackgroundprocessingruleentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundProcessingSqlQuery": (
+                "GraphQL/objects.html#entitymanagementbackgroundprocessingsqlquery",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementBackgroundSqlProcessingRuleEntity": (
+                "GraphQL/objects.html#entitymanagementbackgroundsqlprocessingruleentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementBlob": (
@@ -7655,6 +7851,18 @@ d = {
                 "GraphQL/objects.html#entitymanagementcharactertextsplitteroptions",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCiscoMerakiBasicAuthCredential": (
+                "GraphQL/objects.html#entitymanagementciscomerakibasicauthcredential",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCiscoMerakiConnectionEntity": (
+                "GraphQL/objects.html#entitymanagementciscomerakiconnectionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementCiscoMerakiCredential": (
+                "GraphQL/objects.html#entitymanagementciscomerakicredential",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementCollectionElementsResult": (
                 "GraphQL/objects.html#entitymanagementcollectionelementsresult",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7681,6 +7889,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementComponentEntity": (
                 "GraphQL/objects.html#entitymanagementcomponententity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementComputeLocationEntity": (
+                "GraphQL/objects.html#entitymanagementcomputelocationentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementConfig": (
@@ -7875,6 +8087,14 @@ d = {
                 "GraphQL/objects.html#entitymanagementexternalowner",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementFederatedLogPartitionEntity": (
+                "GraphQL/objects.html#entitymanagementfederatedlogpartitionentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementFederatedLogSetupEntity": (
+                "GraphQL/objects.html#entitymanagementfederatedlogsetupentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementFleetControlProperties": (
                 "GraphQL/objects.html#entitymanagementfleetcontrolproperties",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7947,6 +8167,18 @@ d = {
                 "GraphQL/objects.html#entitymanagementgithubcredentials",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementImpactProfileEntity": (
+                "GraphQL/objects.html#entitymanagementimpactprofileentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementImpactProfileEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementimpactprofileentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementImpactProfileEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementimpactprofileentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementImpactQuery": (
                 "GraphQL/objects.html#entitymanagementimpactquery",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -7961,6 +8193,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementInboxIssueCategoryEntityUpdateResult": (
                 "GraphQL/objects.html#entitymanagementinboxissuecategoryentityupdateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentAttachmentEntity": (
+                "GraphQL/objects.html#entitymanagementincidentattachmententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentEntity": (
@@ -7981,6 +8217,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentMessageEntity": (
                 "GraphQL/objects.html#entitymanagementincidentmessageentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentProfileAttachmentEntity": (
+                "GraphQL/objects.html#entitymanagementincidentprofileattachmententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementIncidentProfileEntity": (
@@ -8079,8 +8319,16 @@ d = {
                 "GraphQL/objects.html#entitymanagementmetadata",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementMeterAttribute": (
+                "GraphQL/objects.html#entitymanagementmeterattribute",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementMeterEntity": (
                 "GraphQL/objects.html#entitymanagementmeterentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementMeterTypeEntity": (
+                "GraphQL/objects.html#entitymanagementmetertypeentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNewRelicBasicAuthCredential": (
@@ -8097,6 +8345,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNotificationAttachmentEntity": (
                 "GraphQL/objects.html#entitymanagementnotificationattachmententity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementNrAiAgentEntity": (
+                "GraphQL/objects.html#entitymanagementnraiagententity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementNrqlMacroEntity": (
@@ -8131,14 +8383,6 @@ d = {
                 "GraphQL/objects.html#entitymanagementperformanceinboxsettingentity",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntityCreateResult": (
-                "GraphQL/objects.html#entitymanagementperformanceinboxsettingentitycreateresult",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementPerformanceInboxSettingEntityUpdateResult": (
-                "GraphQL/objects.html#entitymanagementperformanceinboxsettingentityupdateresult",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementPipelineCloudRuleEntity": (
                 "GraphQL/objects.html#entitymanagementpipelinecloudruleentity",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -8153,6 +8397,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementProcessState": (
                 "GraphQL/objects.html#entitymanagementprocessstate",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementProductLineEntity": (
+                "GraphQL/objects.html#entitymanagementproductlineentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementProgressLevelDefinition": (
+                "GraphQL/objects.html#entitymanagementprogressleveldefinition",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRagDocumentEntity": (
@@ -8201,6 +8453,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRestApiContractEntity": (
                 "GraphQL/objects.html#entitymanagementrestapicontractentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementRetentionPolicy": (
+                "GraphQL/objects.html#entitymanagementretentionpolicy",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementRingDeploymentTracker": (
@@ -8345,6 +8601,14 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntity": (
                 "GraphQL/objects.html#entitymanagementteamshierarchylevelentity",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntityCreateResult": (
+                "GraphQL/objects.html#entitymanagementteamshierarchylevelentitycreateresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntityUpdateResult": (
+                "GraphQL/objects.html#entitymanagementteamshierarchylevelentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsOrganizationSettingsEntity": (
@@ -8905,6 +9169,22 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.InstallationStatusError": (
                 "GraphQL/objects.html#installationstatuserror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.IntegrationServicesCapabilitySettings": (
+                "GraphQL/objects.html#integrationservicescapabilitysettings",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.IntegrationServicesInstallationResponse": (
+                "GraphQL/objects.html#integrationservicesinstallationresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.IntegrationServicesTag": (
+                "GraphQL/objects.html#integrationservicestag",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.IntegrationServicesUpdateResponse": (
+                "GraphQL/objects.html#integrationservicesupdateresponse",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.JavaFlightRecorderFlamegraph": (
@@ -10555,6 +10835,154 @@ d = {
                 "GraphQL/objects.html#whatsnewsearchresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationAccountStitchedFields": (
+                "GraphQL/objects.html#workflowautomationaccountstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActionDefinition": (
+                "GraphQL/objects.html#workflowautomationactiondefinition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActionDefinitionInput": (
+                "GraphQL/objects.html#workflowautomationactiondefinitioninput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActionDefinitionOutput": (
+                "GraphQL/objects.html#workflowautomationactiondefinitionoutput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActionDefinitionTimeout": (
+                "GraphQL/objects.html#workflowautomationactiondefinitiontimeout",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActionDefinitionsResponse": (
+                "GraphQL/objects.html#workflowautomationactiondefinitionsresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationActorStitchedFields": (
+                "GraphQL/objects.html#workflowautomationactorstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationAllowedStringValuesValidation": (
+                "GraphQL/objects.html#workflowautomationallowedstringvaluesvalidation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationCreateScheduleResponse": (
+                "GraphQL/objects.html#workflowautomationcreatescheduleresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationCreateWorkflowDefinitionResponse": (
+                "GraphQL/objects.html#workflowautomationcreateworkflowdefinitionresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationDeleteScheduleResponse": (
+                "GraphQL/objects.html#workflowautomationdeletescheduleresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationDeleteWorkflowDefinitionResponse": (
+                "GraphQL/objects.html#workflowautomationdeleteworkflowdefinitionresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationMaxIntegerValueValidation": (
+                "GraphQL/objects.html#workflowautomationmaxintegervaluevalidation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationMaxLengthValidation": (
+                "GraphQL/objects.html#workflowautomationmaxlengthvalidation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationMinIntegerValueValidation": (
+                "GraphQL/objects.html#workflowautomationminintegervaluevalidation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationOrganizationStitchedFields": (
+                "GraphQL/objects.html#workflowautomationorganizationstitchedfields",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationRegexValidation": (
+                "GraphQL/objects.html#workflowautomationregexvalidation",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationScheduleOutline": (
+                "GraphQL/objects.html#workflowautomationscheduleoutline",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationScheduleResponse": (
+                "GraphQL/objects.html#workflowautomationscheduleresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationScheduleWorkflowInput": (
+                "GraphQL/objects.html#workflowautomationscheduleworkflowinput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationSchedulesResponse": (
+                "GraphQL/objects.html#workflowautomationschedulesresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationSchedulesResult": (
+                "GraphQL/objects.html#workflowautomationschedulesresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationScope": (
+                "GraphQL/objects.html#workflowautomationscope",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationSignalWorkflowRunResponse": (
+                "GraphQL/objects.html#workflowautomationsignalworkflowrunresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationStartWorkflowRunResponse": (
+                "GraphQL/objects.html#workflowautomationstartworkflowrunresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationStopWorkflowRunResponse": (
+                "GraphQL/objects.html#workflowautomationstopworkflowrunresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationTagOutput": (
+                "GraphQL/objects.html#workflowautomationtagoutput",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationUpdateWorkflowDefinitionResponse": (
+                "GraphQL/objects.html#workflowautomationupdateworkflowdefinitionresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationValidationType": (
+                "GraphQL/objects.html#workflowautomationvalidationtype",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowDefinition": (
+                "GraphQL/objects.html#workflowautomationworkflowdefinition",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowDefinitionOutline": (
+                "GraphQL/objects.html#workflowautomationworkflowdefinitionoutline",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowDefinitionValidationError": (
+                "GraphQL/objects.html#workflowautomationworkflowdefinitionvalidationerror",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowDefinitionValidationResponse": (
+                "GraphQL/objects.html#workflowautomationworkflowdefinitionvalidationresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowResponse": (
+                "GraphQL/objects.html#workflowautomationworkflowresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowRunInfoResponse": (
+                "GraphQL/objects.html#workflowautomationworkflowruninforesponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowsResponse": (
+                "GraphQL/objects.html#workflowautomationworkflowsresponse",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
+            "newrelic_sb_sdk.graphql.objects.WorkflowAutomationWorkflowsResult": (
+                "GraphQL/objects.html#workflowautomationworkflowsresult",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.WorkloadAccountStitchedFields": (
                 "GraphQL/objects.html#workloadaccountstitchedfields",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -10697,6 +11125,10 @@ d = {
                 "GraphQL/scalars.html#entityguid",
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
+            "newrelic_sb_sdk.graphql.scalars.EntityManagementDynamicString": (
+                "GraphQL/scalars.html#entitymanagementdynamicstring",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
             "newrelic_sb_sdk.graphql.scalars.EntitySearchQuery": (
                 "GraphQL/scalars.html#entitysearchquery",
                 "newrelic_sb_sdk/graphql/scalars.py",
@@ -10767,6 +11199,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.scalars.SemVer": (
                 "GraphQL/scalars.html#semver",
+                "newrelic_sb_sdk/graphql/scalars.py",
+            ),
+            "newrelic_sb_sdk.graphql.scalars.WorkflowAutomationRawWorkflowInputValue": (
+                "GraphQL/scalars.html#workflowautomationrawworkflowinputvalue",
                 "newrelic_sb_sdk/graphql/scalars.py",
             ),
         },
