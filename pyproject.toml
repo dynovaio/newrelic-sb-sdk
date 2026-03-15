@@ -104,6 +104,7 @@ source-include = [
 "version:update"  = "uv run tbump --no-push --no-tag"
 "freeze"          = "uv export --format requirements.txt --no-group dev --no-hashes --no-annotate --no-header --output-file requirements.txt"
 "freeze:dev"      = "uv export --format requirements.txt --all-groups --no-hashes --no-annotate --no-header --output-file requirements.dev.txt"
+"changelog:draft" = { shell = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md"}
 
 [tool.poe.tasks."schema:upgrade"]
 sequence = [
@@ -131,7 +132,7 @@ sequence = [
   { ref = "schema:upgrade" },
   { ref = "package:upgrade" },
   { cmd = "echo '🤖 Analizando cambios con Gemini...'" },
-  { cmd = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { ref = "changelog:draft" },
   { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'" },
   { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'" },
 ]
