@@ -28,7 +28,7 @@ project:
     TOC: Table of Contents
   toc:
     - file: README.md
-    - file: notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb
+    - file: notebooks/Generator/NerdGraph Schema to Notebooks.ipynb
     - title: Client
       file: notebooks/Client/Index.ipynb
       children:

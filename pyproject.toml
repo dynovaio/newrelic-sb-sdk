@@ -91,8 +91,8 @@ source-include = [
 [tool.poe.tasks]
 "lint"            = "uv run pre-commit run --all"
 "test"            = "uv run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
-"schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
-"schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
+"schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/Generator/NerdGraph Schema to Notebooks.ipynb'"
+"schema:checkout" = "git checkout 'notebooks/Generator/NerdGraph Schema to Notebooks.ipynb'"
 "schema:stage"    = "git add notebooks/GraphQL"
 "schema:commit"   = "git commit -m 'Update: generate GraphQL notebooks with new schema'"
 "package:update"  = "uv run nbdev_export"

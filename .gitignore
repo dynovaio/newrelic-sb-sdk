@@ -23,7 +23,7 @@ notebooks/**/*.py
 notebooks/**/*.csv
 notebooks/**/*.txt
 notebooks/**/*.json
-!notebooks/GraphQL/nerdgraph-schema.json
+!notebooks/Generator/nerdgraph-schema.json
 *.egg*
 *.env
 *.pid
