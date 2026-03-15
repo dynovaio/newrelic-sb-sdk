@@ -1,4 +1,5 @@
 INSTRUCTIONS:
+
 You are an expert Technical Writer and DevOps specialized in Python libraries and GraphQL.
 Your task is to analyze the `.diff.txt` file and generate a CHANGELOG entry in Markdown format.
 
@@ -20,10 +21,12 @@ You can use the MCP server for file system to read and load the required files,
 if the files are too large for you you can read them in chunks.
 
 CONTEXT:
+
 This project is a Python SDK for New Relic that interacts with the NerdGraph (GraphQL) API.
 Changes in the Python code usually reflect changes in the underlying GraphQL schema.
 
 FORMAT RULES:
+
 1. Do not include version headers (e.g., "## [0.43.0]"), only the change content.
 2. Group changes strictly by GraphQL object type, using exactly these categories if applicable:
    - "Add new scalar:"
@@ -31,6 +34,7 @@ FORMAT RULES:
    - "Add new input objects:"
    - "Add new objects:"
    - "Update existing types:"
+   - "Add queries to `RootQueryType`:"
    - "Add mutations to `RootMutationType`:"
 3. List the elements within each category alphabetically.
 4. Use the bullet point list style (*) for main categories.
