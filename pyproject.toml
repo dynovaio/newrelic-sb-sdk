@@ -199,3 +199,14 @@ invalid-return-type = "ignore"
 unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
 invalid-argument-type = "ignore"
+
+[tool.nbdev]
+host = "gitlab"
+nbs_path = "notebooks"
+doc_path = "docs"
+branch = "master"
+custom_sidebar = true
+title = "newrelic_sb_sdk"
+lib_name = "newrelic_sb_sdk"
+lib_path = "src/newrelic_sb_sdk"
+repo_name = "newrelic-sb-sdk"
