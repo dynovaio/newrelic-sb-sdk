@@ -91,6 +91,7 @@ source-include = [
 [tool.poe.tasks]
 "docs:start"      = "uv run jupyter book start"
 "docs:build"      = "uv run jupyter book build"
+"lint:update"     = "uv run pre-commit autoupdate"
 "lint"            = "uv run pre-commit run --all"
 "test"            = "uv run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
 "schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/Generator/NerdGraph Schema to Notebooks.ipynb'"
@@ -196,7 +197,7 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ty.rules]
-non-subscriptable = "ignore"
+not-subscriptable = "ignore"
 invalid-return-type = "ignore"
 unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
