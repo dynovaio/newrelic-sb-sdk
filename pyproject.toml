@@ -41,9 +41,9 @@ classifiers = [
 ]
 requires-python = ">=3.10.0,<4.0.0"
 dependencies = [
-    "python-dotenv (>=1.2.1,<2.0.0)",
-    "requests (>=2.32.5,<3.0.0)",
-    "sgqlc (>=17.1,<18.0.0)",
+    "python-dotenv>=1.2.2",
+    "requests>=2.32.5",
+    "sgqlc>=18",
 ]
 
 [project.urls]
@@ -56,23 +56,23 @@ Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob
 
 [dependency-groups]
 dev = [
-    "coverage>=7.13.0",
+    "coverage>=7.13.4",
     "deepdiff[optimize]>=8.6.1",
     "importnb>=2023.11.1",
-    "jupyter-book>=2.1.0",
-    "jupyterlab>=4.5.1",
-    "nbdev>=2.4.7",
+    "jupyter-book>=2.1.2",
+    "jupyterlab>=4.5.6",
+    "nbdev>=3.0.12",
     "nbmake>=1.5.5",
-    "poethepoet>=0.38.0",
+    "poethepoet>=0.42.1",
     "pre-commit>=4.5.1",
     "pygments-sb-nrql>=0.7.0",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
     "pytest-vcr>=1.0.2",
-    "ruff>=0.14.10",
+    "ruff>=0.15.6",
     "tbump>=6.11.0",
-    "tox>=4.32.0",
-    "ty>=0.0.5",
+    "tox>=4.49.1",
+    "ty>=0.0.23",
 ]
 
 [build-system]
