@@ -203,6 +203,7 @@ invalid-return-type = "ignore"
 unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
 invalid-argument-type = "ignore"
+inconsistent-mro = "ignore"
 
 [tool.nbdev]
 host = "gitlab"
