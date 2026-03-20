@@ -316,6 +316,7 @@ __all__ = [
     "CloudConfluentDisableIntegrationsInput",
     "CloudConfluentIntegrationsInput",
     "CloudConfluentKafkaConnectorResourceIntegrationInput",
+    "CloudConfluentKafkaFlinkResourceIntegrationInput",
     "CloudConfluentKafkaKsqlResourceIntegrationInput",
     "CloudConfluentKafkaResourceIntegrationInput",
     "CloudConfluentLinkAccountInput",
@@ -540,7 +541,6 @@ __all__ = [
     "EntityManagementTeamExternalIntegrationUpdateInput",
     "EntityManagementTeamResourceCreateInput",
     "EntityManagementTeamResourceUpdateInput",
-    "EntityManagementTeamsHierarchyLevelEntityCreateInput",
     "EntityManagementTeamsHierarchyLevelEntityUpdateInput",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateInput",
     "EntityManagementTokenTextSplitterOptionsCreateInput",
@@ -4210,6 +4210,7 @@ class AlertsNrqlConditionSignalInput(sgqlc.types.Input):
         "evaluation_offset",
         "fill_option",
         "fill_value",
+        "polling_frequency",
         "slide_by",
     )
     aggregation_delay = sgqlc.types.Field(Seconds, graphql_name="aggregationDelay")
@@ -4229,6 +4230,8 @@ class AlertsNrqlConditionSignalInput(sgqlc.types.Input):
     fill_option = sgqlc.types.Field(AlertsFillOption, graphql_name="fillOption")
 
     fill_value = sgqlc.types.Field(Float, graphql_name="fillValue")
+
+    polling_frequency = sgqlc.types.Field(Seconds, graphql_name="pollingFrequency")
 
     slide_by = sgqlc.types.Field(Seconds, graphql_name="slideBy")
 
@@ -8688,12 +8691,18 @@ class CloudConfluentDisableIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "confluent_kafka_connector_resource",
+        "confluent_kafka_flink_resource",
         "confluent_kafka_ksql_resource",
         "confluent_kafka_resource",
     )
     confluent_kafka_connector_resource = sgqlc.types.Field(
         sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
         graphql_name="confluentKafkaConnectorResource",
+    )
+
+    confluent_kafka_flink_resource = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudDisableAccountIntegrationInput"),
+        graphql_name="confluentKafkaFlinkResource",
     )
 
     confluent_kafka_ksql_resource = sgqlc.types.Field(
@@ -8711,12 +8720,18 @@ class CloudConfluentIntegrationsInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "confluent_kafka_connector_resource",
+        "confluent_kafka_flink_resource",
         "confluent_kafka_ksql_resource",
         "confluent_kafka_resource",
     )
     confluent_kafka_connector_resource = sgqlc.types.Field(
         sgqlc.types.list_of("CloudConfluentKafkaConnectorResourceIntegrationInput"),
         graphql_name="confluentKafkaConnectorResource",
+    )
+
+    confluent_kafka_flink_resource = sgqlc.types.Field(
+        sgqlc.types.list_of("CloudConfluentKafkaFlinkResourceIntegrationInput"),
+        graphql_name="confluentKafkaFlinkResource",
     )
 
     confluent_kafka_ksql_resource = sgqlc.types.Field(
@@ -8731,6 +8746,26 @@ class CloudConfluentIntegrationsInput(sgqlc.types.Input):
 
 
 class CloudConfluentKafkaConnectorResourceIntegrationInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = (
+        "inventory_polling_interval",
+        "linked_account_id",
+        "metrics_polling_interval",
+    )
+    inventory_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="inventoryPollingInterval"
+    )
+
+    linked_account_id = sgqlc.types.Field(
+        sgqlc.types.non_null(Int), graphql_name="linkedAccountId"
+    )
+
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudConfluentKafkaFlinkResourceIntegrationInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "inventory_polling_interval",
@@ -13474,7 +13509,6 @@ class EntityManagementTeamEntityCreateInput(sgqlc.types.Input):
         "aliases",
         "description",
         "external_integration",
-        "hierarchy_level_id",
         "managers",
         "name",
         "parent_id",
@@ -13492,8 +13526,6 @@ class EntityManagementTeamEntityCreateInput(sgqlc.types.Input):
         "EntityManagementTeamExternalIntegrationCreateInput",
         graphql_name="externalIntegration",
     )
-
-    hierarchy_level_id = sgqlc.types.Field(ID, graphql_name="hierarchyLevelId")
 
     managers = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="managers"
@@ -13526,7 +13558,6 @@ class EntityManagementTeamEntityUpdateInput(sgqlc.types.Input):
         "aliases",
         "description",
         "external_integration",
-        "hierarchy_level_id",
         "managers",
         "name",
         "parent_id",
@@ -13543,8 +13574,6 @@ class EntityManagementTeamEntityUpdateInput(sgqlc.types.Input):
         "EntityManagementTeamExternalIntegrationUpdateInput",
         graphql_name="externalIntegration",
     )
-
-    hierarchy_level_id = sgqlc.types.Field(ID, graphql_name="hierarchyLevelId")
 
     managers = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(ID)), graphql_name="managers"
@@ -13607,21 +13636,6 @@ class EntityManagementTeamResourceUpdateInput(sgqlc.types.Input):
     type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
-class EntityManagementTeamsHierarchyLevelEntityCreateInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("name", "scope", "tags")
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
-
-    scope = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementScopedReferenceInput), graphql_name="scope"
-    )
-
-    tags = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTagInput)),
-        graphql_name="tags",
-    )
-
-
 class EntityManagementTeamsHierarchyLevelEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = ("name", "tags")
@@ -13635,20 +13649,9 @@ class EntityManagementTeamsHierarchyLevelEntityUpdateInput(sgqlc.types.Input):
 
 class EntityManagementTeamsOrganizationSettingsEntityUpdateInput(sgqlc.types.Input):
     __schema__ = nerdgraph
-    __field_names__ = (
-        "discovery",
-        "hierarchy_level_order",
-        "name",
-        "sync_groups",
-        "tags",
-    )
+    __field_names__ = ("discovery", "name", "sync_groups", "tags")
     discovery = sgqlc.types.Field(
         EntityManagementDiscoverySettingsUpdateInput, graphql_name="discovery"
-    )
-
-    hierarchy_level_order = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(ID)),
-        graphql_name="hierarchyLevelOrder",
     )
 
     name = sgqlc.types.Field(String, graphql_name="name")

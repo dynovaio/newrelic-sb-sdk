@@ -177,6 +177,7 @@ __all__ = [
     "EntityManagementBudgetType",
     "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
+    "EntityManagementChannelType",
     "EntityManagementCloudProvider",
     "EntityManagementCommunicationMode",
     "EntityManagementCommunicationStatus",
@@ -214,11 +215,11 @@ __all__ = [
     "EntityManagementMcpAuthType",
     "EntityManagementMcpTransport",
     "EntityManagementMessageType",
-    "EntityManagementMetricPrefixType",
     "EntityManagementNrRegion",
     "EntityManagementNumericOperator",
     "EntityManagementOperatingSystemType",
     "EntityManagementOverlapPolicy",
+    "EntityManagementPrincipalType",
     "EntityManagementPriority",
     "EntityManagementProcessStatus",
     "EntityManagementProvider",
@@ -2014,6 +2015,11 @@ class EntityManagementCategoryScopeType(sgqlc.types.Enum):
     __choices__ = ("ACCOUNT", "GLOBAL")
 
 
+class EntityManagementChannelType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("BROWSER", "MOBILE")
+
+
 class EntityManagementCloudProvider(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("AWS", "AZURE", "GCP", "OCI")
@@ -2109,7 +2115,7 @@ class EntityManagementEventBridgeTargetType(sgqlc.types.Enum):
 
 class EntityManagementEventBridgeWorkflowDefinitionScopeType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "ENTITY")
+    __choices__ = ("ACCOUNT", "ORGANIZATION")
 
 
 class EntityManagementExecutionStatus(sgqlc.types.Enum):
@@ -2242,11 +2248,6 @@ class EntityManagementMessageType(sgqlc.types.Enum):
     __choices__ = ("JSON", "TEXT", "YAML")
 
 
-class EntityManagementMetricPrefixType(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("EXTERNAL_TRANSACTION",)
-
-
 class EntityManagementNrRegion(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("EU_PRODUCTION", "US_PRODUCTION", "US_STAGING")
@@ -2265,6 +2266,11 @@ class EntityManagementOperatingSystemType(sgqlc.types.Enum):
 class EntityManagementOverlapPolicy(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CANCEL", "SKIP")
+
+
+class EntityManagementPrincipalType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("SYSTEM_IDENTITY", "USER")
 
 
 class EntityManagementPriority(sgqlc.types.Enum):
@@ -2348,7 +2354,7 @@ class EntityManagementTextSplitterType(sgqlc.types.Enum):
 
 class EntityManagementThresholdScope(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "DEFAULT", "ENTITY")
+    __choices__ = ("ACCOUNT", "ENTITY", "ORGANIZATION")
 
 
 class EntityManagementWorkItemCategory(sgqlc.types.Enum):
@@ -2529,7 +2535,7 @@ class ErrorsInboxUpdateErrorGroupStateErrorType(sgqlc.types.Enum):
 
 class EventsToMetricsErrorReason(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("GENERAL", "INVALID_INPUT", "USER_NOT_AUTHORIZED")
+    __choices__ = ("GENERAL", "INVALID_INPUT", "LIMIT_EXCEEDED", "USER_NOT_AUTHORIZED")
 
 
 class FleetControlEntityScope(sgqlc.types.Enum):

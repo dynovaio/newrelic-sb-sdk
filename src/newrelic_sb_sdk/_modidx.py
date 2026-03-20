@@ -3,9 +3,9 @@
 d = {
     "settings": {
         "branch": "master",
-        "doc_baseurl": "/newrelic-sb-sdk/",
-        "doc_host": "https://dynovaio.github.io",
-        "git_url": "https://github.com/dynova/newrelic-sb-sdk/tree/master/",
+        "doc_baseurl": "/open-source/newrelic-sb-sdk",
+        "doc_host": "https://softbutterfly.gitlab.io",
+        "git_url": "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk",
         "lib_path": "src/newrelic_sb_sdk",
     },
     "syms": {
@@ -722,6 +722,10 @@ d = {
                 "GraphQL/enums.html#entitymanagementcategoryscopetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementChannelType": (
+                "GraphQL/enums.html#entitymanagementchanneltype",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementCloudProvider": (
                 "GraphQL/enums.html#entitymanagementcloudprovider",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -870,10 +874,6 @@ d = {
                 "GraphQL/enums.html#entitymanagementmessagetype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
-            "newrelic_sb_sdk.graphql.enums.EntityManagementMetricPrefixType": (
-                "GraphQL/enums.html#entitymanagementmetricprefixtype",
-                "newrelic_sb_sdk/graphql/enums.py",
-            ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementNrRegion": (
                 "GraphQL/enums.html#entitymanagementnrregion",
                 "newrelic_sb_sdk/graphql/enums.py",
@@ -888,6 +888,10 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementOverlapPolicy": (
                 "GraphQL/enums.html#entitymanagementoverlappolicy",
+                "newrelic_sb_sdk/graphql/enums.py",
+            ),
+            "newrelic_sb_sdk.graphql.enums.EntityManagementPrincipalType": (
+                "GraphQL/enums.html#entitymanagementprincipaltype",
                 "newrelic_sb_sdk/graphql/enums.py",
             ),
             "newrelic_sb_sdk.graphql.enums.EntityManagementPriority": (
@@ -2919,6 +2923,11 @@ d = {
                 "objects.html#cloudconfluentkafkaconnectorresourceintegrationinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
+            "newrelic_sb_sdk.graphql.input_objects.CloudConfluentKafkaFlinkResourceIntegrationInput": (
+                "GraphQL/input "
+                "objects.html#cloudconfluentkafkaflinkresourceintegrationinput",
+                "newrelic_sb_sdk/graphql/input_objects.py",
+            ),
             "newrelic_sb_sdk.graphql.input_objects.CloudConfluentKafkaKsqlResourceIntegrationInput": (
                 "GraphQL/input "
                 "objects.html#cloudconfluentkafkaksqlresourceintegrationinput",
@@ -3854,11 +3863,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamResourceUpdateInput": (
                 "GraphQL/input objects.html#entitymanagementteamresourceupdateinput",
-                "newrelic_sb_sdk/graphql/input_objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsHierarchyLevelEntityCreateInput": (
-                "GraphQL/input "
-                "objects.html#entitymanagementteamshierarchylevelentitycreateinput",
                 "newrelic_sb_sdk/graphql/input_objects.py",
             ),
             "newrelic_sb_sdk.graphql.input_objects.EntityManagementTeamsHierarchyLevelEntityUpdateInput": (
@@ -6659,6 +6663,10 @@ d = {
                 "GraphQL/objects.html#cloudconfluentkafkaconnectorresourceintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.CloudConfluentKafkaFlinkResourceIntegration": (
+                "GraphQL/objects.html#cloudconfluentkafkaflinkresourceintegration",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.CloudConfluentKafkaKsqlResourceIntegration": (
                 "GraphQL/objects.html#cloudconfluentkafkaksqlresourceintegration",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -8067,12 +8075,12 @@ d = {
                 "GraphQL/objects.html#entitymanagementeventbridgetargetparameters",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementEventBridgeWorkflowDefinition": (
-                "GraphQL/objects.html#entitymanagementeventbridgeworkflowdefinition",
+            "newrelic_sb_sdk.graphql.objects.EntityManagementEventBridgeWorkflowDefinitionType": (
+                "GraphQL/objects.html#entitymanagementeventbridgeworkflowdefinitiontype",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementEventBridgeWorkflowInputs": (
-                "GraphQL/objects.html#entitymanagementeventbridgeworkflowinputs",
+            "newrelic_sb_sdk.graphql.objects.EntityManagementEventBridgeWorkflowInput": (
+                "GraphQL/objects.html#entitymanagementeventbridgeworkflowinput",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementEventBridgeWorkflowTargetParameters": (
@@ -8395,6 +8403,10 @@ d = {
                 "GraphQL/objects.html#entitymanagementpipelinecloudruleentityupdateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
+            "newrelic_sb_sdk.graphql.objects.EntityManagementPrincipal": (
+                "GraphQL/objects.html#entitymanagementprincipal",
+                "newrelic_sb_sdk/graphql/objects.py",
+            ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementProcessState": (
                 "GraphQL/objects.html#entitymanagementprocessstate",
                 "newrelic_sb_sdk/graphql/objects.py",
@@ -8601,10 +8613,6 @@ d = {
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntity": (
                 "GraphQL/objects.html#entitymanagementteamshierarchylevelentity",
-                "newrelic_sb_sdk/graphql/objects.py",
-            ),
-            "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntityCreateResult": (
-                "GraphQL/objects.html#entitymanagementteamshierarchylevelentitycreateresult",
                 "newrelic_sb_sdk/graphql/objects.py",
             ),
             "newrelic_sb_sdk.graphql.objects.EntityManagementTeamsHierarchyLevelEntityUpdateResult": (
