@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.46.0] - 2026-03-20
+
 * Add new scalar: `EntityManagementDynamicString`,
   `WorkflowAutomationRawWorkflowInputValue`.
 * Add new enums: `AiWorkflowsSaveTeamWorkflowConfigurationErrorType`,
