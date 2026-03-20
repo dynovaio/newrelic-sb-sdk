@@ -20,6 +20,8 @@ variable defintion. Keep in mind the following rules.
 You can use the MCP server for file system to read and load the required files,
 if the files are too large for you you can read them in chunks.
 
+You can also use grep_find tool with ignore false in ordeer to ignore any constraint if `.diff.txt` is ignored by `.gitignore`.
+
 CONTEXT:
 
 This project is a Python SDK for New Relic that interacts with the NerdGraph (GraphQL) API.
