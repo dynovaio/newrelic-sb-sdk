@@ -143,3 +143,10 @@ main {
 .dark .sb-image-header-wrapper::after {
     opacity: 1;
 }
+
+.myst-outline-item a {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}

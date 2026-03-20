@@ -1,6 +1,6 @@
 [project]
 name = "newrelic-sb-sdk"
-version = "0.45.0"
+version = "0.46.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   { name = "Dynova Development Team", email = "dev@dynova.io" },
@@ -41,9 +41,9 @@ classifiers = [
 ]
 requires-python = ">=3.10.0,<4.0.0"
 dependencies = [
-    "python-dotenv (>=1.2.1,<2.0.0)",
-    "requests (>=2.32.5,<3.0.0)",
-    "sgqlc (>=17.1,<18.0.0)",
+    "python-dotenv>=1.2.2",
+    "requests>=2.32.5",
+    "sgqlc>=18",
 ]
 
 [project.urls]
@@ -51,28 +51,28 @@ Homepage = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
 Documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Issues = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
-Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.45.0/newrelic-sb-sdk-v0.45.0.zip"
-Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.45.0/CHANGELOG.md"
+Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.46.0/newrelic-sb-sdk-v0.46.0.zip"
+Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.46.0/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
-    "coverage>=7.13.0",
+    "coverage>=7.13.4",
     "deepdiff[optimize]>=8.6.1",
     "importnb>=2023.11.1",
-    "jupyter-book>=2.1.0",
-    "jupyterlab>=4.5.1",
-    "nbdev>=2.4.7",
+    "jupyter-book>=2.1.2",
+    "jupyterlab>=4.5.6",
+    "nbdev>=3.0.12",
     "nbmake>=1.5.5",
-    "poethepoet>=0.38.0",
+    "poethepoet>=0.42.1",
     "pre-commit>=4.5.1",
     "pygments-sb-nrql>=0.7.0",
     "pytest>=9.0.2",
     "pytest-cov>=7.0.0",
     "pytest-vcr>=1.0.2",
-    "ruff>=0.14.10",
+    "ruff>=0.15.6",
     "tbump>=6.11.0",
-    "tox>=4.32.0",
-    "ty>=0.0.5",
+    "tox>=4.49.1",
+    "ty>=0.0.23",
 ]
 
 [build-system]
@@ -89,18 +89,22 @@ source-include = [
 ]
 
 [tool.poe.tasks]
+"docs:start"      = "uv run jupyter book start"
+"docs:build"      = "uv run jupyter book build"
+"lint:update"     = "uv run pre-commit autoupdate"
 "lint"            = "uv run pre-commit run --all"
 "test"            = "uv run pytest --cov newrelic_sb_sdk --cov-report xml:cobertura.xml --cov-report term --junitxml report.xml"
-"schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
-"schema:checkout" = "git checkout 'notebooks/GraphQL/NerdGraph Schema to Notebooks.ipynb'"
-"schema:stage"    = "git add notebooks/GraphQL"
-"schema:commit"   = "git commit -m 'Update: generate GraphQL notebooks with new schema'"
-"package:update"  = "uv run nbdev_export"
+"schema:update"   = "uv run jupyter nbconvert --to notebook --inplace --execute 'notebooks/Generator/NerdGraph Schema to Notebooks.ipynb'"
+"schema:checkout" = "git checkout 'notebooks/Generator/NerdGraph Schema to Notebooks.ipynb'"
+"schema:stage"    = "git add notebooks/Generator notebooks/GraphQL"
+"schema:commit"   = "git commit -m 'feat(graphql): update generated GraphQL notebooks with new schema'"
+"package:update"  = "uv run nbdev-export"
 "package:stage"   = "git add src"
-"package:commit"  = "git commit -m 'Update: refresh src module from notebooks'"
+"package:commit"  = "git commit -m 'refactor(src): refresh package source from notebooks'"
 "version:update"  = "uv run tbump --no-push --no-tag"
 "freeze"          = "uv export --format requirements.txt --no-group dev --no-hashes --no-annotate --no-header --output-file requirements.txt"
 "freeze:dev"      = "uv export --format requirements.txt --all-groups --no-hashes --no-annotate --no-header --output-file requirements.dev.txt"
+"changelog:draft" = { shell = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md"}
 
 [tool.poe.tasks."schema:upgrade"]
 sequence = [
@@ -128,7 +132,7 @@ sequence = [
   { ref = "schema:upgrade" },
   { ref = "package:upgrade" },
   { cmd = "echo '🤖 Analizando cambios con Gemini...'" },
-  { cmd = "cat .diff.txt | gemini < prompts/changelog_generator.txt > .CHANGELOG_DRAFT.md" },
+  { ref = "changelog:draft" },
   { cmd = "echo '✅ Borrador de cambios generado en .CHANGELOG_DRAFT.md'" },
   { cmd = "echo '👀 Por favor revisa el borrador antes de lanzar.'" },
 ]
@@ -194,8 +198,20 @@ skip-magic-trailing-comma = false
 line-ending = "auto"
 
 [tool.ty.rules]
-non-subscriptable = "ignore"
+not-subscriptable = "ignore"
 invalid-return-type = "ignore"
 unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
 invalid-argument-type = "ignore"
+inconsistent-mro = "ignore"
+
+[tool.nbdev]
+host = "gitlab"
+nbs_path = "notebooks"
+doc_path = "docs"
+branch = "master"
+custom_sidebar = true
+title = "newrelic_sb_sdk"
+lib_name = "newrelic_sb_sdk"
+lib_path = "src/newrelic_sb_sdk"
+repo_name = "newrelic-sb-sdk"

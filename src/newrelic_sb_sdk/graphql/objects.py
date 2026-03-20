@@ -537,8 +537,8 @@ __all__ = [
     "EntityManagementEventBridgeSourceType",
     "EntityManagementEventBridgeTarget",
     "EntityManagementEventBridgeTargetParameters",
-    "EntityManagementEventBridgeWorkflowDefinition",
-    "EntityManagementEventBridgeWorkflowInputs",
+    "EntityManagementEventBridgeWorkflowDefinitionType",
+    "EntityManagementEventBridgeWorkflowInput",
     "EntityManagementEventBridgeWorkflowTargetParameters",
     "EntityManagementExecutionIssue",
     "EntityManagementExternalOwner",
@@ -582,6 +582,7 @@ __all__ = [
     "EntityManagementParentInfo",
     "EntityManagementPipelineCloudRuleEntityCreateResult",
     "EntityManagementPipelineCloudRuleEntityUpdateResult",
+    "EntityManagementPrincipal",
     "EntityManagementProcessState",
     "EntityManagementProgressLevelDefinition",
     "EntityManagementRagToolEntityCreateResult",
@@ -617,7 +618,6 @@ __all__ = [
     "EntityManagementTeamEntityUpdateResult",
     "EntityManagementTeamExternalIntegration",
     "EntityManagementTeamResource",
-    "EntityManagementTeamsHierarchyLevelEntityCreateResult",
     "EntityManagementTeamsHierarchyLevelEntityUpdateResult",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateResult",
     "EntityManagementTemplateField",
@@ -1251,6 +1251,7 @@ __all__ = [
     "CloudCloudfrontIntegration",
     "CloudCloudtrailIntegration",
     "CloudConfluentKafkaConnectorResourceIntegration",
+    "CloudConfluentKafkaFlinkResourceIntegration",
     "CloudConfluentKafkaKsqlResourceIntegration",
     "CloudConfluentKafkaResourceIntegration",
     "CloudDynamodbIntegration",
@@ -1643,6 +1644,7 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementBudgetType,
     EntityManagementCategory,
     EntityManagementCategoryScopeType,
+    EntityManagementChannelType,
     EntityManagementCloudProvider,
     EntityManagementCommunicationMode,
     EntityManagementCommunicationStatus,
@@ -1680,11 +1682,11 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementMcpAuthType,
     EntityManagementMcpTransport,
     EntityManagementMessageType,
-    EntityManagementMetricPrefixType,
     EntityManagementNrRegion,
     EntityManagementNumericOperator,
     EntityManagementOperatingSystemType,
     EntityManagementOverlapPolicy,
+    EntityManagementPrincipalType,
     EntityManagementPriority,
     EntityManagementProcessStatus,
     EntityManagementProvider,
@@ -1957,7 +1959,6 @@ from newrelic_sb_sdk.graphql.input_objects import (
     EntityManagementScorecardRuleEntityUpdateInput,
     EntityManagementTeamEntityCreateInput,
     EntityManagementTeamEntityUpdateInput,
-    EntityManagementTeamsHierarchyLevelEntityCreateInput,
     EntityManagementTeamsHierarchyLevelEntityUpdateInput,
     EntityManagementTeamsOrganizationSettingsEntityUpdateInput,
     EntityRelationshipEdgeFilter,
@@ -2257,6 +2258,13 @@ class AlertableEntity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `end_time` (`EpochMilliseconds!`): End of time window for
+      violations.
+    * `start_time` (`EpochMilliseconds!`): Start of time window for
+      violations.
+    """
 
     recent_alert_violations = sgqlc.types.Field(
         sgqlc.types.list_of("EntityAlertViolation"),
@@ -2267,7 +2275,8 @@ class AlertableEntity(sgqlc.types.Interface):
     )
     """Arguments:
 
-    * `count` (`Int`) (default: `10`)
+    * `count` (`Int`): The desired number of alert violations to be
+      returned. (default: `10`)
     """
 
 
@@ -2673,6 +2682,10 @@ class CloudProvider(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `slug` (`String!`): The cloud provider short name.
+    """
 
     services = sgqlc.types.Field(
         sgqlc.types.non_null(sgqlc.types.list_of(sgqlc.types.non_null("CloudService"))),
@@ -2710,6 +2723,10 @@ class CollectionEntity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `name` (`String!`): The name of the collection to fetch.
+    """
 
     guid = sgqlc.types.Field(EntityGuid, graphql_name="guid")
 
@@ -2937,6 +2954,12 @@ class ErrorsInboxErrorGroupBase(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Current query cursor
+    * `filter` (`ErrorsInboxResourceFilterInput`): Set of filters to
+      be applied to the search.
+    """
 
     source = sgqlc.types.Field(String, graphql_name="source")
 
@@ -3171,6 +3194,13 @@ class Entity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `end_time` (`EpochMilliseconds!`): End of time window for
+      violations.
+    * `start_time` (`EpochMilliseconds!`): Start of time window for
+      violations.
+    """
 
     deployment_search = sgqlc.types.Field(
         "ChangeTrackingDeploymentSearchResult",
@@ -3186,6 +3216,11 @@ class Entity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `filter` (`ChangeTrackingSearchFilter`): Contains the set of
+      filters to apply to the query.
+    """
 
     domain = sgqlc.types.Field(String, graphql_name="domain")
 
@@ -3275,6 +3310,29 @@ class Entity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `async_` (`Boolean`): When true, the query will begin
+      asynchronous resolution after the allotted `timeout`. Include
+      `queryProgress` fields in your GraphQL query to receive the
+      information you will need to poll the `nrdbQueryProgress` field
+      for the results of your async NRQL query.  See [this page](https
+      ://docs.newrelic.com/docs/apis/nerdgraph/examples/async-queries-
+      nrql-tutorial) for additional asynchronous query documentation.
+      (default: `false`)
+    * `nrql` (`Nrql!`): The
+      [NRQL](https://docs.newrelic.com/docs/insights/nrql-new-relic-
+      query-language/nrql-resources/nrql-syntax-components-functions)
+      query string.
+    * `options` (`NrqlQueryOptions`): Additional options for NRQL
+      queries.
+    * `timeout` (`Seconds`): The timeout we will apply to the NRQL
+      Query. The value will be clamped to between 5 and 120 seconds
+      and defaults to 5 seconds.  For `async` queries, if the query is
+      still incomplete after this amount of time, resolution will
+      become asynchronous and return `queryProgress` data if
+      requested.
+    """
 
     permalink = sgqlc.types.Field(String, graphql_name="permalink")
 
@@ -3285,6 +3343,11 @@ class Entity(sgqlc.types.Interface):
             (("count", sgqlc.types.Arg(Int, graphql_name="count", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `count` (`Int`): The desired number of alert violations to be
+      returned.
+    """
 
     related_entities = sgqlc.types.Field(
         "EntityRelationshipRelatedEntitiesResult",
@@ -3307,6 +3370,15 @@ class Entity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): The cursor to fetch paginated results.
+    * `filter` (`EntityRelationshipEdgeFilter`): Apply an optional
+      filter to the related entities.
+    * `limit` (`Int`): A limit to apply to the number of relationships
+      returned. Note: this option can only lower the default limits
+      (2000 relationships).
+    """
 
     reporting = sgqlc.types.Field(Boolean, graphql_name="reporting")
 
@@ -3334,6 +3406,11 @@ class Entity(sgqlc.types.Interface):
             )
         ),
     )
+    """Arguments:
+
+    * `time_window` (`TimeWindowInput`): The start and end of the
+      tracing data. Defaults to the last 30 minutes
+    """
 
     type = sgqlc.types.Field(String, graphql_name="type")
 
@@ -3567,6 +3644,29 @@ class Account(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `async_` (`Boolean`): When true, the query will begin
+      asynchronous resolution after the allotted `timeout`. Include
+      `queryProgress` fields in your GraphQL query to receive the
+      information you will need to poll the `nrqlQueryProgress` field
+      for the results of your async NRQL query.  See [this page](https
+      ://docs.newrelic.com/docs/apis/nerdgraph/examples/async-queries-
+      nrql-tutorial) for additional asynchronous query documentation.
+      (default: `false`)
+    * `options` (`NrqlQueryOptions`): Additional options for NRQL
+      queries.
+    * `query` (`Nrql!`): The
+      [NRQL](https://docs.newrelic.com/docs/insights/nrql-new-relic-
+      query-language/nrql-resources/nrql-syntax-components-functions)
+      query string.
+    * `timeout` (`Seconds`): The timeout we will apply to the NRQL
+      Query. The value will be clamped to between 5 and 120 seconds
+      and defaults to 5 seconds.  For `async` queries, if the query is
+      still incomplete after this amount of time, resolution will
+      become asynchronous and return `queryProgress` data if
+      requested.
+    """
 
     nrql_drop_rules = sgqlc.types.Field(
         "NrqlDropRulesAccountStitchedFields", graphql_name="nrqlDropRules"
@@ -3586,6 +3686,11 @@ class Account(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `query_id` (`ID!`): A token for retrieving the results of a
+      previously executed asynchronous query.
+    """
 
     pixie = sgqlc.types.Field("PixieAccountStitchedFields", graphql_name="pixie")
 
@@ -3647,7 +3752,8 @@ class AccountManagementOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `is_canceled` (`Boolean`)
+    * `is_canceled` (`Boolean`): Input for filtering by canceled
+      status
     """
 
 
@@ -3688,8 +3794,9 @@ class AccountOutline(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `filter` (`[String]`)
-    * `time_window` (`TimeWindowInput`)
+    * `filter` (`[String]`): Filter results to a chosen set of event
+      types.
+    * `time_window` (`TimeWindowInput`)None
     """
 
 
@@ -3750,6 +3857,10 @@ class Actor(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`Int!`): The New Relic account ID you want to query.
+    """
 
     accounts = sgqlc.types.Field(
         sgqlc.types.list_of(AccountOutline),
@@ -3810,7 +3921,7 @@ class Actor(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guids` (`[EntityGuid]!`)
+    * `guids` (`[EntityGuid]!`): A list of unique entity identifiers.
     """
 
     entity = sgqlc.types.Field(
@@ -3829,6 +3940,10 @@ class Actor(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): A unique entity identifier.
+    """
 
     entity_management = sgqlc.types.Field(
         "EntityManagementActorStitchedFields", graphql_name="entityManagement"
@@ -3875,11 +3990,39 @@ class Actor(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `options` (`EntitySearchOptions`)
-    * `query` (`String`)
-    * `query_builder` (`EntitySearchQueryBuilder`)
-    * `sort_by` (`[EntitySearchSortCriteria]`) (default: `[NAME]`)
-    * `sort_by_with_direction` (`[SortCriterionWithDirection]`)
+    * `options` (`EntitySearchOptions`): Additional options to apply
+      to the entity search.
+    * `query` (`String`): Entity search query string. The query string
+      can search for an exact or fuzzy match on name, as well as
+      searching several other attributes.  Note: you must supply
+      either a `query` OR a `queryBuilder` argument, not both.
+      Operators available: `=`, `AND`, `IN`, `LIKE`  Special
+      characters (`.,;:*-_`) are treated as whitespace. For example,
+      name LIKE ':aws:' will match `-aws.` or `foo aws.`  Tags can be
+      referenced in multiple ways with or without backticks.
+      Examples: - `"name = 'MyApp (Staging)'` - `"name LIKE 'MyApp'
+      AND type IN ('APPLICATION')"` - `"reporting = 'false' AND type
+      IN ('HOST')"` - `"domain IN ('INFRA', 'APM')"` -
+      `tags.Environment = 'staging' AND type IN ('APPLICATION')`
+    * `query_builder` (`EntitySearchQueryBuilder`): The query builder
+      object can be used to discover and create the entity search
+      query argument.  This should be used as a means to discover, but
+      it has limited functionality. For example, it can only search
+      for one entity `type` at a time.  The `queryBuilder` parameters
+      do not include all possible entity `type`s, entity `domain`s, or
+      `infrastructureIntegrationType`s.  To see the query string that
+      is generated by your `queryBuilder` search, ask for the `query`
+      field in the result object. You can then use this to build a
+      more complex query supplied to the `query` argument and remove
+      your `queryBuilder`.  Note: you must supply either a `query` OR
+      a `queryBuilder` argument, not both.
+    * `sort_by` (`[EntitySearchSortCriteria]`): The criteria used to
+      sort your entity search results. If both are provided,
+      `sortByWithDirection` will take precedence over `sortBy`.
+      (default: `[NAME]`)
+    * `sort_by_with_direction` (`[SortCriterionWithDirection]`): Sort
+      by criteria and direction. If both are provided,
+      `sortByWithDirection` will take precedence over `sortBy`.
     """
 
     errors_inbox = sgqlc.types.Field(
@@ -3958,11 +4101,28 @@ class Actor(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `accounts` (`[Int!]!`)
-    * `async_` (`Boolean`) (default: `false`)
-    * `options` (`NrqlQueryOptions`)
-    * `query` (`Nrql!`)
-    * `timeout` (`Seconds`)
+    * `accounts` (`[Int!]!`): List of account IDs to return NRDB
+      results from. Max of 5 can be supplied.
+    * `async_` (`Boolean`): When true, the query will begin
+      asynchronous resolution after the allotted `timeout`. Include
+      `queryProgress` fields in your GraphQL query to receive the
+      information you will need to poll the `nrqlQueryProgress` field
+      for the results of your async NRQL query.  See [this page](https
+      ://docs.newrelic.com/docs/apis/nerdgraph/examples/async-queries-
+      nrql-tutorial) for additional asynchronous query documentation.
+      (default: `false`)
+    * `options` (`NrqlQueryOptions`): Additional options for NRQL
+      queries.
+    * `query` (`Nrql!`): The
+      [NRQL](https://docs.newrelic.com/docs/insights/nrql-new-relic-
+      query-language/nrql-resources/nrql-syntax-components-functions)
+      query string.
+    * `timeout` (`Seconds`): The timeout we will apply to the NRQL
+      Query. The value will be clamped to between 5 and 120 seconds
+      and defaults to 5 seconds.  For `async` queries, if the query is
+      still incomplete after this amount of time, resolution will
+      become asynchronous and return `queryProgress` data if
+      requested.
     """
 
     nrql_query_progress = sgqlc.types.Field(
@@ -3991,8 +4151,11 @@ class Actor(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `accounts` (`[Int!]!`)
-    * `query_id` (`ID!`)
+    * `accounts` (`[Int!]!`): List of account IDs associated with
+      `queryId`. Must match the account IDs of the original
+      asynchronous query. Max of 5 can be supplied.
+    * `query_id` (`ID!`): A token for retrieving the results of a
+      previously executed asynchronous query.
     """
 
     organization = sgqlc.types.Field("Organization", graphql_name="organization")
@@ -4918,6 +5081,13 @@ class AgentEnvironmentAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for fetching more results. Populate
+      using result's nextCursor field.
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on attribute name.
+    """
 
     environment_attributes = sgqlc.types.Field(
         AgentEnvironmentAccountEnvironmentAttributesResults,
@@ -4937,6 +5107,13 @@ class AgentEnvironmentAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for fetching more results. Populate
+      using result's nextCursor field.
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on attribute name.
+    """
 
     modules = sgqlc.types.Field(
         AgentEnvironmentAccountApplicationLoadedModulesResults,
@@ -4958,8 +5135,10 @@ class AgentEnvironmentAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`AgentEnvironmentFilter`)
+    * `cursor` (`String`): Cursor for fetching more results. Populate
+      using result's nextCursor field.
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on module name field.
     """
 
 
@@ -5003,6 +5182,11 @@ class AgentEnvironmentApplicationInstance(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on attribute name.
+    """
 
     details = sgqlc.types.Field(
         sgqlc.types.non_null("AgentEnvironmentApplicationInstanceDetails"),
@@ -5023,6 +5207,11 @@ class AgentEnvironmentApplicationInstance(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on attribute name.
+    """
 
     modules = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -5042,7 +5231,8 @@ class AgentEnvironmentApplicationInstance(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `filter` (`AgentEnvironmentFilter`)
+    * `filter` (`AgentEnvironmentFilter`): Filter to apply to results
+      on module name field.
     """
 
 
@@ -5199,6 +5389,10 @@ class AiDecisionsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `decision_id` (`ID!`): Decision ID.
+    """
 
     decisions = sgqlc.types.Field(
         sgqlc.types.non_null("AiDecisionsDecisionListing"),
@@ -5247,12 +5441,14 @@ class AiDecisionsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `after` (`String`)
-    * `before` (`String`)
-    * `decision_states` (`[AiDecisionsDecisionState!]`)
-    * `decision_types` (`[AiDecisionsDecisionType!]`)
-    * `page_size` (`Int`)
-    * `sort_method` (`AiDecisionsDecisionSortMethod`)
+    * `after` (`String`): Cursor to paginate forwards.
+    * `before` (`String`): Cursor to paginate backwards.
+    * `decision_states` (`[AiDecisionsDecisionState!]`): List of
+      decision states.
+    * `decision_types` (`[AiDecisionsDecisionType!]`): List of
+      decision types.
+    * `page_size` (`Int`): Number of elements in page.
+    * `sort_method` (`AiDecisionsDecisionSortMethod`): Sorting method.
     """
 
 
@@ -5709,6 +5905,13 @@ class AiIssuesAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): cursor
+    * `filter` (`AiIssuesFilterIncidents`): filter incidents
+    * `time_window` (`TimeWindowInput`): time window, if not provided
+      the default is the last 24 hours
+    """
 
     incidents_events = sgqlc.types.Field(
         "AiIssuesIncidentData",
@@ -5736,6 +5939,14 @@ class AiIssuesAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): cursor
+    * `filter` (`AiIssuesFilterIncidentsEvents`): filter incidents
+      events
+    * `time_window` (`TimeWindowInput`): time window, if not provided
+      the default is the last 24 hours
+    """
 
     issues = sgqlc.types.Field(
         "AiIssuesIssueData",
@@ -5761,6 +5972,13 @@ class AiIssuesAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): cursor
+    * `filter` (`AiIssuesFilterIssues`): filter issues
+    * `time_window` (`TimeWindowInput`): time window, if not provided
+      the default is the last 24 hours
+    """
 
     issues_events = sgqlc.types.Field(
         "AiIssuesIssueData",
@@ -5788,9 +6006,10 @@ class AiIssuesAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`AiIssuesFilterIssuesEvents`)
-    * `time_window` (`TimeWindowInput`)
+    * `cursor` (`String`): cursor
+    * `filter` (`AiIssuesFilterIssuesEvents`): filter issues events
+    * `time_window` (`TimeWindowInput`): time window, if not provided
+      the default is the last 24 hours
     """
 
 
@@ -6178,10 +6397,13 @@ class AiNotificationsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `channel_type` (`AiNotificationsChannelType!`)
-    * `constraints` (`[AiNotificationsConstraint!]`)
-    * `destination_id` (`ID!`)
-    * `product` (`AiNotificationsProduct`)
+    * `channel_type` (`AiNotificationsChannelType!`): Query by
+      channelType
+    * `constraints` (`[AiNotificationsConstraint!]`): Channel creation
+      constraints
+    * `destination_id` (`ID!`): Query by destinationId
+    * `product` (`AiNotificationsProduct`): Product type for schema
+      personalization
     """
 
     channel_suggestions = sgqlc.types.Field(
@@ -6238,12 +6460,15 @@ class AiNotificationsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `channel_type` (`AiNotificationsChannelType!`)
-    * `constraints` (`[AiNotificationsConstraint!]`)
-    * `cursor` (`String`)
-    * `destination_id` (`ID!`)
-    * `filter` (`AiNotificationsSuggestionFilter`)
-    * `key` (`String!`)
+    * `channel_type` (`AiNotificationsChannelType!`): Suggestions
+      channel type
+    * `constraints` (`[AiNotificationsConstraint!]`): List of
+      key/value pairs indicating field constraints
+    * `cursor` (`String`): cursor to get the next batch of results
+    * `destination_id` (`ID!`): Query by destinationId
+    * `filter` (`AiNotificationsSuggestionFilter`): Filter for the
+      suggestions results
+    * `key` (`String!`): The field name for which the suggestions are
     """
 
     channels = sgqlc.types.Field(
@@ -6321,11 +6546,14 @@ class AiNotificationsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `constraints` (`[AiNotificationsConstraint!]`)
-    * `cursor` (`String`)
-    * `destination_type` (`AiNotificationsDestinationType!`)
-    * `filter` (`AiNotificationsSuggestionFilter`)
-    * `key` (`String!`)
+    * `constraints` (`[AiNotificationsConstraint!]`): List of
+      key/value pairs indicating field constraints
+    * `cursor` (`String`): cursor to get the next batch of results
+    * `destination_type` (`AiNotificationsDestinationType!`):
+      Suggestions destination type
+    * `filter` (`AiNotificationsSuggestionFilter`): Filter for the
+      suggestions results
+    * `key` (`String!`): The field name for which the suggestions are
     """
 
     destinations = sgqlc.types.Field(
@@ -6408,9 +6636,10 @@ class AiNotificationsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filters` (`AiNotificationsVariableFilter`)
-    * `sorter` (`AiNotificationsVariableSorter`)
+    * `cursor` (`String`): cursor to get the next batch of results
+    * `filters` (`AiNotificationsVariableFilter`): Query filters
+    * `sorter` (`AiNotificationsVariableSorter`): Sort object for
+      results
     """
 
 
@@ -6868,9 +7097,11 @@ class AiNotificationsOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filters` (`AiNotificationsUnverifiedEmailsFilters`)
-    * `sorter` (`AiNotificationsUnverifiedEmailsSorter`)
+    * `cursor` (`String`): cursor to get the next batch of results
+    * `filters` (`AiNotificationsUnverifiedEmailsFilters`): Optional
+      filters to apply to unverified emails
+    * `sorter` (`AiNotificationsUnverifiedEmailsSorter`): Optional
+      sorting configuration
     """
 
 
@@ -7324,8 +7555,8 @@ class AiWorkflowsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filters` (`AiWorkflowsFilters`)
+    * `cursor` (`String`): Cursor used to get the next page of results
+    * `filters` (`AiWorkflowsFilters`): Query filters
     """
 
 
@@ -7632,6 +7863,14 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous `asNrqlConditionsSearch` query.
+    * `search_criteria` (`AlertsAsNrqlConditionsSearchCriteriaInput`):
+      Search criteria used to filter the returned list of NRQL-
+      converted conditions.
+    """
 
     compound_conditions = sgqlc.types.Field(
         "AlertsCompoundConditionsResultSet",
@@ -7665,9 +7904,12 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`AlertsCompoundConditionFilterInput`)
-    * `sort` (`[AlertsCompoundConditionSortInput!]`)
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous query.
+    * `filter` (`AlertsCompoundConditionFilterInput`): Filter search
+      results
+    * `sort` (`[AlertsCompoundConditionSortInput!]`): Order search
+      results by specific field
     """
 
     cross_account_election = sgqlc.types.Field(
@@ -7693,6 +7935,10 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): Muting rule identifier.
+    """
 
     muting_rules = sgqlc.types.Field(
         sgqlc.types.list_of("AlertsMutingRule"),
@@ -7725,6 +7971,10 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): NRQL condition identifier.
+    """
 
     nrql_conditions_search = sgqlc.types.Field(
         "AlertsNrqlConditionsSearchResultSet",
@@ -7746,6 +7996,14 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous `NrqlConditionsSearch` query.
+    * `search_criteria` (`AlertsNrqlConditionsSearchCriteriaInput`):
+      Search criteria used to filter the returned list of NRQL
+      conditions.
+    """
 
     policies_search = sgqlc.types.Field(
         "AlertsPoliciesSearchResultSet",
@@ -7767,6 +8025,13 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous `PoliciesSearch` query.
+    * `search_criteria` (`AlertsPoliciesSearchCriteriaInput`): Search
+      criteria used to filter the returned list of policies.
+    """
 
     policy = sgqlc.types.Field(
         "AlertsPolicy",
@@ -7784,7 +8049,7 @@ class AlertsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `id` (`ID!`)
+    * `id` (`ID!`): Policy identifier.
     """
 
 
@@ -8305,6 +8570,7 @@ class AlertsNrqlConditionSignal(sgqlc.types.Type):
         "evaluation_delay",
         "fill_option",
         "fill_value",
+        "polling_frequency",
         "slide_by",
     )
     aggregation_delay = sgqlc.types.Field(Seconds, graphql_name="aggregationDelay")
@@ -8322,6 +8588,8 @@ class AlertsNrqlConditionSignal(sgqlc.types.Type):
     fill_option = sgqlc.types.Field(AlertsFillOption, graphql_name="fillOption")
 
     fill_value = sgqlc.types.Field(Float, graphql_name="fillValue")
+
+    polling_frequency = sgqlc.types.Field(Seconds, graphql_name="pollingFrequency")
 
     slide_by = sgqlc.types.Field(Seconds, graphql_name="slideBy")
 
@@ -8511,6 +8779,13 @@ class ApiAccessActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The `id` of the key. This can be used to identify
+      a key without revealing the key itself (used to update and
+      delete).
+    * `key_type` (`ApiAccessKeyType!`): The type of key.
+    """
 
     key_search = sgqlc.types.Field(
         "ApiAccessKeySearchResult",
@@ -8534,8 +8809,9 @@ class ApiAccessActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `query` (`ApiAccessKeySearchQuery!`)
+    * `cursor` (`String`): The cursor.
+    * `query` (`ApiAccessKeySearchQuery!`): The criteria for the key
+      search.
     """
 
 
@@ -8598,7 +8874,7 @@ class ApiAccessNrPlatformStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `key_id` (`ID!`)
+    * `key_id` (`ID!`): The key ID.
     """
 
 
@@ -8779,8 +9055,9 @@ class AuthorizationManagementAuthenticationDomain(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `id` (`[ID!]`): an optional list of ids to filter by
     """
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
@@ -8935,9 +9212,10 @@ class AuthorizationManagementGroup(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
-    * `role_id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
+    * `role_id` (`[ID!]`): a list of ids to filter returned objects by
     """
 
 
@@ -8983,8 +9261,9 @@ class AuthorizationManagementOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `id` (`[ID!]`): an optional list of ids to filter by
     """
 
     roles = sgqlc.types.Field(
@@ -9009,8 +9288,9 @@ class AuthorizationManagementOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `id` (`[ID!]`): an optional list of ids to filter by
     """
 
 
@@ -9161,7 +9441,8 @@ class ChangeTrackingActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `filter` (`ChangeTrackingChangeTrackingSearchFilter`)
+    * `filter` (`ChangeTrackingChangeTrackingSearchFilter`): Contains
+      the set of filters to apply to the query.
     """
 
 
@@ -9256,6 +9537,10 @@ class CloudAccountFields(sgqlc.types.Type):
             (("id", sgqlc.types.Arg(Int, graphql_name="id", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `id` (`Int`): The linked cloud provider account's ID.
+    """
 
     linked_accounts = sgqlc.types.Field(
         sgqlc.types.list_of("CloudLinkedAccount"), graphql_name="linkedAccounts"
@@ -9301,6 +9586,13 @@ class CloudAccountFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID.
+    * `linked_account_id` (`Int!`): The linked account identifier.
+    * `oci_region` (`String!`): The OCI compartment region.
+    * `oci_tenant_id` (`String!`): The OCI tenant identifier.
+    """
 
     oci_log_group_instrumentation_details = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -9344,6 +9636,13 @@ class CloudAccountFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `linked_account_id` (`Int!`): The linked account identifier.
+    * `oci_region` (`String!`): The OCI log group region.
+    * `oci_tenant_id` (`String!`): The OCI tenant identifier.
+    """
 
     oci_tenancy_details = sgqlc.types.Field(
         "CloudOciTenancyDetails",
@@ -9385,6 +9684,14 @@ class CloudAccountFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID.
+    * `linked_account_id` (`Int!`): The linked account identifier.
+    * `oci_home_region` (`String!`): The home region of the OCI
+      tenant.
+    * `oci_tenant_id` (`String!`): The OCI tenant identifier.
+    """
 
     provider = sgqlc.types.Field(
         CloudProvider,
@@ -9393,6 +9700,11 @@ class CloudAccountFields(sgqlc.types.Type):
             (("slug", sgqlc.types.Arg(String, graphql_name="slug", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `slug` (`String`): The cloud provider short name.  Values
+      include `aws`, `gcp`, foobar?
+    """
 
     providers = sgqlc.types.Field(
         sgqlc.types.list_of(CloudProvider), graphql_name="providers"
@@ -9438,7 +9750,7 @@ class CloudActorFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `provider` (`String`)
+    * `provider` (`String`): The cloud provider short name.
     """
 
 
@@ -9615,6 +9927,10 @@ class CloudLinkedAccount(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`Int!`): The cloud service integration identifier.
+    """
 
     integrations = sgqlc.types.Field(
         sgqlc.types.non_null(
@@ -9630,6 +9946,10 @@ class CloudLinkedAccount(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `service` (`String`): The cloud integration service slug.
+    """
 
     metric_collection_mode = sgqlc.types.Field(
         sgqlc.types.non_null(CloudMetricCollectionMode),
@@ -10002,7 +10322,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): BotResponse IDs
     """
 
     code_marks_by_ids = sgqlc.types.Field(
@@ -10023,7 +10343,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): File id
     """
 
     comment_by_id = sgqlc.types.Field(
@@ -10059,7 +10379,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of comment IDs
     """
 
     comments_by_thread_id = sgqlc.types.Field(
@@ -10086,6 +10406,15 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `thread_id` (`ID!`): Thread ID
+    """
 
     comments_by_thread_ids = sgqlc.types.Field(
         sgqlc.types.list_of("CollaborationCommentConnection"),
@@ -10107,9 +10436,10 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `first` (`Int`) (default: `10`)
-    * `last` (`Int`)
-    * `thread_ids` (`[ID]!`)
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `thread_ids` (`[ID]!`): Array of thread IDs
     """
 
     context_by_id = sgqlc.types.Field(
@@ -10139,6 +10469,12 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `entity_guid` (`EntityGuid`): Array of entity Guid
+    * `first` (`Int`): How many in the page - max 50 (default: `10`)
+    * `next_cursor` (`String`): Pagination Cursor
+    """
 
     contexts_by_ids = sgqlc.types.Field(
         sgqlc.types.list_of("CollaborationContext"),
@@ -10156,7 +10492,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]`)
+    * `ids` (`[ID]`): Array of context IDs
     """
 
     email_by_address = sgqlc.types.Field(
@@ -10209,7 +10545,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of email IDs
     """
 
     external_service_connection_by_id = sgqlc.types.Field(
@@ -10257,7 +10593,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of Grok Message IDs
     """
 
     mention_by_id = sgqlc.types.Field(
@@ -10284,7 +10620,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]`)
+    * `ids` (`[ID]`): Array of mention IDs
     """
 
     search_threads_simple = sgqlc.types.Field(
@@ -10321,11 +10657,14 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int`)
-    * `context_ids` (`[ID]`)
-    * `max_results` (`Int`)
-    * `query` (`String!`)
-    * `visibility` (`String`)
+    * `account_id` (`Int`): Account ID
+    * `context_ids` (`[ID]`): Array of context IDs
+    * `max_results` (`Int`): An optional maximum number of results to
+      return (e.g., for a simple sidebar).
+    * `query` (`String!`): The search term to query against thread
+      content, title, or metadata.
+    * `visibility` (`String`): Indicate to get PRIVATE, PROTECTED,
+      CUSTOMER_SERVICE or PUBLIC threads
     """
 
     subscriber_by_id = sgqlc.types.Field(
@@ -10367,6 +10706,15 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `thread_id` (`ID!`): Thread ID
+    """
 
     subscribers_by_user_id = sgqlc.types.Field(
         "CollaborationSubscriberConnection",
@@ -10394,6 +10742,15 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `subscriber_id` (`ID!`): User ID
+    """
 
     subscriptions = sgqlc.types.Field(
         "CollaborationSubscriberConnection",
@@ -10413,6 +10770,14 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     subscriptions_unread = sgqlc.types.Field(
         "CollaborationSubscriptionsWithUnread",
@@ -10457,6 +10822,15 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `filter` (`String`): Filter name to use
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     threads_by_context_id = sgqlc.types.Field(
         "CollaborationThreadConnection",
@@ -10484,6 +10858,17 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `context_id` (`ID`): Context ID
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `visibility` (`String`): Indicate to get PRIVATE, PROTECTED,
+      CUSTOMER_SERVICE or PUBLIC threads
+    """
 
     threads_by_context_ids = sgqlc.types.Field(
         sgqlc.types.list_of("CollaborationThreadConnection"),
@@ -10515,12 +10900,14 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `context_ids` (`[ID]`)
-    * `first` (`Int`) (default: `10`)
-    * `last` (`Int`)
-    * `next_cursor` (`String`)
-    * `prev_cursor` (`String`)
-    * `visibility` (`String`)
+    * `context_ids` (`[ID]`): Array of context IDs
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `visibility` (`String`): Indicate to get PRIVATE, PROTECTED,
+      CUSTOMER_SERVICE or PUBLIC threads
     """
 
     threads_by_ids = sgqlc.types.Field(
@@ -10539,7 +10926,7 @@ class CollaborationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]`)
+    * `ids` (`[ID]`): Array of thread IDs
     """
 
     threads_count_by_context_id = sgqlc.types.Field(
@@ -10885,8 +11272,9 @@ class CollaborationContext(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `first` (`Int`) (default: `10`)
-    * `last` (`Int`)
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
     """
 
 
@@ -11344,6 +11732,12 @@ class CollaborationThread(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
+    """
 
     context_id = sgqlc.types.Field(ID, graphql_name="contextId")
 
@@ -11377,6 +11771,12 @@ class CollaborationThread(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page - desc - max 50
+    """
 
     first_comment_id = sgqlc.types.Field(ID, graphql_name="firstCommentId")
 
@@ -11422,8 +11822,9 @@ class CollaborationThread(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `first` (`Int`) (default: `10`)
-    * `last` (`Int`)
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many pages per page 'desc' - max 50
     """
 
 
@@ -11566,9 +11967,11 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`OrganizationAccountShareFilterInput!`)
-    * `sort` (`[OrganizationAccountShareSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationAccountShareFilterInput!`): The filter
+    * `sort` (`[OrganizationAccountShareSortInput!]`): Sort account
+      share results
     """
 
     accounts = sgqlc.types.Field(
@@ -11603,9 +12006,10 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`OrganizationAccountFilterInput!`)
-    * `sort` (`[OrganizationAccountSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationAccountFilterInput!`): The filter
+    * `sort` (`[OrganizationAccountSortInput!]`): Sort Accounts
     """
 
     authentication_domains = sgqlc.types.Field(
@@ -11644,9 +12048,12 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`OrganizationAuthenticationDomainFilterInput!`)
-    * `sort` (`[OrganizationAuthenticationDomainSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationAuthenticationDomainFilterInput!`):
+      Filter authentication domain results
+    * `sort` (`[OrganizationAuthenticationDomainSortInput!]`): Order
+      authentication domain results
     """
 
     consumption = sgqlc.types.Field(
@@ -11665,6 +12072,10 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `customer_id` (`ID!`): The ID of the customer.
+    """
 
     contracts = sgqlc.types.Field(
         "OrganizationCustomerContractWrapper",
@@ -11686,6 +12097,12 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationCustomerContractFilterInput`): The filter
+    """
 
     data_access_policies = sgqlc.types.Field(
         "DataAccessPolicyCollection",
@@ -11713,6 +12130,14 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for pagination.
+    * `filter` (`DataAccessPolicyFilterInput!`): Filtering options for
+      the data access policies.
+    * `sort` (`DataAccessPolicySortInput`): Sorting options for the
+      data access policies.
+    """
 
     grants = sgqlc.types.Field(
         "MultiTenantAuthorizationGrantCollection",
@@ -11748,9 +12173,13 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`MultiTenantAuthorizationGrantFilterInputExpression!`)
-    * `sort` (`[MultiTenantAuthorizationGrantSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `filter`
+      (`MultiTenantAuthorizationGrantFilterInputExpression!`): allows
+      filtering of the data
+    * `sort` (`[MultiTenantAuthorizationGrantSortInput!]`): allows
+      sorting of the data
     """
 
     groups = sgqlc.types.Field(
@@ -11785,9 +12214,10 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`MultiTenantIdentityGroupFilterInput!`)
-    * `sort` (`[MultiTenantIdentityGroupSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `filter` (`MultiTenantIdentityGroupFilterInput!`): Filter groups
+    * `sort` (`[MultiTenantIdentityGroupSortInput!]`): Sort groups
     """
 
     jobs = sgqlc.types.Field("CustomerAdministrationJobs", graphql_name="jobs")
@@ -11835,6 +12265,13 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationCustomerOrganizationFilterInput`): The
+      filter
+    """
 
     permissions = sgqlc.types.Field(
         "MultiTenantAuthorizationPermissionCollection",
@@ -11856,6 +12293,13 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `filter` (`MultiTenantAuthorizationPermissionFilter`): allows
+      filtering of the data
+    """
 
     roles = sgqlc.types.Field(
         "MultiTenantAuthorizationRoleCollection",
@@ -11891,9 +12335,12 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`MultiTenantAuthorizationRoleFilterInputExpression!`)
-    * `sort` (`[MultiTenantAuthorizationRoleSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get   the next page
+    * `filter` (`MultiTenantAuthorizationRoleFilterInputExpression!`):
+      allows filtering of the data
+    * `sort` (`[MultiTenantAuthorizationRoleSortInput!]`): allows
+      sorting of the data
     """
 
     secret = sgqlc.types.Field(
@@ -11927,6 +12374,17 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `key` (`String!`): The `key` field of the secret to retrieve
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    * `unlock` (`Boolean`): Whether to `unlock` and retrieve the
+      secret's value; defaults to false. (default: `false`)
+    * `version` (`Int`): The `version` of the secret to retrieve, if
+      left null the latest version is returned
+    """
 
     secret_versions = sgqlc.types.Field(
         "SecretsManagementSecretVersionsQueryResponse",
@@ -11960,6 +12418,16 @@ class CustomerAdministration(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `fetch_deleted` (`Boolean`): Indicated if the deleted secret
+      versions should also be returned, default value is false
+      (default: `false`)
+    * `key` (`String!`): The `key` field of the secret to retrieve
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    """
 
     secrets = sgqlc.types.Field(
         "SecretsManagementSecretsCollectionQueryResponse",
@@ -11991,10 +12459,12 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`SecretsManagementSecretsCollectionFilter!`)
-    * `sort` (`SecretsManagementSecretsCollectionSort`) (default:
-      `{direction: DESC, key: CREATED_AT}`)
+    * `cursor` (`String`): The cursor for pagination
+    * `filter` (`SecretsManagementSecretsCollectionFilter!`): The
+      filter to apply to the secrets collection query
+    * `sort` (`SecretsManagementSecretsCollectionSort`): The sort
+      criteria for the secrets collection (default: `{direction: DESC,
+      key: CREATED_AT}`)
     """
 
     system_identities = sgqlc.types.Field(
@@ -12079,9 +12549,10 @@ class CustomerAdministration(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`MultiTenantIdentityUserFilterInput!`)
-    * `sort` (`[MultiTenantIdentityUserSortInput!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `filter` (`MultiTenantIdentityUserFilterInput!`): Filter users
+    * `sort` (`[MultiTenantIdentityUserSortInput!]`): Sort users
     """
 
 
@@ -12112,9 +12583,11 @@ class CustomerAdministrationJobs(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
     * `filter`
-      (`OrganizationOrganizationCreateAsyncResultFilterInput!`)
+      (`OrganizationOrganizationCreateAsyncResultFilterInput!`):
+      Filter organization create job results
     """
 
 
@@ -12137,6 +12610,11 @@ class DashboardActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `filter` (`DashboardLiveUrlCreationPoliciesFilterInput`): Filter
+      the live URL creation policies to fetch.
+    """
 
     live_urls = sgqlc.types.Field(
         "DashboardLiveUrlResult",
@@ -12156,7 +12634,8 @@ class DashboardActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `filter` (`DashboardLiveUrlsFilterInput`)
+    * `filter` (`DashboardLiveUrlsFilterInput`): Filter the live URLs
+      to fetch.
     """
 
 
@@ -12873,7 +13352,7 @@ class DataDictionaryDocsStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `names` (`[String]`)
+    * `names` (`[String]`): The official name of this event
     """
 
 
@@ -13146,6 +13625,15 @@ class DataManagementOrganizationStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `is_default_override` (`Boolean`): Set to true, without user_id,
+      to lookup the default user override for the organization
+    * `limit` (`DataManagementLimitLookupInput!`): Unique limit
+      identifier
+    * `user_id` (`Int`): The user within the organization for this
+      override
+    """
 
     list_limit_overrides = sgqlc.types.Field(
         sgqlc.types.list_of(DataManagementLimitOverride),
@@ -13165,7 +13653,8 @@ class DataManagementOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `limit` (`DataManagementLimitLookupInput!`)
+    * `limit` (`DataManagementLimitLookupInput!`): Unique limit
+      identifier
     """
 
 
@@ -13274,8 +13763,9 @@ class DataSourceGapsActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `query` (`DataSourceGapsGapsQuery`)
+    * `cursor` (`String`): The cursor used to fetch paginated results.
+    * `query` (`DataSourceGapsGapsQuery`): The query parameters used
+      to filter data source gaps.
     """
 
 
@@ -13345,6 +13835,15 @@ class DistributedTracingActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `timestamp` (`EpochMilliseconds`): The start time of the trace.
+      This will default to 1 hour ago and will look for traces within
+      that window. If you are looking for a preserved trace then it is
+      required to pass in a timestamp.
+    * `trace_id` (`String!`): Unique identifier shared by all spans
+      within a single trace.
+    """
 
     trace_summaries = sgqlc.types.Field(
         sgqlc.types.list_of("DistributedTracingTraceSummary"),
@@ -13372,8 +13871,10 @@ class DistributedTracingActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `time_window` (`TimeWindowInput`)
-    * `trace_ids` (`[String!]!`)
+    * `time_window` (`TimeWindowInput`): A time window to query traces
+      for. If not provided, defaults to the last 30 minutes.
+    * `trace_ids` (`[String!]!`): A collection of trace IDs to query
+      for.
     """
 
 
@@ -13655,8 +14156,9 @@ class DocumentationFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `agent_names` (`[AgentReleasesFilter!]!`)
-    * `category` (`String`)
+    * `agent_names` (`[AgentReleasesFilter!]!`): List of agents to
+      fetch current releases for
+    * `category` (`String`): Optionally filter releases by category
     """
 
     data_dictionary = sgqlc.types.Field(
@@ -13987,7 +14489,7 @@ class EdgeTracing(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[Int!]`)
+    * `ids` (`[Int!]`): Optional IDs of trace observers to return.
     """
 
 
@@ -14382,6 +14884,13 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Pagination cursor. If not provided, the
+      first page of results will be returned.
+    * `filter` (`EntityManagementCollectionElementsFilter!`): The id
+      of the group entity.
+    """
 
     collections_containing_entity = sgqlc.types.Field(
         sgqlc.types.list_of("EntityManagementCollectionsContainingEntityResult"),
@@ -14397,6 +14906,10 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `entity_id` (`ID!`): The entity id.
+    """
 
     entity = sgqlc.types.Field(
         EntityManagementEntity,
@@ -14412,6 +14925,10 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be retrieved.
+    """
 
     entity_search = sgqlc.types.Field(
         "EntityManagementEntitySearchResult",
@@ -14433,8 +14950,10 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `query` (`String!`)
+    * `cursor` (`String`): Pagination cursor. If not provided, the
+      first page of results will be returned.
+    * `query` (`String!`): The search predicate all entities returned
+      should match.
     """
 
 
@@ -14578,8 +15097,14 @@ class EntityManagementArrayCondition(sgqlc.types.Type):
 
 class EntityManagementAttribute(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("key", "value")
+    __field_names__ = ("key", "last_updated_at", "last_updated_by", "value")
     key = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="key")
+
+    last_updated_at = sgqlc.types.Field(EpochMilliseconds, graphql_name="lastUpdatedAt")
+
+    last_updated_by = sgqlc.types.Field(
+        "EntityManagementPrincipal", graphql_name="lastUpdatedBy"
+    )
 
     value = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="value")
 
@@ -15247,7 +15772,7 @@ class EntityManagementEventBridgeSourceType(sgqlc.types.Type):
 
 class EntityManagementEventBridgeTarget(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("name", "parameters", "type")
+    __field_names__ = ("name", "parameters", "type", "when")
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     parameters = sgqlc.types.Field(
@@ -15259,6 +15784,8 @@ class EntityManagementEventBridgeTarget(sgqlc.types.Type):
         sgqlc.types.non_null(EntityManagementEventBridgeTargetType), graphql_name="type"
     )
 
+    when = sgqlc.types.Field(String, graphql_name="when")
+
 
 class EntityManagementEventBridgeTargetParameters(sgqlc.types.Type):
     __schema__ = nerdgraph
@@ -15268,20 +15795,19 @@ class EntityManagementEventBridgeTargetParameters(sgqlc.types.Type):
     )
 
 
-class EntityManagementEventBridgeWorkflowDefinition(sgqlc.types.Type):
+class EntityManagementEventBridgeWorkflowDefinitionType(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("name", "scope_type", "version")
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
 
     scope_type = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementEventBridgeWorkflowDefinitionScopeType),
-        graphql_name="scopeType",
+        EntityManagementEventBridgeWorkflowDefinitionScopeType, graphql_name="scopeType"
     )
 
     version = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="version")
 
 
-class EntityManagementEventBridgeWorkflowInputs(sgqlc.types.Type):
+class EntityManagementEventBridgeWorkflowInput(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("name", "value")
     name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
@@ -15291,17 +15817,21 @@ class EntityManagementEventBridgeWorkflowInputs(sgqlc.types.Type):
 
 class EntityManagementEventBridgeWorkflowTargetParameters(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("definition", "workflow_inputs")
+    __field_names__ = ("definition", "inputs", "scope")
     definition = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementEventBridgeWorkflowDefinition),
+        sgqlc.types.non_null(EntityManagementEventBridgeWorkflowDefinitionType),
         graphql_name="definition",
     )
 
-    workflow_inputs = sgqlc.types.Field(
+    inputs = sgqlc.types.Field(
         sgqlc.types.list_of(
-            sgqlc.types.non_null(EntityManagementEventBridgeWorkflowInputs)
+            sgqlc.types.non_null(EntityManagementEventBridgeWorkflowInput)
         ),
-        graphql_name="workflowInputs",
+        graphql_name="inputs",
+    )
+
+    scope = sgqlc.types.Field(
+        sgqlc.types.non_null("EntityManagementScopedReference"), graphql_name="scope"
     )
 
 
@@ -15852,6 +16382,16 @@ class EntityManagementPipelineCloudRuleEntityUpdateResult(sgqlc.types.Type):
     )
 
 
+class EntityManagementPrincipal(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("id", "type")
+    id = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementPrincipalType), graphql_name="type"
+    )
+
+
 class EntityManagementProcessState(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("message", "status")
@@ -16242,15 +16782,6 @@ class EntityManagementTeamResource(sgqlc.types.Type):
     type = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="type")
 
 
-class EntityManagementTeamsHierarchyLevelEntityCreateResult(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("entity",)
-    entity = sgqlc.types.Field(
-        sgqlc.types.non_null("EntityManagementTeamsHierarchyLevelEntity"),
-        graphql_name="entity",
-    )
-
-
 class EntityManagementTeamsHierarchyLevelEntityUpdateResult(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("entity",)
@@ -16547,8 +17078,16 @@ class EntitySearch(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `facet` (`[EntitySearchCountsFacet!]`)
-    * `facet_tags` (`[String!]`)
+    * `facet` (`[EntitySearchCountsFacet!]`): A list of criteria to
+      facet entities by.  This can be combined with the `facetTags`
+      argument to facet by a combination of criteria and tags.
+    * `facet_tags` (`[String!]`): A list of tags to facet entities by.
+      For example: `"environment"`, `"region"`.  This can be combined
+      with the `facet` argument to facet by a combination of criteria
+      and tags.  Note: If a tag does not exist on an entity, the
+      entity will not be counted in the facet results. If an entity
+      tag has multiple values, it will be counted in all facets that
+      apply.
     """
 
     query = sgqlc.types.Field(String, graphql_name="query")
@@ -16560,6 +17099,11 @@ class EntitySearch(sgqlc.types.Type):
             (("cursor", sgqlc.types.Arg(String, graphql_name="cursor", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): The cursor to fetch paginated entity search
+      results.
+    """
 
     types = sgqlc.types.Field(
         sgqlc.types.list_of("EntitySearchTypes"), graphql_name="types"
@@ -16642,6 +17186,12 @@ class ErrorsInboxActorStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `error_event` (`ErrorsInboxErrorEventInput`): Error event that
+      will be encoded to a unique error group id.
+    * `id` (`ID`): The unique identifier of the group being fetched.
+    """
 
     error_group_state_types = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -16697,12 +17247,14 @@ class ErrorsInboxActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `entity_guids` (`[EntityGuid!]`)
-    * `filter` (`ErrorsInboxErrorGroupSearchFilterInput`)
-    * `query` (`String`)
-    * `sort_by` (`[ErrorsInboxErrorGroupSortOrderInput!]`)
-    * `time_window` (`TimeWindowInput`)
+    * `cursor` (`String`): Current query cursor
+    * `entity_guids` (`[EntityGuid!]`): Filter to specified entities.
+    * `filter` (`ErrorsInboxErrorGroupSearchFilterInput`): Set of
+      filters to be applied to the search.
+    * `query` (`String`): Query string to filter the error groups by
+    * `sort_by` (`[ErrorsInboxErrorGroupSortOrderInput!]`): Sort order
+      for results. (limit: 1)
+    * `time_window` (`TimeWindowInput`): Time Window for search
     """
 
 
@@ -16851,7 +17403,7 @@ class EventsToMetricsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `rule_ids` (`[ID]!`)
+    * `rule_ids` (`[ID]!`): Rule ids you want to list (as strings).
     """
 
 
@@ -17455,7 +18007,8 @@ class IncidentIntelligenceEnvironmentAccountStitchedFields(sgqlc.types.Type):
     """Arguments:
 
     * `kind`
-      (`IncidentIntelligenceEnvironmentSupportedEnvironmentKind`)
+      (`IncidentIntelligenceEnvironmentSupportedEnvironmentKind`):
+      Which environment kind to support when evaluating the query
     """
 
 
@@ -17513,7 +18066,8 @@ class IncidentIntelligenceEnvironmentActorStitchedFields(sgqlc.types.Type):
     """Arguments:
 
     * `kind`
-      (`IncidentIntelligenceEnvironmentSupportedEnvironmentKind`)
+      (`IncidentIntelligenceEnvironmentSupportedEnvironmentKind`):
+      Which environment kind to support when evaluating the query
     """
 
 
@@ -17770,6 +18324,14 @@ class InstallationAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): used to fetch next page of results.  If not
+      present, most recent events (first page) will be returned
+    * `install_id` (`String`): installId associated to recipe events.
+      If not present, all recipe events will be returned for the email
+      provided from the service gateway email header
+    """
 
     statuses = sgqlc.types.Field(
         "InstallationInstallStatusResult",
@@ -17789,8 +18351,12 @@ class InstallationAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `install_id` (`String`)
+    * `cursor` (`String`): used to fetch next page of results.  If not
+      present, most recent install statuses (first page) will be
+      returned
+    * `install_id` (`String`): installId associated to recipe events.
+      If not present, all install statuses will be returned for the
+      email provided from the service gateway email header
     """
 
 
@@ -18232,13 +18798,18 @@ class KnowledgeDocsStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `search_string` (`String!`)
-    * `since` (`DateTime`)
-    * `sort` (`KnowledgeSearchSortOption`)
-    * `source` (`KnowledgeSearchSources!`)
-    * `tags` (`[String!]`)
-    * `until` (`DateTime`)
+    * `cursor` (`String`): The value to access the next page of search
+      results
+    * `search_string` (`String!`): The search string
+    * `since` (`DateTime`): Defines the beginning of a time range to
+      use for the results
+    * `sort` (`KnowledgeSearchSortOption`): The sorting option to use
+      on the results
+    * `source` (`KnowledgeSearchSources!`): The source of the
+      knowledge
+    * `tags` (`[String!]`): The tags to use to filter the results
+    * `until` (`DateTime`): Defines the end of a time range to use for
+      the results
     """
 
     tags = sgqlc.types.Field(
@@ -18259,7 +18830,8 @@ class KnowledgeDocsStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `source` (`KnowledgeSearchSources!`)
+    * `source` (`KnowledgeSearchSources!`): The source of the
+      knowledge
     """
 
 
@@ -18438,8 +19010,9 @@ class LogConfigurationsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `grok` (`String!`)
-    * `log_lines` (`[String!]!`)
+    * `grok` (`String!`): The Grok pattern to test.
+    * `log_lines` (`[String!]!`): The log lines to test the Grok
+      pattern against.
     """
 
 
@@ -18900,7 +19473,7 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of File Data Source IDs
     """
 
     file_data_sources_by_project_id = sgqlc.types.Field(
@@ -18927,6 +19500,15 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination Cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `project_id` (`ID!`): Project ID
+    """
 
     projects = sgqlc.types.Field(
         "MachineLearningProjectConnection",
@@ -18946,6 +19528,14 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     projects_by_ids = sgqlc.types.Field(
         sgqlc.types.list_of("MachineLearningProject"),
@@ -18965,7 +19555,7 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of project IDs
     """
 
     stream_data_sources_by_ids = sgqlc.types.Field(
@@ -18986,7 +19576,7 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `ids` (`[ID]!`)
+    * `ids` (`[ID]!`): Array of Stream Data Source IDs
     """
 
     stream_data_sources_by_project_id = sgqlc.types.Field(
@@ -19015,11 +19605,12 @@ class MachineLearningAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `first` (`Int`) (default: `10`)
-    * `last` (`Int`)
-    * `next_cursor` (`String`)
-    * `prev_cursor` (`String`)
-    * `project_id` (`ID!`)
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page 'desc' - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    * `project_id` (`ID!`): Project ID
     """
 
 
@@ -19054,10 +19645,11 @@ class MachineLearningActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `filter_by` (`[MachineLearningFilterBy]`)
-    * `prompt` (`String!`)
-    * `tool_id` (`ID`)
-    * `top_k` (`Int`) (default: `5`)
+    * `filter_by` (`[MachineLearningFilterBy]`): Filter object
+    * `prompt` (`String!`): Prompt to query data
+    * `tool_id` (`ID`): Associated tool ID
+    * `top_k` (`Int`): Number of results to return. Defaults to 5
+      (default: `5`)
     """
 
 
@@ -19148,6 +19740,14 @@ class MachineLearningFileDataSource(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page - desc - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     file_name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="fileName")
 
@@ -19171,6 +19771,14 @@ class MachineLearningFileDataSource(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page - desc - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     modified_at = sgqlc.types.Field(
         sgqlc.types.non_null(EpochMilliseconds), graphql_name="modifiedAt"
@@ -19219,6 +19827,14 @@ class MachineLearningFileDataSource(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page - desc - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     version = sgqlc.types.Field(sgqlc.types.non_null(SemVer), graphql_name="version")
 
@@ -19437,6 +20053,14 @@ class MachineLearningStreamDataSource(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `first` (`Int`): How many per page - asc - max 50 (default:
+      `10`)
+    * `last` (`Int`): How many per page - desc - max 50
+    * `next_cursor` (`String`): Forward pagination cursor
+    * `prev_cursor` (`String`): Backwards pagination cursor
+    """
 
     topic = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="topic")
 
@@ -19539,7 +20163,7 @@ class MetricNormalizationAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `enabled` (`Boolean`)
+    * `enabled` (`Boolean`): Rule enabled
     """
 
 
@@ -19909,8 +20533,10 @@ class MultiTenantIdentityGroup(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`MultiTenantIdentityGroupUserFilterInput`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `filter` (`MultiTenantIdentityGroupUserFilterInput`): Filter
+      group users
     """
 
 
@@ -20004,6 +20630,11 @@ class MultiTenantIdentityUser(sgqlc.types.Type):
             (("cursor", sgqlc.types.Arg(String, graphql_name="cursor", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    """
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
@@ -20091,6 +20722,11 @@ class NerdStorageAccountScope(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection` (`String!`): The collection from which documents
+      will be retrieved.
+    """
 
     document = sgqlc.types.Field(
         NerdStorageDocument,
@@ -20118,8 +20754,9 @@ class NerdStorageAccountScope(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `collection` (`String!`)
-    * `document_id` (`String!`)
+    * `collection` (`String!`): The collection that the document
+      belongs to.
+    * `document_id` (`String!`): The documentId to be retrieved.
     """
 
 
@@ -20142,6 +20779,11 @@ class NerdStorageActorScope(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection` (`String!`): The collection from which documents
+      will be retrieved.
+    """
 
     document = sgqlc.types.Field(
         NerdStorageDocument,
@@ -20169,8 +20811,9 @@ class NerdStorageActorScope(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `collection` (`String!`)
-    * `document_id` (`String!`)
+    * `collection` (`String!`): The collection that the document
+      belongs to.
+    * `document_id` (`String!`): The documentId to be retrieved.
     """
 
 
@@ -20242,9 +20885,9 @@ class NerdStorageEntityScope(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `collection` (`String!`)
-    * `document_id` (`String!`)
-    * `scope_by_actor` (`Boolean`)
+    * `collection` (`String!`)None
+    * `document_id` (`String!`)None
+    * `scope_by_actor` (`Boolean`)None
     """
 
 
@@ -20393,8 +21036,8 @@ class NerdpackData(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`NerdpackVersionFilter`)
+    * `cursor` (`String`): Pagination cursor. Defaults to first page
+    * `filter` (`NerdpackVersionFilter`): Version filter
     """
 
 
@@ -20431,7 +21074,10 @@ class NerdpackNerdpacks(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `overrides` (`[NerdpackOverrideVersionRules]`)
+    * `overrides` (`[NerdpackOverrideVersionRules]`): List of version
+      override rules per Nerdpack. The query will return the version
+      that matches the specified rules (if it exists) for a given
+      nerdpack instead of deciding which version has priority
     """
 
     nerdpack = sgqlc.types.Field(
@@ -20448,6 +21094,10 @@ class NerdpackNerdpacks(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): Nerdpack id.
+    """
 
     subscribable = sgqlc.types.Field(
         sgqlc.types.list_of(NerdpackData),
@@ -20465,7 +21115,7 @@ class NerdpackNerdpacks(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `nerdpack_filter` (`NerdpackDataFilter`)
+    * `nerdpack_filter` (`NerdpackDataFilter`): Nerdpack filter data.
     """
 
 
@@ -20718,6 +21368,11 @@ class Nr1CatalogActorStitchedFields(sgqlc.types.Type):
             (("cursor", sgqlc.types.Arg(String, graphql_name="cursor", default=None)),)
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous Quickstarts query.
+    """
 
     search = sgqlc.types.Field(
         "Nr1CatalogSearchResponse",
@@ -20748,11 +21403,13 @@ class Nr1CatalogActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`Nr1CatalogSearchFilter`)
-    * `query` (`String`)
-    * `sort_by` (`Nr1CatalogSearchSortOption`) (default:
-      `ALPHABETICAL`)
+    * `cursor` (`String`): Cursor for pagination. Supplied by a
+      previous search.
+    * `filter` (`Nr1CatalogSearchFilter`): Set of filters to apply to
+      the search
+    * `query` (`String`): Search query string
+    * `sort_by` (`Nr1CatalogSearchSortOption`): Method used to sort
+      the search results (default: `ALPHABETICAL`)
     """
 
 
@@ -21603,6 +22260,12 @@ class NrdbResultContainer(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `chart_type` (`EmbeddedChartType`): The type of chart
+      visualization you want rendered.  We will default to the best
+      fit for the provided NRQL query if omitted.
+    """
 
     event_definitions = sgqlc.types.Field(
         sgqlc.types.list_of(EventDefinition), graphql_name="eventDefinitions"
@@ -21646,6 +22309,18 @@ class NrdbResultContainer(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `chart_type` (`ChartImageType`): The type of static chart
+      visualization you want rendered.  We will default to the best
+      fit for the provided NRQL query if omitted.
+    * `format` (`ChartFormatType`): The type of static chart format
+      you want rendered. (default: `PNG`)
+    * `height` (`Int`): The height of static chart format you want
+      rendered.
+    * `width` (`Int`): The width of static chart format you want
+      rendered.
+    """
 
     suggested_facets = sgqlc.types.Field(
         sgqlc.types.list_of("NrqlFacetSuggestion"), graphql_name="suggestedFacets"
@@ -21665,6 +22340,11 @@ class NrdbResultContainer(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `anomaly_time_window` (`TimeWindowInput`): The time window of a
+      specific anomaly in milliseconds since Epoch time.
+    """
 
     total_result = sgqlc.types.Field(NrdbResult, graphql_name="totalResult")
 
@@ -21894,6 +22574,15 @@ class Organization(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `limiting_role_id` (`Int`): Input for filtering by limiting role
+      id of a shared account.
+    * `source_organization_id` (`ID`): Input for filtering by source
+      organization id for a shared account.
+    * `target_organization_id` (`ID`): Input for filtering by target
+      organization id of a shared account.
+    """
 
     administrator = sgqlc.types.Field(
         "OrganizationOrganizationAdministrator", graphql_name="administrator"
@@ -21944,8 +22633,11 @@ class Organization(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `accounts` (`[Int!]!`)
-    * `query_id` (`ID!`)
+    * `accounts` (`[Int!]!`): List of account IDs associated with
+      `queryId`. Must match the account IDs of the original
+      asynchronous query. Max of 5 can be supplied.
+    * `query_id` (`ID!`): A token for retrieving the results of a
+      previously executed asynchronous query.
     """
 
     storage_account_id = sgqlc.types.Field(Int, graphql_name="storageAccountId")
@@ -22185,6 +22877,13 @@ class OrganizationCustomerContract(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `cursor` (`String`): the cursor from the previous request, to
+      get the next page
+    * `filter` (`OrganizationOrganizationGroupFilterInput`): The
+      filter
+    """
 
     telemetry_id = sgqlc.types.Field(String, graphql_name="telemetryId")
 
@@ -22606,7 +23305,8 @@ class QueryHistoryActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `options` (`QueryHistoryQueryHistoryOptionsInput`)
+    * `options` (`QueryHistoryQueryHistoryOptionsInput`): Input
+      options to select query records.
     """
 
 
@@ -22829,7 +23529,6 @@ class RootMutationType(sgqlc.types.Type):
         "entity_management_create_scorecard",
         "entity_management_create_scorecard_rule",
         "entity_management_create_team",
-        "entity_management_create_teams_hierarchy_level",
         "entity_management_delete",
         "entity_management_delete_relationship",
         "entity_management_remove_collection_members",
@@ -23044,6 +23743,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`Int!`): The id of the account to cancel.
+    """
 
     account_management_create_account = sgqlc.types.Field(
         AccountManagementCreateResponse,
@@ -23061,6 +23764,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `managed_account` (`AccountManagementCreateInput!`): The
+      attributes for the account being created.
+    """
 
     account_management_update_account = sgqlc.types.Field(
         AccountManagementUpdateResponse,
@@ -23078,6 +23786,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `managed_account` (`AccountManagementUpdateInput!`): The
+      attributes for updating an account.
+    """
 
     agent_application_add_app_to_entity_platform = sgqlc.types.Field(
         AgentApplicationAddAppToEntityPlatformResult,
@@ -23101,6 +23814,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The application's account ID.
+    * `name` (`String!`): The application's name..
+    """
 
     agent_application_create_browser = sgqlc.types.Field(
         AgentApplicationCreateBrowserResult,
@@ -23132,6 +23850,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account ID.
+    * `name` (`String!`): The application's name.
+    * `settings` (`AgentApplicationBrowserSettingsInput`): Browser
+      settings input object.
+    """
 
     agent_application_create_mobile = sgqlc.types.Field(
         AgentApplicationCreateMobileResult,
@@ -23155,6 +23880,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The application's account ID.
+    * `name` (`String!`): The application's name..
+    """
 
     agent_application_delete = sgqlc.types.Field(
         AgentApplicationDeleteResult,
@@ -23179,6 +23909,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int`): The account Id associated with application
+    * `application_name` (`String`): The name of the application
+    * `force` (`Boolean`): Forces deletion even if the app is still
+      reporting
+    * `guid` (`EntityGuid`): An application's GUID.
+    """
 
     agent_application_enable_apm_browser = sgqlc.types.Field(
         AgentApplicationEnableBrowserResult,
@@ -23204,6 +23942,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): The affected entity's GUID.
+    * `settings` (`AgentApplicationBrowserSettingsInput`): Browsers
+      settings input object.
+    """
 
     agent_application_segments_replace_all_browser_segment_allow_list = (
         sgqlc.types.Field(
@@ -23233,6 +23977,14 @@ class RootMutationType(sgqlc.types.Type):
             ),
         )
     )
+    """Arguments:
+
+    * `allow_list`
+      (`AgentApplicationSegmentsBrowserSegmentAllowListInput!`): The
+      list of url segments to replace the current allow list with. The
+      list cannot be Empty.
+    * `entity_guid` (`EntityGuid!`): The NR1 entity guid
+    """
 
     agent_application_settings_update = sgqlc.types.Field(
         AgentApplicationSettingsUpdateResult,
@@ -23258,6 +24010,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): The GUID for the affected entity.
+    * `settings` (`AgentApplicationSettingsUpdateInput!`): Input data
+      about the entities you want to update and the settings to use.
+      Any unspecified fields will retain their original values.
+    """
 
     ai_decisions_accept_suggestion = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23283,6 +24042,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `suggestion_id` (`ID!`): Suggestion ID.
+    """
 
     ai_decisions_create_implicit_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23308,6 +24072,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule` (`AiDecisionsRuleBlueprint!`): Rule blueprint to be
+      created.
+    """
 
     ai_decisions_create_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23333,6 +24103,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule` (`AiDecisionsRuleBlueprint!`): Rule blueprint to be
+      created.
+    """
 
     ai_decisions_create_suggestion = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsSuggestion),
@@ -23358,6 +24134,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `suggestion` (`AiDecisionsSuggestionBlueprint!`): Suggestion
+      blueprint to be created.
+    """
 
     ai_decisions_decline_suggestion = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23383,6 +24165,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `suggestion_id` (`ID!`): Suggestion ID.
+    """
 
     ai_decisions_delete_merge_feedback = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23422,6 +24209,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `child_issue_id` (`ID!`): Child issue ID.
+    * `parent_issue_id` (`ID!`): Parent issue ID.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_delete_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23445,6 +24239,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_delete_suggestion = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23470,6 +24269,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `suggestion_id` (`ID!`): Suggestion ID.
+    """
 
     ai_decisions_disable_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23493,6 +24297,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_enable_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsOperationResult),
@@ -23516,6 +24325,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_find_applicable_incidents = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsApplicableIncidentSearch),
@@ -23541,6 +24355,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `search` (`AiDecisionsSearchBlueprint!`): Search operation
+      blueprint to be created.
+    """
 
     ai_decisions_postpone_suggestion = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23566,6 +24386,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `suggestion_id` (`ID!`): Suggestion ID.
+    """
 
     ai_decisions_record_merge_feedback = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsMergeFeedback),
@@ -23613,6 +24438,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `child_issue_id` (`ID!`): Child issue ID.
+    * `opinion` (`AiDecisionsOpinion!`): Opinion type.
+    * `parent_issue_id` (`ID!`): Parent issue ID.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_simulate = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsSimulation),
@@ -23638,6 +24471,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `simulation` (`AiDecisionsSimulationBlueprint!`): Simulation
+      blueprint to be created.
+    """
 
     ai_decisions_update_implicit_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23669,6 +24508,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule` (`AiDecisionsRuleBlueprint!`): Rule blueprint to be
+      created.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_decisions_update_rule = sgqlc.types.Field(
         sgqlc.types.non_null(AiDecisionsRule),
@@ -23700,6 +24546,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule` (`AiDecisionsRuleBlueprint!`): Rule blueprint to be
+      created.
+    * `rule_id` (`ID!`): Rule ID.
+    """
 
     ai_issues_ack_issue = sgqlc.types.Field(
         sgqlc.types.non_null(AiIssuesIssueUserActionResponse),
@@ -23987,9 +24840,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `channel` (`AiNotificationsChannelInput!`)
-    * `variables` (`[AiNotificationsDynamicVariable!]`)
+    * `account_id` (`Int!`): Account Id
+    * `channel` (`AiNotificationsChannelInput!`): Channel to test
+      notification for
+    * `variables` (`[AiNotificationsDynamicVariable!]`): Dynamic
+      variables
     """
 
     ai_notifications_test_channel_by_id = sgqlc.types.Field(
@@ -24026,9 +24881,10 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `channel_id` (`ID!`)
-    * `variables` (`[AiNotificationsDynamicVariable!]`)
+    * `account_id` (`Int!`): Account Id
+    * `channel_id` (`ID!`): Channel ID to test notification for
+    * `variables` (`[AiNotificationsDynamicVariable!]`): Dynamic
+      variables
     """
 
     ai_notifications_test_destination = sgqlc.types.Field(
@@ -24189,6 +25045,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Workflow's account id
+    * `create_workflow_data` (`AiWorkflowsCreateWorkflowInput!`):
+      Create Workflow input object
+    """
 
     ai_workflows_delete_workflow = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsDeleteWorkflowResponse),
@@ -24220,6 +25082,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Workflow's account id
+    * `delete_channels` (`Boolean!`): If true, workflow channel will
+      be deleted along with the workflow (default: `true`)
+    * `id` (`ID!`): Workflow's id for deletion
+    """
 
     ai_workflows_test_workflow = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsTestWorkflowResponse),
@@ -24245,6 +25114,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Workflow's account id
+    * `test_workflow_data` (`AiWorkflowsTestWorkflowInput!`): Test
+      Workflow input object
+    """
 
     ai_workflows_update_workflow = sgqlc.types.Field(
         sgqlc.types.non_null(AiWorkflowsUpdateWorkflowResponse),
@@ -24278,6 +25153,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Workflow's account id
+    * `delete_unused_channels` (`Boolean!`): If true, the channels
+      that are no longer used by the update workflow will be deleted
+      (default: `true`)
+    * `update_workflow_data` (`AiWorkflowsUpdateWorkflowInput!`):
+      Update Workflow input object
+    """
 
     alerts_condition_delete = sgqlc.types.Field(
         AlertsConditionDeleteResponse,
@@ -24301,6 +25185,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `id` (`ID!`): Alerts condition ID.
+    """
 
     alerts_muting_rule_create = sgqlc.types.Field(
         AlertsMutingRule,
@@ -24326,6 +25215,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `rule` (`AlertsMutingRuleInput!`): Input settings for the muting
+      rule.
+    """
 
     alerts_muting_rule_delete = sgqlc.types.Field(
         AlertsMutingRuleDeleteResponse,
@@ -24349,6 +25244,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `id` (`ID!`): Muting rule.
+    """
 
     alerts_muting_rule_update = sgqlc.types.Field(
         AlertsMutingRule,
@@ -24380,6 +25280,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `id` (`ID!`): Muting rule ID.
+    * `rule` (`AlertsMutingRuleUpdateInput!`): The input options for
+      updating a muting rule.
+    """
 
     alerts_nrql_condition_baseline_create = sgqlc.types.Field(
         "AlertsNrqlBaselineCondition",
@@ -24411,6 +25318,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `condition` (`AlertsNrqlConditionBaselineInput!`): Input
+      settings for the baseline NRQL condition.
+    * `policy_id` (`ID!`): Policy ID for the condition.
+    """
 
     alerts_nrql_condition_baseline_update = sgqlc.types.Field(
         "AlertsNrqlBaselineCondition",
@@ -24442,6 +25356,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `condition` (`AlertsNrqlConditionUpdateBaselineInput!`): Input
+      settings for the baseline NRQL condition.
+    * `id` (`ID!`): Alerts condition ID.
+    """
 
     alerts_nrql_condition_static_create = sgqlc.types.Field(
         "AlertsNrqlStaticCondition",
@@ -24473,6 +25394,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `condition` (`AlertsNrqlConditionStaticInput!`): Input settings
+      for the static NRQL condition.
+    * `policy_id` (`ID!`): Policy ID for the condition.
+    """
 
     alerts_nrql_condition_static_update = sgqlc.types.Field(
         "AlertsNrqlStaticCondition",
@@ -24504,6 +25432,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `condition` (`AlertsNrqlConditionUpdateStaticInput!`): Input
+      settings for the static NRQL condition.
+    * `id` (`ID!`): Alerts condition ID.
+    """
 
     alerts_policy_create = sgqlc.types.Field(
         AlertsPolicy,
@@ -24529,6 +25464,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `policy` (`AlertsPolicyInput!`): Policy to be created.
+    """
 
     alerts_policy_delete = sgqlc.types.Field(
         AlertsPolicyDeleteResponse,
@@ -24552,6 +25492,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `id` (`ID!`): Policy ID.
+    """
 
     alerts_policy_update = sgqlc.types.Field(
         AlertsPolicy,
@@ -24583,6 +25528,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID.
+    * `id` (`ID!`): Policy ID.
+    * `policy` (`AlertsPolicyUpdateInput!`): Fields on the policy to
+      be updated.
+    """
 
     alerts_update_cross_account_election = sgqlc.types.Field(
         AlertsCrossAccountElectionStatus,
@@ -24618,9 +25570,14 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `allowed_condition_account_ids` (`[Int!]`)
-    * `election_status` (`Boolean!`)
+    * `account_id` (`Int!`): Account ID.
+    * `allowed_condition_account_ids` (`[Int!]`): The account IDs of
+      the accounts that will be allowed to have alert conditions that
+      use data from this account in a cross account alert. Ignored if
+      electionStatus is false. When electionStatus is true, null or
+      empty means all accounts are allowed.
+    * `election_status` (`Boolean!`): The new election status for the
+      account.
     """
 
     alerts_update_cross_account_elections = sgqlc.types.Field(
@@ -24651,8 +25608,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_ids` (`[Int!]!`)
-    * `election_status` (`Boolean!`)
+    * `account_ids` (`[Int!]!`): Account IDs. (maximum 20)
+    * `election_status` (`Boolean!`): The new election status for the
+      accounts.
     """
 
     api_access_create_keys = sgqlc.types.Field(
@@ -24671,6 +25629,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `keys` (`ApiAccessCreateInput!`): A list of the configurations
+      for each key you want to create.
+    """
 
     api_access_delete_keys = sgqlc.types.Field(
         ApiAccessDeleteKeyResponse,
@@ -24688,6 +25651,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `keys` (`ApiAccessDeleteInput!`): A list of each key `id` that
+      you want to delete. You can read more about managing keys on
+      [this documentation page](https://docs.newrelic.com/docs/apis/ne
+      rdgraph/examples/use-nerdgraph-manage-license-keys-personal-api-
+      keys).
+    """
 
     api_access_update_keys = sgqlc.types.Field(
         ApiAccessUpdateKeyResponse,
@@ -24705,6 +25676,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `keys` (`ApiAccessUpdateInput!`): The configurations of each key
+      you want to update.
+    """
 
     authentication_domain_delete = sgqlc.types.Field(
         AuthenticationDomainType,
@@ -24796,6 +25772,19 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `data_handling_rules` (`ChangeTrackingDataHandlingRules`):
+      Specify how you would like the API to handle validation
+      failures. Currently, the following validations should be
+      considered: - Text fields must be less than 4,096 characters and
+      encoded as UTF-8. By default, they will be trimmed with an UTF-8
+      ellipses character (…) placed at the end. - Failures to update
+      the legacy REST API for APM entities can be used to determine
+      whether the mutation should proceed.
+    * `deployment` (`ChangeTrackingDeploymentInput!`): The deployment
+      to create.
+    """
 
     change_tracking_create_event = sgqlc.types.Field(
         ChangeTrackingCreateEventResponse,
@@ -24821,6 +25810,26 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `change_tracking_event` (`ChangeTrackingCreateEventInput!`): The
+      data describing the change tracking event.  For more information
+      on these input fields, [see our
+      docs](https://docs.newrelic.com/docs/change-tracking/change-
+      tracking-events/#change-tracking-event-mutation).
+    * `data_handling_rules` (`ChangeTrackingDataHandlingRules`):
+      Specify how you would like the API to handle validation
+      failures. Currently, the following validations should be
+      considered: - Text fields must be less than 4,096 characters and
+      encoded as UTF-8. By default, they will be trimmed with an UTF-8
+      ellipses character (…) placed at the end. - Failures to update
+      the legacy REST API for APM entities can be used to determine
+      whether the mutation should proceed. - Events with categories or
+      types that do not match the [default supported
+      types](https://docs.newrelic.com/docs/change-tracking/change-
+      tracking-events/#supported-types) will fail unless passed the
+      `ALLOW_CUSTOM_CATEGORY_OR_TYPE` flag.
+    """
 
     cloud_configure_integration = sgqlc.types.Field(
         CloudConfigureIntegrationPayload,
@@ -24846,6 +25855,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `integrations` (`CloudIntegrationsInput!`): The cloud
+      integrations you want to configure.
+    """
 
     cloud_disable_integration = sgqlc.types.Field(
         CloudDisableIntegrationPayload,
@@ -24896,6 +25911,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `accounts` (`CloudLinkCloudAccountsInput`): The cloud provider
+      account you want to link to your New Relic account.
+    """
 
     cloud_migrate_aws_gov_cloud_to_assume_role = sgqlc.types.Field(
         CloudMigrateAwsGovCloudToAssumeRolePayload,
@@ -24929,8 +25950,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `accounts` (`[CloudAwsGovCloudMigrateToAssumeroleInput!]!`)
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `accounts` (`[CloudAwsGovCloudMigrateToAssumeroleInput!]!`): One
+      or multiple ARNs for the IAM Role for the different accounts.
     """
 
     cloud_oci_generate_instrumented_payload_url = sgqlc.types.Field(
@@ -24977,10 +25999,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `linked_account_id` (`Int!`)
-    * `oci_region` (`String!`)
-    * `payload` (`[CloudOciInstrumentedPayloadInput]!`)
+    * `account_id` (`Int!`): Your New Relic account ID.
+    * `linked_account_id` (`Int!`): The linked account identifier.
+    * `oci_region` (`String!`): The OCI instrumentation region.
+    * `payload` (`[CloudOciInstrumentedPayloadInput]!`): The payload
+      describing the OCI instrumentation request.
     """
 
     cloud_oci_generate_log_group_instrumented_payload_url = sgqlc.types.Field(
@@ -25039,12 +26062,13 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `linked_account_id` (`Int!`)
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `linked_account_id` (`Int!`): The linked account identifier.
     * `log_group_payload`
-      (`[CloudOciLogGroupInstrumentedPayloadInput!]!`)
-    * `oci_region` (`String!`)
-    * `oci_tenant_id` (`String!`)
+      (`[CloudOciLogGroupInstrumentedPayloadInput!]!`): The payload
+      describing the OCI instrumentation request.
+    * `oci_region` (`String!`): The OCI instrumentation region.
+    * `oci_tenant_id` (`String!`): The OCI tenant identifier.
     """
 
     cloud_rename_account = sgqlc.types.Field(
@@ -25073,8 +26097,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `accounts` (`[CloudRenameAccountsInput]`)
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `accounts` (`[CloudRenameAccountsInput]`): The cloud provider
+      account you want to rename.
     """
 
     cloud_unlink_account = sgqlc.types.Field(
@@ -25103,8 +26128,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `accounts` (`[CloudUnlinkAccountsInput]`)
+    * `account_id` (`Int!`): Your New Relic account ID
+    * `accounts` (`[CloudUnlinkAccountsInput]`): The cloud provider
+      accounts you want to unlink.
     """
 
     cloud_update_account = sgqlc.types.Field(
@@ -25131,6 +26157,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Your New Relic account ID.
+    * `accounts` (`CloudUpdateCloudAccountsInput!`): The desired cloud
+      accounts to be updated.
+    """
 
     collaboration_create_code_mark = sgqlc.types.Field(
         CollaborationCodeMark,
@@ -25261,20 +26293,30 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `assistant` (`String`)
-    * `assistant_config` (`[CollaborationAssistantConfigInput]`)
-    * `body` (`String!`)
-    * `capability_id` (`String`)
-    * `context_metadata` (`CollaborationRawContextMetadata`)
-    * `destination_id` (`String`)
-    * `display_name` (`String`)
-    * `n_rconnection_id` (`String`)
-    * `reference_url` (`String`)
-    * `slack_channel_id` (`String`)
-    * `suppress3rd_party_file_share` (`Boolean`)
-    * `thread_id` (`ID!`)
-    * `time_picker_from` (`EpochMilliseconds`)
-    * `time_picker_to` (`EpochMilliseconds`)
+    * `assistant` (`String`): Type of assistant
+    * `assistant_config` (`[CollaborationAssistantConfigInput]`):
+      Configuration for assistant
+    * `body` (`String!`): The message of the comment
+    * `capability_id` (`String`): Capability Id at the time of comment
+      creation
+    * `context_metadata` (`CollaborationRawContextMetadata`): Metadata
+      to add to the comment
+    * `destination_id` (`String`): Optional destination Id to send the
+      comment to
+    * `display_name` (`String`): Display name at the time of comment
+      creation
+    * `n_rconnection_id` (`String`): Websocket Connection Id
+    * `reference_url` (`String`): Reference URL of the comment
+    * `slack_channel_id` (`String`): Optional Slack Channel Id to send
+      the comment to
+    * `suppress3rd_party_file_share` (`Boolean`): Optional flag if
+      true, do not share files/screenshots/thumbnails via email, slack
+      or other future 3rd parties
+    * `thread_id` (`ID!`): Thread ID where the comment will live
+    * `time_picker_from` (`EpochMilliseconds`): Optional time picker
+      start time
+    * `time_picker_to` (`EpochMilliseconds`): Optional time picker end
+      time
     """
 
     collaboration_create_context = sgqlc.types.Field(
@@ -25363,6 +26405,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `channel_id` (`ID`): Optional 3rd party channel ID
+    * `external_id` (`ID`): External ID provided by the external
+      service
+    * `session_id` (`ID`): Session ID provided by the notifications
+      gateway when creating the first external message
+    * `thread_id` (`ID!`): Thread ID where messages from the external
+      service will be created
+    * `type` (`String!`): Connection type. One of ['SLACK', 'TEAMS',
+      'EMAIL']
+    """
 
     collaboration_create_mention = sgqlc.types.Field(
         CollaborationMention,
@@ -25404,6 +26458,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `comment_id` (`ID!`): Comment ID where the item ie mentioned
+    * `external_application_type`
+      (`CollaborationExternalApplicationType`): The type of external
+      application associated with this mention (e.g.: SLACK)
+    * `external_creator_id` (`ID`): The user id of the user mentioning
+      this item
+    * `mentionable_item_id` (`ID!`): The ID of the item being
+      mentioned
+    * `type` (`String!`): The type of thing being mentioned
+    """
 
     collaboration_create_thread = sgqlc.types.Field(
         CollaborationThread,
@@ -25441,6 +26507,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `context_id` (`ID!`): Context ID the thread should associate
+      with
+    * `context_metadata` (`CollaborationRawContextMetadata`): Metadata
+      to add to thread
+    * `external_application_type` (`String`): Indicate that thread is
+      linked to a external application type
+    * `reference_url` (`String`): Reference URL
+    * `visibility` (`String`): Indicate a PRIVATE, or CUSTOMER_SERVICE
+      thread
+    """
 
     collaboration_deactivate_code_mark = sgqlc.types.Field(
         CollaborationCodeMark,
@@ -25655,13 +26733,16 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `body` (`String!`)
-    * `destination_id` (`String`)
-    * `email_addresses` (`[String]`)
-    * `reference_url` (`String!`)
-    * `shared_to_type` (`String!`)
-    * `slack_channel_id` (`String`)
+    * `account_id` (`Int!`): Account that owns the message
+    * `body` (`String!`): The content of the message
+    * `destination_id` (`String`): Optional destination Id to send the
+      message to
+    * `email_addresses` (`[String]`): Optional email addresses to send
+      the message to
+    * `reference_url` (`String!`): Reference URL of the message
+    * `shared_to_type` (`String!`): message destination type
+    * `slack_channel_id` (`String`): Optional Slack Channel Id to send
+      the message to
     """
 
     collaboration_set_external_service_connection_channel = sgqlc.types.Field(
@@ -25709,8 +26790,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `nr_connection_id` (`String`)
-    * `subscription_keys` (`[String]`)
+    * `nr_connection_id` (`String`): New Relic Connection ID
+    * `subscription_keys` (`[String]`): An array of subscription keys
+      to subscribe to
     """
 
     collaboration_subscribe_to_thread = sgqlc.types.Field(
@@ -25914,10 +26996,13 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `container` (`CustomRoleContainerInput!`)
-    * `name` (`String!`)
-    * `permission_ids` (`[Int!]!`)
-    * `scope` (`String!`)
+    * `container` (`CustomRoleContainerInput!`): The container the
+      role is being created in (organization)
+    * `name` (`String!`): The name of the custom role
+    * `permission_ids` (`[Int!]!`): The IDs of the permissions this
+      role will grant
+    * `scope` (`String!`): The authorization scope this role will
+      grant permissions
     """
 
     custom_role_delete = sgqlc.types.Field(
@@ -25960,9 +27045,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `id` (`Int!`)
-    * `name` (`String`)
-    * `permission_ids` (`[Int]`)
+    * `id` (`Int!`): The ID of the custom role to update
+    * `name` (`String`): The new name of the custom role
+    * `permission_ids` (`[Int]`): The new IDs of the permissions this
+      role will grant. This will replace the existing permissions
+      assigned to this role
     """
 
     dashboard_add_widgets_to_page = sgqlc.types.Field(
@@ -25995,8 +27082,10 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `widgets` (`[DashboardWidgetInput!]!`)
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardPage` where widgets will be added.
+    * `widgets` (`[DashboardWidgetInput!]!`): Widgets input holding
+      all required widgets data.
     """
 
     dashboard_create = sgqlc.types.Field(
@@ -26023,6 +27112,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID where the `DashboardEntity`
+      will be created.
+    * `dashboard` (`DashboardInput!`): Dashboard input holding all
+      required `DashboardEntity` data.
+    """
 
     dashboard_create_live_url = sgqlc.types.Field(
         DashboardLiveUrl,
@@ -26056,6 +27152,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `auth` (`DashboardLiveUrlAuthCreationInput`): The auth policies
+      that will be used to protect the Live URL
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardEntity` to be accessed through a public URL.
+    * `options` (`DashboardLiveUrlOptionsInput`): Options to configure
+      the live url when is created
+    """
 
     dashboard_create_snapshot_url = sgqlc.types.Field(
         String,
@@ -26079,6 +27184,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardPage` to be accessed as a snapshot through a public
+      URL.
+    * `params` (`DashboardSnapshotUrlInput`): Optional input
+      parameters for the generated snapshot.
+    """
 
     dashboard_delete = sgqlc.types.Field(
         DashboardDeleteResult,
@@ -26096,6 +27209,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardEntity` to be deleted. A dashboard guid must be
+      specified. Dashboard page guids are not supported.
+    """
 
     dashboard_reset_live_url_password = sgqlc.types.Field(
         DashboardResetLiveUrlPasswordResult,
@@ -26111,6 +27230,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): the unique identifier of the public live URL to
+      reset the password.
+    """
 
     dashboard_revoke_live_url = sgqlc.types.Field(
         DashboardRevokeLiveDashboardUrlResult,
@@ -26126,6 +27250,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The unique identifier of the public live dashboard
+      URL to be revoked.
+    """
 
     dashboard_undelete = sgqlc.types.Field(
         DashboardUndeleteResult,
@@ -26143,6 +27272,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardEntity` to be undeleted. A dashboard guid must be
+      specified. Dashboard page guids are not supported.
+    """
 
     dashboard_update = sgqlc.types.Field(
         DashboardUpdateResult,
@@ -26168,6 +27303,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `dashboard` (`DashboardInput!`): Dashboard input holding all
+      required data from an existing `DashboardEntity`.
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardEntity` to be updated.
+    """
 
     dashboard_update_live_url = sgqlc.types.Field(
         DashboardLiveUrl,
@@ -26191,6 +27333,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The unique identifier of the public live URL to be
+      updated.
+    * `options` (`DashboardLiveUrlOptionsInput`): Options to configure
+      the live url when is updated
+    """
 
     dashboard_update_live_url_auth = sgqlc.types.Field(
         DashboardLiveUrlAuth,
@@ -26214,6 +27363,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `auth` (`DashboardLiveUrlAuthUpdateInput!`): The auth policies
+      that will be used to protect the Live URL
+    * `id` (`ID!`): The unique identifier of the public live URL to be
+      updated.
+    """
 
     dashboard_update_live_url_creation_policies = sgqlc.types.Field(
         DashboardLiveUrlCreationPoliciesResult,
@@ -26233,6 +27389,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `policies` (`DashboardUpdateLiveUrlCreationPoliciesInput!`):
+      Parameters for setting the live url creation policies.
+    """
 
     dashboard_update_page = sgqlc.types.Field(
         DashboardUpdatePageResult,
@@ -26258,6 +27419,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): Unique entity identifier of the Page to
+      be updated.
+    * `page` (`DashboardUpdatePageInput!`): Page input holding all
+      required data to update a page.
+    """
 
     dashboard_update_widgets_in_page = sgqlc.types.Field(
         DashboardUpdateWidgetsInPageResult,
@@ -26289,8 +27457,10 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `widgets` (`[DashboardUpdateWidgetInput!]!`)
+    * `guid` (`EntityGuid!`): Unique entity identifier of the
+      `DashboardPage` where widgets will be updated.
+    * `widgets` (`[DashboardUpdateWidgetInput!]!`): Widgets input
+      holding all required widgets data.
     """
 
     dashboard_widget_revoke_live_url = sgqlc.types.Field(
@@ -26307,6 +27477,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `uuid` (`ID!`): The unique identifier of the public live URL to
+      be revoked.
+    """
 
     data_access_policy_create = sgqlc.types.Field(
         DataAccessPolicyCreatePayload,
@@ -26342,6 +27517,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `name` (`String!`): The name of the data access policy.
+    * `organization_id` (`ID!`): The ID of the organization associated
+      with the policy.
+    * `policy` (`DataAccessPolicyRawDocument!`): The policy details,
+      including event types to allow or except.
+    * `version` (`String`): The version of the policy.
+    """
 
     data_access_policy_delete = sgqlc.types.Field(
         DataAccessPolicyDeletePayload,
@@ -26357,6 +27541,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The unique identifier of the policy to delete.
+    """
 
     data_access_policy_update = sgqlc.types.Field(
         DataAccessPolicyUpdatePayload,
@@ -26379,6 +27567,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The unique identifier of the policy to update.
+    * `name` (`String`): The updated name of the data access policy.
+    * `policy` (`DataAccessPolicyRawDocument`): The updated policy
+      details, including event types.
+    """
 
     data_management_copy_retentions = sgqlc.types.Field(
         DataManagementBulkCopyResult,
@@ -26406,8 +27601,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `destination_account_ids` (`[Int]!`)
-    * `source_account_id` (`Int!`)
+    * `destination_account_ids` (`[Int]!`): A list of IDs for the
+      accounts that should have the source account retentions applied.
+    * `source_account_id` (`Int!`): The ID of the source account
     """
 
     data_management_create_account_limit = sgqlc.types.Field(
@@ -26511,8 +27707,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `retention_rules` (`[DataManagementRuleInput]`)
+    * `account_id` (`Int!`): The ID of the account the new retention
+      rules will apply to
+    * `retention_rules` (`[DataManagementRuleInput]`): List of
+      rule_input params (:namespace, :retention_in_days) for new rules
+      to be created
     """
 
     data_management_delete_event_retention_rule = sgqlc.types.Field(
@@ -26539,6 +27738,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The ID of the event retention rule's
+      account
+    * `namespace` (`String!`): The event retention rule's namespace
+    """
 
     data_management_expire_organization_limit = sgqlc.types.Field(
         DataManagementLimitOverride,
@@ -26614,6 +27819,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): ID of the account in the account family
+      the trace observer belongs to.
+    * `rules` (`EdgeCreateTraceFilterRulesInput!`): A grouping of
+      trace filter rule configurations
+    * `trace_observer_id` (`Int!`): ID of the trace observer to apply
+      the trace filter(s) to.
+    """
 
     edge_create_trace_observer = sgqlc.types.Field(
         sgqlc.types.non_null(EdgeCreateTraceObserverResponses),
@@ -26645,8 +27859,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `trace_observer_configs` (`[EdgeCreateTraceObserverInput!]!`)
+    * `account_id` (`Int!`): ID of the account in the account family
+      the trace observer(s) belong to.
+    * `trace_observer_configs` (`[EdgeCreateTraceObserverInput!]!`):
+      One or more `CreateTraceObserverInput` that describe the trace
+      observer to be created.
     """
 
     edge_delete_trace_filter_rules = sgqlc.types.Field(
@@ -26681,6 +27898,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): ID of the account in the account family
+      the trace observer belongs to.
+    * `rules` (`EdgeDeleteTraceFilterRulesInput!`): A grouping of
+      trace filter rule configurations
+    * `trace_observer_id` (`Int!`): ID of the trace observer to remove
+      the provided trace filter(s) from.
+    """
 
     edge_delete_trace_observers = sgqlc.types.Field(
         sgqlc.types.non_null(EdgeDeleteTraceObserverResponses),
@@ -26712,8 +27938,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `trace_observer_configs` (`[EdgeDeleteTraceObserverInput!]!`)
+    * `account_id` (`Int!`): ID of the account in the account family
+      the trace observer(s) belong to.
+    * `trace_observer_configs` (`[EdgeDeleteTraceObserverInput!]!`):
+      One or more `DeleteTraceObserverInput` that describe the trace
+      observer to be deleted.
     """
 
     edge_update_trace_observers = sgqlc.types.Field(
@@ -26746,8 +27975,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `trace_observer_configs` (`[EdgeUpdateTraceObserverInput!]!`)
+    * `account_id` (`Int!`): ID of the account in the account family
+      the trace observer(s) belong to.
+    * `trace_observer_configs` (`[EdgeUpdateTraceObserverInput!]!`):
+      One or more `UpdateTraceObserverInput` that describe the trace
+      observer to be updated.
     """
 
     entity_delete = sgqlc.types.Field(
@@ -26778,8 +28010,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `force_delete` (`Boolean!`) (default: `false`)
-    * `guids` (`[EntityGuid!]!`)
+    * `force_delete` (`Boolean!`): Set to true to skip safety checks
+      and force-delete the entity (default: `false`)
+    * `guids` (`[EntityGuid!]!`): List of guids to be deleted
     """
 
     entity_golden_metrics_override = sgqlc.types.Field(
@@ -26820,9 +28053,12 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `context` (`EntityGoldenContextInput!`)
-    * `domain_type` (`DomainTypeInput!`)
-    * `metrics` (`[EntityGoldenMetricInput!]!`)
+    * `context` (`EntityGoldenContextInput!`): Context to scope the
+      golden metrics
+    * `domain_type` (`DomainTypeInput!`): Entity Domain Type to
+      override the golden metrics
+    * `metrics` (`[EntityGoldenMetricInput!]!`): The new golden
+      metrics by the entity domain type and the context
     """
 
     entity_golden_metrics_reset = sgqlc.types.Field(
@@ -26888,9 +28124,12 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `context` (`EntityGoldenContextInput!`)
-    * `domain_type` (`DomainTypeInput!`)
-    * `tags` (`[EntityGoldenTagInput!]!`)
+    * `context` (`EntityGoldenContextInput!`): Context to scope the
+      golden metrics
+    * `domain_type` (`DomainTypeInput!`): Entity Domain Type to
+      override the golden tags
+    * `tags` (`[EntityGoldenTagInput!]!`): The new golden tags by the
+      entity domain type and the tags
     """
 
     entity_golden_tags_reset = sgqlc.types.Field(
@@ -26946,8 +28185,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `collection_id` (`ID!`)
-    * `ids` (`[ID!]!`)
+    * `collection_id` (`ID!`): The collection to add an entity to.
+    * `ids` (`[ID!]!`): The list of entities to add to the collection.
     """
 
     entity_management_create_ai_agent = sgqlc.types.Field(
@@ -26966,6 +28205,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `ai_agent_entity` (`EntityManagementAiAgentEntityCreateInput!`):
+      The entity's data
+    """
 
     entity_management_create_ai_tool = sgqlc.types.Field(
         EntityManagementAiToolEntityCreateResult,
@@ -26983,6 +28227,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `ai_tool_entity` (`EntityManagementAiToolEntityCreateInput!`):
+      The entity's data
+    """
 
     entity_management_create_collection = sgqlc.types.Field(
         EntityManagementCollectionEntityCreateResult,
@@ -27002,6 +28251,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection_entity`
+      (`EntityManagementCollectionEntityCreateInput!`): The entity's
+      data
+    """
 
     entity_management_create_confluence_integration = sgqlc.types.Field(
         EntityManagementConfluenceIntegrationCreateResult,
@@ -27021,6 +28276,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `confluence_integration`
+      (`EntityManagementConfluenceIntegrationCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_confluence_rag_settings = sgqlc.types.Field(
         EntityManagementConfluenceRagSettingsEntityCreateResult,
@@ -27040,6 +28301,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `confluence_rag_settings_entity`
+      (`EntityManagementConfluenceRagSettingsEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_git_repository = sgqlc.types.Field(
         EntityManagementGitRepositoryEntityCreateResult,
@@ -27059,6 +28326,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `git_repository_entity`
+      (`EntityManagementGitRepositoryEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_impact_profile = sgqlc.types.Field(
         EntityManagementImpactProfileEntityCreateResult,
@@ -27078,6 +28351,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `impact_profile_entity`
+      (`EntityManagementImpactProfileEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_inbox_issue_category = sgqlc.types.Field(
         EntityManagementInboxIssueCategoryEntityCreateResult,
@@ -27097,6 +28376,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `inbox_issue_category_entity`
+      (`EntityManagementInboxIssueCategoryEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_incident_link = sgqlc.types.Field(
         EntityManagementIncidentLinkEntityCreateResult,
@@ -27116,6 +28401,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `incident_link_entity`
+      (`EntityManagementIncidentLinkEntityCreateInput!`): The entity's
+      data
+    """
 
     entity_management_create_incident_timeline = sgqlc.types.Field(
         EntityManagementIncidentTimelineEntityCreateResult,
@@ -27135,6 +28426,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `incident_timeline_entity`
+      (`EntityManagementIncidentTimelineEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_mcp_server = sgqlc.types.Field(
         EntityManagementMcpServerEntityCreateResult,
@@ -27154,6 +28451,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `mcp_server_entity`
+      (`EntityManagementMcpServerEntityCreateInput!`): The entity's
+      data
+    """
 
     entity_management_create_pipeline_cloud_rule = sgqlc.types.Field(
         EntityManagementPipelineCloudRuleEntityCreateResult,
@@ -27173,6 +28476,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `pipeline_cloud_rule_entity`
+      (`EntityManagementPipelineCloudRuleEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_rag_tool = sgqlc.types.Field(
         EntityManagementRagToolEntityCreateResult,
@@ -27190,6 +28499,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `rag_tool_entity` (`EntityManagementRagToolEntityCreateInput!`):
+      The entity's data
+    """
 
     entity_management_create_relationship = sgqlc.types.Field(
         EntityManagementRelationshipCreateResult,
@@ -27207,6 +28521,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `relationship` (`EntityManagementRelationshipCreateInput!`): The
+      relationship data.
+    """
 
     entity_management_create_scorecard = sgqlc.types.Field(
         EntityManagementScorecardEntityCreateResult,
@@ -27226,6 +28545,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `scorecard_entity`
+      (`EntityManagementScorecardEntityCreateInput!`): The entity's
+      data
+    """
 
     entity_management_create_scorecard_rule = sgqlc.types.Field(
         EntityManagementScorecardRuleEntityCreateResult,
@@ -27245,6 +28570,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `scorecard_rule_entity`
+      (`EntityManagementScorecardRuleEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_create_team = sgqlc.types.Field(
         EntityManagementTeamEntityCreateResult,
@@ -27262,25 +28593,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
 
-    entity_management_create_teams_hierarchy_level = sgqlc.types.Field(
-        EntityManagementTeamsHierarchyLevelEntityCreateResult,
-        graphql_name="entityManagementCreateTeamsHierarchyLevel",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "teams_hierarchy_level_entity",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(
-                            EntityManagementTeamsHierarchyLevelEntityCreateInput
-                        ),
-                        graphql_name="teamsHierarchyLevelEntity",
-                        default=None,
-                    ),
-                ),
-            )
-        ),
-    )
+    * `team_entity` (`EntityManagementTeamEntityCreateInput!`): The
+      entity's data
+    """
 
     entity_management_delete = sgqlc.types.Field(
         EntityManagementEntityDeleteResult,
@@ -27297,6 +28614,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be deleted.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_delete_relationship = sgqlc.types.Field(
         EntityManagementRelationshipDeleteResult,
@@ -27324,6 +28649,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `source_id` (`ID!`): The source id of the relationship to be
+      deleted.
+    * `target_id` (`ID!`): The target id of the relationship to be
+      deleted.
+    * `type` (`String!`): The relationship type to be deleted.
+    """
 
     entity_management_remove_collection_members = sgqlc.types.Field(
         sgqlc.types.list_of(ID),
@@ -27353,8 +28686,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `collection_id` (`ID!`)
-    * `ids` (`[ID!]!`)
+    * `collection_id` (`ID!`): The collection to remove entities from.
+    * `ids` (`[ID!]!`): The list of entities to remove from the
+      collection.
     """
 
     entity_management_update = sgqlc.types.Field(
@@ -27380,6 +28714,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `entity` (`EntityManagementGenericEntityUpdateInput!`): The
+      input data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_ai_agent = sgqlc.types.Field(
         EntityManagementAiAgentEntityUpdateResult,
@@ -27404,6 +28748,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `ai_agent_entity` (`EntityManagementAiAgentEntityUpdateInput!`):
+      The input data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_ai_tool = sgqlc.types.Field(
         EntityManagementAiToolEntityUpdateResult,
@@ -27428,6 +28782,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `ai_tool_entity` (`EntityManagementAiToolEntityUpdateInput!`):
+      The input data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_collection = sgqlc.types.Field(
         EntityManagementCollectionEntityUpdateResult,
@@ -27454,6 +28818,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection_entity`
+      (`EntityManagementCollectionEntityUpdateInput!`): The input data
+      to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_confluence_integration = sgqlc.types.Field(
         EntityManagementConfluenceIntegrationUpdateResult,
@@ -27480,6 +28855,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `confluence_integration`
+      (`EntityManagementConfluenceIntegrationUpdateInput!`): The input
+      data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_confluence_rag_settings = sgqlc.types.Field(
         EntityManagementConfluenceRagSettingsEntityUpdateResult,
@@ -27506,6 +28892,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `confluence_rag_settings_entity`
+      (`EntityManagementConfluenceRagSettingsEntityUpdateInput!`): The
+      input data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_git_repository = sgqlc.types.Field(
         EntityManagementGitRepositoryEntityUpdateResult,
@@ -27532,6 +28929,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `git_repository_entity`
+      (`EntityManagementGitRepositoryEntityUpdateInput!`): The input
+      data to be updated.
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_impact_profile = sgqlc.types.Field(
         EntityManagementImpactProfileEntityUpdateResult,
@@ -27558,6 +28966,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `impact_profile_entity`
+      (`EntityManagementImpactProfileEntityUpdateInput!`): The input
+      data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_inbox_issue_category = sgqlc.types.Field(
         EntityManagementInboxIssueCategoryEntityUpdateResult,
@@ -27584,6 +29003,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `inbox_issue_category_entity`
+      (`EntityManagementInboxIssueCategoryEntityUpdateInput!`): The
+      input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_incident_link = sgqlc.types.Field(
         EntityManagementIncidentLinkEntityUpdateResult,
@@ -27610,6 +29040,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `incident_link_entity`
+      (`EntityManagementIncidentLinkEntityUpdateInput!`): The input
+      data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_incident_timeline = sgqlc.types.Field(
         EntityManagementIncidentTimelineEntityUpdateResult,
@@ -27636,6 +29077,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `incident_timeline_entity`
+      (`EntityManagementIncidentTimelineEntityUpdateInput!`): The
+      input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_mcp_server = sgqlc.types.Field(
         EntityManagementMcpServerEntityUpdateResult,
@@ -27662,6 +29114,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `mcp_server_entity`
+      (`EntityManagementMcpServerEntityUpdateInput!`): The input data
+      to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_pipeline_cloud_rule = sgqlc.types.Field(
         EntityManagementPipelineCloudRuleEntityUpdateResult,
@@ -27688,6 +29151,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `pipeline_cloud_rule_entity`
+      (`EntityManagementPipelineCloudRuleEntityUpdateInput!`): The
+      input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_rag_tool = sgqlc.types.Field(
         EntityManagementRagToolEntityUpdateResult,
@@ -27712,6 +29186,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `rag_tool_entity` (`EntityManagementRagToolEntityUpdateInput!`):
+      The input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_relationship = sgqlc.types.Field(
         EntityManagementRelationshipUpdateResult,
@@ -27747,6 +29231,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `relationship` (`EntityManagementRelationshipUpdateInput!`): The
+      relationship data to be updated
+    * `source_id` (`ID!`): The source entity of the relationship.
+    * `target_id` (`ID!`): The target entity of the relationship.
+    * `type` (`String!`): The type of the relationship.
+    """
 
     entity_management_update_scorecard = sgqlc.types.Field(
         EntityManagementScorecardEntityUpdateResult,
@@ -27773,6 +29265,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `scorecard_entity`
+      (`EntityManagementScorecardEntityUpdateInput!`): The input data
+      to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_scorecard_rule = sgqlc.types.Field(
         EntityManagementScorecardRuleEntityUpdateResult,
@@ -27799,6 +29302,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `scorecard_rule_entity`
+      (`EntityManagementScorecardRuleEntityUpdateInput!`): The input
+      data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_team = sgqlc.types.Field(
         EntityManagementTeamEntityUpdateResult,
@@ -27823,6 +29337,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `team_entity` (`EntityManagementTeamEntityUpdateInput!`): The
+      input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_teams_hierarchy_level = sgqlc.types.Field(
         EntityManagementTeamsHierarchyLevelEntityUpdateResult,
@@ -27849,6 +29373,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `teams_hierarchy_level_entity`
+      (`EntityManagementTeamsHierarchyLevelEntityUpdateInput!`): The
+      input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_management_update_teams_organization_settings = sgqlc.types.Field(
         EntityManagementTeamsOrganizationSettingsEntityUpdateResult,
@@ -27875,6 +29410,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the entity to be updated.
+    * `teams_organization_settings_entity`
+      (`EntityManagementTeamsOrganizationSettingsEntityUpdateInput!`):
+      The input data to be updated.
+    * `version` (`Int`): Optional entity version. When provided, its
+      value will be checked against the entity's current version. If
+      different, the operation will fail. Use it to prevent lost
+      updates.
+    """
 
     entity_relationship_user_defined_create_or_replace = sgqlc.types.Field(
         sgqlc.types.non_null(EntityRelationshipUserDefinedCreateOrReplaceResult),
@@ -27908,6 +29454,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `source_entity_guid` (`EntityGuid!`): The source entity guid of
+      the relationship.
+    * `target_entity_guid` (`EntityGuid!`): The target entity guid of
+      the relationship.
+    * `type` (`EntityRelationshipEdgeType!`): The type of the
+      relationship.
+    """
 
     entity_relationship_user_defined_delete = sgqlc.types.Field(
         sgqlc.types.non_null(EntityRelationshipUserDefinedDeleteResult),
@@ -27939,6 +29494,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `source_entity_guid` (`EntityGuid!`): The source entity guid of
+      the relationship.
+    * `target_entity_guid` (`EntityGuid!`): The target entity guid of
+      the relationship.
+    * `type` (`EntityRelationshipEdgeType`): The type of the
+      relationship. If none provided, it will delete all relationships
+      between source and target.
+    """
 
     errors_inbox_assign_error_group = sgqlc.types.Field(
         ErrorsInboxAssignErrorGroupResponse,
@@ -27962,6 +29527,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `assignment` (`ErrorsInboxAssignErrorGroupInput!`): An input
+      object that represents the new assignment.
+    * `id` (`ID!`): The id of the error group.
+    """
 
     errors_inbox_delete_error_group_resource = sgqlc.types.Field(
         ErrorsInboxDeleteErrorGroupResourceResponse,
@@ -27985,6 +29556,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The id of the error group.
+    * `resource_id` (`ID!`): Id of the resource
+    """
 
     errors_inbox_update_error_group_state = sgqlc.types.Field(
         ErrorsInboxUpdateErrorGroupStateResponse,
@@ -28027,11 +29603,35 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `id` (`ID`)
-    * `ids` (`[ID!]`)
-    * `resolve_in_next_version` (`Boolean`)
-    * `state` (`ErrorsInboxErrorGroupState!`)
-    * `versions` (`ErrorsInboxStateVersionInput`)
+    * `id` (`ID`): DEPRECATED. Use `ids` field instead.
+    * `ids` (`[ID!]`): The ids of the error groups.
+    * `resolve_in_next_version` (`Boolean`): Allows error group(s) to
+      be marked as `Resolved` prior to deployment.  Configures errors
+      inbox to resolve an error group in the next semantically higher
+      version that is detected via change tracking. Cannot be used
+      with `versions`.  For example, if an error group is occurring in
+      version `1.5` and marked as `resolvedInNextVersion` = `true`,
+      then the error group will remain in a resolved state for errors
+      with versions `1.5` or lower. - When the next version is
+      deployed (say `1.6`), the error group will be updated to reflect
+      as resolved in version `1.6`. - If an error occurs in a newer
+      version (say `1.6`) before the next detected deployment, then
+      the error group will be set to unresolved with regression in
+      `1.6`.
+    * `state` (`ErrorsInboxErrorGroupState!`): State that the error
+      groups should transition to.
+    * `versions` (`ErrorsInboxStateVersionInput`): Optionally specify
+      versions of the entity for which an error group's state applies.
+      Note: this is currently only applicable for `Resolved` and
+      cannot be used with `resolvedInNextVersion`.  For example, let's
+      say a given error group is occurring for version `1.0.0`.  A fix
+      was implemented and deployed in `1.0.1`.  The error group may be
+      marked as `Resolved` in version `1.0.1`.  For any errors still
+      occurring in `1.0.0` or lower, they will continue to appear as
+      occurrences but the error group will remain in a resolved state.
+      If there is a new occurrence in `1.0.1` or higher, then the
+      error group will become unresolved with regression in the
+      affected version(s).
     """
 
     events_to_metrics_create_rule = sgqlc.types.Field(
@@ -28054,7 +29654,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `rules` (`[EventsToMetricsCreateRuleInput]!`)
+    * `rules` (`[EventsToMetricsCreateRuleInput]!`): List of events to
+      metrics rules to create.
     """
 
     events_to_metrics_delete_rule = sgqlc.types.Field(
@@ -28077,7 +29678,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `deletes` (`[EventsToMetricsDeleteRuleInput]!`)
+    * `deletes` (`[EventsToMetricsDeleteRuleInput]!`): List of events
+      to metrics rules to delete.
     """
 
     events_to_metrics_update_rule = sgqlc.types.Field(
@@ -28100,7 +29702,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `updates` (`[EventsToMetricsUpdateRuleInput]!`)
+    * `updates` (`[EventsToMetricsUpdateRuleInput]!`): List of events
+      to metrics rules to update.
     """
 
     fleet_control_add_fleet_members = sgqlc.types.Field(
@@ -28129,8 +29732,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `fleet_id` (`ID!`)
-    * `members` (`[FleetControlFleetMemberRingInput!]`)
+    * `fleet_id` (`ID!`): The fleet id
+    * `members` (`[FleetControlFleetMemberRingInput!]`): The list of
+      rings to add entities to
     """
 
     fleet_control_create_fleet = sgqlc.types.Field(
@@ -28246,8 +29850,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `fleet_id` (`ID!`)
-    * `members` (`[FleetControlFleetMemberRingInput!]`)
+    * `fleet_id` (`ID!`): The fleet id
+    * `members` (`[FleetControlFleetMemberRingInput!]`): The list of
+      rings to remove entities from
     """
 
     fleet_control_update_fleet = sgqlc.types.Field(
@@ -28355,7 +29960,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_ids` (`[Int]!`)
+    * `account_ids` (`[Int]!`): The account ids to mark with consent,
+      will consent the parent accounts
     """
 
     incident_intelligence_environment_consent_authorized_accounts = sgqlc.types.Field(
@@ -28398,7 +30004,8 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_ids` (`[Int]!`)
+    * `account_ids` (`[Int]!`): The account ids to dissent, empty list
+      will mark all of the current user parent-accounts
     """
 
     installation_create_install_status = sgqlc.types.Field(
@@ -28425,6 +30032,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The accountId associated with the install
+      status.
+    * `install_status` (`InstallationInstallStatusInput!`): The
+      installation status.
+    """
 
     installation_create_recipe_event = sgqlc.types.Field(
         sgqlc.types.non_null(InstallationRecipeEvent),
@@ -28450,6 +30064,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The accountId associated with the recipe
+      event.
+    * `status` (`InstallationRecipeStatus!`): The installation status
+      associated with the recipe event.
+    """
 
     installation_delete_install = sgqlc.types.Field(
         sgqlc.types.non_null(Boolean),
@@ -28467,6 +30088,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The accountId associated with the
+      installation.
+    """
 
     integration_services_service_now_installation = sgqlc.types.Field(
         IntegrationServicesInstallationResponse,
@@ -28484,6 +30110,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `service_now_installation`
+      (`IntegrationServicesInstallationInput!`): Input required for
+      ServiceNow installation.
+    """
 
     integration_services_service_now_update = sgqlc.types.Field(
         IntegrationServicesUpdateResponse,
@@ -28507,6 +30139,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): Unique identifier for the ServiceNow entity to
+      update.
+    * `service_now_update` (`IntegrationServicesUpdateInput!`): Input
+      required for updating ServiceNow entity.
+    """
 
     key_transaction_create = sgqlc.types.Field(
         KeyTransactionCreateResult,
@@ -28554,6 +30193,19 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `apdex_target` (`Float!`): The acceptable amount of the time
+      spent in the backend before customers get frustrated (Apdex
+      target).
+    * `application_guid` (`EntityGuid!`): The GUID of the application.
+    * `browser_apdex_target` (`Float!`): The acceptable amount of time
+      for rendering a page in a browser before customers get
+      frustrated (browser Apdex target).
+    * `metric_name` (`String!`): The name of the metric underlying
+      this key transaction.
+    * `name` (`String!`): The name of the key transaction.
+    """
 
     key_transaction_delete = sgqlc.types.Field(
         KeyTransactionDeleteResult,
@@ -28571,6 +30223,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): The GUID of the key transaction to
+      delete.
+    """
 
     key_transaction_update = sgqlc.types.Field(
         KeyTransactionUpdateResult,
@@ -28599,6 +30256,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `apdex_target` (`Float`): The acceptable amount of time spent in
+      the backend before customers get frustrated (Apdex target).
+    * `browser_apdex_target` (`Float`): The acceptable amount of time
+      for rendering a page in a browser before customers get
+      frustrated (browser Apdex target).
+    * `guid` (`EntityGuid!`): The GUID for the affected key
+      transaction.
+    * `name` (`String`): The name of the key transaction.
+    """
 
     log_configurations_create_data_partition_rule = sgqlc.types.Field(
         LogConfigurationsCreateDataPartitionRuleResponse,
@@ -28626,6 +30294,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the data
+      partition rule.
+    * `rule` (`LogConfigurationsCreateDataPartitionRuleInput!`): The
+      data partition rule to be created.
+    """
 
     log_configurations_create_obfuscation_expression = sgqlc.types.Field(
         LogConfigurationsObfuscationExpression,
@@ -28653,6 +30328,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation expression.
+    * `expression`
+      (`LogConfigurationsCreateObfuscationExpressionInput!`): The
+      obfuscation expression you want to create.
+    """
 
     log_configurations_create_obfuscation_rule = sgqlc.types.Field(
         LogConfigurationsObfuscationRule,
@@ -28680,6 +30363,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation rule.
+    * `rule` (`LogConfigurationsCreateObfuscationRuleInput!`): The
+      obfuscation rule you want to create.
+    """
 
     log_configurations_create_parsing_rule = sgqlc.types.Field(
         LogConfigurationsCreateParsingRuleResponse,
@@ -28705,6 +30395,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the rule.
+    * `rule` (`LogConfigurationsParsingRuleConfiguration!`): The rule
+      to be created.
+    """
 
     log_configurations_delete_data_partition_rule = sgqlc.types.Field(
         LogConfigurationsDeleteDataPartitionRuleResponse,
@@ -28728,6 +30424,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the data
+      partition rule.
+    * `id` (`ID!`): The id of the data partition rule you want to mark
+      as deleted.
+    """
 
     log_configurations_delete_obfuscation_expression = sgqlc.types.Field(
         LogConfigurationsObfuscationExpression,
@@ -28751,6 +30454,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation expression.
+    * `id` (`ID!`): The id of the obfuscation expression to mark as
+      deleted.
+    """
 
     log_configurations_delete_obfuscation_rule = sgqlc.types.Field(
         LogConfigurationsObfuscationRule,
@@ -28774,6 +30484,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation rule.
+    * `id` (`ID!`): The id of the obfuscation rule to mark as deleted.
+    """
 
     log_configurations_delete_parsing_rule = sgqlc.types.Field(
         LogConfigurationsDeleteParsingRuleResponse,
@@ -28797,6 +30513,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the rule.
+    * `id` (`ID!`): The id of the rule you want to mark as deleted.
+    """
 
     log_configurations_update_data_partition_rule = sgqlc.types.Field(
         LogConfigurationsUpdateDataPartitionRuleResponse,
@@ -28822,6 +30543,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the data
+      partition rule.
+    * `rule` (`LogConfigurationsUpdateDataPartitionRuleInput`): The
+      data partition rule to be updated. Only the rule description or
+      Matching criteria fields are allowed to be updated.
+    """
 
     log_configurations_update_live_archive_configuration = sgqlc.types.Field(
         LogConfigurationsLiveArchiveConfiguration,
@@ -28865,6 +30594,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      EventType.
+    * `enabled` (`Boolean!`): Indicates if the Live Archive
+      configuration is enabled
+    * `event_type` (`String!`): EventType name that will be
+      configured.
+    * `retention_policy`
+      (`LogConfigurationsLiveArchiveRetentionPolicyType!`): Retention
+      policy for the EventType.
+    """
 
     log_configurations_update_obfuscation_expression = sgqlc.types.Field(
         LogConfigurationsObfuscationExpression,
@@ -28892,6 +30633,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation expression.
+    * `expression`
+      (`LogConfigurationsUpdateObfuscationExpressionInput!`): The
+      obfuscation expression to be updated.
+    """
 
     log_configurations_update_obfuscation_rule = sgqlc.types.Field(
         LogConfigurationsObfuscationRule,
@@ -28919,6 +30668,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the
+      obfuscation rule.
+    * `rule` (`LogConfigurationsUpdateObfuscationRuleInput!`): The
+      obfuscation rule to be updated.
+    """
 
     log_configurations_update_parsing_rule = sgqlc.types.Field(
         LogConfigurationsUpdateParsingRuleResponse,
@@ -28950,6 +30706,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the rule.
+    * `id` (`ID!`): The identifier of the rule to update.
+    * `rule` (`LogConfigurationsParsingRuleConfiguration!`): The
+      updated rule.
+    """
 
     log_configurations_upsert_pipeline_configuration = sgqlc.types.Field(
         LogConfigurationsUpsertPipelineConfigurationResponse,
@@ -28977,6 +30740,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The account id associated with the rule.
+    * `pipeline_configuration`
+      (`LogConfigurationsPipelineConfigurationInput!`): The updated
+      pipeline configuration.
+    """
 
     machine_learning_add_document_index = sgqlc.types.Field(
         MachineLearningTransactionResponse,
@@ -29012,6 +30782,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `configuration`
+      (`MachineLearningAddDocumentIndexConfiguration`): Configuration
+      options for the document indexing process.
+    * `document_id` (`ID!`): Identifier of the document to be indexed.
+    * `rag_setting_id` (`ID`): Optional identifier for RAG (Retrieve
+      and Generate) setting.
+    * `tool_id` (`ID!`): Identifier of the tool to be used for
+      indexing.
+    """
 
     machine_learning_add_file_data_source = sgqlc.types.Field(
         MachineLearningProject,
@@ -29177,6 +30958,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account ID that will own the stream Data
+      Source
+    * `description` (`String!`): Description of the Stream Data Source
+    * `filter` (`String!`): NRQL used to filter data to the topic
+    * `name` (`String!`): Name of the Stream Data Source
+    * `sampling_rate` (`Float!`): Sampling rate - between 0 and 1.
+      High sampling rates will equate to higher bills
+    """
 
     machine_learning_delete_connector = sgqlc.types.Field(
         MachineLearningTransactionResponse,
@@ -29196,6 +30987,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `rag_setting_id` (`ID`): Identifier of the rag setting to be
+      used
+    * `tool_id` (`ID!`): Identifier of the tool to be deleted.
+    """
 
     machine_learning_delete_file_data_source = sgqlc.types.Field(
         MachineLearningFileDataSource,
@@ -29287,6 +31084,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `options` (`MachineLearningIndexOptions`): Optional object to
+      specify index options
+    * `rag_setting_id` (`ID!`): Identifier of the rag setting to be
+      used
+    * `tool_id` (`ID!`): Identifier of the tool to be used for
+      indexing.
+    """
 
     machine_learning_remove_document_index = sgqlc.types.Field(
         MachineLearningTransactionResponse,
@@ -29310,6 +31116,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `document_id` (`ID!`): Identifier of the document from which the
+      index should be removed.
+    * `tool_id` (`ID!`): Identifier of the tool from which the index
+      should be removed.
+    """
 
     machine_learning_remove_file_data_source = sgqlc.types.Field(
         MachineLearningProject,
@@ -29469,6 +31282,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `description` (`String!`): Description of the stream Data Source
+    * `filter` (`String!`): NRQL used to filter data to the topic
+    * `id` (`ID!`): ID of the Stream Data Source
+    * `name` (`String!`): Name of the stream Data Source
+    * `sampling_rate` (`Float!`): Sampling rate - between 0 and 1.
+      High sampling rates will equate to higher bills
+    """
 
     metric_normalization_create_rule = sgqlc.types.Field(
         MetricNormalizationRuleMutationResponse,
@@ -29494,6 +31316,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account Id
+    * `rule` (`MetricNormalizationCreateRuleInput!`): An input object
+      that represents the rule to be created.
+    """
 
     metric_normalization_disable_rule = sgqlc.types.Field(
         MetricNormalizationRuleMutationResponse,
@@ -29542,6 +31370,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): Account Id
+    * `rule` (`MetricNormalizationEditRuleInput!`): An input object
+      that represents the rule to be created.
+    """
 
     metric_normalization_enable_rule = sgqlc.types.Field(
         MetricNormalizationRuleMutationResponse,
@@ -29582,6 +31416,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `device_id` (`String!`): The uuid of the device.
+    """
 
     mobile_push_notification_send_test_push = sgqlc.types.Field(
         sgqlc.types.non_null(MobilePushNotificationSendPushResult),
@@ -29599,6 +31437,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `device_id` (`String!`): The uuid of the device.
+    """
 
     mobile_push_notification_send_test_push_to_all = sgqlc.types.Field(
         sgqlc.types.non_null(MobilePushNotificationSendPushResult),
@@ -29633,6 +31475,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection` (`String!`): The collection to be deleted.
+    * `scope` (`NerdStorageScopeInput!`): The data access level and ID
+      for the selected scope.
+    * `scope_by_actor` (`Boolean`)None
+    """
 
     nerd_storage_delete_document = sgqlc.types.Field(
         NerdStorageDeleteResult,
@@ -29670,6 +31519,16 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection` (`String!`): The NerdStorage collection that the
+      document being deleted belongs to.
+    * `document_id` (`String!`): The documentId of the document to be
+      deleted.
+    * `scope` (`NerdStorageScopeInput!`): The data access level and ID
+      for the selected scope.
+    * `scope_by_actor` (`Boolean`)None
+    """
 
     nerd_storage_vault_delete_secret = sgqlc.types.Field(
         sgqlc.types.non_null(NerdStorageVaultDeleteSecretResult),
@@ -29693,6 +31552,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `key` (`String!`): The unique identifier of the secret.
+    * `scope` (`NerdStorageVaultScope!`): The NerdStorageVault data
+      access level of the secret.
+    """
 
     nerd_storage_vault_write_secret = sgqlc.types.Field(
         sgqlc.types.non_null(NerdStorageVaultWriteSecretResult),
@@ -29718,6 +31583,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `scope` (`NerdStorageVaultScope!`): The type of scope the secret
+      will be associated with. The mutation allows for only one scope
+      type at a time to add a secret.
+    * `secret` (`NerdStorageVaultWriteSecretInput!`): The secrets data
+    """
 
     nerd_storage_write_document = sgqlc.types.Field(
         NerdStorageDocument,
@@ -29763,6 +31635,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `collection` (`String!`): The NerdStorage collection to which
+      the new document will be written.
+    * `document` (`NerdStorageDocument!`): The new NerdStorage
+      document to be written.
+    * `document_id` (`String!`): The documentId for the newly created
+      NerdStorage document.
+    * `scope` (`NerdStorageScopeInput!`): The data access level and ID
+      for the selected scope.
+    * `scope_by_actor` (`Boolean`)None
+    """
 
     nerdpack_add_allowed_accounts = sgqlc.types.Field(
         NerdpackAllowListResult,
@@ -29788,6 +31672,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `allow_list` (`NerdpackAllowListInput!`): Data of accounts to be
+      added to the allow list.
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    """
 
     nerdpack_create = sgqlc.types.Field(
         NerdpackData,
@@ -29803,6 +31693,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `nerdpack_data` (`NerdpackCreationInput`): Nerdpack input data.
+    """
 
     nerdpack_remove_allowed_accounts = sgqlc.types.Field(
         NerdpackAllowListResult,
@@ -29828,6 +31722,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `allow_list` (`NerdpackAllowListInput!`): Data of accounts to be
+      removed from the allow list.
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    """
 
     nerdpack_remove_version_tag = sgqlc.types.Field(
         NerdpackRemovedTagResponse,
@@ -29853,6 +31753,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    * `version_tag` (`NerdpackRemoveVersionTagInput!`): Input data for
+      nerdpack version tagging.
+    """
 
     nerdpack_subscribe_accounts = sgqlc.types.Field(
         NerdpackSubscribeResult,
@@ -29878,6 +31784,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    * `subscription` (`NerdpackSubscribeAccountsInput!`): Subscription
+      data.
+    """
 
     nerdpack_tag_version = sgqlc.types.Field(
         NerdpackVersion,
@@ -29903,6 +31815,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    * `version_tag` (`NerdpackTagVersionInput!`): Input data for
+      nerdpack version tagging.
+    """
 
     nerdpack_unsubscribe_accounts = sgqlc.types.Field(
         NerdpackUnsubscribeResult,
@@ -29928,6 +31846,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `nerdpack_id` (`ID!`): Nerdpack id.
+    * `subscription` (`NerdpackUnsubscribeAccountsInput!`):
+      Subscription data.
+    """
 
     nr1_catalog_install_alert_policy_template = sgqlc.types.Field(
         Nr1CatalogInstallAlertPolicyTemplateResult,
@@ -30001,6 +31925,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The Nerdpack's ID that will be associated with the
+      metadata
+    * `nerdpack_metadata` (`Nr1CatalogSubmitMetadataInput!`): The
+      metadata for the Nerdpack that will be available in the New
+      Relic One Catalog
+    """
 
     nrql_cancel_query = sgqlc.types.Field(
         NrqlCancelQueryMutationResponse,
@@ -30047,8 +31979,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `rules` (`[NrqlDropRulesCreateDropRuleInput]!`)
+    * `account_id` (`Int!`): The account the targeted data report to.
+    * `rules` (`[NrqlDropRulesCreateDropRuleInput]!`): The list of
+      drop rules you want to create.
     """
 
     nrql_drop_rules_delete = sgqlc.types.Field(
@@ -30077,8 +32010,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `rule_ids` (`[ID]!`)
+    * `account_id` (`Int!`): Account the rule was created on.
+    * `rule_ids` (`[ID]!`): The list of drop rules Ids you want to
+      delete.
     """
 
     organization_create = sgqlc.types.Field(
@@ -30117,6 +32051,20 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `customer_id` (`ID`): The customer id in which the new
+      organization will be created.
+    * `new_managed_account` (`OrganizationNewManagedAccountInput`):
+      The attributes of managed account to create. This is only
+      required if sharedAccount field is not provided.
+    * `organization` (`OrganizationCreateOrganizationInput!`): The
+      attributes of organization to create.
+    * `shared_account` (`OrganizationSharedAccountInput`): The
+      attributes of the account that will be shared with the new
+      organization. This is only required if newManagedAccount field
+      is not provided
+    """
 
     organization_create_shared_account = sgqlc.types.Field(
         OrganizationCreateSharedAccountResponse,
@@ -30134,6 +32082,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `shared_account` (`OrganizationCreateSharedAccountInput!`): The
+      attributes for the account share.
+    """
 
     organization_provisioning_update_partner_subscription = sgqlc.types.Field(
         sgqlc.types.non_null(OrganizationProvisioningUpdateSubscriptionResult),
@@ -30175,9 +32128,12 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `affected_account_id` (`Int!`)
-    * `products` (`[OrganizationProvisioningProductInput!]!`)
+    * `account_id` (`Int!`): Partner Owner Account Id for the
+      Partnership that includes the affected account.
+    * `affected_account_id` (`Int!`): Account id to which new
+      entitlements will be applied
+    * `products` (`[OrganizationProvisioningProductInput!]!`): New
+      entitlement set to be applied
     """
 
     organization_revoke_shared_account = sgqlc.types.Field(
@@ -30196,6 +32152,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `shared_account` (`OrganizationRevokeSharedAccountInput!`): The
+      attributes for the revoked account share.
+    """
 
     organization_update = sgqlc.types.Field(
         OrganizationUpdateResponse,
@@ -30217,6 +32178,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `organization` (`OrganizationUpdateInput!`): The new attributes
+      for the organization.
+    * `organization_id` (`ID`): The id of the organization to update
+    """
 
     organization_update_shared_account = sgqlc.types.Field(
         OrganizationUpdateSharedAccountResponse,
@@ -30234,6 +32201,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `shared_account` (`OrganizationUpdateSharedAccountInput!`): The
+      new attributes for the account share.
+    """
 
     pixie_link_pixie_project = sgqlc.types.Field(
         PixieLinkPixieProjectResult,
@@ -30315,8 +32287,12 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `repositories` (`[ReferenceEntityCreateRepositoryInput!]!`)
-    * `sync` (`Boolean`)
+    * `repositories` (`[ReferenceEntityCreateRepositoryInput!]!`): The
+      list of repositories to create or update.
+    * `sync` (`Boolean`): Flag to force a synchronous execution of the
+      mutation, which means that the entity has been stored once the
+      mutation returns. Default is 'false', which means the entity is
+      queued for storage.
     """
 
     secrets_management_create_secret = sgqlc.types.Field(
@@ -30369,12 +32345,15 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `description` (`String`)
-    * `key` (`String!`)
-    * `namespace` (`String`)
-    * `scope` (`SecretsManagementScope!`)
-    * `tags` (`[SecretsManagementTagInput!]`)
-    * `value` (`SecureValue!`)
+    * `description` (`String`): The description of the secret
+    * `key` (`String!`): The `key` field of the secret to create
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    * `tags` (`[SecretsManagementTagInput!]`): The list of tags to
+      associate with the secret
+    * `value` (`SecureValue!`): The `value` field of the secret to
+      create
     """
 
     secrets_management_create_shareable_secret = sgqlc.types.Field(
@@ -30427,12 +32406,15 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `description` (`String`)
-    * `key` (`String!`)
-    * `namespace` (`String`)
-    * `scope` (`SecretsManagementScope!`)
-    * `tags` (`[SecretsManagementTagInput!]`)
-    * `value` (`SecureValue!`)
+    * `description` (`String`): The description of the secret
+    * `key` (`String!`): The `key` field of the secret to create
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    * `tags` (`[SecretsManagementTagInput!]`): The list of tags to
+      associate with the secret
+    * `value` (`SecureValue!`): The `value` field of the secret to
+      create
     """
 
     secrets_management_delete_secret = sgqlc.types.Field(
@@ -30497,6 +32479,17 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `key` (`String!`): The `key` field of the secret to delete
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `purge` (`Boolean`): When purging we delete the secret from the
+      database (default: `false`)
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    * `version` (`Int`): The version to be deleted. If left empty then
+      latest version will be deleted
+    """
 
     secrets_management_recover_secret = sgqlc.types.Field(
         "SecretsManagementRecoverSecretResponse",
@@ -30587,6 +32580,18 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `description` (`String`): The new `description` of the secret.
+      Allowed characters - (a-z), (A-Z), (0-9), spaces, [,:_.;!-] or
+      length (1 - 4000 chars)
+    * `key` (`String!`): The `key` field of the secret to update
+    * `namespace` (`String`): The `namespace` field is a value unique
+      per calling service
+    * `scope` (`SecretsManagementScope!`): The scope of the secret
+    * `value` (`SecureValue`): The new `value` field secured value eg.
+      secret key or password
+    """
 
     service_level_create = sgqlc.types.Field(
         "ServiceLevelIndicator",
@@ -30612,6 +32617,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `entity_guid` (`EntityGuid!`): The entity GUID which the SLI
+      will be attached to.
+    * `indicator` (`ServiceLevelIndicatorCreateInput!`): The input
+      object that represents the SLI that will be created.
+    """
 
     service_level_delete = sgqlc.types.Field(
         "ServiceLevelIndicator",
@@ -30626,6 +32638,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid`): The unique entity identifier of the SLI.
+    * `id` (`ID`): [DEPRECATED] Please, use the GUID input field to
+      delete the SLI.
+    """
 
     service_level_update = sgqlc.types.Field(
         "ServiceLevelIndicator",
@@ -30648,6 +32666,14 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid`): The unique entity identifier of the SLI.
+    * `id` (`ID`): [DEPRECATED] Please, use the GUID input field to
+      update the SLI.
+    * `indicator` (`ServiceLevelIndicatorUpdateInput!`): The input
+      object that represents the SLI that will be updated.
+    """
 
     sessions_revoke = sgqlc.types.Field(
         "SessionsRevokeSessionResponse",
@@ -30671,8 +32697,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `client_id` (`ID`)
-    * `ids` (`[ID!]`)
+    * `client_id` (`ID`): The client ID associated with the sessions
+      to revoke
+    * `ids` (`[ID!]`): The IDs of the sessions to revoke
     """
 
     streaming_export_create_rule = sgqlc.types.Field(
@@ -30930,13 +32957,19 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
-    * `end_time` (`NaiveDateTime!`)
-    * `monitor_guids` (`[EntityGuid]`)
-    * `name` (`String!`)
-    * `start_time` (`NaiveDateTime!`)
-    * `timezone` (`String!`)
+    * `account_id` (`Int!`): The account that will be associated with
+      the created monitor downtime
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`): Configuration
+      options if the customer wants the monitor to end at a specific
+      date
+    * `end_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will end
+    * `monitor_guids` (`[EntityGuid]`): Monitor GUIDs this monitor
+      downtime will affect
+    * `name` (`String!`): The name of the monitor downtime
+    * `start_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will begin
+    * `timezone` (`String!`): The timezone the time values will be in
     """
 
     synthetics_create_monthly_monitor_downtime = sgqlc.types.Field(
@@ -31011,14 +33044,22 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
-    * `end_time` (`NaiveDateTime!`)
-    * `frequency` (`SyntheticsMonitorDowntimeMonthlyFrequency!`)
-    * `monitor_guids` (`[EntityGuid]`)
-    * `name` (`String!`)
-    * `start_time` (`NaiveDateTime!`)
-    * `timezone` (`String!`)
+    * `account_id` (`Int!`): The account that will be associated with
+      the created monitor downtime
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`): Configuration
+      options if the customer wants the monitor to end at a specific
+      date
+    * `end_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will end
+    * `frequency` (`SyntheticsMonitorDowntimeMonthlyFrequency!`):
+      Configuration options for which days of the month a monitor
+      downtime will occur
+    * `monitor_guids` (`[EntityGuid]`): Monitor GUIDs this monitor
+      downtime will affect
+    * `name` (`String!`): The name of the monitor downtime
+    * `start_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will begin
+    * `timezone` (`String!`): The timezone the time values will be in
     """
 
     synthetics_create_once_monitor_downtime = sgqlc.types.Field(
@@ -31077,12 +33118,16 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `end_time` (`NaiveDateTime!`)
-    * `monitor_guids` (`[EntityGuid]`)
-    * `name` (`String!`)
-    * `start_time` (`NaiveDateTime!`)
-    * `timezone` (`String!`)
+    * `account_id` (`Int!`): The account that will be associated with
+      the created monitor downtime
+    * `end_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will end
+    * `monitor_guids` (`[EntityGuid]`): Monitor GUIDs this monitor
+      downtime will affect
+    * `name` (`String!`): The name of the monitor downtime
+    * `start_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will begin
+    * `timezone` (`String!`): The timezone the time values will be in
     """
 
     synthetics_create_private_location = sgqlc.types.Field(
@@ -31358,14 +33403,21 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `end_repeat` (`SyntheticsDateWindowEndConfig`)
-    * `end_time` (`NaiveDateTime!`)
-    * `maintenance_days` (`[SyntheticsMonitorDowntimeWeekDays]!`)
-    * `monitor_guids` (`[EntityGuid]`)
-    * `name` (`String!`)
-    * `start_time` (`NaiveDateTime!`)
-    * `timezone` (`String!`)
+    * `account_id` (`Int!`): The account that will be associated with
+      the created monitor downtime
+    * `end_repeat` (`SyntheticsDateWindowEndConfig`): Configuration
+      options if the customer wants the monitor to end at a specific
+      date
+    * `end_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will end
+    * `maintenance_days` (`[SyntheticsMonitorDowntimeWeekDays]!`):
+      Days of the week the monitor downtime will run
+    * `monitor_guids` (`[EntityGuid]`): Monitor GUIDs this monitor
+      downtime will affect
+    * `name` (`String!`): The name of the monitor downtime
+    * `start_time` (`NaiveDateTime!`): The date and time in which the
+      monitor downtime will begin
+    * `timezone` (`String!`): The timezone the time values will be in
     """
 
     synthetics_delete_monitor = sgqlc.types.Field(
@@ -31501,13 +33553,23 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `daily` (`SyntheticsMonitorDowntimeDailyConfig`)
-    * `guid` (`EntityGuid!`)
-    * `monitor_guids` (`[EntityGuid]`)
-    * `monthly` (`SyntheticsMonitorDowntimeMonthlyConfig`)
-    * `name` (`String`)
-    * `once` (`SyntheticsMonitorDowntimeOnceConfig`)
-    * `weekly` (`SyntheticsMonitorDowntimeWeeklyConfig`)
+    * `daily` (`SyntheticsMonitorDowntimeDailyConfig`): Configuration
+      options for a monitor downtime that runs daily (only 1 of these
+      can be selected)
+    * `guid` (`EntityGuid!`): The unique identifier for the Synthetic
+      Monitor Downtime in New Relic
+    * `monitor_guids` (`[EntityGuid]`): Monitor GUIDs this monitor
+      downtime will affect
+    * `monthly` (`SyntheticsMonitorDowntimeMonthlyConfig`):
+      Configuration options for a monitor downtime that runs monthly
+      (only 1 of these can be selected)
+    * `name` (`String`): The name for the monitor downtime
+    * `once` (`SyntheticsMonitorDowntimeOnceConfig`): Configuration
+      options for a monitor downtime that runs once (only 1 of these
+      can be selected)
+    * `weekly` (`SyntheticsMonitorDowntimeWeeklyConfig`):
+      Configuration options for a monitor downtime that runs weekly
+      (only 1 of these can be selected)
     """
 
     synthetics_purge_private_location_queue = sgqlc.types.Field(
@@ -31794,8 +33856,10 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `system_identity_group_ids` (`[ID!]!`)
-    * `system_identity_ids` (`[ID!]!`)
+    * `system_identity_group_ids` (`[ID!]!`): The list of system
+      identity group ids to add the system identities ids to
+    * `system_identity_ids` (`[ID!]!`): The list of system identities
+      ids to add
     """
 
     system_identity_create = sgqlc.types.Field(
@@ -31903,8 +33967,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `system_identity_group_ids` (`[ID!]!`)
-    * `system_identity_ids` (`[ID!]!`)
+    * `system_identity_group_ids` (`[ID!]!`): A List of System
+      Identity Groups on which to remove membership
+    * `system_identity_ids` (`[ID!]!`): A List of System Identity Ids
     """
 
     system_identity_update = sgqlc.types.Field(
@@ -31971,8 +34036,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `tags` (`[TaggingTagInput!]!`)
+    * `guid` (`EntityGuid!`): The guid of the new entity.
+    * `tags` (`[TaggingTagInput!]!`): An array of key-values pairs to
+      represent a tag. For example:  Team:TeamName.
     """
 
     tagging_delete_tag_from_entity = sgqlc.types.Field(
@@ -32003,8 +34069,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `tag_keys` (`[String!]!`)
+    * `guid` (`EntityGuid!`): The guid of the existing entity.
+    * `tag_keys` (`[String!]!`): An array of keys that have to be
+      deleted. For example: ['Team'].
     """
 
     tagging_delete_tag_values_from_entity = sgqlc.types.Field(
@@ -32037,8 +34104,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `tag_values` (`[TaggingTagValueInput!]!`)
+    * `guid` (`EntityGuid!`): The guid of the existing entity.
+    * `tag_values` (`[TaggingTagValueInput!]!`): An array of key-
+      values pairs to represent a tag. For example: Team:TeamName.
     """
 
     tagging_replace_tags_on_entity = sgqlc.types.Field(
@@ -32069,8 +34137,9 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `tags` (`[TaggingTagInput!]!`)
+    * `guid` (`EntityGuid!`): The guid of the existing entity.
+    * `tags` (`[TaggingTagInput!]!`): An array of key-values pairs to
+      represent a tag. For example:  Team:TeamName.
     """
 
     user_management_add_users_to_groups = sgqlc.types.Field(
@@ -32089,6 +34158,12 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `add_users_to_groups_options`
+      (`UserManagementUsersGroupsInput`): The input object
+      representing the group(s) and user(s) to update.
+    """
 
     user_management_create_group = sgqlc.types.Field(
         "UserManagementCreateGroupPayload",
@@ -32123,6 +34198,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `create_user_options` (`UserManagementCreateUser!`): The input
+      object representing the user to be created.
+    """
 
     user_management_delete_group = sgqlc.types.Field(
         "UserManagementDeleteGroupPayload",
@@ -32157,6 +34237,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `delete_user_options` (`UserManagementDeleteUser!`): The input
+      object containing the id of the user to be deleted.
+    """
 
     user_management_remove_users_from_groups = sgqlc.types.Field(
         "UserManagementRemoveUsersFromGroupsPayload",
@@ -32174,6 +34259,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `remove_users_from_groups_options`
+      (`UserManagementUsersGroupsInput!`): The input object
+      representing the users to remove and the groups to remove them
+      from.
+    """
 
     user_management_update_group = sgqlc.types.Field(
         "UserManagementUpdateGroupPayload",
@@ -32208,6 +34300,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `update_user_options` (`UserManagementUpdateUser!`): The input
+      object representing the user to be updated.
+    """
 
     whats_new_set_last_read_date = sgqlc.types.Field(
         EpochMilliseconds,
@@ -32225,6 +34322,11 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `date` (`EpochMilliseconds!`): The date, represented since the
+      epoch in milliseconds, the current user last read the news.
+    """
 
     workflow_automation_create_schedule = sgqlc.types.Field(
         "WorkflowAutomationCreateScheduleResponse",
@@ -32306,17 +34408,25 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cron_expression` (`String!`)
+    * `cron_expression` (`String!`): A cron expression that describes
+      the desired schedule
     * `definition`
-      (`WorkflowAutomationCreateScheduleDefinitionInput!`)
-    * `options` (`WorkflowAutomationWorkflowRunOptions`)
-    * `overlap_policy` (`WorkflowAutomationScheduleOverlapPolicy`)
-      (default: `SKIP`)
-    * `schedule_name` (`String`)
-    * `scope` (`WorkflowAutomationWorkflowRunScope!`)
-    * `tags` (`[WorkflowAutomationTag!]`)
-    * `timezone` (`String`)
-    * `workflow_inputs` (`[WorkflowAutomationWorkflowRunInput!]`)
+      (`WorkflowAutomationCreateScheduleDefinitionInput!`): Scope
+      type, name and version of the workflow definition to create a
+      schedule for
+    * `options` (`WorkflowAutomationWorkflowRunOptions`): Options for
+      workflow runs
+    * `overlap_policy` (`WorkflowAutomationScheduleOverlapPolicy`):
+      Controls what happens if a scheduled run would overlap with an
+      existing run. Defaults to SKIP. (default: `SKIP`)
+    * `schedule_name` (`String`): Schedule name
+    * `scope` (`WorkflowAutomationWorkflowRunScope!`): Scope of the
+      workflow run
+    * `tags` (`[WorkflowAutomationTag!]`): List of tags to associate
+      with the workflow schedule
+    * `timezone` (`String`): Schedule Timezone
+    * `workflow_inputs` (`[WorkflowAutomationWorkflowRunInput!]`):
+      Workflow inputs
     """
 
     workflow_automation_create_workflow_definition = sgqlc.types.Field(
@@ -32358,9 +34468,12 @@ class RootMutationType(sgqlc.types.Type):
     """Arguments:
 
     * `definition`
-      (`WorkflowAutomationCreateWorkflowDefinitionInput!`)
-    * `scope` (`WorkflowAutomationScopeInput!`)
-    * `tags` (`[WorkflowAutomationTag!]`)
+      (`WorkflowAutomationCreateWorkflowDefinitionInput!`): Input for
+      creating a workflow definition
+    * `scope` (`WorkflowAutomationScopeInput!`): The scope for the
+      workflow definition
+    * `tags` (`[WorkflowAutomationTag!]`): List of tags to associate
+      with the workflow definition
     """
 
     workflow_automation_delete_schedule = sgqlc.types.Field(
@@ -32457,10 +34570,12 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `account_id` (`Int!`)
-    * `run_id` (`ID!`)
-    * `signal_inputs` (`[WorkflowAutomationSignalInput!]`)
-    * `signal_name` (`String!`)
+    * `account_id` (`Int!`): The account ID this workflow run is
+      scoped to
+    * `run_id` (`ID!`): Unique identifier for the workflow run
+    * `signal_inputs` (`[WorkflowAutomationSignalInput!]`): Signal
+      inputs
+    * `signal_name` (`String!`): Signal name
     """
 
     workflow_automation_start_workflow_run = sgqlc.types.Field(
@@ -32514,11 +34629,16 @@ class RootMutationType(sgqlc.types.Type):
     """Arguments:
 
     * `definition`
-      (`WorkflowAutomationStartWorkflowRunDefinitionInput!`)
-    * `idempotency_key` (`ID`)
-    * `options` (`WorkflowAutomationWorkflowRunOptions`)
-    * `scope` (`WorkflowAutomationWorkflowRunScope!`)
-    * `workflow_inputs` (`[WorkflowAutomationWorkflowRunInput!]`)
+      (`WorkflowAutomationStartWorkflowRunDefinitionInput!`): Scope
+      type, name and version of the workflow definition to run
+    * `idempotency_key` (`ID`): Unique identifier to ensure
+      idempotency of the request.
+    * `options` (`WorkflowAutomationWorkflowRunOptions`): Options for
+      workflow runs
+    * `scope` (`WorkflowAutomationWorkflowRunScope!`): Scope of the
+      workflow run
+    * `workflow_inputs` (`[WorkflowAutomationWorkflowRunInput!]`):
+      Workflow inputs
     """
 
     workflow_automation_stop_workflow_run = sgqlc.types.Field(
@@ -32583,9 +34703,12 @@ class RootMutationType(sgqlc.types.Type):
     """Arguments:
 
     * `definition`
-      (`WorkflowAutomationUpdateWorkflowDefinitionInput!`)
-    * `scope` (`WorkflowAutomationScopeInput!`)
-    * `tags` (`[WorkflowAutomationTag!]`)
+      (`WorkflowAutomationUpdateWorkflowDefinitionInput!`): Input for
+      updating a workflow definition
+    * `scope` (`WorkflowAutomationScopeInput!`): The scope for the
+      workflow definition
+    * `tags` (`[WorkflowAutomationTag!]`): List of tags to associate
+      with the workflow definition
     """
 
     workload_create = sgqlc.types.Field(
@@ -32612,6 +34735,13 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The New Relic account ID where you want
+      to create the workload.
+    * `workload` (`WorkloadCreateInput!`): An input object that
+      represents the workload to be created.
+    """
 
     workload_delete = sgqlc.types.Field(
         "WorkloadCollection",
@@ -32629,6 +34759,10 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `guid` (`EntityGuid!`): The GUID of the workload to delete.
+    """
 
     workload_duplicate = sgqlc.types.Field(
         "WorkloadCollection",
@@ -32660,6 +34794,15 @@ class RootMutationType(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `account_id` (`Int!`): The New Relic Account ID where you want
+      to create the new workload.
+    * `source_guid` (`EntityGuid!`): The GUID of the workload you want
+      to duplicate.
+    * `workload` (`WorkloadDuplicateInput`): An input object with
+      information about the new workload.
+    """
 
     workload_update = sgqlc.types.Field(
         "WorkloadCollection",
@@ -32687,8 +34830,11 @@ class RootMutationType(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `guid` (`EntityGuid!`)
-    * `workload` (`WorkloadUpdateInput!`)
+    * `guid` (`EntityGuid!`): The GUID of the workload you want to
+      update.
+    * `workload` (`WorkloadUpdateInput!`): An input object with
+      information to identify the workload to be updated and its new
+      changes.
     """
 
 
@@ -33517,7 +35663,8 @@ class SyntheticsAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `monitor_guid` (`EntityGuid!`)
+    * `monitor_guid` (`EntityGuid!`): Unique identifier for monitor
+      that holds the script steps that are to be fetched
     """
 
 
@@ -34712,10 +36859,16 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`UserManagementGroupFilterInput`)
-    * `id` (`[ID!]`)
-    * `sort` (`[UserManagementGroupSortInput!]`) (default: `[]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `filter` (`UserManagementGroupFilterInput`): Filter groups
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
+      (NOTICE: setting both this argument and the filter argument to
+      filter by ID is not allowed)  (NOTICE: this argument will be
+      deprecated at a later date, so please use the filter argument to
+      return users by ID)
+    * `sort` (`[UserManagementGroupSortInput!]`): Sort groups
+      (default: `[]`)
     """
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
@@ -34756,9 +36909,14 @@ class UserManagementAuthenticationDomain(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `filter` (`UserManagementUserFilterInput`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `filter` (`UserManagementUserFilterInput`): Filter users
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
+      (NOTICE: setting both this argument and the filter argument to
+      filter by ID is not allowed)  (NOTICE: this argument will be
+      deprecated at a later date, so please use the filter argument to
+      return users by ID)
     """
 
 
@@ -34864,8 +37022,9 @@ class UserManagementGroup(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
     """
 
 
@@ -34940,8 +37099,9 @@ class UserManagementOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
     """
 
     types = sgqlc.types.Field(
@@ -35034,8 +37194,9 @@ class UserManagementUser(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `id` (`[ID!]`)
+    * `cursor` (`String`): the cursor from the previous request, to
+      get     the next page
+    * `id` (`[ID!]`): a list of ids to filter returned objects by
     """
 
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
@@ -35144,8 +37305,12 @@ class UsersActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `query` (`UsersUserSearchQuery`)
+    * `cursor` (`String`): The cursor to fetch paginated user search
+      results.
+    * `query` (`UsersUserSearchQuery`): The user search query takes 1
+      argument `scope` that takes in various arguments.   `userIds` is
+      only an exact match while the rest of the arguments can search
+      for an exact or fuzzy match.
     """
 
 
@@ -35193,6 +37358,10 @@ class WhatsNewDocsStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The ID of the announcement.
+    """
 
     eol_announcement = sgqlc.types.Field(
         "WhatsNewEolAnnouncementContent",
@@ -35208,6 +37377,10 @@ class WhatsNewDocsStitchedFields(sgqlc.types.Type):
             )
         ),
     )
+    """Arguments:
+
+    * `id` (`ID!`): The ID of the EOL announcement.
+    """
 
     news_search = sgqlc.types.Field(
         "WhatsNewSearchResult",
@@ -35229,8 +37402,9 @@ class WhatsNewDocsStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
-    * `query` (`WhatsNewContentSearchQuery`)
+    * `cursor` (`String`): A cursor.
+    * `query` (`WhatsNewContentSearchQuery`): A criteria for searching
+      news.
     """
 
 
@@ -35342,7 +37516,7 @@ class WorkflowAutomationAccountStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
+    * `cursor` (`String`): Cursor
     """
 
 
@@ -35461,7 +37635,7 @@ class WorkflowAutomationActorStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `cursor` (`String`)
+    * `cursor` (`String`): Cursor
     """
 
 
@@ -35562,8 +37736,9 @@ class WorkflowAutomationOrganizationStitchedFields(sgqlc.types.Type):
     )
     """Arguments:
 
-    * `name` (`String!`)
-    * `version` (`Int`)
+    * `name` (`String!`): Name of the workflow definition to retrieve
+    * `version` (`Int`): Version of the workflow definition to
+      retrieve
     """
 
 
@@ -36517,6 +38692,17 @@ class ApmApplicationEntity(
             )
         ),
     )
+    """Arguments:
+
+    * `end_time` (`EpochMilliseconds`): Time window start time in
+      milliseconds since the unix epoch on which the agent reported
+      data. Defaults to current time.
+    * `host` (`String`): Use this field to filter application
+      instances by host name.
+    * `start_time` (`EpochMilliseconds`): Time window start time in
+      milliseconds since the unix epoch on which the agent reported
+      data. Defaults to 10 minutes before the current time.
+    """
 
     application_instances_v2 = sgqlc.types.Field(
         sgqlc.types.non_null(AgentEnvironmentApplicationInstancesResult),
@@ -36542,6 +38728,10 @@ class ApmApplicationEntity(
             )
         ),
     )
+    """Arguments:
+
+    * `occurrence_id` (`String!`): A unique exception identifier.
+    """
 
     flamegraph = sgqlc.types.Field(
         JavaFlightRecorderFlamegraph,
@@ -36565,6 +38755,13 @@ class ApmApplicationEntity(
             )
         ),
     )
+    """Arguments:
+
+    * `host_name` (`String!`): The JVM host to get flamegraph stack
+      trace events for
+    * `time_window` (`TimeWindowInput`): The start and end of the
+      flamegraph events. Defaults to last 30 minutes
+    """
 
     language = sgqlc.types.Field(String, graphql_name="language")
 
@@ -36600,9 +38797,10 @@ class ApmApplicationEntity(
     )
     """Arguments:
 
-    * `end_time` (`EpochMilliseconds`)
-    * `metric_normalization_rule_ids` (`[Int]`)
-    * `start_time` (`EpochMilliseconds`)
+    * `end_time` (`EpochMilliseconds`): End time.
+    * `metric_normalization_rule_ids` (`[Int]`): Metric normalization
+      rule ids
+    * `start_time` (`EpochMilliseconds`): Start time.
     """
 
     metric_normalization_rule = sgqlc.types.Field(
@@ -36762,6 +38960,13 @@ class BrowserApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
             )
         ),
     )
+    """Arguments:
+
+    * `fingerprint` (`Int!`): A unique exception identifier.
+    * `time_window` (`TimeWindowInput`): The time window (60 minutes
+      maximum) in which to search for the browser exception. Defaults
+      to standard NRQL query window.
+    """
 
     metric_grouping_issues = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -36795,9 +39000,10 @@ class BrowserApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
     )
     """Arguments:
 
-    * `end_time` (`EpochMilliseconds`)
-    * `metric_normalization_rule_ids` (`[Int]`)
-    * `start_time` (`EpochMilliseconds`)
+    * `end_time` (`EpochMilliseconds`): End time.
+    * `metric_normalization_rule_ids` (`[Int]`): Metric normalization
+      rule ids
+    * `start_time` (`EpochMilliseconds`): Start time.
     """
 
     metric_normalization_rule = sgqlc.types.Field(
@@ -37857,6 +40063,14 @@ class CloudCloudtrailIntegration(sgqlc.types.Type, CloudIntegration):
 class CloudConfluentKafkaConnectorResourceIntegration(
     sgqlc.types.Type, CloudIntegration
 ):
+    __schema__ = nerdgraph
+    __field_names__ = ("metrics_polling_interval",)
+    metrics_polling_interval = sgqlc.types.Field(
+        Int, graphql_name="metricsPollingInterval"
+    )
+
+
+class CloudConfluentKafkaFlinkResourceIntegration(sgqlc.types.Type, CloudIntegration):
     __schema__ = nerdgraph
     __field_names__ = ("metrics_polling_interval",)
     metrics_polling_interval = sgqlc.types.Field(
@@ -38925,8 +41139,15 @@ class EntityManagementAiEvaluationConfigEntity(
     sgqlc.types.Type, EntityManagementEntity
 ):
     __schema__ = nerdgraph
-    __field_names__ = ("description", "managed_evaluations_entity", "sampling_rate")
+    __field_names__ = (
+        "description",
+        "enabled",
+        "managed_evaluations_entity",
+        "sampling_rate",
+    )
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    enabled = sgqlc.types.Field(Boolean, graphql_name="enabled")
 
     managed_evaluations_entity = sgqlc.types.Field(
         "EntityManagementManagedEvaluationsEntity",
@@ -40508,33 +42729,31 @@ class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEnti
 class EntityManagementSegmentTermsEntity(sgqlc.types.Type, EntityManagementEntity):
     __schema__ = nerdgraph
     __field_names__ = (
-        "account_id",
-        "agent_id",
+        "app_entity_id",
+        "channel",
         "domain",
-        "entity_guid",
         "metric_prefix",
         "old_id",
-        "segment_terms",
+        "url_segments",
     )
-    account_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="accountId")
+    app_entity_id = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="appEntityId"
+    )
 
-    agent_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="agentId")
+    channel = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementChannelType), graphql_name="channel"
+    )
 
     domain = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="domain")
 
-    entity_guid = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="entityGuid"
-    )
-
     metric_prefix = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementMetricPrefixType),
-        graphql_name="metricPrefix",
+        sgqlc.types.non_null(String), graphql_name="metricPrefix"
     )
 
-    old_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="oldId")
+    old_id = sgqlc.types.Field(Int, graphql_name="oldId")
 
-    segment_terms = sgqlc.types.Field(
-        sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name="segmentTerms"
+    url_segments = sgqlc.types.Field(
+        sgqlc.types.non_null(sgqlc.types.list_of(String)), graphql_name="urlSegments"
     )
 
 
@@ -40542,8 +42761,16 @@ class EntityManagementServerlessJobDefinitionEntity(
     sgqlc.types.Type, EntityManagementEntity
 ):
     __schema__ = nerdgraph
-    __field_names__ = ("description",)
+    __field_names__ = ("description", "namespace", "secret_keys")
     description = sgqlc.types.Field(String, graphql_name="description")
+
+    namespace = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="namespace"
+    )
+
+    secret_keys = sgqlc.types.Field(
+        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="secretKeys"
+    )
 
 
 class EntityManagementServiceNowConnection(sgqlc.types.Type, EntityManagementEntity):
@@ -41220,6 +43447,14 @@ class MobileApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
             )
         ),
     )
+    """Arguments:
+
+    * `occurrence_id` (`String!`): A unique identifer for an
+      occurrence of a Mobile Crash.
+    * `time_window` (`TimeWindowInput`): The time window (60 minutes
+      maximum) in which to search for the mobile crash. Defaults to
+      standard NRQL query window.
+    """
 
     exception = sgqlc.types.Field(
         StackTraceMobileException,
@@ -41243,6 +43478,19 @@ class MobileApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
             )
         ),
     )
+    """Arguments:
+
+    * `fingerprint` (`String`): The fingerprint of a Mobile Handled
+      Exception. The first handled exception matching the fingerprint
+      will be returned.
+    * `occurrence_id` (`String`): A unique identifier for an
+      occurrence of a Mobile Handled Exception. This is the
+      'handledExceptionUuid' attribute on the MobileHandledException
+      events.
+    * `time_window` (`TimeWindowInput`): The time window (60 minutes
+      maximum) in which to search for the handled exception. Defaults
+      to standard NRQL query window.
+    """
 
     metric_grouping_issues = sgqlc.types.Field(
         sgqlc.types.list_of(
@@ -41276,9 +43524,10 @@ class MobileApplicationEntity(sgqlc.types.Type, AlertableEntity, Entity):
     )
     """Arguments:
 
-    * `end_time` (`EpochMilliseconds`)
-    * `metric_normalization_rule_ids` (`[Int]`)
-    * `start_time` (`EpochMilliseconds`)
+    * `end_time` (`EpochMilliseconds`): End time.
+    * `metric_normalization_rule_ids` (`[Int]`): Metric normalization
+      rule ids
+    * `start_time` (`EpochMilliseconds`): Start time.
     """
 
     metric_normalization_rule = sgqlc.types.Field(
@@ -41689,8 +43938,10 @@ class ThirdPartyServiceEntity(sgqlc.types.Type, AlertableEntity, Entity):
     )
     """Arguments:
 
-    * `service_instance_id` (`String`)
-    * `time_window` (`TimeWindowInput`)
+    * `service_instance_id` (`String`): The service instance ID to get
+      flamegraph stack trace events for
+    * `time_window` (`TimeWindowInput`): The start and end of the
+      flamegraph events. Defaults to last 30 minutes
     """
 
 

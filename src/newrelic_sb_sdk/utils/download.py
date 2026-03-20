@@ -9,7 +9,7 @@ __all__ = [
 
 import logging
 import multiprocessing
-import urllib
+import urllib.parse
 import warnings
 from collections import namedtuple
 from queue import Queue

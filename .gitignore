@@ -19,11 +19,12 @@ _*
 !_static
 !_site
 .github/copilot-instructions.md
+src/*.toml
 notebooks/**/*.py
 notebooks/**/*.csv
 notebooks/**/*.txt
 notebooks/**/*.json
-!notebooks/GraphQL/nerdgraph-schema.json
+!notebooks/Generator/nerdgraph-schema.json
 *.egg*
 *.env
 *.pid
