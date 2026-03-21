@@ -1156,6 +1156,18 @@ wheels = [
 ]
 
 [[package]]
+name = "jupyterlab-myst"
+version = "2.6.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jupyter-server", marker = "sys_platform != 'emscripten'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/04/91/63e3c2c54c707050c9844563c810829a8834fecd0b6b2c3506c2d7dd6995/jupyterlab_myst-2.6.0.tar.gz", hash = "sha256:1502e776153a43588eeb26ce04fb20a0a401805e20edbc57090c9ac932bd42e0", size = 12941853, upload-time = "2025-12-14T20:59:30.685Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5c/70/f0563af672535bbecc96071ef1ade96f37433e68645a6ea45973dc07c915/jupyterlab_myst-2.6.0-py3-none-any.whl", hash = "sha256:9a0e0ffb318798998be91b7303ffca8a5f15c29bcf339c968c0c3edbc1926265", size = 2710158, upload-time = "2025-12-14T20:59:27.514Z" },
+]
+
+[[package]]
 name = "jupyterlab-pygments"
 version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -1419,6 +1431,7 @@ dev = [
     { name = "importnb" },
     { name = "jupyter-book" },
     { name = "jupyterlab" },
+    { name = "jupyterlab-myst" },
     { name = "nbdev" },
     { name = "nbmake" },
     { name = "poethepoet" },
@@ -1447,6 +1460,7 @@ dev = [
     { name = "importnb", specifier = ">=2023.11.1" },
     { name = "jupyter-book", specifier = ">=2.1.2" },
     { name = "jupyterlab", specifier = ">=4.5.6" },
+    { name = "jupyterlab-myst", specifier = ">=2.6.0" },
     { name = "nbdev", specifier = ">=3.0.12" },
     { name = "nbmake", specifier = ">=1.5.5" },
     { name = "poethepoet", specifier = ">=0.42.1" },
