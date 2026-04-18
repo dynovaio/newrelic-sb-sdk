@@ -1,4 +1,4 @@
-__all__ = ["snake2camel", "camel2snake", "camelize_keys", "snakeize_keys"]
+__all__ = ["snake2camel", "camel2snake", "camelize_keys", "snakeize_keys", "mask_text"]
 
 
 import re
@@ -67,3 +67,19 @@ def snakeize_keys(obj: dict, convert_objects_inside_lists: bool = True) -> dict:
         )
 
     return snakeized_obj
+
+
+def mask_text(*, text: str, start: int = 0, end: int = -1) -> str:
+    if not len(text):
+        return text
+
+    body = "*" * len(text[start:end])
+
+    if not body:
+        return text
+
+    head = text[:start]
+    tail = text[end:]
+    body = "*" * len(text[start:end])
+
+    return f"{head}{body}{tail}".strip()

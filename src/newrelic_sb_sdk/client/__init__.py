@@ -3,6 +3,7 @@ __all__ = [
     "get_new_relic_account_id_from_env",
     "get_new_relic_user_key_from_env",
     "NewRelicClient",
+    "NewRelicGqlClient",
     "NewRelicRestClient",
 ]
 
@@ -22,7 +23,10 @@ from sgqlc.types import Schema
 
 from ..graphql import nerdgraph
 from ..graphql.objects import RootMutationType, RootQueryType
+from ..utils.exceptions import InvalidUserKey
 from ..utils.query import build_query
+from ..utils.text import mask_text
+from ..utils.validators import validate_user_key
 from ..version import VERSION
 
 logger = logging.getLogger("newrelic_sb_sdk")
@@ -90,7 +94,18 @@ class NewRelicClient(Session):
     _schema: Schema = nerdgraph
 
     def __init__(self, *, new_relic_user_key: str):
+        """Initialize the NewRelicClient.
+
+        Args:
+            new_relic_user_key (str): The New Relic user key for API authentication.
+
+        Raises:
+            InvalidUserKey: If the provided user key does not match the valid format.
+        """
         super().__init__()
+
+        if not validate_user_key(new_relic_user_key):
+            raise InvalidUserKey(new_relic_user_key)
 
         self.headers.update(
             {
@@ -101,17 +116,27 @@ class NewRelicClient(Session):
             }
         )
 
-        logger.debug("NewRelicClient initialized with headers: %r", self.headers)
+        logger.debug(
+            "NewRelicClient initialized with headers: %r",
+            {
+                **self.headers,
+                "API-Key": mask_text(
+                    text=new_relic_user_key,
+                    start=8,
+                    end=-1,
+                ),
+            },
+        )
 
         self._setup_schema()
-
-    @staticmethod
-    def _get_version():
-        return ".".join(VERSION)
 
     def _setup_schema(self):
         self._schema.query_type = RootQueryType
         self._schema.mutation_type = RootMutationType
+
+    @staticmethod
+    def _get_version():
+        return ".".join(VERSION)
 
     def execute(
         self,
@@ -120,6 +145,16 @@ class NewRelicClient(Session):
         variables: dict[str, Any] | None = None,
         **kwargs,
     ) -> Response:
+        """Execute a GraphQL query against the New Relic API.
+
+        Args:
+            query (str | Operation): The GraphQL query string or an sgqlc Operation object.
+            variables (dict[str, Any] | None, optional): A dictionary of variables for the query. Defaults to None.
+            **kwargs: Additional keyword arguments passed to the underlying `requests.Session.post` method.
+
+        Returns:
+            Response: The HTTP response from the New Relic API.
+        """
         if isinstance(query, Operation):
             query = query.__to_graphql__()
 
@@ -137,20 +172,61 @@ class NewRelicClient(Session):
 
     @staticmethod
     def build_query(template: str, *, params: dict[str, Any] | None = None) -> str:
+        """Build a query string from a template and parameters.
+
+        Args:
+            template (str): The query template string.
+            params (dict[str, Any] | None, optional): The variables to format the template with. Defaults to None.
+
+        Returns:
+            str: The fully formed query string.
+        """
         return build_query(template, params=params)
 
     @property
     def schema(self) -> Schema:
+        """Returns the GraphQL Schema associated with the client."""
         return self._schema
 
 
+class NewRelicGqlClient(NewRelicClient):
+    """Deprecated alias for NewRelicClient for making GraphQL requests."""
+
+    def __init__(self, *, new_relic_user_key: str):
+        """Initialize the NewRelicGqlClient.
+
+        Args:
+            new_relic_user_key (str): The New Relic user key for API authentication.
+        """
+        warnings.warn(
+            "NewRelicGqlClient is deprecated. Use NewRelicClient instead."
+            " NewRelicGqlClient will be removed in future versions.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(new_relic_user_key=new_relic_user_key)
+
+
 class NewRelicRestClient(Session):
-    """Client for New Relic Rest API."""
+    """Deprecated Client for New Relic Rest API."""
 
     url: str = "https://api.newrelic.com/v2/"
 
     def __init__(self, *, new_relic_user_key: str):
+        """Initialize the NewRelicRestClient.
+
+        Args:
+            new_relic_user_key (str): The New Relic user key for API authentication.
+        """
         super().__init__()
+
+        warnings.warn(
+            "NewRelicRestClient is deprecated because the New Relic REST API v2 is very limited "
+            "and progressively moving to NerdGraph. Use NewRelicClient instead."
+            " NewRelicRestClient will be removed in future versions.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
         self.headers.update(
             {
@@ -159,13 +235,6 @@ class NewRelicRestClient(Session):
                 "Api-Key": new_relic_user_key,
                 "User-Agent": f"newrelic-sb-sdk/{self._get_version()}",
             }
-        )
-
-        warnings.warn(
-            "NewRelicRestClient is deprecated. Use NewRelicClient instead."
-            " NewRelicRestClient will be removed in future versions.",
-            DeprecationWarning,
-            stacklevel=2,
         )
 
         logger.debug("NewRelicRestClient initialized with headers: %r", self.headers)

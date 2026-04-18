@@ -11317,10 +11317,18 @@ d = {
             ),
         },
         "newrelic_sb_sdk.utils.exceptions": {
+            "newrelic_sb_sdk.utils.exceptions.InvalidUserKey": (
+                "Utils/exceptions.html#invaliduserkey",
+                "newrelic_sb_sdk/utils/exceptions.py",
+            ),
+            "newrelic_sb_sdk.utils.exceptions.InvalidUserKey.__init__": (
+                "Utils/exceptions.html#invaliduserkey.__init__",
+                "newrelic_sb_sdk/utils/exceptions.py",
+            ),
             "newrelic_sb_sdk.utils.exceptions.NewRelicError": (
                 "Utils/exceptions.html#newrelicerror",
                 "newrelic_sb_sdk/utils/exceptions.py",
-            )
+            ),
         },
         "newrelic_sb_sdk.utils.query": {
             "newrelic_sb_sdk.utils.query.build_query": (
@@ -11351,6 +11359,10 @@ d = {
                 "Utils/text.html#camelize_keys",
                 "newrelic_sb_sdk/utils/text.py",
             ),
+            "newrelic_sb_sdk.utils.text.mask_text": (
+                "Utils/text.html#mask_text",
+                "newrelic_sb_sdk/utils/text.py",
+            ),
             "newrelic_sb_sdk.utils.text.snake2camel": (
                 "Utils/text.html#snake2camel",
                 "newrelic_sb_sdk/utils/text.py",
@@ -11359,6 +11371,12 @@ d = {
                 "Utils/text.html#snakeize_keys",
                 "newrelic_sb_sdk/utils/text.py",
             ),
+        },
+        "newrelic_sb_sdk.utils.validators": {
+            "newrelic_sb_sdk.utils.validators.validate_user_key": (
+                "Utils/validators.html#validate_user_key",
+                "newrelic_sb_sdk/utils/validators.py",
+            )
         },
         "newrelic_sb_sdk.version": {},
     },
