@@ -57,6 +57,7 @@ project:
         - file: notebooks/Utils/Query.ipynb
         - file: notebooks/Utils/Response.ipynb
         - file: notebooks/Utils/Text.ipynb
+        - file: notebooks/Utils/Validators.ipynb
     - file: CHANGELOG.md
     - file: CONTRIBUTING.md
     - file: CODE_OF_CONDUCT.md
