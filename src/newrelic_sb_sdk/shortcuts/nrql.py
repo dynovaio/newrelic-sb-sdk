@@ -83,11 +83,11 @@ def _perform_nrql_query(
     )
 
     nrql.results()
-    nrql.query_progress.completed()
-    nrql.query_progress.query_id()
-    nrql.query_progress.result_expiration()
-    nrql.query_progress.retry_after()
-    nrql.query_progress.retry_deadline()
+    nrql.query_progress.completed()  # type: ignore
+    nrql.query_progress.query_id()  # type: ignore
+    nrql.query_progress.result_expiration()  # type: ignore
+    nrql.query_progress.retry_after()  # type: ignore
+    nrql.query_progress.retry_deadline()  # type: ignore
 
     response = client.execute(
         operation,
@@ -142,12 +142,12 @@ def _check_nrql_query_progress(
         queryId=Variable("queryId"),
     )
 
-    query_progress.results()
-    query_progress.query_progress.completed()
-    query_progress.query_progress.query_id()
-    query_progress.query_progress.result_expiration()
-    query_progress.query_progress.retry_after()
-    query_progress.query_progress.retry_deadline()
+    query_progress.results()  # type: ignore
+    query_progress.query_progress.completed()  # type: ignore
+    query_progress.query_progress.query_id()  # type: ignore
+    query_progress.query_progress.result_expiration()  # type: ignore
+    query_progress.query_progress.retry_after()  # type: ignore
+    query_progress.query_progress.retry_deadline()  # type: ignore
 
     response = client.execute(
         operation,
@@ -239,12 +239,12 @@ def perform_nrql_query(
                     nrql.query_progress.retry_after,
                 )
 
-                time.sleep(nrql.query_progress.retry_after)
+                time.sleep(nrql.query_progress.retry_after)  # type: ignore
 
                 nrql = _check_nrql_query_progress(
                     client=client,
                     account=account,
-                    query_id=nrql.query_progress.query_id,
+                    query_id=nrql.query_progress.query_id,  # type: ignore
                 )
 
             break
