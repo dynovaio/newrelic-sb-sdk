@@ -17,6 +17,20 @@ def get_all_accounts(
     include_event_types: bool = False,
     time_window: TimeWindowInput | None = None,
 ) -> list[Account]:
+    """Retrieve all accessible New Relic accounts.
+
+    Queries the New Relic GraphQL API to fetch accounts accessible by the
+    provided client.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        include_event_types: Fetches reporting event types if True. Defaults to False.
+        time_window: Filters event types by a specific window. Defaults to None.
+
+    Returns:
+        A list of Account objects.
+    """
+
     operation = Operation(client.schema.query_type)
 
     operation.actor.accounts.id()
@@ -39,6 +53,16 @@ def get_all_accounts(
 
 
 def get_account(*, client: NewRelicClient, account_id: int) -> Account:
+    """Retrieve a specific New Relic account by its unique identifier.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account_id: The integer ID referencing the specific New Relic account.
+
+    Returns:
+        The target Account object fetched from the API.
+    """
+
     operation = Operation(client.schema.query_type)
 
     account = operation.actor.account(id=account_id)
