@@ -25,6 +25,15 @@ logger = logging.getLogger("newrelic_sb_sdk")
 
 
 def nrql(query: str) -> Nrql:
+    """Format a raw SQL string into a GraphQL-compatible scalar.
+
+    Args:
+        query: The string NRQL query.
+
+    Returns:
+        A scalar object formatted for the API schema.
+    """
+
     return Nrql(dedent(query.strip()))
 
 
@@ -36,6 +45,19 @@ def _perform_nrql_query(
     timeout: int = 60,
     async_: bool = False,
 ) -> CrossAccountNrdbResultContainer:
+    """Execute a NRQL database query.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: Formatted SQL payload.
+        timeout: Native request lifetime limit parameter. Defaults to 60.
+        async_: Boolean flagging background processing. Defaults to False.
+
+    Returns:
+        A baseline cross-account configuration containing execution metrics.
+    """
+
     # pylint: disable=redefined-outer-name
 
     logger.debug(
@@ -89,6 +111,17 @@ def _check_nrql_query_progress(
     account: Account,
     query_id: ID,
 ) -> CrossAccountNrdbResultContainer:
+    """Examine the background job status using its identifier.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        query_id: System token representing the background job.
+
+    Returns:
+        A cross-account execution block containing updated metadata.
+    """
+
     logger.debug(
         "%d - %s - Checking NRQL query progress: %s",
         account.id,
@@ -142,6 +175,21 @@ def perform_nrql_query(
     max_retries: int = 5,
     retry_delay: int = 5,
 ) -> list[NrdbResult]:
+    """Wrap asynchronous polling complexities into a single synchronous request.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: Formatted SQL payload.
+        timeout: Maximum native polling lifecycle timeout. Defaults to 60.
+        max_retry: Legacy parameter. Defaults to None.
+        max_retries: Limit parameter restricting failed iterations. Defaults to 5.
+        retry_delay: Delay value evaluated between checks. Defaults to 5.
+
+    Returns:
+        A list of returned query objects.
+    """
+
     # pylint: disable=redefined-outer-name
 
     if max_retry is not None:

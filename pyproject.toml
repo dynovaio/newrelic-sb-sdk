@@ -205,6 +205,7 @@ unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
 invalid-argument-type = "ignore"
 inconsistent-mro = "ignore"
+unresolved-attribute = "ignore"
 
 [tool.nbdev]
 host = "gitlab"
