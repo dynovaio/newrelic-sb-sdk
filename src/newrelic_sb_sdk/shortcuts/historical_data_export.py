@@ -48,6 +48,17 @@ def create_historical_data_export(
     account: Account,
     nrql_query: Nrql,
 ) -> HistoricalDataExportCustomerExportResponse:
+    """Schedule a historical data export task through NerdGraph.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: The data query describing what to export.
+
+    Returns:
+        The state definition of the export task.
+    """
+
     operation = Operation(
         nerdgraph.mutation_type,
         variables={
@@ -98,6 +109,16 @@ def get_all_historical_data_exports(
     client: NewRelicClient,
     account: Account,
 ) -> list[HistoricalDataExportCustomerExportResponse]:
+    """Retrieve recent or running historical data exports.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+
+    Returns:
+        A collection of historical data export task states.
+    """
+
     operation = Operation(
         nerdgraph.query_type,
         variables={
@@ -147,6 +168,17 @@ def get_historical_data_export(
     account: Account,
     export_id: ID,
 ) -> HistoricalDataExportCustomerExportResponse:
+    """Fetch the state of a specific data export.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        export_id: Internal ID generated during task creation.
+
+    Returns:
+        The target export state response.
+    """
+
     operation = Operation(
         nerdgraph.query_type,
         variables={
@@ -200,6 +232,17 @@ def cancel_historical_data_export(
     account: Account,
     export_id: str,
 ) -> HistoricalDataExportCustomerExportResponse:
+    """Terminate a progressing data export operation.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        export_id: Internal ID generating during task creation.
+
+    Returns:
+        The modified state response of the cancelled task.
+    """
+
     operation = Operation(
         nerdgraph.mutation_type,
         variables={
@@ -249,6 +292,19 @@ def cancel_historical_data_export(
 def can_execute_historical_data_export(
     *, client: NewRelicClient, account: Account
 ) -> bool:
+    """Determine whether another data export process can start.
+
+    Checks the environment to verify that the New Relic account has capacity to
+    begin processing a new data export.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+
+    Returns:
+        A boolean flag granting permission to initiate a background export task.
+    """
+
     historical_data_exports = get_all_historical_data_exports(
         client=client, account=account
     )
@@ -281,6 +337,23 @@ def _perform_historical_data_export(
     max_retries: int = 5,
     retry_delay: int = 30,
 ) -> HistoricalDataExportCustomerExportResponse:
+    """Manage export execution and poll for completion.
+
+    Polls the task endpoint to ensure the remote system generates and finalizes
+    the payload.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: The data query describing what to export.
+        max_retry: Deprecated iteration limiter. Defaults to None.
+        max_retries: The backoff iteration parameter. Defaults to 5.
+        retry_delay: The polling delay. Defaults to 30.
+
+    Returns:
+        Unified execution metadata.
+    """
+
     # pylint: disable=too-complex,inconsistent-return-statements
 
     if max_retry is not None:
@@ -404,6 +477,15 @@ def perform_historical_data_export(
     nrql_query: Nrql,
     base_file_name: str,
 ):
+    """Generate, wait for, and download an export payload.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: The database statement describing what to export.
+        base_file_name: Expected payload prefix strings matched to files.
+    """
+
     export = _perform_historical_data_export(
         client=client, account=account, nrql_query=nrql_query
     )
