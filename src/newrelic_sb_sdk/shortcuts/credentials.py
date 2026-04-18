@@ -11,6 +11,16 @@ from ..utils.response import raise_response_errors
 
 
 def validate(*, client: NewRelicClient, account: Account | None = None) -> User:
+    """Validate SDK configuration with New Relic credentials.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object. Defaults to None.
+
+    Returns:
+        The verified User profile object.
+    """
+
     operation = Operation(
         client.schema.query_type,
     )
