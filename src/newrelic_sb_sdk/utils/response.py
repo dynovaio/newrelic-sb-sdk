@@ -11,7 +11,13 @@ from .exceptions import NewRelicError
 
 
 def print_response(response, compact: bool = False):
-    """Print response in json format."""
+    """Print an HTTP Response formatted as JSON.
+
+    Args:
+        response: The HTTP response element.
+        compact: Toggles nested indentation formatting rules. Defaults to False.
+    """
+
     print(
         json.dumps(
             response.json(),
@@ -23,7 +29,17 @@ def print_response(response, compact: bool = False):
 def get_response_data(
     response, key_path: str | None = None, action: str = "actor"
 ) -> dict[str, Any] | None:
-    """Get response body entries from a keypath."""
+    """Extract entries from an HTTP response payload.
+
+    Args:
+        response: The HTTP response payload.
+        key_path: Nested path querying internal parameters. Defaults to None.
+        action: Filters specific block limits. Defaults to "actor".
+
+    Returns:
+        The matched element extracted iteratively from the payload.
+    """
+
     data = response.json().get("data").get(action)
 
     if key_path is not None:
@@ -37,6 +53,17 @@ def get_response_data(
 
 
 def raise_response_errors(*, response: Response, account: Account | None = None):
+    """Validate response bounds and raise exceptions on errors.
+
+    Args:
+        response: The HTTP response payload.
+        account: The targeted context configuring standard bounds representation.
+            Defaults to None.
+
+    Raises:
+        NewRelicError: Raised when parameters match failure criteria.
+    """
+
     response.raise_for_status()
 
     response_json = response.json()

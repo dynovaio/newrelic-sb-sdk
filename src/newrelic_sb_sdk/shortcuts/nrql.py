@@ -25,6 +25,15 @@ logger = logging.getLogger("newrelic_sb_sdk")
 
 
 def nrql(query: str) -> Nrql:
+    """Format a raw SQL string into a GraphQL-compatible scalar.
+
+    Args:
+        query: The string NRQL query.
+
+    Returns:
+        A scalar object formatted for the API schema.
+    """
+
     return Nrql(dedent(query.strip()))
 
 
@@ -36,6 +45,19 @@ def _perform_nrql_query(
     timeout: int = 60,
     async_: bool = False,
 ) -> CrossAccountNrdbResultContainer:
+    """Execute a NRQL database query.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: Formatted SQL payload.
+        timeout: Native request lifetime limit parameter. Defaults to 60.
+        async_: Boolean flagging background processing. Defaults to False.
+
+    Returns:
+        A baseline cross-account configuration containing execution metrics.
+    """
+
     # pylint: disable=redefined-outer-name
 
     logger.debug(
@@ -61,11 +83,11 @@ def _perform_nrql_query(
     )
 
     nrql.results()
-    nrql.query_progress.completed()
-    nrql.query_progress.query_id()
-    nrql.query_progress.result_expiration()
-    nrql.query_progress.retry_after()
-    nrql.query_progress.retry_deadline()
+    nrql.query_progress.completed()  # type: ignore
+    nrql.query_progress.query_id()  # type: ignore
+    nrql.query_progress.result_expiration()  # type: ignore
+    nrql.query_progress.retry_after()  # type: ignore
+    nrql.query_progress.retry_deadline()  # type: ignore
 
     response = client.execute(
         operation,
@@ -89,6 +111,17 @@ def _check_nrql_query_progress(
     account: Account,
     query_id: ID,
 ) -> CrossAccountNrdbResultContainer:
+    """Examine the background job status using its identifier.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        query_id: System token representing the background job.
+
+    Returns:
+        A cross-account execution block containing updated metadata.
+    """
+
     logger.debug(
         "%d - %s - Checking NRQL query progress: %s",
         account.id,
@@ -109,12 +142,12 @@ def _check_nrql_query_progress(
         queryId=Variable("queryId"),
     )
 
-    query_progress.results()
-    query_progress.query_progress.completed()
-    query_progress.query_progress.query_id()
-    query_progress.query_progress.result_expiration()
-    query_progress.query_progress.retry_after()
-    query_progress.query_progress.retry_deadline()
+    query_progress.results()  # type: ignore
+    query_progress.query_progress.completed()  # type: ignore
+    query_progress.query_progress.query_id()  # type: ignore
+    query_progress.query_progress.result_expiration()  # type: ignore
+    query_progress.query_progress.retry_after()  # type: ignore
+    query_progress.query_progress.retry_deadline()  # type: ignore
 
     response = client.execute(
         operation,
@@ -142,6 +175,21 @@ def perform_nrql_query(
     max_retries: int = 5,
     retry_delay: int = 5,
 ) -> list[NrdbResult]:
+    """Wrap asynchronous polling complexities into a single synchronous request.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        nrql_query: Formatted SQL payload.
+        timeout: Maximum native polling lifecycle timeout. Defaults to 60.
+        max_retry: Legacy parameter. Defaults to None.
+        max_retries: Limit parameter restricting failed iterations. Defaults to 5.
+        retry_delay: Delay value evaluated between checks. Defaults to 5.
+
+    Returns:
+        A list of returned query objects.
+    """
+
     # pylint: disable=redefined-outer-name
 
     if max_retry is not None:
@@ -191,12 +239,12 @@ def perform_nrql_query(
                     nrql.query_progress.retry_after,
                 )
 
-                time.sleep(nrql.query_progress.retry_after)
+                time.sleep(nrql.query_progress.retry_after)  # type: ignore
 
                 nrql = _check_nrql_query_progress(
                     client=client,
                     account=account,
-                    query_id=nrql.query_progress.query_id,
+                    query_id=nrql.query_progress.query_id,  # type: ignore
                 )
 
             break

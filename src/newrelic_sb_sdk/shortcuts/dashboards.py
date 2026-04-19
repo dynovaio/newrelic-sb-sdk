@@ -30,6 +30,15 @@ _RE_PARSE = re.compile(
 
 
 def _patch_datetime(datetimestr):
+    """Patch NerdGraph datetime format by ensuring seconds are present.
+
+    Args:
+        datetimestr: The raw datetime string extracted from the JSON response.
+
+    Returns:
+        The canonicalized datetime string.
+    """
+
     m = _RE_PARSE.match(datetimestr)
 
     if m and m.group("S") is None:
@@ -43,6 +52,17 @@ def get_all_dashboards(
     client: NewRelicClient,
     options: EntitySearchOptions | None = None,
 ) -> list[DashboardEntityOutline]:
+    """Query and aggregate Dashboard entities.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        options: Query rules and filters. Defaults to None.
+
+    Returns:
+        A list of DashboardEntityOutline representations.
+    """
+
     operation = Operation(
         client.schema.query_type,
         variables={
@@ -138,6 +158,17 @@ def get_dashboard(
     client: NewRelicClient,
     guid: EntityGuid,
 ) -> DashboardEntity:
+    """Retrieve the deep representation of a specific NerdGraph dashboard.
+
+    Args:
+        client: The New Relic API client instance for authentication.
+        account: The target New Relic account object.
+        guid: The unique identifier string.
+
+    Returns:
+        The comprehensive payload mapping of the dashboard.
+    """
+
     operation = Operation(
         client.schema.query_type,
         variables={

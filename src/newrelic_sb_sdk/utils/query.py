@@ -9,6 +9,17 @@ NULL_CURSOR: str = json.dumps(None)
 
 
 def build_query(template: str, *, params: dict[str, Any] | None = None) -> str:
+    """Render a query payload using templates and parameters.
+
+    Args:
+        template: The baseline template text.
+        params: The configuration values to combine into the template representation.
+            Defaults to None.
+
+    Returns:
+        The completed query string parameter definitions.
+    """
+
     if not params:
         params = {}
 

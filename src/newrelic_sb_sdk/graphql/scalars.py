@@ -20,7 +20,6 @@ __all__ = [
     "EntityAlertViolationInt",
     "EntityGuid",
     "EntityManagementDynamicString",
-    "EntitySearchQuery",
     "EpochMilliseconds",
     "EpochSeconds",
     "ErrorsInboxRawEvent",
@@ -115,10 +114,6 @@ class EntityGuid(sgqlc.types.Scalar):
 
 
 class EntityManagementDynamicString(sgqlc.types.Scalar):
-    __schema__ = nerdgraph
-
-
-class EntitySearchQuery(sgqlc.types.Scalar):
     __schema__ = nerdgraph
 
 

@@ -1,6 +1,6 @@
 [project]
 name = "newrelic-sb-sdk"
-version = "0.46.0"
+version = "0.47.0"
 description = "New Relic SDK to interact with Nerdgraph API."
 authors = [
   { name = "Dynova Development Team", email = "dev@dynova.io" },
@@ -51,8 +51,8 @@ Homepage = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Repository = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk"
 Documentation = "https://softbutterfly.gitlab.io/open-source/newrelic-sb-sdk"
 Issues = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/issues"
-Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.46.0/newrelic-sb-sdk-v0.46.0.zip"
-Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.46.0/CHANGELOG.md"
+Download = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/archive/v0.47.0/newrelic-sb-sdk-v0.47.0.zip"
+Changelog = "https://gitlab.com/softbutterfly/open-source/newrelic-sb-sdk/-/blob/v0.47.0/CHANGELOG.md"
 
 [dependency-groups]
 dev = [
@@ -61,6 +61,7 @@ dev = [
     "importnb>=2023.11.1",
     "jupyter-book>=2.1.2",
     "jupyterlab>=4.5.6",
+    "jupyterlab-myst>=2.6.0",
     "nbdev>=3.0.12",
     "nbmake>=1.5.5",
     "poethepoet>=0.42.1",
@@ -204,6 +205,7 @@ unresolved-import = "ignore"
 possibly-missing-attribute = "ignore"
 invalid-argument-type = "ignore"
 inconsistent-mro = "ignore"
+unresolved-attribute = "ignore"
 
 [tool.nbdev]
 host = "gitlab"

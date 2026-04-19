@@ -436,6 +436,7 @@ __all__ = [
     "DashboardWidgetConfigurationInput",
     "DashboardWidgetInput",
     "DashboardWidgetLayoutInput",
+    "DashboardWidgetLinkInput",
     "DashboardWidgetNrqlQueryInput",
     "DashboardWidgetVisualizationInput",
     "DataAccessPolicyAssignedFilter",
@@ -451,7 +452,6 @@ __all__ = [
     "DataManagementOrganizationLimitLookupInput",
     "DataManagementRuleInput",
     "DataSourceGapsGapsQuery",
-    "DateTimeWindowInput",
     "DomainTypeInput",
     "EdgeCreateSpanAttributeRuleInput",
     "EdgeCreateTraceFilterRulesInput",
@@ -11443,8 +11443,10 @@ class DashboardUpdateWidgetInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "configuration",
+        "description",
         "id",
         "layout",
+        "link",
         "linked_entity_guids",
         "raw_configuration",
         "title",
@@ -11454,9 +11456,13 @@ class DashboardUpdateWidgetInput(sgqlc.types.Input):
         "DashboardWidgetConfigurationInput", graphql_name="configuration"
     )
 
+    description = sgqlc.types.Field(String, graphql_name="description")
+
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
     layout = sgqlc.types.Field("DashboardWidgetLayoutInput", graphql_name="layout")
+
+    link = sgqlc.types.Field("DashboardWidgetLinkInput", graphql_name="link")
 
     linked_entity_guids = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityGuid)),
@@ -11602,8 +11608,10 @@ class DashboardWidgetInput(sgqlc.types.Input):
     __schema__ = nerdgraph
     __field_names__ = (
         "configuration",
+        "description",
         "id",
         "layout",
+        "link",
         "linked_entity_guids",
         "raw_configuration",
         "title",
@@ -11613,9 +11621,13 @@ class DashboardWidgetInput(sgqlc.types.Input):
         DashboardWidgetConfigurationInput, graphql_name="configuration"
     )
 
+    description = sgqlc.types.Field(String, graphql_name="description")
+
     id = sgqlc.types.Field(ID, graphql_name="id")
 
     layout = sgqlc.types.Field("DashboardWidgetLayoutInput", graphql_name="layout")
+
+    link = sgqlc.types.Field("DashboardWidgetLinkInput", graphql_name="link")
 
     linked_entity_guids = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(EntityGuid)),
@@ -11643,6 +11655,12 @@ class DashboardWidgetLayoutInput(sgqlc.types.Input):
     row = sgqlc.types.Field(Int, graphql_name="row")
 
     width = sgqlc.types.Field(Int, graphql_name="width")
+
+
+class DashboardWidgetLinkInput(sgqlc.types.Input):
+    __schema__ = nerdgraph
+    __field_names__ = ("url",)
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
 class DashboardWidgetNrqlQueryInput(sgqlc.types.Input):
@@ -11817,16 +11835,6 @@ class DataSourceGapsGapsQuery(sgqlc.types.Input):
     gap_type_ids = sgqlc.types.Field(
         sgqlc.types.list_of(sgqlc.types.non_null(DataSourceGapsGapTypeIdentifier)),
         graphql_name="gapTypeIds",
-    )
-
-
-class DateTimeWindowInput(sgqlc.types.Input):
-    __schema__ = nerdgraph
-    __field_names__ = ("end_time", "start_time")
-    end_time = sgqlc.types.Field(sgqlc.types.non_null(DateTime), graphql_name="endTime")
-
-    start_time = sgqlc.types.Field(
-        sgqlc.types.non_null(DateTime), graphql_name="startTime"
     )
 
 
@@ -13370,6 +13378,7 @@ class EntityManagementScorecardRuleEntityCreateInput(sgqlc.types.Input):
         "name",
         "nrql_engine",
         "progress_level",
+        "run_interval",
         "schedule",
         "scope",
         "tags",
@@ -13388,6 +13397,8 @@ class EntityManagementScorecardRuleEntityCreateInput(sgqlc.types.Input):
     )
 
     progress_level = sgqlc.types.Field(ID, graphql_name="progressLevel")
+
+    run_interval = sgqlc.types.Field(Int, graphql_name="runInterval")
 
     schedule = sgqlc.types.Field(
         EntityManagementScheduleCreateInput, graphql_name="schedule"
@@ -13412,6 +13423,7 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
         "name",
         "nrql_engine",
         "progress_level",
+        "run_interval",
         "schedule",
         "tags",
     )
@@ -13428,6 +13440,8 @@ class EntityManagementScorecardRuleEntityUpdateInput(sgqlc.types.Input):
     )
 
     progress_level = sgqlc.types.Field(ID, graphql_name="progressLevel")
+
+    run_interval = sgqlc.types.Field(Int, graphql_name="runInterval")
 
     schedule = sgqlc.types.Field(
         EntityManagementScheduleUpdateInput, graphql_name="schedule"

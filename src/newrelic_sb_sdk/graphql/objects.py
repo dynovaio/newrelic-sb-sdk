@@ -245,9 +245,7 @@ __all__ = [
     "ApiAccessDeleteKeyResponse",
     "ApiAccessDeletedKey",
     "ApiAccessKeySearchResult",
-    "ApiAccessNrPlatformStitchedFields",
     "ApiAccessUpdateKeyResponse",
-    "ApiAccessValidateUserKeyResult",
     "ApmApplicationDeployment",
     "ApmApplicationEntitySettingsResult",
     "ApmApplicationRunningAgentVersions",
@@ -385,6 +383,7 @@ __all__ = [
     "DashboardWidget",
     "DashboardWidgetConfiguration",
     "DashboardWidgetLayout",
+    "DashboardWidgetLink",
     "DashboardWidgetNrqlQuery",
     "DashboardWidgetVisualization",
     "DataAccessPolicy",
@@ -620,7 +619,6 @@ __all__ = [
     "EntityManagementTeamResource",
     "EntityManagementTeamsHierarchyLevelEntityUpdateResult",
     "EntityManagementTeamsOrganizationSettingsEntityUpdateResult",
-    "EntityManagementTemplateField",
     "EntityManagementTemplateFieldType",
     "EntityManagementTokenTextSplitterOptions",
     "EntityManagementUserMetadata",
@@ -1362,7 +1360,6 @@ __all__ = [
     "EntityManagementIncidentProfileEntity",
     "EntityManagementIncidentTimelineEntity",
     "EntityManagementJiraConnection",
-    "EntityManagementJiraSyncConfiguration",
     "EntityManagementJiraSyncConfigurationV2Entity",
     "EntityManagementJuniperMistConnectionEntity",
     "EntityManagementMaintenanceWindowEntity",
@@ -1390,7 +1387,6 @@ __all__ = [
     "EntityManagementServerlessJobDefinitionEntity",
     "EntityManagementServiceNowConnection",
     "EntityManagementSlackConnection",
-    "EntityManagementSlackSyncConfiguration",
     "EntityManagementStatusPageAnnouncementEntity",
     "EntityManagementStatusPageIncidentEntity",
     "EntityManagementSystemActor",
@@ -1399,10 +1395,7 @@ __all__ = [
     "EntityManagementTeamsOrganizationSettingsEntity",
     "EntityManagementUserActor",
     "EntityManagementUserEntity",
-    "EntityManagementWorkItem",
-    "EntityManagementWorkItemLink",
     "EntityManagementWorkItemLinkV2Entity",
-    "EntityManagementWorkItemMessage",
     "EntityManagementWorkItemMessageV2Entity",
     "EntityManagementWorkItemV2Entity",
     "EntityManagementWorkflowDefinition",
@@ -1636,13 +1629,13 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityGoldenEventObjectId,
     EntityGoldenGoldenMetricsErrorType,
     EntityGoldenMetricUnit,
+    EntityManagementActorType,
     EntityManagementAiToolParameterType,
     EntityManagementAiToolType,
     EntityManagementArrayOperator,
     EntityManagementAssignmentType,
     EntityManagementBackgroundProcessingType,
     EntityManagementBudgetType,
-    EntityManagementCategory,
     EntityManagementCategoryScopeType,
     EntityManagementChannelType,
     EntityManagementCloudProvider,
@@ -1654,7 +1647,6 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementCorrelationOverrideAction,
     EntityManagementCorrelationSubjectType,
     EntityManagementDateOperator,
-    EntityManagementDirection,
     EntityManagementEncodingName,
     EntityManagementEncodingType,
     EntityManagementEntityScope,
@@ -1682,12 +1674,10 @@ from newrelic_sb_sdk.graphql.enums import (
     EntityManagementMcpAuthType,
     EntityManagementMcpTransport,
     EntityManagementMessageType,
-    EntityManagementNrRegion,
     EntityManagementNumericOperator,
     EntityManagementOperatingSystemType,
     EntityManagementOverlapPolicy,
     EntityManagementPrincipalType,
-    EntityManagementPriority,
     EntityManagementProcessStatus,
     EntityManagementProvider,
     EntityManagementRegion,
@@ -2741,8 +2731,12 @@ class EdgeEndpointDetail(sgqlc.types.Interface):
 
 class EntityManagementActor(sgqlc.types.Interface):
     __schema__ = nerdgraph
-    __field_names__ = ("id",)
+    __field_names__ = ("id", "type")
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
+
+    type = sgqlc.types.Field(
+        sgqlc.types.non_null(EntityManagementActorType), graphql_name="type"
+    )
 
 
 class EntityManagementApiCatalogApiContract(sgqlc.types.Interface):
@@ -8855,29 +8849,6 @@ class ApiAccessKeySearchResult(sgqlc.types.Type):
     next_cursor = sgqlc.types.Field(String, graphql_name="nextCursor")
 
 
-class ApiAccessNrPlatformStitchedFields(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("validate_user_key",)
-    validate_user_key = sgqlc.types.Field(
-        "ApiAccessValidateUserKeyResult",
-        graphql_name="validateUserKey",
-        args=sgqlc.types.ArgDict(
-            (
-                (
-                    "key_id",
-                    sgqlc.types.Arg(
-                        sgqlc.types.non_null(ID), graphql_name="keyId", default=None
-                    ),
-                ),
-            )
-        ),
-    )
-    """Arguments:
-
-    * `key_id` (`ID!`): The key ID.
-    """
-
-
 class ApiAccessUpdateKeyResponse(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = ("errors", "updated_keys")
@@ -8888,12 +8859,6 @@ class ApiAccessUpdateKeyResponse(sgqlc.types.Type):
     updated_keys = sgqlc.types.Field(
         sgqlc.types.list_of(ApiAccessKey), graphql_name="updatedKeys"
     )
-
-
-class ApiAccessValidateUserKeyResult(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("valid",)
-    valid = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="valid")
 
 
 class ApmApplicationDeployment(sgqlc.types.Type):
@@ -13149,8 +13114,10 @@ class DashboardWidget(sgqlc.types.Type):
     __schema__ = nerdgraph
     __field_names__ = (
         "configuration",
+        "description",
         "id",
         "layout",
+        "link",
         "linked_entities",
         "raw_configuration",
         "title",
@@ -13160,9 +13127,13 @@ class DashboardWidget(sgqlc.types.Type):
         "DashboardWidgetConfiguration", graphql_name="configuration"
     )
 
+    description = sgqlc.types.Field(String, graphql_name="description")
+
     id = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="id")
 
     layout = sgqlc.types.Field("DashboardWidgetLayout", graphql_name="layout")
+
+    link = sgqlc.types.Field("DashboardWidgetLink", graphql_name="link")
 
     linked_entities = sgqlc.types.Field(
         sgqlc.types.list_of(EntityOutline), graphql_name="linkedEntities"
@@ -13213,6 +13184,12 @@ class DashboardWidgetLayout(sgqlc.types.Type):
     row = sgqlc.types.Field(Int, graphql_name="row")
 
     width = sgqlc.types.Field(Int, graphql_name="width")
+
+
+class DashboardWidgetLink(sgqlc.types.Type):
+    __schema__ = nerdgraph
+    __field_names__ = ("url",)
+    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
 class DashboardWidgetNrqlQuery(sgqlc.types.Type):
@@ -14881,6 +14858,7 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
                         default=None,
                     ),
                 ),
+                ("first", sgqlc.types.Arg(Int, graphql_name="first", default=100)),
             )
         ),
     )
@@ -14890,6 +14868,8 @@ class EntityManagementActorStitchedFields(sgqlc.types.Type):
       first page of results will be returned.
     * `filter` (`EntityManagementCollectionElementsFilter!`): The id
       of the group entity.
+    * `first` (`Int`): Request the first n elements. Must be between 1
+      and 1000. Defaults to 100. (default: `100`)
     """
 
     collections_containing_entity = sgqlc.types.Field(
@@ -16798,20 +16778,6 @@ class EntityManagementTeamsOrganizationSettingsEntityUpdateResult(sgqlc.types.Ty
         sgqlc.types.non_null("EntityManagementTeamsOrganizationSettingsEntity"),
         graphql_name="entity",
     )
-
-
-class EntityManagementTemplateField(sgqlc.types.Type):
-    __schema__ = nerdgraph
-    __field_names__ = ("direction", "name", "required", "template")
-    direction = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementDirection), graphql_name="direction"
-    )
-
-    name = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="name")
-
-    required = sgqlc.types.Field(Boolean, graphql_name="required")
-
-    template = sgqlc.types.Field(String, graphql_name="template")
 
 
 class EntityManagementTemplateFieldType(sgqlc.types.Type):
@@ -37316,10 +37282,12 @@ class UsersActorStitchedFields(sgqlc.types.Type):
 
 class UsersUserSearch(sgqlc.types.Type):
     __schema__ = nerdgraph
-    __field_names__ = ("email", "name", "user_id")
+    __field_names__ = ("email", "name", "title", "user_id")
     email = sgqlc.types.Field(String, graphql_name="email")
 
     name = sgqlc.types.Field(String, graphql_name="name")
+
+    title = sgqlc.types.Field(String, graphql_name="title")
 
     user_id = sgqlc.types.Field(ID, graphql_name="userId")
 
@@ -41673,8 +41641,6 @@ class EntityManagementFederatedLogPartitionEntity(
         "data_location_uri",
         "description",
         "is_default",
-        "nr_account_id",
-        "partition_database",
         "partition_table",
         "retention_policy",
         "setup",
@@ -41688,14 +41654,6 @@ class EntityManagementFederatedLogPartitionEntity(
 
     is_default = sgqlc.types.Field(
         sgqlc.types.non_null(Boolean), graphql_name="isDefault"
-    )
-
-    nr_account_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="nrAccountId"
-    )
-
-    partition_database = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="partitionDatabase"
     )
 
     partition_table = sgqlc.types.Field(
@@ -41725,8 +41683,7 @@ class EntityManagementFederatedLogSetupEntity(sgqlc.types.Type, EntityManagement
         "data_processing_component",
         "data_processing_connection",
         "description",
-        "nr_account_id",
-        "nr_region",
+        "partition_database",
         "query_connection",
         "status",
     )
@@ -41754,12 +41711,8 @@ class EntityManagementFederatedLogSetupEntity(sgqlc.types.Type, EntityManagement
 
     description = sgqlc.types.Field(String, graphql_name="description")
 
-    nr_account_id = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="nrAccountId"
-    )
-
-    nr_region = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementNrRegion), graphql_name="nrRegion"
+    partition_database = sgqlc.types.Field(
+        sgqlc.types.non_null(String), graphql_name="partitionDatabase"
     )
 
     query_connection = sgqlc.types.Field(
@@ -42247,64 +42200,6 @@ class EntityManagementJiraConnection(sgqlc.types.Type, EntityManagementEntity):
     url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
 
 
-class EntityManagementJiraSyncConfiguration(sgqlc.types.Type, EntityManagementEntity):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "assignee_query",
-        "connection",
-        "correlation_field_name",
-        "description",
-        "direction",
-        "enabled",
-        "issue_type",
-        "mode",
-        "project_key",
-        "targets",
-        "template_fields",
-    )
-    assignee_query = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="assigneeQuery"
-    )
-
-    connection = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="connection")
-
-    correlation_field_name = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="correlationFieldName"
-    )
-
-    description = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="description"
-    )
-
-    direction = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementDirection), graphql_name="direction"
-    )
-
-    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
-
-    issue_type = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementJiraIssueType), graphql_name="issueType"
-    )
-
-    mode = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementSyncConfigurationMode), graphql_name="mode"
-    )
-
-    project_key = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="projectKey"
-    )
-
-    targets = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTag)),
-        graphql_name="targets",
-    )
-
-    template_fields = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTemplateField)),
-        graphql_name="templateFields",
-    )
-
-
 class EntityManagementJiraSyncConfigurationV2Entity(
     sgqlc.types.Type, EntityManagementEntity
 ):
@@ -42705,7 +42600,7 @@ class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEnti
         "last_execution_status",
         "nrql_engine",
         "progress_level",
-        "schedule",
+        "run_interval",
     )
     description = sgqlc.types.Field(String, graphql_name="description")
 
@@ -42723,7 +42618,7 @@ class EntityManagementScorecardRuleEntity(sgqlc.types.Type, EntityManagementEnti
 
     progress_level = sgqlc.types.Field(ID, graphql_name="progressLevel")
 
-    schedule = sgqlc.types.Field(EntityManagementSchedule, graphql_name="schedule")
+    run_interval = sgqlc.types.Field(Int, graphql_name="runInterval")
 
 
 class EntityManagementSegmentTermsEntity(sgqlc.types.Type, EntityManagementEntity):
@@ -42844,49 +42739,6 @@ class EntityManagementSlackConnection(sgqlc.types.Type, EntityManagementEntity):
 
     workspace = sgqlc.types.Field(
         sgqlc.types.non_null(String), graphql_name="workspace"
-    )
-
-
-class EntityManagementSlackSyncConfiguration(sgqlc.types.Type, EntityManagementEntity):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "channel_id_payload_path",
-        "connection",
-        "description",
-        "direction",
-        "enabled",
-        "mode",
-        "targets",
-        "template_fields",
-    )
-    channel_id_payload_path = sgqlc.types.Field(
-        String, graphql_name="channelIdPayloadPath"
-    )
-
-    connection = sgqlc.types.Field(sgqlc.types.non_null(ID), graphql_name="connection")
-
-    description = sgqlc.types.Field(
-        sgqlc.types.non_null(String), graphql_name="description"
-    )
-
-    direction = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementDirection), graphql_name="direction"
-    )
-
-    enabled = sgqlc.types.Field(sgqlc.types.non_null(Boolean), graphql_name="enabled")
-
-    mode = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementSyncConfigurationMode), graphql_name="mode"
-    )
-
-    targets = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTag)),
-        graphql_name="targets",
-    )
-
-    template_fields = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementTemplateField)),
-        graphql_name="templateFields",
     )
 
 
@@ -43071,105 +42923,11 @@ class EntityManagementUserEntity(sgqlc.types.Type, EntityManagementEntity):
     user_id = sgqlc.types.Field(sgqlc.types.non_null(Int), graphql_name="userId")
 
 
-class EntityManagementWorkItem(sgqlc.types.Type, EntityManagementEntity):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "assigned_to",
-        "attributes",
-        "category",
-        "description",
-        "due_date",
-        "external_id",
-        "labels",
-        "links",
-        "messages",
-        "priority",
-        "status",
-    )
-    assigned_to = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementWorkItemAssignment),
-        graphql_name="assignedTo",
-    )
-
-    attributes = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(EntityManagementWorkItemAttribute)),
-        graphql_name="attributes",
-    )
-
-    category = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementCategory), graphql_name="category"
-    )
-
-    description = sgqlc.types.Field(String, graphql_name="description")
-
-    due_date = sgqlc.types.Field(EpochMilliseconds, graphql_name="dueDate")
-
-    external_id = sgqlc.types.Field(String, graphql_name="externalId")
-
-    labels = sgqlc.types.Field(
-        sgqlc.types.list_of(sgqlc.types.non_null(String)), graphql_name="labels"
-    )
-
-    links = sgqlc.types.Field(EntityManagementCollectionEntity, graphql_name="links")
-
-    messages = sgqlc.types.Field(
-        EntityManagementCollectionEntity, graphql_name="messages"
-    )
-
-    priority = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementPriority), graphql_name="priority"
-    )
-
-    status = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="status")
-
-
-class EntityManagementWorkItemLink(sgqlc.types.Type, EntityManagementEntity):
-    __schema__ = nerdgraph
-    __field_names__ = ("external_id", "source_sync_configuration_id", "url")
-    external_id = sgqlc.types.Field(String, graphql_name="externalId")
-
-    source_sync_configuration_id = sgqlc.types.Field(
-        ID, graphql_name="sourceSyncConfigurationId"
-    )
-
-    url = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="url")
-
-
 class EntityManagementWorkItemLinkV2Entity(
     sgqlc.types.Type, EntityManagementEntity, EntityManagementWorkItemLinkV2
 ):
     __schema__ = nerdgraph
     __field_names__ = ()
-
-
-class EntityManagementWorkItemMessage(sgqlc.types.Type, EntityManagementEntity):
-    __schema__ = nerdgraph
-    __field_names__ = (
-        "content",
-        "content_encoding",
-        "content_type",
-        "external_id",
-        "parent_id",
-        "source_sync_configuration_id",
-    )
-    content = sgqlc.types.Field(sgqlc.types.non_null(String), graphql_name="content")
-
-    content_encoding = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementEncodingType),
-        graphql_name="contentEncoding",
-    )
-
-    content_type = sgqlc.types.Field(
-        sgqlc.types.non_null(EntityManagementMessageType), graphql_name="contentType"
-    )
-
-    external_id = sgqlc.types.Field(String, graphql_name="externalId")
-
-    parent_id = sgqlc.types.Field(ID, graphql_name="parentId")
-
-    source_sync_configuration_id = sgqlc.types.Field(
-        ID, graphql_name="sourceSyncConfigurationId"
-    )
 
 
 class EntityManagementWorkItemMessageV2Entity(

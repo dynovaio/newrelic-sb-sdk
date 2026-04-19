@@ -31,14 +31,25 @@ DownloadFileArgs = namedtuple(
 
 
 class Downloader(Thread):
+    """Worker thread for processing download tasks from a queue."""
+
     job: int | None = None
 
     def __init__(self, *, queue: Queue, order: int):
+        """Initialize a historical worker.
+
+        Args:
+            queue: The threading queue mechanism.
+            order: The ordinal thread identifier logic.
+        """
+
         Thread.__init__(self)
         self.queue = queue
         self.order = order
 
     def run(self):
+        """Run the threading loop to process jobs."""
+
         while True:
             job, download_file_args = self.queue.get()
 
@@ -61,6 +72,16 @@ def download_file(
     url: str,
     file_name: str,
 ) -> None:
+    """Download a file to a local destination.
+
+    Args:
+        url: The URL string targeting the payload.
+        file_name: Local disk path indicating where to save the content.
+
+    Raises:
+        requests.exceptions.HTTPError: If the HTTP request returns an invalid status.
+    """
+
     chunk_size = 1024
 
     response = requests.get(
@@ -94,6 +115,14 @@ def download_files(
     base_file_name: str,
     file_extension: str,
 ) -> None:
+    """Download multiple payload files using a threading pool.
+
+    Args:
+        urls: A list of URL strings linking to the payload files.
+        base_file_name: The base filename prefix.
+        file_extension: The specific suffix assigned to the files.
+    """
+
     queue: Queue = Queue()
 
     empy_job = (
