@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.47.0] - 2026-04-18
+
 * Add new scalar: `WorkflowAutomationRawWorkflowInputValue`.
 * Add new enums: `AiWorkflowsSaveTeamWorkflowConfigurationErrorType`,
   `EntityManagementCloudProvider`, `EntityManagementFederatedLogSetupStatus`,
