@@ -22,5 +22,6 @@ class InvalidUserKey(ValueError):
 
         self.value = value
         super().__init__(
-            f"The provided key '{self.value}' does not match the format '{USER_KEY_PATTERN}'."
+            f"The provided key '{self.value}' does not match the "
+            f"format '{USER_KEY_PATTERN.pattern}'."
         )
