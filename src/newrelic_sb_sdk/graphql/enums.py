@@ -169,13 +169,13 @@ __all__ = [
     "EntityGoldenGoldenMetricsErrorType",
     "EntityGoldenMetricUnit",
     "EntityInfrastructureIntegrationType",
+    "EntityManagementActorType",
     "EntityManagementAiToolParameterType",
     "EntityManagementAiToolType",
     "EntityManagementArrayOperator",
     "EntityManagementAssignmentType",
     "EntityManagementBackgroundProcessingType",
     "EntityManagementBudgetType",
-    "EntityManagementCategory",
     "EntityManagementCategoryScopeType",
     "EntityManagementChannelType",
     "EntityManagementCloudProvider",
@@ -187,7 +187,6 @@ __all__ = [
     "EntityManagementCorrelationOverrideAction",
     "EntityManagementCorrelationSubjectType",
     "EntityManagementDateOperator",
-    "EntityManagementDirection",
     "EntityManagementEncodingName",
     "EntityManagementEncodingType",
     "EntityManagementEntityScope",
@@ -215,12 +214,10 @@ __all__ = [
     "EntityManagementMcpAuthType",
     "EntityManagementMcpTransport",
     "EntityManagementMessageType",
-    "EntityManagementNrRegion",
     "EntityManagementNumericOperator",
     "EntityManagementOperatingSystemType",
     "EntityManagementOverlapPolicy",
     "EntityManagementPrincipalType",
-    "EntityManagementPriority",
     "EntityManagementProcessStatus",
     "EntityManagementProvider",
     "EntityManagementRegion",
@@ -1968,6 +1965,11 @@ class EntityInfrastructureIntegrationType(sgqlc.types.Enum):
     )
 
 
+class EntityManagementActorType(sgqlc.types.Enum):
+    __schema__ = nerdgraph
+    __choices__ = ("SYSTEM", "USER")
+
+
 class EntityManagementAiToolParameterType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("BOOLEAN", "INTEGER", "LIST", "OBJECT", "STRING")
@@ -2003,11 +2005,6 @@ class EntityManagementBackgroundProcessingType(sgqlc.types.Enum):
 class EntityManagementBudgetType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("COMPUTE", "INGEST")
-
-
-class EntityManagementCategory(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("CHAT", "INCIDENT", "ISSUE", "PERFORMANCE", "VULNERABILITY")
 
 
 class EntityManagementCategoryScopeType(sgqlc.types.Enum):
@@ -2070,11 +2067,6 @@ class EntityManagementDateOperator(sgqlc.types.Enum):
     __choices__ = ("AFTER", "BEFORE", "IN_RANGE")
 
 
-class EntityManagementDirection(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("ONEWAY", "TWOWAY")
-
-
 class EntityManagementEncodingName(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("CL100_K_BASE", "GPT_3_5_TURBO", "O200_K_BASE")
@@ -2115,7 +2107,7 @@ class EntityManagementEventBridgeTargetType(sgqlc.types.Enum):
 
 class EntityManagementEventBridgeWorkflowDefinitionScopeType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("ACCOUNT", "ORGANIZATION")
+    __choices__ = ("ACCOUNT", "GLOBAL", "ORGANIZATION")
 
 
 class EntityManagementExecutionStatus(sgqlc.types.Enum):
@@ -2235,7 +2227,13 @@ class EntityManagementManagedEvaluationType(sgqlc.types.Enum):
 
 class EntityManagementMcpAuthType(sgqlc.types.Enum):
     __schema__ = nerdgraph
-    __choices__ = ("BEARER_TOKEN", "GENERIC_HEADER", "NONE", "OAUTH")
+    __choices__ = (
+        "BEARER_TOKEN",
+        "CONNECTION_REFERENCE",
+        "GENERIC_HEADER",
+        "NONE",
+        "OAUTH",
+    )
 
 
 class EntityManagementMcpTransport(sgqlc.types.Enum):
@@ -2246,11 +2244,6 @@ class EntityManagementMcpTransport(sgqlc.types.Enum):
 class EntityManagementMessageType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("JSON", "TEXT", "YAML")
-
-
-class EntityManagementNrRegion(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("EU_PRODUCTION", "US_PRODUCTION", "US_STAGING")
 
 
 class EntityManagementNumericOperator(sgqlc.types.Enum):
@@ -2271,11 +2264,6 @@ class EntityManagementOverlapPolicy(sgqlc.types.Enum):
 class EntityManagementPrincipalType(sgqlc.types.Enum):
     __schema__ = nerdgraph
     __choices__ = ("SYSTEM_IDENTITY", "USER")
-
-
-class EntityManagementPriority(sgqlc.types.Enum):
-    __schema__ = nerdgraph
-    __choices__ = ("HIGH", "HIGHEST", "LOW", "LOWEST", "MEDIUM")
 
 
 class EntityManagementProcessStatus(sgqlc.types.Enum):
